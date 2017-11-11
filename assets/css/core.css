@@ -1,0 +1,106 @@
+body {
+  font: 100% Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block; }
+
+@media (max-width: 768px) {
+  nav.nav.nav-dark {
+    background: #222222;
+    border-bottom: 1px solid #e7e7e7;
+    min-height: 50px;
+    color: #fff; }
+    nav.nav.nav-dark li {
+      background: #222222; }
+
+  nav.nav {
+    background: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    min-height: 50px; }
+    nav.nav ul.nav-collapse {
+      display: none; }
+    nav.nav ul.nav-collapse.is-active {
+      display: block;
+      opacity: 1; }
+    nav.nav ul {
+      margin: 10px;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      padding-top: 50px; }
+      nav.nav ul li {
+        position: relative;
+        background: #fff;
+        color: #67809F;
+        text-align: center; }
+        nav.nav ul li a {
+          margin: 10px;
+          line-height: 50px;
+          margin: 0;
+          border-radius: 3px;
+          padding: 10px 10px;
+          text-decoration: none;
+          transition: background 0.3;
+          color: #67809F; }
+        nav.nav ul li a:hover li {
+          background: #ECF0F1;
+          color: #67809F; }
+      nav.nav ul li:hover {
+        background: #ECF0F1;
+        color: #67809F; } }
+@media (min-width: 767px) {
+  .container {
+    width: 970px; }
+
+  nav.nav {
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #e7e7e7;
+    position: relative;
+    top: 0;
+    min-height: 50px;
+    margin-bottom: 21px; }
+    nav.nav ul {
+      padding-left: 0 0 0 10px;
+      display: flex;
+      align-items: center; }
+      nav.nav ul li {
+        display: inline-block; }
+        nav.nav ul li a {
+          padding: 40px 10px;
+          margin: 0;
+          border-radius: 3px;
+          height: 50px;
+          background: #fff;
+          color: #67809F;
+          text-decoration: none;
+          transition: background 0.3;
+          line-height: 21px; }
+        nav.nav ul li a:hover {
+          background: #ECF0F1;
+          color: #67809F; }
+
+  nav.nav-center ul {
+    text-align: center;
+    padding: 0; }
+
+  nav.nav-pull-right ul {
+    float: right;
+    padding-right: 10px; }
+
+  nav.nav-dark {
+    background: #222222;
+    border-bottom: 1px solid #e7e7e7; }
+    nav.nav-dark ul li a {
+      background: #222222;
+      color: #fff; }
+    nav.nav-dark ul li a:hover {
+      background: #000;
+      color: #fff; } }
+
+/*# sourceMappingURL=core.css.map */
