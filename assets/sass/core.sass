@@ -1,0 +1,136 @@
+$font:    Helvetica, sans-serif
+
+$primary-color: #333
+
+// Couleurs :
+
+// Couleurs de base
+$color-default: #000
+$color-info: #000
+$color-alert: #000
+$color-danger: #000
+
+// Couleurs de navbar 
+$color-navbar: #fff
+$border-nav: 1px solid #e7e7e7
+$color-navbar-a-defaut: #6c7a89
+$color-navbar-a-defaut-hover: #ECF0F1
+
+$color-navbar-dark: #222222
+$color-navbar-a-dark-hover: #000
+
+// Couleurs des liens
+$color-link-defaut : #67809F
+$color-link-dark: #fff
+
+body
+  font: 100% $font
+  margin: 0
+  padding: 0
+  width: 100%
+  display: block
+
+@media (max-width: 768px)
+  nav.nav.nav-dark
+    background: $color-navbar-dark
+    border-bottom: $border-nav
+    min-height: 50px
+    color: $color-link-dark
+    li
+      background: $color-navbar-dark
+  nav.nav
+    background: $color-navbar
+    border-bottom: $border-nav
+    min-height: 50px
+    
+    ul.nav-collapse
+      display: none
+      
+    
+    ul.nav-collapse.is-active
+      display: block
+      opacity: 1
+        
+    ul
+      margin: 10px
+      list-style-type: none
+      margin: 0
+      padding: 0
+      padding-top: 50px
+
+      li
+        position: relative
+        background: $color-navbar
+        color: $color-link-defaut
+        text-align: center
+        a
+          margin: 10px
+          line-height: 50px 
+          margin: 0
+          border-radius: 3px
+          padding: 10px 10px
+          text-decoration: none
+          transition: background 0.3
+          color: $color-link-defaut
+      
+        a:hover li
+          background: $color-navbar-a-defaut-hover
+          color: $color-link-defaut
+      li:hover
+        background: $color-navbar-a-defaut-hover
+        color: $color-link-defaut
+
+@media (min-width: 767px)
+  .container
+    width: 970px
+  nav.nav
+    width: 100%
+    height: 50px
+    overflow: hidden
+    background: $color-navbar
+    margin: 0
+    padding: 0
+    border-bottom: $border-nav
+    position: relative
+    top: 0
+    min-height: 50px
+    margin-bottom: 21px
+    ul
+      padding-left: 0 0 0 10px
+      display: flex
+      align-items: center
+      li
+        display: inline-block
+        a
+          padding: 40px 10px
+          margin: 0
+          border-radius: 3px
+          height: 50px
+          background: $color-navbar
+          color: $color-link-defaut
+          text-decoration: none
+          transition: background 0.3
+          line-height: 21px
+        a:hover
+          background: $color-navbar-a-defaut-hover
+          color: $color-link-defaut
+  nav.nav-center
+    ul
+      text-align: center
+      padding: 0
+  nav.nav-pull-right
+    ul
+      float: right
+      padding-right: 10px
+  nav.nav-dark
+    background: $color-navbar-dark
+    border-bottom: $border-nav
+    ul
+      li
+        a
+          background: $color-navbar-dark
+          color: $color-link-dark
+        a:hover
+          background: $color-navbar-a-dark-hover
+          color: $color-link-dark
+
