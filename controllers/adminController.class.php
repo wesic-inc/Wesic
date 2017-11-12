@@ -27,7 +27,7 @@ class adminController{
 			$v->assign("pseudo", $userFound["email"]);
 			$v->assign("role",$userFound["role"]);
 			$v->assign("page","adduser");
-			$v->assign("title", "Modifier un utilisateur");
+			$v->assign("title", "Ajouter un utilisateur");
 			$v->assign("form", $form);
 			$v->assign("errors", $errors);
 
