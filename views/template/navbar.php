@@ -11,13 +11,18 @@
         </a>
       </li>
       <li>
-        <a href="#">
-          Profile
+        <a href="<?php echo routing::getRoot() ?>/login/logout">
+          Se déconnecter
         </a>
       </li>
       <li>
-        <a href="#">
-          Messages
+        <a href="<?php echo routing::getRoot() ?>/user/add">
+          Nouvel utilisateur
+        </a>
+      </li>
+            <li>
+        <a href="<?php echo routing::getRoot() ?>/admin">
+          Administration
         </a>
       </li>
     </ul>

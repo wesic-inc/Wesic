@@ -1,6 +1,7 @@
 <?php
-require_once "conf.inc.php";
-require_once "vars.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/config/vars.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/config/route.inc.php";
 
 function autoloader($class) {
 	//Vérifier s'il existe dans le dossier
@@ -21,8 +22,17 @@ $path_controller = "controllers/".$name_controller.".class.php";
 
 if( file_exists($path_controller) ){
 	
+
+	if(!isset($_SESSION)) 
+	session_start();
+	
+	
 	include $path_controller;
 	$controller = new $name_controller;
+	
+	if(!routing::getPermissions($route)){
+		header('location: '.routing::getRoot().'error/forbidden');
+	}
 
 	$name_action = $route["a"]."Action";
 	if( method_exists($controller, $name_action)){
@@ -30,12 +40,12 @@ if( file_exists($path_controller) ){
 		$controller->$name_action($route["args"]);
 
 	}else{
-		header('location: '.routing::getRoot().' error'); 
+		header('location: '.routing::getRoot().'error/notFound'); 
 		
 	}
 
 }else{
-	header('location: '.routing::getRoot().' error');
+	header('location: '.routing::getRoot().'error/notFound');
 }
 
 

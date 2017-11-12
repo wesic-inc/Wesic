@@ -1,6 +1,6 @@
 <?php
 
-	class user extends basesql
+	class users extends basesql
 	{
 		protected $id;
 		protected $login;
@@ -121,6 +121,32 @@
 							"login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"" ],
 
 							"password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+						]
+			];
+
+		}
+
+		public static function getFormNewUser(){
+
+				return [	
+						"options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data" ],
+						"struct" => [
+
+							"login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
+
+							"firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+
+							"lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+
+							"firm"=>[ "label"=>"Entreprise", "type"=>"text", "id"=>"firm", "placeholder"=>"Entreprise", "required"=>1, "msgerror"=>"firm" ],
+
+							"email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+
+							"selectrole"=>[ "label"=>"Role de l'utilisateur", "type"=>"selectrole", "id"=>"selectrole", "placeholder"=>"Role", "required"=>1, "msgerror"=>"selectrole" ],
+
+							"password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+
+							"password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ]
 						]
 			];
 

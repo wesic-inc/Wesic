@@ -7,7 +7,7 @@ class view{
 	public function setView($view, $layout="template"){
 		// $view = indexIndex
 		$path_view = "views/".$view.".php";
-		$path_template = "views/".$layout.".php";
+		$path_template = "views/template/".$layout.".php";
 
 		if( file_exists($path_view) ){
 			$this->view=$path_view;
@@ -28,7 +28,7 @@ class view{
 
 	public function createForm($form, $errors){
 		global $errors_msg;
-		include "views/form.php";
+		include "views/template/form.php";
 	}
 
 
