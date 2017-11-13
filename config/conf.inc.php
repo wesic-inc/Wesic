@@ -1,9 +1,12 @@
 <?php
+// Windows
+// define("DBHOST", "192.168.99.100"); 
 
-define("DBHOST", "192.168.99.100");
+// Linux
+define("DBHOST", "localhost");
+
 define("DBUSER", "root");
 define("DBPWD", "mypass");
 define("DBNAME", "wesic");
 define('PATH_ROOT', ""); // chemin vers le site sur le 
-define('PATH_FILE	', "");
-
+define('PATH_FILE', "");
