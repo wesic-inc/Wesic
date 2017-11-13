@@ -1,14 +1,13 @@
-# Branche développement backend
-
+# Backend dev branch
 
 # Build
 
 - docker-compose build
 - docker-compose run -d
 
-Go to : http://192.168.99.100:8080 or http://localhost:8080
+Go to : http://192.168.99.100 or http://localhost
 
 http://192.168.99.100:8082 => phpmyadmin
 
-# Dev :
-- All source files are in /src
+Mysql on port 3306 
+
