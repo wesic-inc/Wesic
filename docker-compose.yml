@@ -6,16 +6,16 @@ services:
         environment:
          - MYSQL_ROOT_PASSWORD=mypass
         volumes:
-         - ./mysql/DB:/var/lib/mysql
+         - .docker/mysql/DB:/var/lib/mysql
         ports:
          - 3306:3306
     php:
         build:
-          context: ./
+          context: .docker/
           dockerfile: Dockerfile
         volumes:
-          - ../:/var/www/html/
-          - ./php/apache2/apache2.conf:/etc/apache2/apache2.conf
+          - ./:/var/www/html/
+          - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
         links:
          - mariadb:db
         ports:
