@@ -1,36 +1,37 @@
-version: "2.0"
+version: "3.3"
 services:
     mariadb:
-        image: mariadb
+        image: mariadb:10.2
         container_name: wesic-mariadb
         environment:
-         - MYSQL_ROOT_USER=63a9f0ea7bb98050796b649e85481845 
-         - MYSQL_ROOT_PASSWORD=a029d0df84eb5549c641e04a9ef389e5
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: dbuser
+          MYSQL_PASSWORD: userpass
         volumes:
-         - .docker/mysql/:/var/lib/mysql
+            - .docker/database/wesic.sql:/docker-entrypoint-initdb.d/wesic.sql
         ports:
-         - 3306:3306
+         - "3306:3306"
     php:
         build:
           context: .docker/
           dockerfile: Dockerfile
+        links:
+         - mariadb:db
         volumes:
           - ./:/var/www/html/
           - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
+        ports:
+          - "80:80"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.7.4-1
+        container_name: wesic-phpmyadmin
         links:
          - mariadb:db
-        ports:
-          - "8080:80"
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: wesic-phpmyadmin
         environment:
-         - MYSQL_ROOT_USER=63a9f0ea7bb98050796b649e85481845
-         - MYSQL_ROOT_PASSWORD=a029d0df84eb5549c641e04a9ef389e5
+         - MYSQL_ROOT_PASSWORD=root
         volumes:
          - .docker/phpmyadmin/fallen:/www/themes/fallen
-         - .docker/phpmyadmin/conf.inc.php:/etc/phpmyadmin/conf.inc.php
+         # - .docker/phpmyadmin/conf.inc.php:/etc/phpmyadmin/conf.inc.php
         ports:
-         - "8082:80"
-        links:
-         - mariadb:db
+         - "9999:80"

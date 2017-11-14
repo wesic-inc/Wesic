@@ -1,1 +1,2 @@
-.docker/mysql/
+.docker/database/*
+!.docker/database/.gitkeep
