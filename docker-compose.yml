@@ -4,9 +4,10 @@ services:
         image: mariadb
         container_name: wesic-mariadb
         environment:
-         - MYSQL_ROOT_PASSWORD=mypass
+         - MYSQL_ROOT_USER=63a9f0ea7bb98050796b649e85481845 
+         - MYSQL_ROOT_PASSWORD=a029d0df84eb5549c641e04a9ef389e5
         volumes:
-         - .docker/mysql/DB:/var/lib/mysql
+         - .docker/mysql/:/var/lib/mysql
         ports:
          - 3306:3306
     php:
@@ -19,12 +20,16 @@ services:
         links:
          - mariadb:db
         ports:
-          - "80:80"
+          - "8080:80"
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         container_name: wesic-phpmyadmin
         environment:
-         - MYSQL_ROOT_PASSWORD=mypass
+         - MYSQL_ROOT_USER=63a9f0ea7bb98050796b649e85481845
+         - MYSQL_ROOT_PASSWORD=a029d0df84eb5549c641e04a9ef389e5
+        volumes:
+         - .docker/phpmyadmin/fallen:/www/themes/fallen
+         - .docker/phpmyadmin/conf.inc.php:/etc/phpmyadmin/conf.inc.php
         ports:
          - "8082:80"
         links:
