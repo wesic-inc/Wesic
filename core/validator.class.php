@@ -14,7 +14,7 @@ class validator{
 			if($options["required"] && self::isEmpty($data[$name])){
 				$listErrors[]=$options["msgerror"];
 			}
-			elseif($options["type"]=="password" && !self::passwordCorrect($data[$name])) {
+			elseif($options["type"]=="password" && !self::passwordDevEnvCorrect($data[$name])) {
 				$listErrors[]=$options["msgerror"];
 			}
 			
@@ -41,6 +41,10 @@ class validator{
 			!preg_match("/[0-9]/", $var) ||
 			!preg_match("/[a-z]/", $var) ||
 			!preg_match("/[A-Z]/", $var) );	
+	}
+
+	public static function passwordDevEnvCorrect($var){
+		return !( strlen($var)<2 || strlen($var)>12);
 	}
 
 	public static function urlCorrect($var){

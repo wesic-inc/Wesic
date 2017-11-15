@@ -12,7 +12,7 @@
       </li>
       <li>
         <a href="<?php echo routing::getRoot() ?>/login/logout">
-          Se déconnecter
+          Se connecter
         </a>
       </li>
       <li>
