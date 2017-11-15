@@ -24,7 +24,7 @@ services:
         ports:
           - "80:80"
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin:4.7.4-1
+        image: phpmyadmin/phpmyadmin:4.7.5-1
         container_name: wesic-phpmyadmin
         links:
          - mariadb:db
@@ -32,6 +32,6 @@ services:
          - MYSQL_ROOT_PASSWORD=root
         volumes:
          - .docker/phpmyadmin/fallen:/www/themes/fallen
-         # - .docker/phpmyadmin/conf.inc.php:/etc/phpmyadmin/conf.inc.php
+         - .docker/phpmyadmin/conf.inc.php:/etc/phpmyadmin/conf.inc.php
         ports:
-         - "9999:80"
+         - "8080:80"
