@@ -7,7 +7,7 @@ class basesql{
 
 	public function __construct(){
 		$this->table = get_called_class();
-		$dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST.';port='.DBPORT;
+		$dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST;
 
 		try{
 			$this->pdo = new PDO($dsn,DBUSER,DBPWD);

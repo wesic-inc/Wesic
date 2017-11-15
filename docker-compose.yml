@@ -22,7 +22,7 @@ services:
           - ./:/var/www/html/
           - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
         ports:
-          - "80:80"
+          - "8080:80"
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:4.7.5-1
         container_name: wesic-phpmyadmin
@@ -34,4 +34,4 @@ services:
          - .docker/phpmyadmin/fallen:/www/themes/fallen
          - .docker/phpmyadmin/conf.inc.php:/etc/phpmyadmin/conf.inc.php
         ports:
-         - "8080:80"
+         - "8081:80"

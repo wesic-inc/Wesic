@@ -32,12 +32,12 @@ Veillez à ne **jamais** commit le fichier sql sur le repo !
 
 *Par défaut les identifiants sql sont root:root*
 ### php 
-* Windows : 	[192.168.99.100](http://192.168.99.100)
-* Linux : 	[localhost](http://localhost)
+* Windows : 	[192.168.99.100:8080](http://192.168.99.100:8080)
+* Linux : 	[localhost:8080](http://localhost:8080)
 
 ### Phpmyadmin
-* Windows : 	[192.168.99.100:8080](http://192.168.99.100:8080)
-* inux :		[localhost:8080](http://localhost:8080)
+* Windows : 	[192.168.99.100:8081](http://192.168.99.100:8081)
+* inux :		[localhost:8081](http://localhost:8081)
 
 Le serveur mysql est sur le port 3306 (par défaut)
 
