@@ -10,8 +10,6 @@ services:
           MYSQL_PASSWORD: userpass
         volumes:
             - .docker/database/wesic.sql:/docker-entrypoint-initdb.d/wesic.sql
-        ports:
-         - "3306:3306"
     php:
         build:
           context: .docker/
@@ -20,7 +18,7 @@ services:
          - mariadb:db
         volumes:
           - ./:/var/www/html/
-          - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
+          # - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
         ports:
           - "8080:80"
     phpmyadmin:

@@ -1,4 +1,5 @@
 <?php
+
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/config/vars.inc.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/config/route.inc.php";

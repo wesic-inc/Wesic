@@ -13,6 +13,10 @@ Fermer et ouvrir à nouveau le terminal
 
 ## Lancement du docker 
 
+Pour build :
+```bash
+$ docker-buils
+```
 Pour lancer le docker :
 ```bash
 $ docker-up
@@ -58,6 +62,8 @@ $ git-tree # affiche l'arbre du projet git
 $ rmd # supprime un dossier
 $ rmdf # supprimer un dossier avec l'option --force
 $ st # alias de git status
+$ stop-all-container # stop tous les containers docker
+$ rm-all-container # supprime tous les containers docker
 ```	
 
 N'hésitez pas à en proposer d'autres ! 

@@ -1,11 +1,8 @@
 <?php
-// Windows
-// define("DBHOST", "192.168.99.100"); 
 
-// Linux
-define("DBHOST", "localhost");
+// define("DBHOST", "192.168.99.100"); // Windows
+define("DBHOST", "localhost"); // Linux
 
-define("DBPORT", "3306");
 define("DBUSER", "root");
 define("DBPWD", "root");
 define("DBNAME", "wesic");
