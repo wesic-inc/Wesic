@@ -11,7 +11,7 @@ routing_dev:
     Index:
         restricted: all
         controller: index:index
-        path: index/index/fesse/fesse
+        path: ""
 
     Error:
         restricted: all
