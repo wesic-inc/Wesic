@@ -32,45 +32,64 @@ class routing{
  * Recupère la racine du site selon l'URI 
  * @return string 			Racine du site
  */
-	public static function getRoot(){
+public static function getRoot(){
 
-			$uri = $_SERVER['REQUEST_URI'];
-			$route = self::setRouting();
+	
+	return getenv('HTTP_HOST')."/";
+}
 
-			if( (isset($route["a"]) && $route["a"] != "index") || ($route["c"] != "index" && substr($uri, -1) == "/") ){
-				return "../";
+public static function getPermissions( $route ){
+	$connected = login::isConnected();
+	$rights = login::isAdmin($_SESSION["id"]);
+
+	global $route_access;
+
+	if($route['c'] !== "" && $route['a'] === ""){
+		$route['a'] = "index";
+	}
+
+	$matched_route = in_array($route['c'].'/'.$route['a'],array_keys($route_access));
+
+	switch ($route_access[$route['c'].'/'.$route['a']]) {
+		case 'admin':
+		if(	$connected == true && $rights == true )
+			return true;
+		case 'user':
+		if($connected == true)
+			return true;
+		break;
+		case 'all':
+		return true;
+		break;
+		default:
+		return true;
+		break;
+	}
+	return false;	
+}
+
+
+public static function makeRouting(){
+
+		global $rof;
+
+		$uri = $_SERVER['REQUEST_URI'];
+		$explode_uri = explode("?", $uri);
+		$uri = $explode_uri[0];
+
+		$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
+
+		print_r(in_array($uri,$rof['routing_dev']));
+
+
+		foreach($rof['routing_dev'] as $rules) {
+			if($uri == $rules['path']){
+				$c = explode(":",$rules['controller'])[0];
+				$a = explode(":",$rules['controller'])[1];
+				
 			}
-			return "";
-	}
-
-	public static function getPermissions( $route ){
-		$connected = login::isConnected();
-		$rights = login::isAdmin($_SESSION["id"]);
-
-		global $route_access;
-		
-		if($route['c'] !== "" && $route['a'] === ""){
-			$route['a'] = "index";
 		}
-		
-		$matched_route = in_array($route['c'].'/'.$route['a'],array_keys($route_access));
 
-		switch ($route_access[$route['c'].'/'.$route['a']]) {
-			case 'admin':
-				if(	$connected == true && $rights == true )
-					return true;
-			case 'user':
-				if($connected == true)
-					return true;
-				break;
-			case 'all':
-					return true;
-				break;
-			default:
-					return true;
-				break;
-		}
-		return false;	
+	return ['a' => $a, 'c' => $c, 'args' => $_REQUEST ];
 	}
-
 }

@@ -9,7 +9,7 @@ class errorController{
 	public function indexAction($args){
 		
 		$v = new view();
-		$v->setView("error");
+		$v->setView("error/error");
 	}
 	public function notFoundAction($args){
 		

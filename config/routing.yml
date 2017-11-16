@@ -3,3 +3,42 @@ routing:
     error/index: all
     admin/index: user
     login/index: all
+
+
+
+routing_dev:
+
+    Index:
+        restricted: all
+        controller: index:index
+        path: index/index/fesse/fesse
+
+    Error:
+        restricted: all
+        controller: error:index
+        path: error/index
+
+    Error404:
+        restricted: all
+        controller: error:notFound
+        path: error/404
+
+    Error403:
+        restricted: all
+        controller: error:forbidden
+        path: error/403
+
+    Admin:
+        restricted: admin
+        controller: admin:index
+        path: admin/index
+
+    Login:
+        restricted: all
+        controller: login:index
+        path: login/index
+
+    Profile:
+        restricted: all
+        controller: user:loginIndex
+        path: login/index

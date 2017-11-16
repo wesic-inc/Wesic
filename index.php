@@ -15,9 +15,15 @@ function autoloader($class) {
 
 spl_autoload_register('autoloader');
 
-$route = routing::setRouting();
+
+$route = routing::makeRouting();
+
+
+
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
+
+
 
 if( file_exists($path_controller) ){
 	
@@ -30,7 +36,7 @@ if( file_exists($path_controller) ){
 	$controller = new $name_controller;
 	
 	if(!routing::getPermissions($route)){
-		header('location: '.routing::getRoot().'error/forbidden');
+		header('location: '.ROOT_URL.$rof['routing_dev']['Error403']['path']);
 	}
 
 	$name_action = $route["a"]."Action";
@@ -39,12 +45,12 @@ if( file_exists($path_controller) ){
 		$controller->$name_action($route["args"]);
 
 	}else{
-		header('location: '.routing::getRoot().'error/notFound'); 
+		header('location: '.ROOT_URL.$rof['routing_dev']['Error404']['path']); 
 		
 	}
 
 }else{
-	header('location: '.routing::getRoot().'error/notFound');
+	header('location: '.ROOT_URL.$rof['routing_dev']['Error404']['path']);
 }
 
 

@@ -72,7 +72,7 @@ class login extends basesql {
 		
 		session_unset();
 		session_destroy();
-		header('Location: '.routing::getRoot().'login');
+		header('Location: '.ROOT_URL.'login');
 	}
 
 

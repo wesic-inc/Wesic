@@ -10,6 +10,7 @@ define("DBPWD", $cof['config']['mysql']['password']);
 define("DBNAME", $cof['config']['mysql']['dbname']);
 define('PATH_ROOT', $cof['config']['path']['root']); // chemin vers le site sur le serveur 
 define('PATH_FILE', $cof['config']['path']['files']);
+define('ROOT_URL',getenv('HTTP_HOST')."/");
 
 $errors_msg = $erf['errors'];
 $route_access = $rof['routing'];

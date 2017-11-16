@@ -11,17 +11,17 @@
         </a>
       </li>
       <li>
-        <a href="<?php echo routing::getRoot() ?>/login/logout">
+        <a href="<?php echo ROOT_URL ?>/login/logout">
           Se connecter
         </a>
       </li>
       <li>
-        <a href="<?php echo routing::getRoot() ?>/user/add">
+        <a href="<?php echo ROOT_URL ?>/user/add">
           Nouvel utilisateur
         </a>
       </li>
             <li>
-        <a href="<?php echo routing::getRoot() ?>/admin">
+        <a href="<?php echo rROOT_URL ?>/admin">
           Administration
         </a>
       </li>
