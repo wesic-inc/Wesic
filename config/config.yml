@@ -1,0 +1,9 @@
+config: 
+    mysql:
+      host: db
+      dbuser: root 
+      password: root
+      dbname: wesic
+    path:
+      root: ""
+      files: ""
