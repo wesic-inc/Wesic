@@ -31,14 +31,14 @@ routing_dev:
     Admin:
         restricted: admin
         controller: admin:index
-        path: admin/index
+        path: admin
 
     Login:
         restricted: all
         controller: login:index
-        path: login/index
+        path: login
 
     Profile:
-        restricted: all
+        restricted: user
         controller: user:loginIndex
-        path: login/index
+        path: loginzd/index

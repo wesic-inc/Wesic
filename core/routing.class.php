@@ -68,6 +68,27 @@ public static function getPermissions( $route ){
 	return false;	
 }
 
+public static function getPermissionsDev( $route ){
+	$connected = login::isConnected();
+	$rights = login::isAdmin($_SESSION["id"]);
+	
+	switch ($route['r']) {
+		case 'admin':
+		if(	$connected == true && $rights == true )
+			return true;
+		case 'user':
+		if($connected == true)
+			return true;
+		break;
+		case 'all':
+		return true;
+		break;
+		default:
+		return true;
+		break;
+	}
+	return false;
+}
 
 public static function makeRouting(){
 
@@ -86,10 +107,10 @@ public static function makeRouting(){
 			if($uri == $rules['path']){
 				$c = explode(":",$rules['controller'])[0];
 				$a = explode(":",$rules['controller'])[1];
-				
+				$r = $rules['restricted'];
 			}
 		}
 
-	return ['a' => $a, 'c' => $c, 'args' => $_REQUEST ];
+	return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $_REQUEST ];
 	}
 }

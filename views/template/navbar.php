@@ -11,12 +11,12 @@
         </a>
       </li>
       <li>
-        <a href="<?php echo ROOT_URL ?>login/logout">
+        <a href="<?php echo ROOT_URL ?>login">
           Se connecter
         </a>
       </li>
       <li>
-        <a href="<?php echo ROOT_URL ?>user/add">
+        <a href="<?php echo ROOT_URL ?>logout">
           Nouvel utilisateur
         </a>
       </li>

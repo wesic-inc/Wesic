@@ -18,7 +18,7 @@ class loginController{
 				$errors = validator::check($form["struct"], $args);
 
 				if(!$errors){
-					header('Location: index');
+					header('Location: ');
 				}
 			}
 

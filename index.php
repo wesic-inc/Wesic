@@ -18,8 +18,6 @@ spl_autoload_register('autoloader');
 
 $route = routing::makeRouting();
 
-
-
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
@@ -35,7 +33,7 @@ if( file_exists($path_controller) ){
 	include $path_controller;
 	$controller = new $name_controller;
 	
-	if(!routing::getPermissions($route)){
+	if(!routing::getPermissionsDev($route)){
 		header('location: '.ROOT_URL.$rof['routing_dev']['Error403']['path']);
 	}
 
