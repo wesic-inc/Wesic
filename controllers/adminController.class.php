@@ -7,10 +7,10 @@ class adminController{
 
 	public function addUserAction($args){
 
-			$user = new users();
+			$user = new User();
 			$userFound = $user->getData('user',["id"=>$_SESSION["id"]])[0];
 
-			$form = users::getFormNewUser();
+			$form = User::getFormNewUser();
 			$errors = [];
 
 			if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -22,7 +22,7 @@ class adminController{
 			}
 
 
-			$v = new view();
+			$v = new View();
 			$v->setView("admin/adduser");
 			$v->assign("pseudo", $userFound["email"]);
 			$v->assign("role",$userFound["role"]);

@@ -6,7 +6,8 @@ class basesql{
 	private $columns = [];
 
 	public function __construct(){
-		$this->table = get_called_class();
+		$this->table = strtolower(get_called_class());
+		
 		$dsn = 'mysql:host='.DBHOST.';dbname='.DBNAME.';charset=utf8';
 
 		try{
@@ -96,7 +97,7 @@ class basesql{
 
 	static function verifyLogin($login, $password){
 
-		$user = new user();
+		$user = new User();
 
 		$user = $user->getUser(["login"=>$login]);
 		if(empty($user)){
@@ -137,7 +138,7 @@ class basesql{
 
 	public static function verifyEmail($email,$id = ''){
 
-		$user = new user();
+		$user = new User();
 
 		$user = $user->getUser(["email"=>$email]);
 		if(count($user) != 0){
@@ -151,7 +152,7 @@ class basesql{
 
 	public static function verifyIdLogin($login,$id = ''){
 
-		$user = new user();
+		$user = new User();
 
 		$user = $user->getUser(["login"=>$login]);
 		if(count($user) != 0){

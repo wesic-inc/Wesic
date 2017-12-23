@@ -1,33 +1,46 @@
 <?php
+
 class validator{
 
 
 
 	public function __construct(){
 
-	}
+	}	
+
 
 	public static function check($struct, $data){
 		$listErrors = [];
+
 		foreach ($struct as $name => $options) {
 
 			if($options["required"] && self::isEmpty($data[$name])){
 				$listErrors[]=$options["msgerror"];
 			}
-			elseif($options["type"]=="password" && !self::passwordDevEnvCorrect($data[$name])) {
+			elseif($options["name"]=="password" && self::passwordDevEnvCorrect($data[$name])) {
+				$listErrors[]=$options["msgerror"];
+			}
+			elseif($options["name"]=="login" && !self::simpleEntryCorrect($data[$name])) {
 				$listErrors[]=$options["msgerror"];
 			}
 			
 		}
-
 		return $listErrors;
 	}
 
 		
-
-
-
-
+	public static function process($struct, $data, $form){
+			switch ($form) {
+				case 'signin':
+					return Login::signIn($data);				
+					break;
+				case 'signup':
+					User::SignUp($data);
+					break;
+				default:
+					break;
+			}
+	}
 
 
 

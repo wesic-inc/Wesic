@@ -7,7 +7,7 @@ class login extends basesql {
 	
 	static function isConnected(){
 		if(isset($_SESSION["token"])){
-			$user = new users();
+			$user = new user();
 			$token = $_SESSION["token"];
 			$user = $user->getData('user',["id"=>$_SESSION["id"]]);
 			if(!empty($user)){
@@ -42,7 +42,7 @@ class login extends basesql {
  */
 	static function isAdmin($iduser){
 
-		$user = new users();
+		$user = new user();
 		$user = $user->getData('users',["id"=>$iduser]);
 		$userFound = $user[0];
 
@@ -58,7 +58,7 @@ class login extends basesql {
  */
 	static public function logoutUser(){
 		// Détruit toutes les variables de session
-		$_SESSION = array();
+		$_SESSION = array();	
 
 		if (ini_get("session.use_cookies")) {
 
@@ -73,6 +73,25 @@ class login extends basesql {
 		session_unset();
 		session_destroy();
 		header('Location: '.ROOT_URL.'login');
+	}
+
+/**
+ * Fonction de connexion utilisateur
+ */
+	static public function signIn($data){
+
+
+		$user = new user();
+
+		$users = $user->getData('user',["login"=>$data['login'],"status"=>'1']);
+		
+		if(!empty($users)){
+				$user = $users[0];
+				if(password_verify($data['password'],$user['password']) ){
+				$_SESSION['token'] = self::createTokenAction($user);
+				$_SESSION['id'] = $user['id'];
+				}
+		}
 	}
 
 

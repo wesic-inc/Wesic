@@ -38,6 +38,11 @@ routing_dev:
         controller: login:index
         path: login
 
+    Signup:
+        restricted: all
+        controller: login:signup
+        path: newuser
+
     Profile:
         restricted: user
         controller: user:loginIndex

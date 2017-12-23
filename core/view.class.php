@@ -1,13 +1,13 @@
 <?php
-class view{
+class View{
 	protected $data = [];
 	protected $view;
 	protected $template;
 
 	public function setView($view, $layout="template"){
 		// $view = indexIndex
-		$path_view = "views/".$view.".php";
-		$path_template = "views/template/".$layout.".php";
+		$path_view = "views/".$view.".view.php";
+		$path_template = "views/templates/".$layout.".tpl.php";
 
 		if( file_exists($path_view) ){
 			$this->view=$path_view;
@@ -28,7 +28,7 @@ class view{
 
 	public function createForm($form, $errors){
 		global $errors_msg;
-		include "views/template/form.php";
+		include "views/templates/form.tpl.php";
 	}
 
 

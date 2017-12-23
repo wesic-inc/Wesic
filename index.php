@@ -1,11 +1,11 @@
 <?php
+error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);
+ini_set('display_errors', TRUE);
 
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
 
 function autoloader($class) {
-	//Vérifier s'il existe dans le dossier
-	//core un fichier du nom de $class.class.php
-	//Si oui alors include
+	
 	if( file_exists("core/".$class.".class.php")){
 		include "core/".$class.".class.php";
 	}else if(file_exists("models/".$class.".class.php")){
@@ -28,7 +28,6 @@ if( file_exists($path_controller) ){
 
 	if(!isset($_SESSION)) 
 	session_start();
-	
 	
 	include $path_controller;
 	$controller = new $name_controller;

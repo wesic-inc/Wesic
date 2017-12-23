@@ -12,7 +12,7 @@ class routing{
 		$explode_uri = explode("?", $uri);
 		$uri = $explode_uri[0];
 
-		$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
+		$uri = trim( str_ireplace(PATH_ROOT, "", $uri) , "/");
 
 		$explode_uri = explode("/", $uri);
 		
