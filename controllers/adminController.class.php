@@ -2,7 +2,20 @@
 class adminController{
 
 	public function indexAction($args){
-		echo "Admin";
+
+		$user = new User();
+		if(Auth::isConnected()){
+			$userFound = $user->getData('user',['id'=>$_SESSION['id']])[0];
+		}
+		
+		$v = new View();
+		$v->setView("admin/index");
+		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
+		$v->assign("role",$userFound["role"]);
+		$v->assign("page","adduser");
+		$v->assign("title", "Administration");
+		$v->assign("form", $form);
+		$v->assign("errors", $errors);
 	}
 
 	public function addUserAction($args){
@@ -15,7 +28,7 @@ class adminController{
 
 			if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-				$errors = validator::check($form["struct"], $args);
+				$errors = Validator::check($form["struct"], $args);
 
 				if(!$errors)
 					header('Location: manageUsers');

@@ -8,13 +8,13 @@ class indexController{
 	public function indexAction($args){
 		
 		$user = new User();
-		if(login::isConnected()){
+		if(Auth::isConnected()){
 			$userFound = $user->getData('user',['id'=>$_SESSION['id']])[0];
 		}
-
+		
 		$v = new View();
 		$v->setView("index/index");
-		$v->assign("pseudo", $userFound['firstname']);
+		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 
 
 

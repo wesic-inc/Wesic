@@ -6,7 +6,7 @@ class validator{
 
 	public function __construct(){
 
-	}	
+	}
 
 
 	public static function check($struct, $data){
@@ -17,25 +17,44 @@ class validator{
 			if($options["required"] && self::isEmpty($data[$name])){
 				$listErrors[]=$options["msgerror"];
 			}
-			elseif($options["name"]=="password" && self::passwordDevEnvCorrect($data[$name])) {
+			if($options["type"]=="password" && !self::passwordDevEnvCorrect($data[$name])) {
 				$listErrors[]=$options["msgerror"];
 			}
-			elseif($options["name"]=="login" && !self::simpleEntryCorrect($data[$name])) {
+			if($options["type"]=="text" && !self::simpleEntryCorrect($data[$name])) {
 				$listErrors[]=$options["msgerror"];
 			}
-			
+			if($name=="login" && !self::simpleEntryCorrect($data[$name])) {
+				$listErrors[]=$options["msgerror"];
+			}
+			if($name=="email" && !self::emailCorrect($data[$name])) {
+				$listErrors[]=$options["msgerror"];
+			}
+			if($name=="password2" && $data["password1"] != $data["password2"] ) {
+				$listErrors[]=$options["msgerror"];
+			}
+
 		}
+
+		if(count(array_keys($listErrors, 'password2')) > 1){
+				unset($listErrors[array_keys($listErrors, 'password2')[0]]);
+		}
+
+		// echo "<pre>";
+		// var_dump($listErrors);
+		// var_dump($data);
+		// var_dump($struct);
+		// die();
 		return $listErrors;
 	}
 
-		
+
 	public static function process($struct, $data, $form){
 			switch ($form) {
 				case 'signin':
-					return Login::signIn($data);				
+					return Auth::signIn($data);
 					break;
 				case 'signup':
-					User::SignUp($data);
+					return User::signUp($data);
 					break;
 				default:
 					break;
@@ -53,7 +72,7 @@ class validator{
 		return !( strlen($var)<8 || strlen($var)>12 ||
 			!preg_match("/[0-9]/", $var) ||
 			!preg_match("/[a-z]/", $var) ||
-			!preg_match("/[A-Z]/", $var) );	
+			!preg_match("/[A-Z]/", $var) );
 	}
 
 	public static function passwordDevEnvCorrect($var){
@@ -70,7 +89,7 @@ class validator{
 			list($d, $m, $y) = explode('/', $var);
 			return (checkdate($m, $d, $y));
 		}
-		
+
 	}
 	public static function selectEntryCorrect($var){
 		return !( $var == 0 || $var == 1 );
@@ -88,37 +107,5 @@ class validator{
 		return !( 	strlen($var)<8 || strlen($var)>50 );
 	}
 
-		/**
-	 * Vérification de la corespondance Login/Mdp en BDD
-	 * @param  string $login    Login entré par l'utilisateur
-	 * @param  string $password Mot de passe rentré par l'utilisateur
-	 * @return boolean          False si échec, true si succès
-	 */
-	static function loginMatch($login,$password){
-			return (basesql::verifyLogin($login,$password));
-		}
 
-	/**
-	 * Fonction de vérification si l'email existe déjà en base
-	 * @param  string $email  	Email à vérifier
-	 * @param  int $iduser 		ID de l'utilisateur si modification d'utilsateur
-	 * @return boolean       	False si email existant, true si email valide
-	 */
-	public static function emailExisting($email,$iduser){
-		return ( basesql::verifyEmail($email,$iduser) );
-	}
-
-	public static function loginExisting($login,$iduser){
-		return ( basesql::verifyIdLogin($login,$iduser) );
-	}
-	
 }
-
-
-
-
-
-
-
-
-

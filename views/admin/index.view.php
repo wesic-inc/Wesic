@@ -1,2 +1,2 @@
 <?php require('views/templates/navbar.tpl.php'); ?>
-<?php $this->createForm($form, $errors); ?>
+<h1> Bienvenue sur l'admin de wesic.me </h1>

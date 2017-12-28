@@ -15,7 +15,7 @@ routing_dev:
 
     Error:
         restricted: all
-        controller: error:index
+        controller: error:notFound
         path: error/index
 
     Error404:
@@ -33,13 +33,18 @@ routing_dev:
         controller: admin:index
         path: admin
 
-    Login:
+    Logout:
         restricted: all
         controller: login:index
         path: login
 
-    Signup:
+    Login:
         restricted: all
+        controller: login:logout
+        path: logout
+
+    Signup:
+        restricted: admin
         controller: login:signup
         path: newuser
 

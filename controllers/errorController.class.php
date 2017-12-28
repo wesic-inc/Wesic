@@ -8,17 +8,17 @@ class errorController{
 
 	public function indexAction($args){
 		
-		$v = new view();
+		$v = new View();
 		$v->setView("error/error");
 	}
 	public function notFoundAction($args){
 		
-		$v = new view();
+		$v = new View();
 		$v->setView("error/error404");
 	}
 	public function forbiddenAction($args){
 		
-		$v = new view();
+		$v = new View();
 		$v->setView("error/error403");
 	}
 }

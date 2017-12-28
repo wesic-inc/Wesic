@@ -95,74 +95,48 @@ class basesql{
 
 	}
 
-	static function verifyLogin($login, $password){
+	// static function verifyLogin($login, $password){
 
-		$user = new User();
+	// 	$user = new User();
 
-		$user = $user->getUser(["login"=>$login]);
-		if(empty($user)){
-			return false;
-		}else{
+	// 	$user = $user->getUser(["login"=>$login]);
+	// 	if(empty($user)){
+	// 		return false;
+	// 	}else{
 
-			$userFound = $user[0];
+	// 		$userFound = $user[0];
 
-			if(!password_verify($password, $userFound["password"]) || $userFound["state"] == 2){				
-				return false;
-			}
-			else{
-				if(isset($_SESSION['token'])){
-					session_unset();
-					session_destroy();
-				}
-				if(!isset($_SESSION)){
-					session_start();
-				}
-				iptable::resetAttempts(base::getIp());
+	// 		if(!password_verify($password, $userFound["password"]) || $userFound["state"] == 2){				
+	// 			return false;
+	// 		}
+	// 		else{
+	// 			if(isset($_SESSION['token'])){
+	// 				session_unset();
+	// 				session_destroy();
+	// 			}
+	// 			if(!isset($_SESSION)){
+	// 				session_start();
+	// 			}
+	// 			iptable::resetAttempts(base::getIp());
 
-				$validator = new validator();
+	// 			$validator = new validator();
 
-				$_SESSION['id'] =  $userFound["id"];
+	// 			$_SESSION['id'] =  $userFound["id"];
 
-				$_SESSION['token'] = login::createTokenAction($userFound);
+	// 			$_SESSION['token'] = login::createTokenAction($userFound);
 
-				$_SESSION['time'] = time();
+	// 			$_SESSION['time'] = time();
 
-				error_log("[User] Connection succeed | Login ".$userFound["login"]);
+	// 			error_log("[User] Connection succeed | Login ".$userFound["login"]);
 
-				return true;
-			}
+	// 			return true;
+	// 		}
 
-		}
+	// 	}
 
-	}
+	// }
 
-	public static function verifyEmail($email,$id = ''){
 
-		$user = new User();
-
-		$user = $user->getUser(["email"=>$email]);
-		if(count($user) != 0){
-			if($id != '' && $user[0]['id'] == $id){
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	public static function verifyIdLogin($login,$id = ''){
-
-		$user = new User();
-
-		$user = $user->getUser(["login"=>$login]);
-		if(count($user) != 0){
-			if($id != '' && $user[0]['id'] == $id){
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
 
 }
 

@@ -3,5 +3,9 @@ errors:
     title: Votre titre n'est pas correct
     contentpage: Le contenu de la page doit faire plus de 10 caractères
     password: Votre mot de passe doit faire entre 8 et 12 caractères avec des chiffres, des majuscules et des minuscules
-    login: Votre login marche braaaaaaaaaaah
+    login: Votre login est incorrect
     passwordconfirm: votre mot de passe de confirmation ne correspond pas
+    password2: votre mot de passe de confirmation ne correspond pas
+    password1: votre mot de passe de confirmation ne correspond pas
+    login404: votre login/mot de passe est incorrect
+    userexists: le login/email existe déjà

@@ -229,17 +229,24 @@
 
 		public static function signUp($data){
 
-			$user = new User();
-			$user->setLogin($data['login']);
-			$user->setFirstname($data['firstname']);
-			$user->setLastname($data['lastname']);
-			$user->setRole(3);
-			$user->setEmail($data['email']);
-			$user->setPassword($data['password2']);
-			$user->setCreationDate(date('Y-m-d H:i:s'));
-			$user->setStatus(1);
-			$user->save();
+            if( Auth::emailExists($data['email']) || Auth::loginExists($data['login'])){
+                return false;
+            }
+            else{
 
+            $user = new User();
+            $user->setLogin($data['login']);
+            $user->setFirstname($data['firstname']);
+            $user->setLastname($data['lastname']);
+            $user->setRole(3);
+            $user->setEmail($data['email']);
+            $user->setPassword($data['password2']);
+            $user->setCreationDate(date('Y-m-d H:i:s'));
+            $user->setStatus(1);
+            $user->save();
+            return true;
+            
+            }
 		}
 
 

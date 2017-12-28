@@ -14,15 +14,16 @@ class loginController{
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			
+
 			$errors = Validator::check($form["struct"], $args);
 
 			if(!$errors){
-				Validator::process($form["struct"], $args, 'signin');
+				!Validator::process($form["struct"], $args, 'signin')?$errors=["login404"]:header("Location: /");
 			}
 		}
 
-		$v = new view();
+
+		$v = new View();
 		$v->setView("login/login");
 		$v->assign("title", "Connexion");
 		$v->assign("description", "Connexion");
@@ -30,7 +31,7 @@ class loginController{
 		$v->assign("errors", $errors);
 	}
 	public function logoutAction($args){
-		login::logoutUser();
+		Auth::logoutUser();
 	}
 
 	public function signupAction($args){
@@ -40,16 +41,15 @@ class loginController{
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = validator::check($form["struct"], $args);
+			$errors = Validator::check($form["struct"], $args);
 
 			if(!$errors){
-					// if(Validator::process($form["struct"], $args, 'signup')){
-				header('Location: index'); 
-
+				!Validator::process($form["struct"], $args, 'signup')?$errors=["userexists"]:header("Location: login");
+				
 			}
 		}
 
-		$v = new view();
+		$v = new View();
 		$v->setView("login/signup");
 		$v->assign("title", "Inscription");
 		$v->assign("description", "Inscription");

@@ -14,7 +14,7 @@
                 <?php if(isset($_SERVER['HTTP_REFERER'])) : ?>
                 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Page précédente</a>
                 <?php endif; ?>
-                <a href="index" class="btn btn-primary "><i class="fa fa-home" aria-hidden="true"></i> Accueil </a>
+                <a href="<?php echo ROOT_URL ?>" class="btn btn-primary "><i class="fa fa-home" aria-hidden="true"></i> Accueil </a>
                 </div>
                 <br><br>
             </div>
