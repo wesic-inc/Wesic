@@ -25,7 +25,27 @@
         Add article
       </a>
     </li>
-      <li class="pull-right">
+    <li>
+      <a href="<?php echo ROOT_URL ?>event/add">
+        Add event
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo ROOT_URL ?>media/add">
+        Add media
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo ROOT_URL ?>page/new">
+        Add page
+      </a>
+    </li>
+        <li>
+      <a href="<?php echo ROOT_URL ?>category/add">
+        Add category
+      </a>
+    </li>
+    <li class="pull-right">
       <a href="<?php echo ROOT_URL ?>profile">
         <?php echo $pseudo ?>
       </a>

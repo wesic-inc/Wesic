@@ -59,7 +59,11 @@ class validator{
 				case 'articlenew':
 					return Article::newArticle($data);
 					break;
+				case 'categorynew':
+					return Category::newCategory($data);
+					break;
 				default:
+					return false;
 					break;
 			}
 	}

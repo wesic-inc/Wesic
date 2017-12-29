@@ -239,7 +239,7 @@
             $user->setLogin($data['login']);
             $user->setFirstname($data['firstname']);
             $user->setLastname($data['lastname']);
-            $user->setRole(3);
+            $user->setRole($data['role']);
             $user->setEmail($data['email']);
             $user->setPassword($data['password2']);
             $user->setCreationDate(date('Y-m-d H:i:s'));

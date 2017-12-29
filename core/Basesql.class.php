@@ -95,46 +95,25 @@ class basesql{
 
 	}
 
-	// static function verifyLogin($login, $password){
+	function slugExists($slug){
 
-	// 	$user = new User();
+        $sql = "SELECT slug FROM article
+        		WHERE slug = $slug
+				UNION
+				SELECT slug FROM event
+				WHERE slug = $slug
+				UNION
+				SELECT slug FROM category
+				WHERE slug = $slug
+				UNION
+				SELECT slug FROM page
+				WHERE slug = $slug";
 
-	// 	$user = $user->getUser(["login"=>$login]);
-	// 	if(empty($user)){
-	// 		return false;
-	// 	}else{
+		$query = $this->pdo->prepare($sql);
+		$query->execute($condition);
+		return $query->fetchAll();
 
-	// 		$userFound = $user[0];
-
-	// 		if(!password_verify($password, $userFound["password"]) || $userFound["state"] == 2){				
-	// 			return false;
-	// 		}
-	// 		else{
-	// 			if(isset($_SESSION['token'])){
-	// 				session_unset();
-	// 				session_destroy();
-	// 			}
-	// 			if(!isset($_SESSION)){
-	// 				session_start();
-	// 			}
-	// 			iptable::resetAttempts(base::getIp());
-
-	// 			$validator = new validator();
-
-	// 			$_SESSION['id'] =  $userFound["id"];
-
-	// 			$_SESSION['token'] = login::createTokenAction($userFound);
-
-	// 			$_SESSION['time'] = time();
-
-	// 			error_log("[User] Connection succeed | Login ".$userFound["login"]);
-
-	// 			return true;
-	// 		}
-
-	// 	}
-
-	// }
+    }
 
 
 

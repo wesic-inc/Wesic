@@ -270,14 +270,17 @@ class Article extends Basesql{
     }
 
     public static function newArticle($data){
+            
+            $article = new Article();
+            
+            var_dump($article->slugExists($data['slug']));
+            die();
 
-
-            if( self::slugExists($data['slug']) ){
+            if( $article->slugExists($data['slug']) ){
                 return false;
             }
             else{
 
-            $article = new Article();
             $article->setTitle($data['title']);
             $article->setSlug($data['slug']);
             $article->setContent($data['content']);
@@ -294,15 +297,7 @@ class Article extends Basesql{
             }
         }
 
-    public static function slugExists($slug){
 
-        $article = new Article();
-
-        $articles = $article->getData('article',["slug"=>$slug]);
-
-        return !empty($articles);
-
-    }
 }
 
 

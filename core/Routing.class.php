@@ -133,8 +133,15 @@ public static function makeRouting(){
 				$pages = $page->getData('page',['slug'=>$uri]);
 				
 				if(empty($pages)){
-					$c = 'error';
-					$a = 'notFound';
+					$category = new Category();
+					$categories = $page->getData('category',['slug'=>$uri]);
+					if(empty($categories)){
+						$c = '';
+						$a = '';
+					}else{
+						$c = 'category';
+						$a = 'archive';
+					}
 				}
 				else{
 					$c = 'page';
