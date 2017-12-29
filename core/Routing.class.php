@@ -92,25 +92,72 @@ public static function getPermissionsDev( $route ){
 
 public static function makeRouting(){
 
-		global $rof;
+	global $rof;
 
-		$uri = $_SERVER['REQUEST_URI'];
-		$explode_uri = explode("?", $uri);
-		$uri = $explode_uri[0];
+	$uri = $_SERVER['REQUEST_URI'];
+	$explode_uri = explode("?", $uri);
+	$uri = $explode_uri[0];
 
-		$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
-
-		print_r(in_array($uri,$rof['routing_dev']));
+	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
 
 
-		foreach($rof['routing_dev'] as $rules) {
-			if($uri == $rules['path']){
-				$c = explode(":",$rules['controller'])[0];
-				$a = explode(":",$rules['controller'])[1];
-				$r = $rules['restricted'];
+	foreach($rof['routing_dev'] as $rules) {
+
+		if($uri == $rules['path']){
+
+			$c = explode(":",$rules['controller'])[0];
+			$a = explode(":",$rules['controller'])[1];
+			$r = $rules['restricted'];
+			$args = [
+				'request'=>$_REQUEST,
+				'post'=>$_POST,
+				'get'=>$_GET
+			];
+
+		}
+	}
+
+	if($c == NULL && $a == NULL){
+
+		$article = new Article();
+		$articles = $article->getData('article',['slug'=>$uri]);
+
+		if(empty($articles)){
+			
+			$event = new Event();
+			$events = $event->getData('event',['slug'=>$uri]);
+
+			if(empty($events)){
+
+				$page = new Page();
+				$pages = $page->getData('page',['slug'=>$uri]);
+				
+				if(empty($pages)){
+					$c = 'error';
+					$a = 'notFound';
+				}
+				else{
+					$c = 'page';
+					$a = 'single';
+				}
+			}else{
+				$c = 'event';
+				$a = 'single';
 			}
 		}
-
-	return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $_REQUEST ];
+		else{			
+			$c = 'article';
+			$a = 'single';
+		}
+		$r = 'all';
+		$args = [
+			'slug'=>$uri,
+			'request'=>$_REQUEST,
+			'post'=>$_POST,
+			'get'=>$_GET
+		];
 	}
+
+	return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $args ];
+}
 }

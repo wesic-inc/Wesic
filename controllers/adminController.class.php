@@ -28,7 +28,7 @@ class adminController{
 
 			if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-				$errors = Validator::check($form["struct"], $args);
+				$errors = Validator::check($form["struct"], $args['post']);
 
 				if(!$errors)
 					header('Location: manageUsers');

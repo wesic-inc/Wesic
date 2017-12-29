@@ -56,6 +56,9 @@ class validator{
 				case 'signup':
 					return User::signUp($data);
 					break;
+				case 'articlenew':
+					return Article::newArticle($data);
+					break;
 				default:
 					break;
 			}

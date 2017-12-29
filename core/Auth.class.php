@@ -106,23 +106,6 @@ static public function signIn($data){
 	return false;
 }
 
-public static function emailExists($email){
 
-	$user = new User();
-	$users = $user->getData("user",['email' => $email]);
-
-	return !empty($users);
-
-}
-
-public static function loginExists($login){
-
-	$user = new User();
-
-	$users = $user->getData('user',["login"=>$login]);
-
-	return !empty($users);
-
-}
 
 }

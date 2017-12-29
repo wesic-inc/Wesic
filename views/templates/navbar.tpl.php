@@ -21,8 +21,8 @@
       </a>
     </li>
     <li>
-      <a href="<?php echo ROOT_URL ?>admin">
-        Administration
+      <a href="<?php echo ROOT_URL ?>article/new">
+        Add article
       </a>
     </li>
       <li class="pull-right">

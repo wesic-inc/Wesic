@@ -221,7 +221,8 @@
 
 							"password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-							"password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ]
+							"password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
+                            "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'user','2'=>'Modératieur','3'=>'Admin'] ],
 						]
 			];
 
@@ -229,7 +230,7 @@
 
 		public static function signUp($data){
 
-            if( Auth::emailExists($data['email']) || Auth::loginExists($data['login'])){
+            if( self::emailExists($data['email']) || self::loginExists($data['login'])){
                 return false;
             }
             else{
@@ -248,7 +249,25 @@
             
             }
 		}
+    
+    public static function emailExists($email){
 
+        $user = new User();
+        $users = $user->getData("user",['email' => $email]);
+
+        return !empty($users);
+
+    }
+
+    public static function loginExists($login){
+
+        $user = new User();
+
+        $users = $user->getData('user',["login"=>$login]);
+
+        return !empty($users);
+
+    }
 
 
 	

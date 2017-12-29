@@ -15,10 +15,10 @@ class loginController{
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-			$errors = Validator::check($form["struct"], $args);
+			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args, 'signin')?$errors=["login404"]:header("Location: /");
+				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:header("Location: /");
 			}
 		}
 
@@ -41,10 +41,10 @@ class loginController{
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args);
+			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args, 'signup')?$errors=["userexists"]:header("Location: login");
+				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:header("Location: login");
 				
 			}
 		}

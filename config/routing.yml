@@ -4,8 +4,6 @@ routing:
     admin/index: user
     login/index: all
 
-
-
 routing_dev:
 
     Index:
@@ -50,5 +48,10 @@ routing_dev:
 
     Profile:
         restricted: user
-        controller: user:loginIndex
-        path: loginzd/index
+        controller: user:index
+        path: profile
+
+    Profile:
+        restricted: all
+        controller: cms:newArticle
+        path: article/new
