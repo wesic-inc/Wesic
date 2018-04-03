@@ -16,25 +16,37 @@ class basesql{
 
 	}
 
+	public function setColumn(){
+		$this->columns = array_diff_key(get_object_vars($this), get_class_vars(get_class())) ;
+	}
+
 	public function save(){
+		$this->setColumn();
 
-		if(is_numeric($this->id)){
+		if(isset($this->id) && is_numeric($this->id)) {
 			//UPDATE
-
-		}else{
-			//INSERT
-			$sql = "INSERT INTO ".$this->table." (".implode(",", $this->columns).")
-			VALUES (:".implode(",:", $this->columns).")";
+			//création des SET
+			$sets = "";
+			foreach ($this->columns as $key => $value) {
+				$sets += $key." = :".$key." ";
+			}
+			//query
+			$sql = "UPDATE ".$this->table." SET ".$sets." WHERE id = :id";
 			$query = $this->pdo->prepare($sql);
 
-			foreach ($this->columns as $column) {
-				$data[$column] = $this->$column;
-			}
+			$query->execute($this->columns);
+		} else {
+			//INSERT
+			unset($this->columns['id']);
+			$sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($this->columns)).")
+			VALUES (:".implode(",:", array_keys($this->columns)).")";
+			$query = $this->pdo->prepare($sql);
 
-			$query->execute($data);
+			$query->execute($this->columns);
 		}
 
 	}
+
 	function getData($table, $condition = [], $operator = [], $orderby = "", $groupby = "", $limit = [], $columns = "*" ){
 		$sql = 'SELECT '. $columns .' FROM '.$table.' ';
 
