@@ -8,13 +8,7 @@ class basesql{
 	public function __construct(){
 		$this->table = strtolower(get_called_class());
 		
-		$dsn = 'mysql:host='.DBHOST.';dbname='.DBNAME.';charset=utf8';
-
-		try{
-			$this->pdo = new PDO($dsn,DBUSER,DBPWD);
-		}catch(Exception $e){
-			die("Erreur SQL : ".$e->getMessage());
-		}
+		Singleton::getInstance();
 
 		$all_vars = get_object_vars($this);
 		$class_vars = get_class_vars(get_class());
