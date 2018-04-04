@@ -2,7 +2,7 @@
 
 	class User extends Basesql
 	{
-		protected $id;
+		protected $id = null;
 		protected $login;
 		protected $firstname;
 		protected $lastname;		
@@ -10,13 +10,13 @@
 		protected $email;
 		protected $password;
 		protected $creationDate;
-		protected $status;
+		protected $status = 0;
+        protected $token;
 
 		public function __construct()
 		{
 			parent::__construct();
 		}
-
 
 
 	 /**
@@ -74,7 +74,7 @@
      */
     public function setFirstname($firstname)
     {
-        $this->firstname = $firstname;
+        $this->firstname = ucfirst(strtolower(trim($firstname)));   
 
         return $this;
     }
@@ -94,7 +94,7 @@
      */
     public function setLastname($lastname)
     {
-        $this->lastname = $lastname;
+        $this->lastname = strtoupper(trim($lastname));
 
         return $this;
     }
@@ -134,7 +134,7 @@
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->email = strtolower(trim($email));
 
         return $this;
     }
@@ -189,6 +189,20 @@
         $this->status = $status;
 
         return $this;
+    }
+
+    public function setToken($token = null){
+        if( $token ){
+            $this->token = $token;
+        }else if(!empty($this->email)){
+            $this->token = substr(sha1("GDQgfds4354".$this->email.substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+        }else{
+            die("Veuillez préciser un email");
+        }
+    }
+
+    public function getToken(){
+        return $this->token;
     }
 
 

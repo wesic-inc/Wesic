@@ -21,9 +21,6 @@ $route = Routing::makeRouting();
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
-// echo "<pre>";
-// var_dump(get_defined_vars());
-// die();
 
 if( file_exists($path_controller) ){
 	
