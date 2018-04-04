@@ -8,7 +8,7 @@ class basesql{
 	public function __construct(){
 		$this->table = strtolower(get_called_class());
 		
-		Singleton::getInstance();
+		$this->pdo = Singleton::getInstance();
 
 		$all_vars = get_object_vars($this);
 		$class_vars = get_class_vars(get_class());
@@ -16,15 +16,10 @@ class basesql{
 
 	}
 
-	public function setColumn(){
-		$this->columns = array_diff_key(get_object_vars($this), get_class_vars(get_class())) ;
-	}
-
 	public function save(){
-		$this->setColumn();
 
-		if(isset($this->id) && is_numeric($this->id)) {
-			//UPDATE
+		if(is_numeric($this->id)){
+						//UPDATE
 			//création des SET
 			$sets = [];
 			foreach ($this->columns as $key => $value) {
@@ -35,18 +30,21 @@ class basesql{
 			$query = $this->pdo->prepare($sql);
 
 			$query->execute($this->columns);
-		} else {
+
+		}else{
 			//INSERT
-			unset($this->columns['id']);
-			$sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($this->columns)).")
-			VALUES (:".implode(",:", array_keys($this->columns)).")";
+			$sql = "INSERT INTO ".$this->table." (".implode(",", $this->columns).")
+			VALUES (:".implode(",:", $this->columns).")";
 			$query = $this->pdo->prepare($sql);
 
-			$query->execute($this->columns);
+			foreach ($this->columns as $column) {
+				$data[$column] = $this->$column;
+			}
+
+			$query->execute($data);
 		}
 
 	}
-
 	function getData($table, $condition = [], $operator = [], $orderby = "", $groupby = "", $limit = [], $columns = "*" ){
 		$sql = 'SELECT '. $columns .' FROM '.$table.' ';
 
@@ -124,4 +122,3 @@ class basesql{
 
 
 }
-

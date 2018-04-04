@@ -4,10 +4,6 @@ class Singleton {
 
 	private static $_instance = null;
 
-	function _construct(){
-		//...
-	}
-
 	public static function getInstance(){
 		if(Singleton::$_instance == null){
 			$dsn = 'mysql:host='.DBHOST.';dbname='.DBNAME.';charset=utf8';
