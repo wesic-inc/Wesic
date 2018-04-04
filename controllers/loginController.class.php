@@ -7,8 +7,6 @@ class loginController{
 
 	public function indexAction($args){
 
-		/*setcookie("navbar", 1,time() + (10 * 365 * 24 * 60 * 60), "/"); */
-
 		$user = new User();
 		$form = $user->getFormLogin();
 		$errors = [];
@@ -17,7 +15,7 @@ class loginController{
 
 			$errors = Validator::check($form["struct"], $args['post']);
 
-			if(!$errors){
+			if(empty($errors)){
 				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:header("Location: /");
 			}
 		}
@@ -27,7 +25,7 @@ class loginController{
 		$v->setView("login/login");
 		$v->assign("title", "Connexion");
 		$v->assign("description", "Connexion");
-		$v->assign("form", $form);
+		$v->assign("config", $form);
 		$v->assign("errors", $errors);
 	}
 	public function logoutAction($args){
@@ -53,7 +51,7 @@ class loginController{
 		$v->setView("login/signup");
 		$v->assign("title", "Inscription");
 		$v->assign("description", "Inscription");
-		$v->assign("form", $form);
+		$v->assign("config", $form);
 		$v->assign("errors", $errors); 
 	}
 }

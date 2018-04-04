@@ -101,7 +101,7 @@ public static function makeRouting(){
 	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
 
 
-	foreach($rof['routing_dev'] as $rules) {
+	foreach($rof['routing'] as $rules) {
 
 		if($uri == $rules['path']){
 

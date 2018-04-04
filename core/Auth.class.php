@@ -44,13 +44,17 @@ static function isAdmin($iduser){
 
 	$user = new User();
 	$user = $user->getData('users',["id"=>$iduser]);
-	$userFound = $user[0];
-
-	if($userFound["role"] === "1" ){
-		return TRUE;
-	}else{
-		return FALSE;
+	if(!empty($user[0])){
+		$userFound = $user[0];
+		if($userFound["role"] === "1" ){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
+	
+
+
 
 }
 /**

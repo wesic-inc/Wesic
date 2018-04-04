@@ -1,10 +1,4 @@
 routing:
-    index/index: all
-    error/index: all
-    admin/index: user
-    login/index: all
-
-routing_dev:
 
     Index:
         restricted: all
@@ -42,9 +36,14 @@ routing_dev:
         path: logout
 
     Signup:
-        restricted: admin
+        restricted: all
         controller: login:signup
         path: newuser
+
+    Update:
+        restricted: all
+        controller: login:update
+        path: updateuser
 
     Profile:
         restricted: user
