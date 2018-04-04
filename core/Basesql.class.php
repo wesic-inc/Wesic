@@ -26,12 +26,12 @@ class basesql{
 		if(isset($this->id) && is_numeric($this->id)) {
 			//UPDATE
 			//création des SET
-			$sets = "";
+			$sets = [];
 			foreach ($this->columns as $key => $value) {
-				$sets += $key." = :".$key." ";
+				$sets[] .= $key." = :".$key;
 			}
 			//query
-			$sql = "UPDATE ".$this->table." SET ".$sets." WHERE id = :id";
+			$sql = "UPDATE ".$this->table." SET ".implode(",", $sets)." WHERE id = :id";
 			$query = $this->pdo->prepare($sql);
 
 			$query->execute($this->columns);
