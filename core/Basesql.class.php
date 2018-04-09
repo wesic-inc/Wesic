@@ -8,7 +8,7 @@ class basesql{
 	public function __construct(){
 		$this->table = strtolower(get_called_class());
 		
-		$this->pdo = Singleton::getInstance();
+		$this->pdo = Singleton::getDB();
 
 		$all_vars = get_object_vars($this);
 		$class_vars = get_class_vars(get_class());

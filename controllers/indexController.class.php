@@ -6,12 +6,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 class indexController{
 
 	public function indexAction($args){
-		
-		$user = new User();
-
-		if(Auth::isConnected()){
-			$userFound = $user->getData('user',['id'=>$_SESSION['id']])[0];
-		}
 
 		$article = new Article();
 		$articlesFound = $article->getData('article');

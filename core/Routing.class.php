@@ -23,6 +23,7 @@ class routing{
 		$args = array_merge($explode_uri, $_REQUEST);
 		
 		$allowed = self::getPermissions(["c" => $c, "a" => $a, "args" => $args]);
+		
 
 		return ["c" => $c, "a" => $a, "args" => $args];
 
@@ -39,6 +40,7 @@ public static function getRoot(){
 }
 
 public static function getPermissions( $route ){
+
 	$connected = Auth::isConnected();
 	$rights = Auth::isAdmin($_SESSION["id"]);
 
@@ -121,6 +123,10 @@ public static function makeRouting(){
 
 		}
 	}
+
+
+		$currentUser = Singleton::getUser();
+
 
 	if($c == NULL && $a == NULL){
 
