@@ -164,10 +164,13 @@
      *
      * @return self
      */
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
-
+    public function setCreationDate($creationDate = null)
+    {   
+        if( $creationDate ){
+            $this->creationDate = $creationDate;
+        }else {
+            $this->creationDate = date("Y-m-d H:i:s");
+        }
         return $this;
     }
 

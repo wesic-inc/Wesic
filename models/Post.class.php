@@ -1,9 +1,10 @@
 <?php 
-class Article extends Basesql{
+class Post extends Basesql{
 
 	protected $id;
 	protected $title;
-	protected $slug;
+    protected $type;
+	protected $slug_id;
 	protected $content;
 	protected $excerpt;
 	protected $description;
@@ -12,13 +13,11 @@ class Article extends Basesql{
 	protected $status;
 	protected $visibility;
 	protected $user_id;
-
+    protected $parent
 
 	public function __construct(){
 		parent::__construct();
 	}
-
-
 
 
 
@@ -28,7 +27,7 @@ class Article extends Basesql{
      */
     public function getId()
     {
-    	return $this->id;
+        return $this->id;
     }
 
     /**
@@ -38,9 +37,7 @@ class Article extends Basesql{
      */
     public function setId($id)
     {
-    	$this->id = $id;
-
-    	return $this;
+        $this->id = $id;
     }
 
     /**
@@ -48,7 +45,7 @@ class Article extends Basesql{
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }
 
     /**
@@ -58,9 +55,25 @@ class Article extends Basesql{
      */
     public function setTitle($title)
     {
-    	$this->title = $title;
+        $this->title = ucfirst(strtolower(trim($title)));
+    }
 
-    	return $this;
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     /**
@@ -68,19 +81,17 @@ class Article extends Basesql{
      */
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }
 
     /**
-     * @param mixed $slug
+     * @param mixed $slug_id
      *
      * @return self
      */
     public function setSlug($slug)
     {
-    	$this->slug = $slug;
-
-    	return $this;
+        $this->slug = strtolower(trim($slug));
     }
 
     /**
@@ -88,7 +99,7 @@ class Article extends Basesql{
      */
     public function getContent()
     {
-    	return $this->content;
+        return $this->content;
     }
 
     /**
@@ -98,9 +109,7 @@ class Article extends Basesql{
      */
     public function setContent($content)
     {
-    	$this->content = $content;
-
-    	return $this;
+        $this->content = $content;
     }
 
     /**
@@ -108,7 +117,7 @@ class Article extends Basesql{
      */
     public function getExcerpt()
     {
-    	return $this->excerpt;
+        return $this->excerpt;
     }
 
     /**
@@ -118,9 +127,7 @@ class Article extends Basesql{
      */
     public function setExcerpt($excerpt)
     {
-    	$this->excerpt = $excerpt;
-
-    	return $this;
+        $this->excerpt = $excerpt;
     }
 
     /**
@@ -128,7 +135,7 @@ class Article extends Basesql{
      */
     public function getDescription()
     {
-    	return $this->description;
+        return $this->description;
     }
 
     /**
@@ -138,9 +145,7 @@ class Article extends Basesql{
      */
     public function setDescription($description)
     {
-    	$this->description = $description;
-
-    	return $this;
+        $this->description = $description;
     }
 
     /**
@@ -148,7 +153,7 @@ class Article extends Basesql{
      */
     public function getDateCreation()
     {
-    	return $this->dateCreation;
+        return $this->dateCreation;
     }
 
     /**
@@ -158,9 +163,11 @@ class Article extends Basesql{
      */
     public function setDateCreation($dateCreation)
     {
-    	$this->dateCreation = $dateCreation;
-
-    	return $this;
+        if( $creationDate ){
+            $this->creationDate = $creationDate;
+        }else {
+            $this->creationDate = date("Y-m-d H:i:s");
+        }
     }
 
     /**
@@ -168,7 +175,7 @@ class Article extends Basesql{
      */
     public function getDatePublied()
     {
-    	return $this->datePublied;
+        return $this->datePublied;
     }
 
     /**
@@ -176,11 +183,14 @@ class Article extends Basesql{
      *
      * @return self
      */
-    public function setDatePublied($datePublied)
-    {
-    	$this->datePublied = $datePublied;
-
-    	return $this;
+    public function setDatePublied($datePublied = null)
+    {   
+        if($datePublied){
+            $this->datePublied = $datePublied;
+        }
+        else{
+            $this->datePublied = date("Y-m-d H:i:s");
+        }
     }
 
     /**
@@ -188,7 +198,7 @@ class Article extends Basesql{
      */
     public function getStatus()
     {
-    	return $this->status;
+        return $this->status;
     }
 
     /**
@@ -198,9 +208,7 @@ class Article extends Basesql{
      */
     public function setStatus($status)
     {
-    	$this->status = $status;
-
-    	return $this;
+        $this->status = $status;
     }
 
     /**
@@ -208,7 +216,7 @@ class Article extends Basesql{
      */
     public function getVisibility()
     {
-    	return $this->visibility;
+        return $this->visibility;
     }
 
     /**
@@ -218,9 +226,7 @@ class Article extends Basesql{
      */
     public function setVisibility($visibility)
     {
-    	$this->visibility = $visibility;
-
-    	return $this;
+        $this->visibility = $visibility;
     }
 
     /**
@@ -228,7 +234,7 @@ class Article extends Basesql{
      */
     public function getUserId()
     {
-    	return $this->user_id;
+        return $this->user_id;
     }
 
     /**
@@ -238,40 +244,40 @@ class Article extends Basesql{
      */
     public function setUserId($user_id)
     {
-    	$this->user_id = $user_id;
-
-    	return $this;
+        $this->user_id = $user_id;
     }
 
 
+
+
     public static function getFormNewArticle(){
-    	return [	
-    		"options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data" ],
-    		"struct" => [
+        return [    
+            "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data" ],
+            "struct" => [
 
-    			"title"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title" ],
+                "title"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title" ],
 
-    			"slug"=>[ "label"=>"Slug", "type"=>"text", "id"=>"slug", "placeholder"=>"Slug", "required"=>1, "msgerror"=>"slug" ],
+                "slug"=>[ "label"=>"Slug", "type"=>"text", "id"=>"slug", "placeholder"=>"Slug", "required"=>1, "msgerror"=>"slug" ],
 
-    			"content"=>[ "label"=>"Nom", "type"=>"textarea", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content" ],
+                "content"=>[ "label"=>"Nom", "type"=>"textarea", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content" ],
 
-    			"excerpt"=>[ "label"=>"Excerpt", "type"=>"text", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt" ],
+                "excerpt"=>[ "label"=>"Excerpt", "type"=>"text", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt" ],
 
-    			"description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description" ],
+                "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description" ],
 
-    			"datepublied"=>[ "label"=>"Date de publication", "type"=>"datetime", "id"=>"datepublied", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"datepublied" ],
-    			
-    			"status"=>[ "label"=>"Statut", "type"=>"select", "id"=>"status", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'brouillon','2'=>'programmé','3'=>'publié'] ],
+                "datepublied"=>[ "label"=>"Date de publication", "type"=>"datetime", "id"=>"datepublied", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"datepublied" ],
+                
+                "status"=>[ "label"=>"Statut", "type"=>"select", "id"=>"status", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'brouillon','2'=>'programmé','3'=>'publié'] ],
 
-    			"visibility"=>[ "label"=>"visibility", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement'] ],
-    			
-    		]
-    	];
+                "visibility"=>[ "label"=>"visibility", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement'] ],
+                
+            ]
+        ];
     }
 
     public static function newArticle($data){
             
-            $article = new Article();
+            $article = new Post();
             
             var_dump($article->slugExists($data['slug']));
             die();
@@ -281,6 +287,7 @@ class Article extends Basesql{
             }
             else{
 
+            $article->setType(1);  
             $article->setTitle($data['title']);
             $article->setSlug($data['slug']);
             $article->setContent($data['content']);
@@ -296,7 +303,6 @@ class Article extends Basesql{
             
             }
         }
-
 
 }
 
