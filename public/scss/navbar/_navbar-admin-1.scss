@@ -1,0 +1,227 @@
+// MAINTAINER : HARANG Louis  <dev@louishrg.cc>
+
+
+body {  
+  font-family: $roboto;
+}
+
+#hamburger-menu.is-active .line:nth-child(2){
+  opacity: 0;
+}
+
+#hamburger-menu.is-active .line:nth-child(1){
+  transform: translateY(6px) rotate(45deg);
+}
+
+#hamburger-menu.is-active .line:nth-child(3){
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+#hamburger-menu.is-active:hover .line{
+  background: $primary-color;
+}
+
+#hamburger-menu {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.hamburger .line {
+  width: 20px;
+  height: 2px;
+  background-color: $white;
+  display: block;
+  margin: 5px auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger:hover {
+  cursor: pointer;
+}
+
+.navbar-icon{
+  float: left;
+  height:38px;
+  width: 38px;
+  margin-top: 6px;
+  margin-left: 6px;
+}
+
+#menu.is-active{
+  display:block;
+  height:auto;
+}
+
+#menu{
+  height:0;
+}
+
+nav.navbar{
+  position: relative;
+  height: $navbar-height;
+  background: $navbar-color;
+  font-size: $navbar-font-size;
+  font-family: $lato;
+  color: $white;
+  box-shadow: $bloc-shadow;
+  z-index: 999;
+  ul.nav{
+    border-top: 1px solid $form-color;
+    text-decoration: none;
+    background: $navbar-color;
+    box-shadow: $bloc-shadow;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
+    display: none;
+    li{ 
+      width:100%;
+      margin-top:20px;
+      margin-bottom:20px;
+
+      a{
+        color: $white;
+        padding-top:20px;
+        padding-left:50px;
+        padding-right:50px;
+      }
+      a:hover{
+        color: $primary-color;
+      }
+      a.active  {
+        color: $primary-color;
+        font-weight: 600;
+      }
+    }
+    .dropdown{
+      display: none;
+    }
+  }
+}
+
+.user-menu{
+  font-size: $small-text;
+  position: absolute;
+  right: 50px;
+  top: 5px;
+  a{
+    color: $white;
+  }
+  a:hover{
+    color: $primary-color;
+  }
+  span{
+    position: relative;
+    bottom: 15px;
+    right: 10px;
+
+  }
+  img.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+  }
+  img.cicon-carret {
+    display:none;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+@media (min-width: 1200px) {
+
+  nav.navbar{
+
+    ul.nav{
+      text-decoration:none;
+      line-height:50px;
+      width: 960px;
+      margin: 0 auto;
+      border-top: none;
+      box-shadow: none;
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: center;
+      display:block;
+      li{ 
+        display:inline-block;
+        width:auto;
+        margin-top:0;
+        margin-bottom:0;
+        position: relative; 
+        a{
+          padding: 12px 10px;
+          color: $white;
+        }
+        a:hover{
+          color: $primary-color;
+        }
+        a.active{
+          border-bottom: 4px solid $primary-color;
+          color: $white;      
+        }
+      }
+      .dropdown{
+        background-color: $bloc-color;
+        border-radius: $input-radius;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top:10px;
+        position: absolute;
+        box-shadow: $light-shadow;
+        top: 43px;
+        width: 170px;
+        li{
+          display:block;
+        }
+        li:hover{
+          background: $input-bg
+        }
+        a:hover{
+          color: $white;
+        }
+      }
+      .dropdown-link:hover .dropdown{
+        display:block;
+      }
+
+
+    }
+  }
+
+
+  .user-menu{
+    font-size: $small-text;
+    position: absolute;
+    right: 30px;
+    top: 7px;
+    a{
+      color: $white;
+    }
+    a:hover{
+      color: $primary-color;
+    }
+    span{
+      position: relative;
+      bottom: 14px;
+      right: 5px;
+
+    }
+    img.avatar {
+      height: 35px;
+      width: 35px;
+      border-radius: 50px;
+    }
+    img.cicon-carret {
+      width: 15px;
+      position: relative;
+      bottom: 8px;
+      left: 12px;
+      display:inline-block;
+    }
+  }
+
+}
+

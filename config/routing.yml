@@ -28,7 +28,7 @@ routing:
     Logout:
         restricted: all
         controller: login:index
-        path: login
+        path: admin/login
 
     Login:
         restricted: all
@@ -38,24 +38,24 @@ routing:
     Signup:
         restricted: all
         controller: login:signup
-        path: newuser
+        path: admin/newuser
 
     Update:
-        restricted: all
+        restricted: admin
         controller: login:update
-        path: updateuser
+        path: admin/updateuser
 
     Profile:
         restricted: user
         controller: user:index
-        path: profile
+        path: admin/profile
 
     NewArticle:
-        restricted: all
+        restricted: admin
         controller: admin:newArticle
-        path: article/new
+        path: admin/ajouter-article
 
     NewCategory:
-        restricted: all
+        restricted: admin
         controller: admin:newCategory
-        path: category/add
+        path: admin/ajouter-categorie

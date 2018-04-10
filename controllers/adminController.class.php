@@ -9,7 +9,7 @@ class adminController{
 		}
 		
 		$v = new View();
-		$v->setView("admin/index");
+		$v->setView("admin/index","templateadmin");
 		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 		$v->assign("role",$userFound["role"]);
 		$v->assign("page","adduser");
@@ -36,7 +36,7 @@ class adminController{
 
 
 			$v = new View();
-			$v->setView("admin/adduser");
+			$v->setView("admin/adduser","templateadmin");
 			$v->assign("pseudo", $userFound["email"]);
 			$v->assign("role",$userFound["role"]);
 			$v->assign("page","adduser");
@@ -61,7 +61,7 @@ class adminController{
 			}
 		}
 		$v = new View();
-		$v->setView("cms/newarticle");
+		$v->setView("cms/newarticle","templateadmin");
 		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 		$v->assign("form", $form);
 		$v->assign("errors", $errors);
@@ -81,7 +81,7 @@ class adminController{
 			}
 		}
 		$v = new View();
-		$v->setView("cms/newcategory");
+		$v->setView("cms/newcategory","templateadmin");
 		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 		$v->assign("form", $form);
 		$v->assign("errors", $errors);

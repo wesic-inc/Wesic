@@ -1,0 +1,442 @@
+// MAINTAINER : HARANG Louis  <dev@louishrg.cc>
+@import "../vars/_vars-admin-1.scss";
+
+
+a, a:hover, a:focus{
+  text-decoration: none;
+  color: darken($primary-color, 20%);
+}
+a{
+	color: $primary-color;
+}
+
+body{
+  background: $bg-color;
+} 
+
+.cicon-carret-drodown{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 4px;
+    left: 35px;
+}
+
+.bloc{
+	background: $bloc-color;
+
+	padding:30px;
+	color: $white;
+	font-size: $text;
+	margin-top: 20px;
+}
+
+.ignore-me{
+	margin-top: $navbar-height + 40px;
+}
+
+.page-title{
+	font-size: $page-title-size;
+	color: $white;
+	font-weight:400;
+	position: absolute;
+	top: $navbar-height + 30px;
+	left: 40px;
+	z-index: 998;
+}
+.bloc-title{
+	color: $white;
+	font-weight:400;
+	font-size: $bloc-title-size;
+	position: relative;
+	top: -10px;
+	width: 250px;
+}
+.bloc-subtitle, .subtext{
+	color: $subtext-color;
+
+}
+
+.bloc-close{
+	font-size: 12px;
+	color: $white;
+	transition: all 0.3s ease-in;
+	position: relative;
+    top: -15px;
+    right: 0px;
+    float: right;
+
+}
+.bloc-close:hover {
+	cursor:pointer;
+	color: $primary-color;
+}
+.menu-dashboard{
+	position: absolute;
+	right: 10px;
+	top: $navbar-height + 10px;
+	color: $white;
+
+}
+.menu-dashboard:hover{
+	cursor: pointer;
+}
+
+.bloc article{
+	margin-top: 20px;
+}
+// Boutons
+.btn{
+	height: 20px;
+	font-size: 15px;
+	padding: 10px 20px 10px 20px;
+  	text-decoration: none;
+  	background: $primary-color;
+  	transition: all 0.2s ease-in-out;
+  	color: $white;
+  	border-radius: $btn-radius;
+  	position:relative;
+  	font: $roboto;
+}
+
+.btn:hover{
+	background: darken($primary-color, 20%);
+	color: $white;
+}
+
+.btn-sm{
+	font-size: 15px;
+	height:30px;
+	padding: 6px 20px 6px 20px;
+
+}
+
+.btn-lg{
+	font-size: 18px;
+	height: 50px;
+
+}
+
+.btn-alt{
+	background: $btn-other-color;
+
+}
+
+.btn-alt:hover{
+	background: darken($btn-other-color,20%);
+}
+
+.btn-alt-sm{
+
+}
+
+.btn-alt-lg{
+
+}
+
+.btn-add{
+	margin-left: 20px
+}
+
+.search-input{
+	width: 300px;
+}
+
+.welcome-btn{
+	position: relative;
+
+}
+
+.welcome-bloc > p.subtext{
+	width: 200px;
+	text-align: center;
+	position: relative;
+	left: -20px;
+}
+
+
+.text-center{
+	text-align: center;
+}
+
+.links-bloc article header{
+	font-weight: 600;
+	font-size: $content-title;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.links-bloc article content{
+	ul{
+		display: inline-block;
+		li{
+			margin: 10px;
+			a{
+				color: $subtext-color;
+			}
+			a:hover{
+				color: $primary-color;
+				transition: all 0.3s ease-in;
+			}
+			a.padding{
+				padding-left: 30px;
+				text-align: right;
+			}
+		}
+	}
+}
+
+.links-bloc .theme-links, .links-bloc .pub-links, .links-bloc .more-links{
+	text-align: center;
+	margin-top: 30px;
+}
+
+	.welcome-start{
+		margin-top: 30px;
+		.subtext{
+			  margin-top: 20px;
+		}
+	}
+
+.quick-view{
+
+	article{
+		text-align: center;
+		ul{
+			li{
+				font-size: $content-title;
+				margin:20px;
+				span{
+					font-size:25px;
+					margin-right:10px;
+				}
+			}
+		}
+		p{
+			span{
+				color: $primary-color;
+			}
+		}
+	}
+}
+
+.update-wesic{
+	text-align:center;
+}
+
+.activity{
+	article{
+		header{
+			font-size: $content-title;
+		}
+		ul{
+			margin-top: 20px;
+			text-align: center;
+			li{
+				small{
+					font-size: $small-text;
+					color: $subtext-color;
+				}
+				a:hover{
+					color: darken($primary-color, 10%);
+				}
+			}
+		}
+	}
+}
+.stats{
+	margin-bottom: 50px;
+	article{
+		text-align: center;
+
+		ul.numbers{
+			li{
+				display: inline-block;
+				text-align: center;
+				width: 150px;
+				span{
+					font-size: 30px;
+					color: $primary-color;
+				}
+				p{
+					position:relative;
+					top:-20px;
+				}
+			}
+		}
+		img{
+			margin-bottom: 20px;
+			width:100%; 
+		}
+		ul.btns{
+			li{
+			display: inline-block;
+			a.active{
+				background: $btn-other-color;
+			}
+			}
+
+		}
+	}
+}
+
+.last-comments{
+	article{
+		padding-bottom: 30px;
+		border-bottom: 1px solid $small-text;
+		div.comment{
+			margin-top: 40px;
+			header{
+				margin-bottom: 10px;
+			}
+			footer{
+				margin-top: 20px;
+				small{
+					color: $subtext-color;
+					font-size: $small-text;
+
+				}
+			}
+			div.admin-actions{
+				text-align: center;
+				a{
+					margin: 20px;
+				}
+			}
+		} 
+	}
+}
+.article-bloc{
+	header{
+		text-align: right;
+	}
+	table{
+		margin-top:20px;
+	}
+	footer{
+		margin-top: 20px;
+	}
+}
+
+.grid-actions{
+	font-size: $smallest-text;
+}
+
+.form-group{
+	background: $form-color;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: $input-radius;
+	padding: 20px;
+	.form-group-title{
+		
+		font-size: $form-title;
+	}
+	.form-group-aside{
+		position: relative;
+    	top: -20px;
+    	text-align: left;
+	}
+	a.add-media{
+		position:absolute;
+		right:20px;
+		top:30px;
+	}
+}
+.row-forms{
+	margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+.form-btn{
+	.btn{
+		margin:10px;
+	}
+}
+
+.checkbox-group{
+	background: $input-bg;
+
+	ul{
+		padding: 20px;
+		li{
+			margin: 20px;
+			span{
+				margin-left: 20px;
+			}
+		}
+	}
+}
+
+
+.publication-choices{
+	text-align: center;
+	margin-bottom:20px;
+	margin-top: -10px;
+	ul{
+		li{
+			margin:20px;
+		}
+	}
+	span{
+		position:relative;
+		top:5px;
+	}
+	
+
+}
+
+
+@media (min-width: $sm-max) and (max-width: $md-max){
+
+
+}
+
+@media (min-width: $md-min) and (max-width: $lg-max) {
+
+}
+
+@media (min-width: $md-min){
+		.welcome-btn{
+		top: -30px;
+	}
+}
+
+@media (min-width: $sm-min){
+
+	.bloc{
+			border-radius: $bloc-radius;
+	box-shadow: $bloc-shadow;
+	}
+}
+
+
+
+
+@media (min-width: 1200px) {
+
+.links-bloc .theme-links, .links-bloc .pub-links{
+	padding-left: $gutter;
+	padding-right: $gutter;
+	text-align: none;
+	margin-top: 0;
+}
+
+
+.links-bloc .more-links{
+	padding-left: $gutter;
+	padding-right: $gutter;
+	left: 0px;
+	text-align: none;
+	margin-top: 0;
+}
+
+.gutter-bloc, .gutter-bloc-r{
+	min-width: 49% !important;
+    flex: 0 0 49% !important;
+}
+.gutter-bloc-r{
+	margin-left: 2%;
+}
+
+
+
+}

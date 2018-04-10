@@ -14,7 +14,6 @@ class indexController{
 
 		$v->setView("index/index");
 		$v->assign("articles", $articlesFound);
-		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 
 
 

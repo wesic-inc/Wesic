@@ -4,3 +4,5 @@ $(document).ready(function(){
     $('#menu').toggleClass("is-active");
   });
 });
+
+$('#wesic-demo').trumbowyg();

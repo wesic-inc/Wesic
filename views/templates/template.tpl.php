@@ -8,15 +8,12 @@
 
 		<link rel="icon" type="image/png" href="/public/img/favicon.png" />
 
-		<link rel="stylesheet" type="text/css" href="/public/css/core.css">
-		<link rel="stylesheet" type="text/css" href="/public/css/grid.css">
-		<link rel="stylesheet" type="text/css" href="/public/css/style.css">
-		<link rel="stylesheet" type="text/css" href="/public/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/homepage.css">
 	</head>
 	<body>
 
 		<?php include $this->view;?>	
 		<script type="text/javascript" src="/public/js/jquery.min.js"></script>
-		<script type="text/javascript" src="/public/js/code.js"></script>
+		<script type="text/javascript" src="../public/js/theme-1/code-theme-1.js"></script>
 	</body>
 </html>

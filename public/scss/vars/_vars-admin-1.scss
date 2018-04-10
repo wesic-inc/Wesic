@@ -1,0 +1,74 @@
+$sm-max: 768px;
+$sm-min: 767px;
+$md-max: 991px;
+$md-min: 992px;
+$lg-max: 1199px;
+$lg-min: 1200px;
+$nb-columns: 12;
+$container-sm: 750px;
+$container-md: 970px;
+$container-lg: 1170px;
+$gutter: 20px;
+
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700');
+
+// Google Fonts
+$lato: 'Lato', sans-serif;
+$roboto: 'Roboto', sans-serif;
+
+
+
+
+
+$primary-color: #F83E48;
+$bloc-color: #2E2E2E;
+$bg-color: #595959;
+$form-color: #212121;
+$subtext-color: #7D7D7D;
+
+$white: #FFFFFF;
+
+$darker1: $form-color;
+$darker2: #2E2727;
+$darker3: #737373;
+$darker1-lite: #4d4d4d;
+$darker2-lite: #5C5C5C;
+$darker3-lite: #9C9C9C;
+
+$input-bg: #171717;
+$input-border: 1px solid #262626;
+$input-radius: 4px;
+$input-height: 30px;
+
+$bloc-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+$light-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+$bloc-radius: 4px;
+
+
+// Font size
+$small-text: 14px;
+$smallest-text: 13px;
+$text: 15px;
+$navbar-font-size: 15px;
+$content-title: 16px;
+$form-title: 17px;
+$page-title-size: 20px;
+$bloc-title-size: 18px;
+
+// Button size 
+$btn: 30px;
+$btn-sm: 25px;
+$btn-lg: 50px;
+
+$btn-color: $primary-color;
+$btn-other-color: #737373;
+$btn-radius: 5px;
+
+
+//navbar
+
+$navbar-height: 50px;
+$navbar-color: $bloc-color;
+
+

@@ -1,0 +1,71 @@
+            html {
+                font-family: 'Roboto', sans-serif;
+            }
+            
+            body,
+            html {
+                height: 100%;
+                width: 100%;
+            }
+            
+            body {
+                background: url(../img/onepage/download-bg.jpg) no-repeat center center / cover;
+            }
+            
+            #logo {
+                height: 50px;
+                width: 50px;
+                position: absolute;
+                left: 10px;
+                top: 10px;
+                background: url(../img/onepage/logo/min-color-light.png) no-repeat center center / cover;
+            }
+            
+            .title {
+                padding-top: 20px;
+                color: white;
+                text-align: center;
+                font-size: 22px;
+                font-weight: 600;
+            }
+            
+            .description {
+                padding: 20px;
+                color: white;
+            }
+            
+            #cta {
+                margin: 0 20px 20px 0;
+                color: white;
+                float: right;
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+                display: inline;
+                padding: 14px 24px;
+                color: white;
+                background: #E82053;
+                border-radius: 4px;
+                transition: 0.3s all;
+            }
+            
+            #card {
+                width: 25%;
+                background: rgba(0, 0, 0, 0.4);
+                position: absolute;
+                left: 10%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            
+            @media screen and (max-width: 1500px) {
+                #card {
+                    width: 55%;
+                }
+            }
+            
+            @media screen and (max-width: 600px) {
+                #card {
+                    width: 80%;
+                }
+            }
