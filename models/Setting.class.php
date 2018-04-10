@@ -4,6 +4,7 @@ class Setting extends Basesql{
 	
 	protected $id;
 	protected $key;
+    protected $type;
 	protected $value;
 
 
@@ -35,5 +36,15 @@ class Setting extends Basesql{
     public function setValue($value)
     {
         $this->value = $value;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 }

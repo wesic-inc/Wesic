@@ -7,8 +7,8 @@ class indexController{
 
 	public function indexAction($args){
 
-		$article = new Article();
-		$articlesFound = $article->getData('article');
+		$article = new Post();
+		$articlesFound = $article->getData('post');
 
 		$v = new View();
 

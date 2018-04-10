@@ -261,6 +261,7 @@
             $user->setPassword($data['password2']);
             $user->setCreationDate(date('Y-m-d H:i:s'));
             $user->setStatus(1);
+            $user->setToken();
             $user->save();
             return true;
             

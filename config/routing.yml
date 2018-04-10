@@ -52,10 +52,10 @@ routing:
 
     NewArticle:
         restricted: all
-        controller: cms:newArticle
+        controller: admin:newArticle
         path: article/new
 
     NewCategory:
         restricted: all
-        controller: cms:newCategory
+        controller: admin:newCategory
         path: category/add

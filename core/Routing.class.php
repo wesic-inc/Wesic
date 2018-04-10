@@ -6,36 +6,7 @@ if(!isset($_SESSION))
 class routing{
 
 
-	public static function setRouting(){
-		
-		$uri = $_SERVER['REQUEST_URI'];
-		$explode_uri = explode("?", $uri);
-		$uri = $explode_uri[0];
-
-		$uri = trim( str_ireplace(PATH_ROOT, "", $uri) , "/");
-
-		$explode_uri = explode("/", $uri);
-		
-		$c = (!empty($explode_uri[0]))?$explode_uri[0]:"index";
-		$a = (!empty($explode_uri[1]))?$explode_uri[1]:"index";
-		unset($explode_uri[0]);
-		unset($explode_uri[1]);
-		$args = array_merge($explode_uri, $_REQUEST);
-		
-		$allowed = self::getPermissions(["c" => $c, "a" => $a, "args" => $args]);
-		
-
-		return ["c" => $c, "a" => $a, "args" => $args];
-
-	}
-
-/**
- * Recupère la racine du site selon l'URI 
- * @return string 			Racine du site
- */
-public static function getRoot(){
-
-	
+public static function getRoot(){	
 	return getenv('HTTP_HOST')."/";
 }
 
@@ -91,7 +62,7 @@ public static function getPermissionsDev( $route ){
 		return true;
 		break;
 		default:
-		return true;
+		return false;
 		break;
 	}
 	return false;
@@ -130,50 +101,33 @@ public static function makeRouting(){
 
 	if($c == NULL && $a == NULL){
 
-		$article = new Article();
-		$articles = $article->getData('article',['slug'=>$uri]);
+		$slug = new Slug();
+		$slugFound = $slug->getData('slug',['slug'=>$uri]);
 
-		if(empty($articles)){
-			
-			$event = new Event();
-			$events = $event->getData('event',['slug'=>$uri]);
-
-			if(empty($events)){
-
-				$page = new Page();
-				$pages = $page->getData('page',['slug'=>$uri]);
-				
-				if(empty($pages)){
-					$category = new Category();
-					$categories = $page->getData('category',['slug'=>$uri]);
-					if(empty($categories)){
-						$c = '';
-						$a = '';
-					}else{
-						$c = 'category';
-						$a = 'archive';
-					}
-				}
-				else{
+		if(empty($slugFound)){
+			$c = 'error';
+			$a = 'notFound'; 
+		}else{
+			switch ($slugFound['type']) {
+				case 1:
+					$c = 'category';
+					$a = 'archive';
+					break;
+				case 2:
 					$c = 'page';
 					$a = 'single';
-				}
-			}else{
-				$c = 'event';
-				$a = 'single';
+					break;
+				case 3:
+					$c = 'article';
+					$a = 'single';
+					break;
+				default:
+					$c = 'error';
+					$a = 'notFound';
+					break;
 			}
+			$r = 'all';
 		}
-		else{			
-			$c = 'article';
-			$a = 'single';
-		}
-		$r = 'all';
-		$args = [
-			'slug'=>$uri,
-			'request'=>$_REQUEST,
-			'post'=>$_POST,
-			'get'=>$_GET
-		];
 	}
 
 	return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $args ];

@@ -63,6 +63,7 @@ class Category extends Basesql{
 			];
 
 		}
+        
 	public static function newCategory($data){
 
             $category = new Category();

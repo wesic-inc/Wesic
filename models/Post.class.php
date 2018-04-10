@@ -4,23 +4,21 @@ class Post extends Basesql{
 	protected $id;
 	protected $title;
     protected $type;
-	protected $slug_id;
-	protected $content;
-	protected $excerpt;
-	protected $description;
-	protected $dateCreation;
-	protected $datePublied;
-	protected $status;
-	protected $visibility;
-	protected $user_id;
-    protected $parent
+    protected $slug;
+    protected $content;
+    protected $excerpt;
+    protected $image;
+    protected $description;
+    protected $dateCreation;
+    protected $datePublied;
+    protected $status;
+    protected $visibility;
+    protected $parent;
+    protected $user_id;
 
-	public function __construct(){
-		parent::__construct();
-	}
-
-
-
+    public function __construct(){
+      parent::__construct();
+  }
 
     /**
      * @return mixed
@@ -248,7 +246,45 @@ class Post extends Basesql{
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 
+    /**
+     * @param mixed $image
+     *
+     * @return self
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     *
+     * @return self
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
 
     public static function getFormNewArticle(){
         return [    
@@ -276,16 +312,16 @@ class Post extends Basesql{
     }
 
     public static function newArticle($data){
-            
-            $article = new Post();
-            
-            var_dump($article->slugExists($data['slug']));
-            die();
+        
+        $article = new Post();
+        
+        var_dump($article->slugExists($data['slug']));
+        die();
 
-            if( $article->slugExists($data['slug']) ){
-                return false;
-            }
-            else{
+        if( $article->slugExists($data['slug']) ){
+            return false;
+        }
+        else{
 
             $article->setType(1);  
             $article->setTitle($data['title']);
@@ -301,8 +337,10 @@ class Post extends Basesql{
             $article->save();
             return true;
             
-            }
         }
+    }
+
+
 
 }
 
