@@ -59,3 +59,8 @@ routing:
         restricted: admin
         controller: admin:newCategory
         path: admin/ajouter-categorie
+
+    AllArticles:
+        restricted: admin
+        controller: admin:allArticles
+        path: admin/articles

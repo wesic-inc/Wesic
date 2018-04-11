@@ -88,4 +88,13 @@ class adminController{
 
 	}
 
+	public function allArticlesAction($args){
+		
+
+		$v = new View();
+		$v->setView("cms/articles","templateadmin");
+		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
+	}
+
+
 }
