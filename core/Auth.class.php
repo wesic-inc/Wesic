@@ -1,23 +1,18 @@
 <?php
-/**
- * Classe Core des fonctions de login
- */
+
 class Auth extends Basesql {
 
 	
 	static function isConnected(){
+
+
 		if(isset($_SESSION["token"])){
 			$user = new User();
 			$token = $_SESSION["token"];
-			$user = $user->getData('user',["id"=>$_SESSION["id"]]);
-			if(!empty($user)){
-				$user = $user[0];
-				if($token == self::createTokenAction($user) && time() < $_SESSION['time']+36000 ){
-					return TRUE;
-				}else{
-					self::logoutUser();
-					return FALSE;
-				}
+			$user = $user->getData('user',["token"=>$token])[0];
+			if($token = $user['token']){
+				self::tokenRenew($user);
+				return TRUE;
 			}
 			return FALSE;
 
@@ -26,24 +21,10 @@ class Auth extends Basesql {
 
 	}
 
-/**
- * Génération du token utilisateur 
- * @param  array  $user      	Information utilisateur
- * @return string       		Token utilisateur généré
- */
-static public function createTokenAction($user=[])
-{
-	return md5($user["id"].SALT.date("Ymd"));
-}
-/**
- * Fonction de vérification des rôles de l'utilisateur
- * @param  int  $iduser 		Id utilisateur
- * @return boolean         		True si admin, false si utilisateur standard
- */
-static function isAdmin($iduser){
+static function isAdmin($token){
 
 	$user = new User();
-	$user = $user->getData('users',["id"=>$iduser]);
+	$user = $user->getData('users',["token"=>$token]);
 	if(!empty($user[0])){
 		$userFound = $user[0];
 		if($userFound["role"] === "1" ){
@@ -57,13 +38,10 @@ static function isAdmin($iduser){
 
 
 }
-/**
- * Fonction de deconnexion utilisateur
- */
-static public function logoutUser(){
-		// Détruit toutes les variables de session
-	$_SESSION = array();	
 
+static public function logoutUser(){
+
+	$_SESSION = array();	
 	if (ini_get("session.use_cookies")) {
 
 		$params = session_get_cookie_params();
@@ -79,9 +57,6 @@ static public function logoutUser(){
 	header('Location: '.ROOT_URL.'login');
 }
 
-/**
- * Fonction de connexion utilisateur
- */
 static public function signIn($data){
 
 	
@@ -92,13 +67,11 @@ static public function signIn($data){
 
 	if(!empty($users)){
 
-		$user = $users[0];
+		$userFound = $users[0];
 
-		if(password_verify($data['password'],$user['password']) ){
+		if(password_verify($data['password'],$userFound['password']) ){
 			
-			$_SESSION['token'] = self::createTokenAction($user);
-			$_SESSION['id'] = $user['id'];
-			$_SESSION['time'] = time();
+			self::tokenRenew($userFound);
 
 			return true;
 
@@ -110,6 +83,18 @@ static public function signIn($data){
 	return false;
 }
 
+public static function tokenRenew($userFound){
+
+	$user = new User();
+
+	$user->setId($userFound['id']);
+	$user->setEmail($userFound['email']);
+	$user->setStatus($userFound['status']);
+	$user->setToken();
+	$user->save();
+
+	$_SESSION['token'] = $user->getToken();
+}
 
 
 }

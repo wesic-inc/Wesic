@@ -25,12 +25,12 @@ routing:
         controller: admin:index
         path: admin
 
-    Logout:
+    Login:
         restricted: all
         controller: login:index
-        path: admin/login
+        path: login
 
-    Login:
+    Logout:
         restricted: all
         controller: login:logout
         path: logout
@@ -38,7 +38,7 @@ routing:
     Signup:
         restricted: all
         controller: login:signup
-        path: admin/newuser
+        path: signup
 
     Update:
         restricted: admin

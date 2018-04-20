@@ -42,13 +42,8 @@ public static function getPermissions( $route ){
 }
 
 public static function getPermissionsDev( $route ){
-/*	$connected = Auth::isConnected();
-	$rights = Auth::isAdmin($_SESSION["id"]);*/
-
-
-	// testing purpose
-	$connected = true;
-	$rights = true;
+	$connected = Auth::isConnected();
+	$rights = Auth::isAdmin($_SESSION["token"]);
 	
 	switch ($route['r']) {
 		case 'admin':

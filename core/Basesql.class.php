@@ -16,33 +16,49 @@ class basesql{
 
 	}
 
+	public function setColumns(){
+		
+
+		$this->columns = array_diff_key(
+					get_object_vars($this), 
+					get_class_vars(get_class()));
+	}
+
+
 	public function save(){
 
-		if(is_numeric($this->id)){
-						//UPDATE
-			//création des SET
-			$sets = [];
+		$this->setColumns();
+
+		if( $this->id ){
+
 			foreach ($this->columns as $key => $value) {
-				$sets[] .= $key." = :".$key;
-			}
-			//query
-			$sql = "UPDATE ".$this->table." SET ".implode(",", $sets)." WHERE id = :id";
-			$query = $this->pdo->prepare($sql);
+					if(isset($value) ){
+						$sqlSet[] = $key."=:".$key;
+					}else{
+						unset($this->columns[$key]);
+					}
+				}
+
+			$query = $this->pdo->prepare(" UPDATE ".$this->table." SET ".implode(", ", $sqlSet)." WHERE id=:id ");
+			$query->execute($this->columns);
+
+
+		}else{
+
+			unset($this->columns['id']);
+
+			$query = $this->pdo->prepare("
+					INSERT INTO ".$this->table." 
+					(". implode(",", array_keys($this->columns)) .")
+					VALUES
+					(:". implode(",:", array_keys($this->columns)) .")
+				");
 
 			$query->execute($this->columns);
 
-		}else{
-			//INSERT
-			$sql = "INSERT INTO ".$this->table." (".implode(",", $this->columns).")
-			VALUES (:".implode(",:", $this->columns).")";
-			$query = $this->pdo->prepare($sql);
-
-			foreach ($this->columns as $column) {
-				$data[$column] = $this->$column;
-			}
-
-			$query->execute($data);
 		}
+		
+
 
 	}
 	function getData($table, $condition = [], $operator = [], $orderby = "", $groupby = "", $limit = [], $columns = "*" ){
@@ -118,7 +134,5 @@ class basesql{
 		return $query->fetchAll();
 
     }
-
-
 
 }
