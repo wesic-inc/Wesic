@@ -1,4 +1,4 @@
 <?php
-class NewsletterController{
+class newsletterController{
 	
 }

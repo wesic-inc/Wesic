@@ -13,8 +13,7 @@ public static function getRoot(){
 public static function getPermissions( $route ){
 
 	$connected = Auth::isConnected();
-	$rights = Auth::isAdmin($_SESSION["id"]);
-
+	$rights = Auth::isAdmin();
 	global $route_access;
 
 	if($route['c'] !== "" && $route['a'] === ""){
@@ -43,7 +42,7 @@ public static function getPermissions( $route ){
 
 public static function getPermissionsDev( $route ){
 	$connected = Auth::isConnected();
-	$rights = Auth::isAdmin($_SESSION["token"]);
+	$rights = Auth::isAdmin();
 	
 	switch ($route['r']) {
 		case 'admin':
