@@ -55,6 +55,11 @@ routing:
         controller: admin:newArticle
         path: admin/ajouter-article
 
+    AllUsers:
+        restricted: admin
+        controller: user:allUsers
+        path: admin/users
+        
     NewCategory:
         restricted: admin
         controller: admin:newCategory
@@ -62,5 +67,6 @@ routing:
 
     AllArticles:
         restricted: admin
-        controller: admin:allArticles
+        controller: article:allArticles
         path: admin/articles
+

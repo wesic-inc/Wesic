@@ -17,4 +17,12 @@ class articleController{
 		$v->assign("article", $articleFound[0]);
 		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 	}
+	
+	public function allArticlesAction($args){
+		
+
+		$v = new View();
+		$v->setView("cms/articles","templateadmin");
+		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
+	}
 }

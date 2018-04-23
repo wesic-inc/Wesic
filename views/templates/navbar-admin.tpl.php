@@ -40,6 +40,7 @@
           </div>
         </li>
         <li><a href="<?php echo ROOT_URL ?>admin/commentaires">Commentaires</a></li>
+                <li><a href="<?php echo ROOT_URL ?>admin/users">Utilisateurs</a></li>
         <li class="dropdown-link">
           <a  href="#">Apparence</a>
           <div class="dropdown">

@@ -30,12 +30,11 @@ class Auth extends Basesql {
 			return FALSE;
 		}else{
 			$token = $_SESSION["token"];
-
 			$user = new User();
 			$user = $user->getData('users',["token"=>$token]);
 			if(!empty($user[0])){
 				$userFound = $user[0];
-				if($userFound["role"] === "1" ){
+				if($userFound["role"] === "4" ){
 					return TRUE;
 				}else{
 					return FALSE;

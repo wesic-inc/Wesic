@@ -14,6 +14,7 @@ public static function getPermissions( $route ){
 
 	$connected = Auth::isConnected();
 	$rights = Auth::isAdmin();
+	
 	global $route_access;
 
 	if($route['c'] !== "" && $route['a'] === ""){
