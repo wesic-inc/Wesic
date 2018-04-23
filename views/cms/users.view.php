@@ -45,7 +45,7 @@
 									<td><a href="#post=id"><?php echo $user['login']; ?></a>
 										<ul class="grid-actions">
 											<a href="#"><li>Afficher</li></a>
-											<a href="#"><li>Modifier</li></a>
+											<a href="<?php echo $user['id']; ?>"><li>Modifier</li></a>
 											<a href="#"><li>Supprimer</li></a>
 										</ul>
 									</td>

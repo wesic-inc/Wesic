@@ -70,3 +70,7 @@ routing:
         controller: article:allArticles
         path: admin/articles
 
+    EditArticle:
+        restricted: admin
+        controller: admin:newArticle
+        path: admin/modifier-article

@@ -14,7 +14,7 @@ public static function getPermissions( $route ){
 
 	$connected = Auth::isConnected();
 	$rights = Auth::isAdmin();
-	
+
 	global $route_access;
 
 	if($route['c'] !== "" && $route['a'] === ""){
@@ -69,12 +69,12 @@ public static function makeRouting(){
 
 	$uri = $_SERVER['REQUEST_URI'];
 	$explode_uri = explode("?", $uri);
-	$uri = $explode_uri[0];
-
+	$uri = explode('/',$explode_uri[0]);
+	$uri = $uri[0].'/'.$uri[1].'/'.$uri[2];
 	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
 
-
 	foreach($rof['routing'] as $rules) {
+
 
 		if($uri == $rules['path']){
 
@@ -90,9 +90,7 @@ public static function makeRouting(){
 		}
 	}
 
-
 		$currentUser = Singleton::getUser();
-
 
 	if($c == NULL && $a == NULL){
 

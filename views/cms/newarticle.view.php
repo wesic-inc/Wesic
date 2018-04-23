@@ -1,6 +1,6 @@
 <?php require('views/templates/navbar-admin.tpl.php'); ?>
 <?php $this->createForm($form, $errors); ?>
-<!-- 	<h1 class="page-title"><span class="icon-newspaper">
+	<h1 class="page-title"><span class="icon-newspaper">
 
 		</span>	 Ajouter un article </h1> 
 		<div class="container">
@@ -103,4 +103,4 @@
 							</div>
 						</div>
 					</div>
-				</div> -->
+				</div> 
