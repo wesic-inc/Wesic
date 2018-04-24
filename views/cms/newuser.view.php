@@ -1,11 +1,11 @@
 <?php require('views/templates/navbar-admin.tpl.php'); ?>
+<?php $this->createForm($form, $errors); ?>
 	<h1 class="page-title"><span class="icon-newspaper">
 
-		</span>	 Ajouter un article </h1> 
+		</span>	 Ajouter un utilisateur </h1> 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 bloc ignore-me article-bloc row">
-<?php $this->createForm($form, $errors); ?>
+				<div class="col-md-12 bloc ignore-me article-bloc">
 					<div class="row row-forms">
 						<div class="col-md-7">
 							<div class="row">
@@ -13,11 +13,6 @@
 									<p class="form-group-title">Titre</p>
 									<p class="subtitle">Le titre de votre article</p>
 									<input type="text" class="full">
-								</div>
-								<div class="col-md-12 form-group">
-									<p class="form-group-title mb-20">Contenu de l’article</p>
-									<a href="#" class="btn btn-sm add-media"> Ajouter un média </a>
-									<div id="wesic-demo"></div>
 								</div>
 								<div class="col-md-12 form-group">
 									<p class="form-group-title">Résumé de l'article</p>

@@ -23,4 +23,13 @@ class Format {
 		}
 	}
 
+	static function dump($var,$die = false){
+		echo "<pre>";
+		print_r($var);
+		
+		if($die == true){
+			die();
+		}
+	}
+
 }

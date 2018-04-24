@@ -1,0 +1,26 @@
+forms:
+    publish:
+        label: Publication
+        container: col-md-12 form-group 
+        class: form-group
+        aside: true
+    title:
+        label: Titre
+        container: col-md-12 form-group
+        class: form-group
+        aside: false
+    content:
+        label: Contenu
+        container: col-md-12 form-group
+        class: form-group
+        aside: false
+    excerpt:
+        label: Résumé
+        container: col-md-12 form-group
+        class: form-group
+        aside: false
+    description:
+        label: Description
+        container: col-md-12 form-group
+        class: form-group
+        aside: false

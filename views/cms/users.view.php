@@ -1,7 +1,7 @@
 <?php require('views/templates/navbar-admin.tpl.php'); ?>
 <h1 class="page-title"><span class="icon-users">
 
-		</span>	 Utilisateurs <a href="addarticle.html" class="btn btn-sm btn-add"> Ajouter </a></h1> 
+		</span>	 Utilisateurs <a href="/admin/ajouter-utilisateur" class="btn btn-sm btn-add"> Ajouter </a></h1> 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 bloc ignore-me article-bloc">

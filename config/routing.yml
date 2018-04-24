@@ -59,6 +59,11 @@ routing:
         restricted: admin
         controller: user:allUsers
         path: admin/users
+
+    AddUser:
+        restricted: admin
+        controller: user:addUser
+        path: admin/ajouter-utilisateur
         
     NewCategory:
         restricted: admin

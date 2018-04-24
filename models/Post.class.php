@@ -288,24 +288,36 @@ class Post extends Basesql{
 
     public static function getFormNewArticle(){
         return [    
-            "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data" ],
+            "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "true", "submit-custom"=>"true" ],
+            "groups" => [   "title" => ["title"], 
+                            "content" => ["content"], 
+                            "excerpt" => ["excerpt"], 
+                            "description"=>["description"], 
+                            "publish" => ["slug","datepublied","status","visibility","draft","save"] 
+                ],
             "struct" => [
 
-                "title"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title" ],
+               "title"=>[ "label"=>"Titre", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title"],
 
-                "slug"=>[ "label"=>"Slug", "type"=>"text", "id"=>"slug", "placeholder"=>"Slug", "required"=>1, "msgerror"=>"slug" ],
+                "content"=>[ "label"=>"Nom", "type"=>"textarea", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content"],
 
-                "content"=>[ "label"=>"Nom", "type"=>"textarea", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content" ],
+                "excerpt"=>[ "label"=>"Excerpt", "type"=>"text", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt"],
 
-                "excerpt"=>[ "label"=>"Excerpt", "type"=>"text", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt" ],
+                "description"=>[ "label"=>"Description", "type"=>"textarea", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description"],
 
-                "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description" ],
 
-                "datepublied"=>[ "label"=>"Date de publication", "type"=>"datetime", "id"=>"datepublied", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"datepublied" ],
+                "slug"=>[ "label"=>"Slug", "type"=>"text", "id"=>"slug", "placeholder"=>"Slug", "required"=>1, "msgerror"=>"slug"],
                 
-                "status"=>[ "label"=>"Statut", "type"=>"select", "id"=>"status", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'brouillon','2'=>'programmé','3'=>'publié'] ],
+                "datepublied"=>[ "label"=>"Date de publication", "type"=>"date", "id"=>"datepublied", "placeholder"=>"Date", "required"=>1, "msgerror"=>"datetime-local"],
 
-                "visibility"=>[ "label"=>"visibility", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement'] ],
+                "status"=>[ "label"=>"Statut", "type"=>"select", "id"=>"status", "placeholder"=>"Status", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'brouillon','2'=>'programmé','3'=>'publié']],
+                
+                "visibility"=>[ "label"=>"visibility", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement']],
+
+                "draft"=>[ "label"=>"brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0],
+
+                "save"=>[ "label"=>"publier", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+
                 
             ]
         ];

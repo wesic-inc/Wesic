@@ -3,6 +3,7 @@
 $cof = yaml_parse_file('config/config.yml');
 $rof = yaml_parse_file('config/routing.yml');
 $erf = yaml_parse_file('config/errors.yml');
+$fof = yaml_parse_file('config/forms.yml');
 
 define("DBHOST", $cof['config']['mysql']['host']);
 define("DBUSER", $cof['config']['mysql']['dbuser']);
@@ -18,3 +19,4 @@ define('ROOT_URL', preg_replace("/\/$/",'',PROTOCOL.DOMAIN.str_replace(array('\\
 
 $errors_msg = $erf['errors'];
 $route_access = $rof['routing'];
+$forms_group = $fof['forms'];

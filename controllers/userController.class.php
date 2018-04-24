@@ -19,4 +19,13 @@ class userController {
 		$v->assign("users",$usersRes);
 	}
 
+	public function addUserAction($args){
+
+		$user = new User();
+		$usersRes = $user->getData('user');
+
+		$v = new View();
+		$v->setView("cms/newuser","templateadmin");
+		$v->assign("users",$usersRes);
+	}
 }

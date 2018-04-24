@@ -71,10 +71,10 @@ public static function makeRouting(){
 	$explode_uri = explode("?", $uri);
 	$uri = explode('/',$explode_uri[0]);
 	$uri = $uri[0].'/'.$uri[1].'/'.$uri[2];
+	
 	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
 
 	foreach($rof['routing'] as $rules) {
-
 
 		if($uri == $rules['path']){
 
