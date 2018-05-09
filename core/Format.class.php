@@ -31,5 +31,4 @@ class Format {
 			die();
 		}
 	}
-
 }

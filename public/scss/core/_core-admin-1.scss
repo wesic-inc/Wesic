@@ -4,22 +4,25 @@ select {
 	background-color:$input-bg;
 	border-radius:$input-radius;
 	border: $input-border;
-	color:$white;
-	height:32px;
-	padding:0 5px;
+	color:$link-color-dark;
+	height: 40px;
+    padding: 5px 15px;
 	appearance:none;
-	-moz-appearance:none; /* Firefox */
-	-webkit-appearance:none; /* Safari and Chrome */
-
+    box-sizing: border-box;
+    font-size: 15px;
+    width: 100%;
 }
-
 input[type=text] {
 	background-color:$input-bg;
 	border-radius:$input-radius;
 	border:$input-border;
-	color:$white;
+	color:$link-color-dark;
 	height:32px;
+	padding: 20px 10px;
+}
 
+input[type=text].sm-input {
+	padding: 10px 10px;
 }
 
 input[type=password] {
@@ -27,22 +30,46 @@ input[type=password] {
 	border-color: transparent;
 	border-radius:$input-radius;
 	border:$input-border;
-	color:$white;
+	color:$link-color-dark;
 	height:32px;
 
 }
 
+input{
+	background-color:$input-bg;
+	border-radius:$input-radius;
+	border:$input-border;
+	color:$link-color-dark;
+	height:32px;
+	padding: 20px 10px;
+	width: 100%;
+	font-size: 15px;
+	border: 1px solid #e4eaec;
+}
 
 textarea {
 	background-color:$input-bg;
 	border-color: transparent;
 	border-radius:$input-radius;
-	color: $white;
+	color: $link-color-dark;
 	width:auto;
 	height:auto;
 	overflow:hidden;
 	width:100%;
 	max-width:100%;
+}
+
+.trumbowyg-box{
+	z-index: 1;
+}
+
+label.label-input {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.trumbowyg-editor{
+	background: $white;
 }
 
 .full{
@@ -52,11 +79,11 @@ textarea {
 
 .table {
 	width:100%;
-	color:$white;
+	color:$black;
 	border:0;
 	border-collapse: collapse;
 	text-align:center;
-	background-color:#000;
+	background-color: $stripped-2;
 
 	tr {
 		td{
@@ -72,7 +99,7 @@ textarea {
 	}
 	thead {
 		tr {
-			background-color:$darker3;
+			background-color:$stripped-1;
 			th:nth-child(2) {
 				text-align:left;
 			}
@@ -80,7 +107,7 @@ textarea {
 	}
 	tfoot {
 		tr {
-			background-color:$darker3;
+			background-color:$stripped-1;
 			td{
 				padding-top: 6px;
 				padding-bottom: 6px;
@@ -112,20 +139,10 @@ textarea {
 	}
 }
 
-.table-stripped {
-	tbody {
-		tr:nth-child(1n){
-			background-color:$darker1-lite;
-		}
-		tr:nth-child(2n){
-			background-color:$darker2-lite;
-		}
-	}
-}
 
 .table-bordered {
 	tr, td {
-		border: 1px solid $darker3-lite;
+		border: 1px solid $stripped-2;
 		border-collapse: 1px;
 	}
 }
@@ -135,106 +152,93 @@ ul.grid-actions{
 	li{
 		font-size:$small-text;
 	}
-	}
-
-[type="checkbox"] {
-	&:not(:checked), &:checked {
-		position: absolute;
-		left: -9999px;
-		+ label {
-			position: relative; 
-			padding-left: 25px;
-			cursor: pointer;
-			&:before {
-				content: '';
-				position: absolute;
-				top: 2px;
-				left: 0px;
-				width: 15px;
-				height: 15px;
-				border: 1px solid #aaa;
-				background: #f8f8f8;
-				border-radius: 3px;
-				border-color: #fff;
-			}
-			&:after {
-				content: '';
-				position: absolute;
-				top: 5px;
-				left: 2.5px;
-				width: 11px;
-				height: 11px;
-				background-color: $primary-color;
-				transition: all .2s;
-				border-radius: 1px;
-			}
-		}
-	}
-	&:not(:checked) {
-		+ label {
-			&:after {
-				opacity: 0;
-				transform: scale(0);
-			}
-		}
-	}
-	&:checked {
-		+ label {
-			&:after {
-				opacity: 1; /* coche opaque */
-				transform: scale(1); /* mise à l'échelle 1:1 */
-			}
-		}
-	}
 }
-[type="radio"] {
-	&:not(:checked), &:checked {
-		position: absolute;
-		left: -9999px;
-		+ label {
-			position: relative;
-			padding-left: 25px;
-			cursor: pointer;
-			&:before {
-				content: '';
-				position: absolute;
-				top: 2px;
-				left: 0;
-				width: 15px;
-				height: 15px;
-				border: 1px solid #aaa;
-				background: #f8f8f8;
-				border-radius: 50%;
-				box-shadow: inset 0 1px 3px rgba(0,0,0,.3); 
-			}
-			&:after {
-				content: '';
-				position: absolute;
-				top: 4px;
-				left: 2px;
-				width: 13px;
-				height: 13px;
-				background-color: $primary-color;
-				border-radius: 50%;
-				transition: all .2s;
-			}
-		}
-	}
-	&:not(:checked) {
-		+ label {
-			&:after {
-				opacity: 0; /* coche invisible */
-				transform: scale(0); /* mise à l'échelle à 0 */
-			}
-		}
-	}
-	&:checked {
-		+ label {
-			&:after {
-				opacity: 1; /* coche opaque */
-				transform: scale(1); /* mise à l'échelle 1:1 */
-			}
-		}
+
+/* Customize the label (the container) */
+.checkbox-container {
+	display: block;
+	position: relative;
+	cursor: pointer;
+	font-size: 22px;
+	padding-left: 20px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+	position: absolute;
+	top: -5px;
+	left: 8px;
+	height: 15px;
+	width: 15px;
+	background-color: #c9c5c7;
+	border-radius: 1px;
+}
+
+.checkmark-header{
+	left: 12px;
+	top:-7px;
+}
+.checkmark-footer{
+	left: 8px;
+	top:-7px;
+}
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+	background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+	background-color: $primary-color;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+	left: 5px;
+	top: 1px;
+	width: 2px;
+	height: 7px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.login-modal{
+	background:$stripped-1;
+	border-radius: 2px;
+	box-shadow: $bloc-shadow;
+	top:25vh;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	padding: 30px;
+	input{
+		width: 100%;
 	}
 }
 

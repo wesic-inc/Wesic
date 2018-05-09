@@ -28,7 +28,7 @@ routing:
     Login:
         restricted: all
         controller: login:index
-        path: login
+        path: connexion
 
     Logout:
         restricted: all
@@ -38,12 +38,8 @@ routing:
     Signup:
         restricted: all
         controller: login:signup
-        path: signup
+        path: inscription
 
-    Update:
-        restricted: admin
-        controller: login:update
-        path: admin/updateuser
 
     Profile:
         restricted: user
@@ -52,23 +48,38 @@ routing:
 
     NewArticle:
         restricted: admin
-        controller: admin:newArticle
+        controller: article:newArticle
         path: admin/ajouter-article
 
     AllUsers:
         restricted: admin
         controller: user:allUsers
-        path: admin/users
+        path: admin/utilisateurs
 
     AddUser:
         restricted: admin
         controller: user:addUser
         path: admin/ajouter-utilisateur
-        
-    NewCategory:
+    
+    EditUser:
         restricted: admin
-        controller: admin:newCategory
-        path: admin/ajouter-categorie
+        controller: user:editUser
+        path: admin/modifier-utilisateur
+
+    ViewUser:
+        restricted: admin
+        controller: user:viewUser
+        path: admin/afficher-utilisateur
+
+    Categories:
+        restricted: admin
+        controller: category:allCategories
+        path: admin/categories
+
+    Tags:
+        restricted: admin
+        controller: category:allTags
+        path: admin/tags
 
     AllArticles:
         restricted: admin
@@ -79,3 +90,58 @@ routing:
         restricted: admin
         controller: admin:newArticle
         path: admin/modifier-article
+
+    Medias:
+        restricted: admin
+        controller: media:index
+        path: admin/medias
+
+    EditTheme:
+        restricted: admin
+        controller: theme:editThemes
+        path: admin/modifier-theme
+
+    Themes:
+        restricted: admin
+        controller: theme:index
+        path: admin/themes
+
+    ThemeCreator:
+        restricted: admin
+        controller: theme:themeCreator
+        path: admin/theme-creator
+
+    Pages:
+        restricted: admin
+        controller: page:index
+        path: admin/pages
+
+    NewPage:
+        restricted: admin
+        controller: page:addPage
+        path: admin/ajouter-page
+
+    Comments:
+        restricted: admin
+        controller: comment:index
+        path: admin/commentaires
+
+    Parameters:
+        restricted: admin
+        controller: setting:index
+        path: admin/parametres
+
+    Event:
+        restricted: admin
+        controller: event:index
+        path: admin/evenements
+
+    Event:
+        restricted: admin
+        controller: event:addEvent
+        path: admin/ajouter-evenements
+
+    getNewPassword:
+        restricted: all
+        controller: login:getNewPassword
+        path: recuperer-compte

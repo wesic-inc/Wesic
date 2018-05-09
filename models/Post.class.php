@@ -293,30 +293,32 @@ class Post extends Basesql{
                             "content" => ["content"], 
                             "excerpt" => ["excerpt"], 
                             "description"=>["description"], 
-                            "publish" => ["slug","datepublied","status","visibility","draft","save"] 
+                            "publish" => ["slug","datepublied","time","status","visibility","draft","save"] 
                 ],
             "struct" => [
 
-               "title"=>[ "label"=>"Titre", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title"],
+               "title"=>[ "label"=>"", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title"],
 
-                "content"=>[ "label"=>"Nom", "type"=>"textarea", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content"],
+                "content"=>[ "label"=>"", "type"=>"texteditor", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content"],
 
-                "excerpt"=>[ "label"=>"Excerpt", "type"=>"text", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt"],
+                "excerpt"=>[ "label"=>"", "type"=>"text", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt"],
 
-                "description"=>[ "label"=>"Description", "type"=>"textarea", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description"],
+                "description"=>[ "label"=>"", "type"=>"textarea", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description"],
 
 
                 "slug"=>[ "label"=>"Slug", "type"=>"text", "id"=>"slug", "placeholder"=>"Slug", "required"=>1, "msgerror"=>"slug"],
                 
                 "datepublied"=>[ "label"=>"Date de publication", "type"=>"date", "id"=>"datepublied", "placeholder"=>"Date", "required"=>1, "msgerror"=>"datetime-local"],
 
+                "time"=>[ "label"=>"Heure de publication", "type"=>"time", "id"=>"time", "placeholder"=>"Heure", "required"=>1, "msgerror"=>"time"],
+
                 "status"=>[ "label"=>"Statut", "type"=>"select", "id"=>"status", "placeholder"=>"Status", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'brouillon','2'=>'programmé','3'=>'publié']],
                 
-                "visibility"=>[ "label"=>"visibility", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement']],
+                "visibility"=>[ "label"=>"Visibilité", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement']],
 
-                "draft"=>[ "label"=>"brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0],
+                "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
 
-                "save"=>[ "label"=>"publier", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+                "save"=>[ "label"=>"Publier", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
 
                 
             ]

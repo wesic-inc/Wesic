@@ -45,7 +45,7 @@ class View{
 
 	public function __destruct(){
 
-		global $a, $c;
+		global $a, $c, $sitename	;
 		extract($this->data);
 
 		include $this->template;

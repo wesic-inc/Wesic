@@ -1,23 +1,20 @@
-<?php require('views/templates/navbar-admin.tpl.php'); ?>
-<h1 class="page-title"><span class="icon-home">
-
-		</span>	 Accueil </h1>
-		<span class="icon-menu menu-dashboard visible-lg"> </span>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 bloc ignore-me welcome-bloc">
-					<span class="icon-cross bloc-close">
-					</span>
+<?php require('views/templates/navbar-admin-sidebar.tpl.php'); ?>
+<div class="content-wrapper" id="main-container">
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-md-6">
+				<div class="col-md-12 bloc welcome-bloc">
+					<span class="icon-cross bloc-close"></span>
 					<header>
 						<h2 class="bloc-title"> Bienvenue sur Wesic ! </h2>
 						<span class="bloc-subtitle"> Nous vous avons préparé de quoi partir du bon pied </span>
 					</header>
 					<article class="welcome-article">
 						<div class="row">
-							<div class="col-md-7">
+							<div class="col-md-6">
 								<p> Nous sommes là pour vous aidez à promouvoir votre musique ! Wesic n’est pas un CMS classique. Il a été conçu par des musiciens pour des musiciens. Il répond aux besoins actuels d’un groupe ou d’un artiste en terme de site web. Amusez vous bien ! <i> - L’équipe de Wesic Inc.</i></p> 
 							</div>
-							<div class="col-offset-md-1 col-md-4 text-center welcome-start">
+							<div class="col-md-6 text-center welcome-start">
 								<a href="#" class="btn btn-lg welcome-btn"> Démarage rapide </a>
 								<p class="subtext"> Vous découvrez notre outil pour la première fois ? Essayez le démarage rapide ! </p>
 							</div>
@@ -33,7 +30,7 @@
 						</header>
 						<article class="links-article">
 							<div class="row">
-								<div class="col-lg-5 col-md-6 theme-links">
+								<div class="col-md-12 theme-links">
 									<header>Apparence</header>
 									<content>
 										<ul>
@@ -47,7 +44,7 @@
 											<li><a href="#"> Découvrez notre documentation</a></li>
 										</content>
 									</div>
-									<div class="col-lg-5 col-md-6 pub-links">
+									<div class="col-md-12 pub-links">
 										<header>Publication</header>
 										<content>
 											<ul>
@@ -62,7 +59,7 @@
 												</ul>
 											</content>
 										</div>
-										<div class="col-lg-2 more-links">
+										<div class="col-lg-12 more-links">
 											<header>Et plus encore...</header>
 											<content>
 												<ul>
@@ -75,7 +72,31 @@
 									</div>
 								</article>
 							</div>
-							<div class="col-lg-6 bloc gutter-bloc quick-view">
+														<div class="col-lg-12 bloc gutter-bloc stats">
+								<span class="icon-menu bloc-close"> </span>
+								<header>
+									<h2 class="bloc-title"><span class="icon-stats-dots"></span> Statistiques</h2>
+								</header>
+								<article>
+									<ul class="numbers">
+										<li><span>4400</span><p> utilisateurs unique les 30 derniers jours</p></li>
+										<li><span>15</span><p> nouveaux commentaires aujourd’hui</p></li>
+										<li><span>+50%</span><p> de traffic sur les 30 derniers jours</p></li>
+									</ul>
+									<img src="../public/img/chart.png">
+
+									<ul class="btns">
+										<li><a href="#" class="btn btn-sm"> 1 an </a></li>
+										<li><a href="#" class="btn btn-sm"> 6 mois </a></li>
+										<li><a href="#" class="btn btn-sm"> 3 mois </a></li>
+										<li><a href="#" class="btn btn-sm active"> 30 jours </a></li>
+										<li><a href="#" class="btn btn-sm"> Aujourd'hui </a></li>
+									</ul>
+								</article>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-lg-12 bloc quick-view">
 								<span class="icon-menu bloc-close">
 								</span>
 								<header>
@@ -99,9 +120,8 @@
 									<p> Wesic est en version alpha-0.1 avec le thème <span> Minimalism </span> </p>
 									<a class="btn btn-lg update-wesic"> Mettre à jour </a>
 								</article>
-
 							</div>
-							<div class="col-lg-6 bloc gutter-bloc-r activity">
+							<div class="col-lg-12 bloc activity">
 								<span class="icon-menu bloc-close"> </span>
 								<header>
 									<h2 class="bloc-title"><span class="icon-earth"></span> Activité</h2>
@@ -117,29 +137,7 @@
 									</ul>
 								</article>
 							</div>
-							<div class="col-lg-6 bloc gutter-bloc stats">
-								<span class="icon-menu bloc-close"> </span>
-								<header>
-									<h2 class="bloc-title"><span class="icon-stats-dots"></span> Statistiques</h2>
-								</header>
-								<article>
-									<ul class="numbers">
-										<li><span>4400</span><p> utilisateurs unique les 30 derniers jours</p></li>
-										<li><span>15</span><p> nouveaux commentaires aujourd’hui</p></li>
-										<li><span>+50%</span><p> de traffic sur les 30 derniers jours</p></li>
-									</ul>
-									<img src="../public/img/chart.png">
-
-									<ul class="btns">
-										<li><a href="#" class="btn btn-sm"> 1 an </a></li>
-										<li><a href="#" class="btn btn-sm"> 6 mois </a></li>
-										<li><a href="#" class="btn btn-sm"> 3 mois </a></li>
-										<li><a href="#" class="btn btn-sm active"> 30 jours </a></li>
-										<li><a href="#" class="btn btn-sm"> Aujourd'hui </a></li>
-									</ul>
-								</article>
-							</div>
-							<div class="col-lg-6 bloc gutter-bloc-r last-comments">
+														<div class="col-md-12 bloc last-comments">
 								<span class="icon-menu bloc-close"> </span>
 								<header>
 									<h2 class="bloc-title"><span class="icon-bubbles"></span> Derniers commentaires</h2>
@@ -189,3 +187,4 @@
 							</div>
 						</div>
 					</div>
+				</div>

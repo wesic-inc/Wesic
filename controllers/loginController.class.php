@@ -16,17 +16,17 @@ class loginController{
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(empty($errors)){
-				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:header("Location: /");
+				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:header("Location: /admin");
 			}
 		}
 
-
 		$v = new View();
-		$v->setView("login/login");
+		$v->setView("login/login","templateadmin");
 		$v->assign("title", "Connexion");
 		$v->assign("description", "Connexion");
 		$v->assign("config", $form);
 		$v->assign("errors", $errors);
+
 	}
 	public function logoutAction($args){
 		Auth::logoutUser();
@@ -53,5 +53,28 @@ class loginController{
 		$v->assign("description", "Inscription");
 		$v->assign("config", $form);
 		$v->assign("errors", $errors); 
+	}
+
+	public static function getNewPasswordAction($args){
+		
+		$recovery = new Passwordrecovery();
+		$form = $recovery->getFormNewPassword();
+		$errors = [];
+
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+		$errors = Validator::check($form["struct"], $args['post']);
+
+			if(empty($errors)){
+				!Validator::process($form["struct"], $args['post'], 'newpassword')?$errors=["login404"]:header("Location: /admin");
+			}
+		}
+
+		$v = new View();
+		$v->setView("login/newpassword","templateadmin");
+		$v->assign("title", "Nouveau mot de passe");
+		$v->assign("description", "Connexion");
+		$v->assign("config", $form);
+		$v->assign("errors", $errors);
 	}
 }

@@ -6,11 +6,11 @@
 		<meta name="description" content="description de ma page">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-		<link rel="icon" type="image/png" href="/public/img/favicon.png" />
+		<link rel="icon" type="image/png" href="/public/img/light.png" />
 		
 		<link rel="stylesheet" type="text/css" href="/public/css/admin.css">
 		<link rel="stylesheet" href="/public/icomoon/style.css"></head>
-		<link rel="stylesheet" href="/public/css/ui/trumbowyg.min.css"></head>
+		<link rel="stylesheet" href="/public/js/trumbowyg/ui/trumbowyg.min.css"></head>
 
 	</head>
 	<body>

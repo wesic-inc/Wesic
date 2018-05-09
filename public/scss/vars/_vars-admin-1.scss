@@ -17,27 +17,26 @@ $gutter: 20px;
 $lato: 'Lato', sans-serif;
 $roboto: 'Roboto', sans-serif;
 
-
-
-
-
 $primary-color: #F83E48;
-$bloc-color: #2E2E2E;
-$bg-color: #595959;
-$form-color: #212121;
+$link-color-light: #F0F0F0;
+$link-color-dark: #010101;
+$bloc-color: #FFFFFF;
+$bg-color: #f9f9f9;
+$form-color: #FFF;
 $subtext-color: #7D7D7D;
 
 $white: #FFFFFF;
+$black: #000;
+
+$stripped-1: #f0edf7;
+$stripped-2: #f8f8fd;
 
 $darker1: $form-color;
-$darker2: #2E2727;
+$darker2: #232323;
 $darker3: #737373;
-$darker1-lite: #4d4d4d;
-$darker2-lite: #5C5C5C;
-$darker3-lite: #9C9C9C;
 
-$input-bg: #171717;
-$input-border: 1px solid #262626;
+$input-bg: #f8f8fd;
+$input-border: 1px solid #EFEFFA;
 $input-radius: 4px;
 $input-height: 30px;
 

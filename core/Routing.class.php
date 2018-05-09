@@ -70,9 +70,13 @@ public static function makeRouting(){
 	$uri = $_SERVER['REQUEST_URI'];
 	$explode_uri = explode("?", $uri);
 	$uri = explode('/',$explode_uri[0]);
+	$params = $uri;
 	$uri = $uri[0].'/'.$uri[1].'/'.$uri[2];
 	
 	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
+	unset($params[0]);
+	unset($params[1]);
+	unset($params[2]);
 
 	foreach($rof['routing'] as $rules) {
 
@@ -84,7 +88,8 @@ public static function makeRouting(){
 			$args = [
 				'request'=>$_REQUEST,
 				'post'=>$_POST,
-				'get'=>$_GET
+				'get'=>$_GET,
+				'params'=> array_values($params)
 			];
 
 		}

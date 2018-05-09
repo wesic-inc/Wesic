@@ -39,11 +39,11 @@ class validator{
 				unset($listErrors[array_keys($listErrors, 'password2')[0]]);
 		}
 
-		// echo "<pre>";
-		// var_dump($listErrors);
-		// var_dump($data);
-		// var_dump($struct);
-		// die();
+/*		echo "<pre>";
+		var_dump($listErrors);
+		var_dump($data);
+		var_dump($struct);
+		die();*/
 		return $listErrors;
 	}
 
@@ -62,6 +62,8 @@ class validator{
 				case 'categorynew':
 					return Category::newCategory($data);
 					break;
+				case 'newpassword':
+					return Passwordrecovery::sendResetPassword($data);
 				default:
 					return false;
 					break;

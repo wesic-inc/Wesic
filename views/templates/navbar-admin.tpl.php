@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar">
+    <nav class="navbar navbar-fixed">
       <a href="index.html">
         <img class="navbar-icon" src="../public/img/dark.svg">
       </a>

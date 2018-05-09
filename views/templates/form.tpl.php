@@ -12,7 +12,6 @@
 	}
 ?>
 
-
 <?php if($form["options"]["groups"] == true): ?>
 
 <?php Form::render($form, $data, 'group'); ?>

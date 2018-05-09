@@ -10,27 +10,32 @@ body {
 }
 
 #hamburger-menu.is-active .line:nth-child(1){
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 #hamburger-menu.is-active .line:nth-child(3){
-  transform: translateY(-9px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 #hamburger-menu.is-active:hover .line{
   background: $primary-color;
 }
 
+
 #hamburger-menu {
   position: absolute;
-  right: 10px;
+  left: 220px;
   top: 10px;
+}
+
+#hamburger-menu.collapsed{
+  left: 90px;
 }
 
 .hamburger .line {
   width: 20px;
-  height: 2px;
-  background-color: $white;
+  height: 3px;
+  background-color: $darker3;
   display: block;
   margin: 5px auto;
   transition: all 0.3s ease-in-out;
@@ -41,11 +46,9 @@ body {
 }
 
 .navbar-icon{
-  float: left;
   height:38px;
   width: 38px;
-  margin-top: 6px;
-  margin-left: 6px;
+  margin-left: 10px;
 }
 
 #menu.is-active{
@@ -55,49 +58,6 @@ body {
 
 #menu{
   height:0;
-}
-
-nav.navbar{
-  position: relative;
-  height: $navbar-height;
-  background: $navbar-color;
-  font-size: $navbar-font-size;
-  font-family: $lato;
-  color: $white;
-  box-shadow: $bloc-shadow;
-  z-index: 999;
-  ul.nav{
-    border-top: 1px solid $form-color;
-    text-decoration: none;
-    background: $navbar-color;
-    box-shadow: $bloc-shadow;
-    padding-top: 50px;
-    padding-bottom: 20px;
-    text-align: center;
-    display: none;
-    li{ 
-      width:100%;
-      margin-top:20px;
-      margin-bottom:20px;
-
-      a{
-        color: $white;
-        padding-top:20px;
-        padding-left:50px;
-        padding-right:50px;
-      }
-      a:hover{
-        color: $primary-color;
-      }
-      a.active  {
-        color: $primary-color;
-        font-weight: 600;
-      }
-    }
-    .dropdown{
-      display: none;
-    }
-  }
 }
 
 .user-menu{
@@ -122,11 +82,136 @@ nav.navbar{
     width: 40px;
     border-radius: 50px;
   }
-  img.cicon-carret {
-    display:none;
-  }
+  .carret-down-user {
+   transform: rotate(90deg);
+   font-size: 20px;
+   margin-left: 10px;
+   position: relative;
+   top: -5px;
+ }
+
 }
 
+.navbar-fixed{
+  position: fixed !important;
+  top:0;
+  left:0;
+  width:100%;
+  margin-bottom: 30px;
+}
+
+.navbar-sidebar{
+  z-index: 999;
+  width: 200px;
+  height:100vh;
+  position: fixed;
+  top:0;
+  left: 0;
+  box-shadow: $bloc-shadow;
+  background-color: $darker2;
+
+  &.collapsed {
+    width: 60px;
+    .link-text{
+      display: none;
+    }
+  }
+  ul{
+    width: 100%;
+    margin-top:15px;
+    font-size: 15px;
+    li{
+      padding-top:10px;
+      padding-bottom:10px;
+      &:hover{
+        background: #000;
+      }
+      a{
+        padding: 20px 10px;
+        color:  $link-color-light;
+        span{
+          margin-right: 5px;
+        }
+      }
+      a:hover li{
+        background: $subtext-color;
+      }
+    }
+  }
+  .dropdown{
+    display: none;
+    background-color: $link-color-dark;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+  .siteinfo{
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background: #000;
+    a{
+      color: #FFF;
+    }
+    span{
+      position: relative;
+      top: -15px;
+    }
+  }
+
+.nav li.active{
+  border-right: 2px solid $primary-color;
+}
+
+.is-open{
+  background: $black;
+}
+
+   span.icon{
+    color: $link-color-light; 
+    margin-left: 10px;
+    font-size: 18px;  
+  }
+  .link-text{
+    margin-left:10px;
+  }
+}
+#main-container.collapsed{
+  margin-left: 260px;
+}
+
+.content-wrapper{
+  margin-left: 120px;
+  min-height: 100vh;
+  margin-right: 60px;
+  margin-top:50px;
+}
+
+span.icon-ctrl.carret-down {
+  transform: rotate(180deg);
+  float: right;
+  margin-right: 17px;
+}
+
+.is-open > .carret-down {
+  transform: rotate(0deg);
+}
+.is-open .dropdown{
+  display: block;
+}
+
+.collapsed .dropdown{
+  display: none;
+}
+
+.second-navbar{
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  background: rgba(255,255,255,.9);
+  border-bottom: 1px solid #e7e7e7;;
+}
 @media (min-width: 992px) and (max-width: 1199px) {
 
 }
@@ -135,6 +220,7 @@ nav.navbar{
   nav.navbar{
 
     ul.nav{
+
       text-decoration:none;
       line-height:50px;
       width: 960px;
@@ -164,20 +250,26 @@ nav.navbar{
         }
       }
       .dropdown{
-        background-color: $bloc-color;
-        border-radius: $input-radius;
-        padding-top: 10px;
+        display: none;
+        padding: 0;
+        background-color: $input-bg;
+        border-radius-bottom-left: $input-radius;
+        border-radius-bottom-right: $input-radius;
+        padding-top: 5px;
         padding-bottom: 10px;
         margin-top:10px;
         position: absolute;
         box-shadow: $light-shadow;
-        top: 43px;
+        top: 40px;
         width: 170px;
         li{
           display:block;
         }
         li:hover{
-          background: $input-bg
+          background: $bloc-color;
+          a{
+            color: $primary-color;
+          }
         }
         a:hover{
           color: $white;
@@ -198,7 +290,7 @@ nav.navbar{
     right: 30px;
     top: 7px;
     a{
-      color: $white;
+      color: $black;
     }
     a:hover{
       color: $primary-color;
@@ -220,6 +312,7 @@ nav.navbar{
       bottom: 8px;
       left: 12px;
       display:inline-block;
+      color: $black;
     }
   }
 
