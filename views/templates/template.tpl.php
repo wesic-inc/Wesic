@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title><?php if(isset($title)) echo $title ?></title>
 		<meta name="description" content="description de ma page">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no">
 
 		<link rel="icon" type="image/png" href="/public/img/favicon.png" />
 

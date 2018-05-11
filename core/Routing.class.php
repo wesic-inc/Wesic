@@ -84,7 +84,9 @@ public static function getPermissionsDev( $route ){
 public static function makeRouting(){
 
 	global $rof;
-
+	global $a;
+	global $c;
+	
 	$uri = $_SERVER['REQUEST_URI'];
 	$explode_uri = explode("?", $uri);
 	$uri = explode('/',$explode_uri[0]);

@@ -116,6 +116,11 @@ body {
 .btn-add {
   margin-left: 20px; }
 
+@media (max-width: 768px) {
+  .btn-add {
+    margin: 20px;
+    display: block;
+    text-align: center; } }
 .search-input {
   width: 300px; }
 
@@ -747,7 +752,8 @@ body {
 #hamburger-menu {
   position: absolute;
   left: 90px;
-  top: 10px; }
+  top: 10px;
+  z-index: 1001; }
 
 .hamburger .line {
   width: 20px;
@@ -776,7 +782,8 @@ body {
   font-size: 14px;
   position: absolute;
   right: 50px;
-  top: 5px; }
+  top: 5px;
+  z-index: 1000; }
   .user-menu a {
     color: #FFFFFF; }
   .user-menu a:hover {
@@ -892,6 +899,29 @@ span.icon-ctrl.carret-down {
   .second-navbar.collapsed {
     left: 140px; }
 
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin-left: 20px;
+    min-height: 100vh;
+    margin-right: 20px;
+    margin-top: 50px; }
+
+  .navbar-sidebar.collapsed {
+    display: none; }
+
+  #hamburger-menu {
+    left: 10px; }
+
+  #hamburger-menu.is-active {
+    left: 80px !important; }
+
+  .user-menu {
+    display: none; }
+
+  .breadcrumb {
+    text-align: center;
+    width: 100%;
+    left: 0; } }
 @media (min-width: 1200px) {
   nav.navbar ul.nav {
     text-decoration: none;
@@ -1064,6 +1094,10 @@ label.label-input {
       padding-bottom: 6px; }
     .table tfoot tr td:nth-child(2) {
       text-align: left; }
+  .table tbody tr:nth-child(odd) {
+    background-color: #e8e8f8; }
+  .table tbody tr:nth-child(even) {
+    background-color: #f8f8fd; }
   .table tbody tr td:nth-child(2) {
     text-align: left; }
     .table tbody tr td:nth-child(2) ul {
@@ -1078,6 +1112,67 @@ label.label-input {
         font-weight: initial;
         margin-left: 0.5em; }
 
+@media screen and (max-width: 768px) {
+  table {
+    border: 0; }
+
+  .entity-key {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center !important; }
+
+  .grid-actions {
+    width: 100%;
+    display: block;
+    text-align: center; }
+
+  table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em; }
+
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center; }
+
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase; }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; }
+
+  table tfoot {
+    display: none; }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+    background: #f0edf7; }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    text-align: right; }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase; }
+
+  table td:last-child {
+    border-bottom: 0; } }
 .table-bordered tr, .table-bordered td {
   border: 1px solid #f8f8fd;
   border-collapse: 1px; }
@@ -1087,7 +1182,6 @@ ul.grid-actions {
   ul.grid-actions li {
     font-size: 14px; }
 
-/* Customize the label (the container) */
 .checkbox-container {
   display: block;
   position: relative;
@@ -1099,13 +1193,12 @@ ul.grid-actions {
   -ms-user-select: none;
   user-select: none; }
 
-/* Hide the browser's default checkbox */
 .checkbox-container input {
   position: absolute;
   opacity: 0;
-  cursor: pointer; }
+  cursor: pointer;
+  display: none; }
 
-/* Create a custom checkbox */
 .checkmark {
   position: absolute;
   top: -5px;
@@ -1123,25 +1216,20 @@ ul.grid-actions {
   left: 8px;
   top: -7px; }
 
-/* On mouse-over, add a grey background color */
 .checkbox-container:hover input ~ .checkmark {
   background-color: #ccc; }
 
-/* When the checkbox is checked, add a blue background */
 .checkbox-container input:checked ~ .checkmark {
   background-color: #F83E48; }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none; }
 
-/* Show the checkmark when checked */
 .checkbox-container input:checked ~ .checkmark:after {
   display: block; }
 
-/* Style the checkmark/indicator */
 .checkbox-container .checkmark:after {
   left: 5px;
   top: 1px;

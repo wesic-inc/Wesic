@@ -3,7 +3,8 @@
 				<div class="col-md-12 bloc article-bloc">
 					<a href="ajouter-utilisateur" class="btn btn-sm btn-add">Ajouter un utilisateur</a></h1> 
 					<header>
-						<input type="text" class="search-input sm-input" ><a href="#" class="btn btn-sm btn-alt">Rechercher</a> 
+						<input type="text" class="search-input sm-input hidden-xs" >
+						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
 					</header>
 					<article>
 						<ul class="inline">
@@ -21,10 +22,10 @@
 								<span class="checkmark checkmark-header"></span>
 							</label></th>
 									<th>Identifiant</th>
-									<th class="hidden-sm hidden-xs">Nom</th>
-									<th class="hidden-sm hidden-xs">E-mail</th>
-									<th class="hidden-sm hidden-xs">Rôle</th>
-									<th class="hidden-sm hidden-xs">Posts</th>
+									<th>Nom</th>
+									<th>E-mail</th>
+									<th>Rôle</th>
+									<th>Posts</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -34,31 +35,31 @@
 								<span class="checkmark checkmark-footer"></span>
 							</label></td>
 									<td>Identifiant</td>
-									<td class="hidden-sm hidden-xs">Nom</td>
-									<td class="hidden-sm hidden-xs">E-mail</td>
-									<td class="hidden-sm hidden-xs">Rôle</td>
-									<td class="hidden-sm hidden-xs">Posts</td>
+									<td>Nom</td>
+									<td>E-mail</td>
+									<td>Rôle</td>
+									<td>Posts</td>
 								</tr>
 							</tfoot>
 							<tbody>
 
 								<?php foreach($users as $user): ?>
-								<tr>
-									<td><label class="checkbox-container">
+								<tr ">
+									<td class="hidden-xs"><label class="checkbox-container">
 								<input type="checkbox">
 								<span class="checkmark"></span>
 							</label></td>
-									<td><a href="#post=id"><?php echo $user['login']; ?></a>
+									<td class="entity-key"><a href="#post=id"><?php echo ucfirst($user['login']); ?></a>
 										<ul class="grid-actions">
 											<a href="/admin/afficher-utilisateur/<?php echo $user['id']; ?>"><li>Afficher</li></a>
 											<a href="/admin/modifier-utilisateur/<?php echo $user['id']; ?>"><li>Modifier</li></a>
 											<a href="#"><li>Supprimer</li></a>
 										</ul>
 									</td>
-									<td class="hidden-sm hidden-xs"><?php echo $user['name']; ?></td>
-									<td class="hidden-sm hidden-xs"><a href="#"><?php echo $user['email']; ?></a></td>
-									<td class="hidden-sm hidden-xs"><?php echo Format::getRole($user['role']); ?></td>
-									<td class="hidden-sm hidden-xs">0</td>
+									<td data-label="Nom"><?php echo $user['lastname']." ".$user['firstname']; ?></td>
+									<td data-label="E-mail"><a href="#"><?php echo $user['email']; ?></a></td>
+									<td data-label="Rôle"><?php echo Format::getRole($user['role']); ?></td>
+									<td data-label="Posts">0</td>
 
 								</tr>
 							<?php endforeach; ?>
@@ -66,7 +67,7 @@
 						</table>
 					</article>
 					<footer>
-						<ul class="inline">
+						<ul class="inline hidden-xs">
 							<li>Actions groupées :  </li>
 							<li><a href="#"> Place dans la corbeille</a></li>
 							<li><a href="#">Dépublier</a></li>

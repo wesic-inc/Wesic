@@ -4,6 +4,7 @@ class mediaController{
 
 		public function indexAction($args){
 
-		echo "media !";
+		$v = new View();
+		$v->setView("dev/template","templateadmin");
 	}
 }

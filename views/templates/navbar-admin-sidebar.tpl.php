@@ -12,8 +12,8 @@
 	</div>
 
 	<ul class="nav" id="menu">
-		<li class="active"><a href="<?php echo ROOT_URL ?>admin" class="active"><span class="icon icon-home"></span><span class="link-text">Dashboard</span></a></li>
-		<li class="dropdown-link">
+		<li class="<?php echo ($c == "admin" && $a == "index" )?"active":"";?>"><a href="<?php echo ROOT_URL ?>admin"><span class="icon icon-home"></span><span class="link-text">Dashboard</span></a></li>
+		<li class="dropdown-link <?php echo ($c == "article" && $a == "allArticles" )?"active":"";?>">
 			</span><a href="#""><span class="icon icon-newspaper"></span><span class="link-text">Articles <span class="icon-ctrl carret-down" id="dropdown-toggle"></span></span></a>
 			<div class="dropdown">
 				<ul> 
@@ -24,7 +24,7 @@
 				</ul>
 			</div>
 		</li>
-		<li class="dropdown-link" ><a href="#"><span class="icon icon-file-empty"></span><span class="link-text">Pages<span class="icon-ctrl carret-down"></span></span></a>
+		<li class="dropdown-link <?php echo ($c == "comment" && $a == "index" )?"active":"";?>" ><a href="#"><span class="icon icon-file-empty"></span><span class="link-text">Pages<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
 				<ul> 
 					<li><a href="<?php echo ROOT_URL ?>admin/pages">Toutes les pages</a> </li> 
@@ -32,7 +32,7 @@
 				</ul>
 			</div>
 		</li>
-		<li><a href="<?php echo ROOT_URL ?>admin/medias"><span class="icon icon-images"></span><span class="link-text">Médias</span></a></li>
+		<li classs="<?php echo ($c == "comment" && $a == "index" )?"active":"";?>"><a href="<?php echo ROOT_URL ?>admin/medias"><span class="icon icon-images"></span><span class="link-text">Médias</span></a></li>
 		<li class="dropdown-link" >
 			 
 			<a href="#"><span class="icon icon-alarm"></span><span class="link-text">Evènements<span class="icon-ctrl carret-down"></span></span></a>
@@ -43,9 +43,9 @@
 				</ul>
 			</div>
 		</li>
-		<li><a href="<?php echo ROOT_URL ?>admin/commentaires"><span class="icon icon-bubbles2"></span><span class="link-text">Commentaires</span></a></li>
-		<li><a href="<?php echo ROOT_URL ?>admin/utilisateurs"><span class="icon icon-users"></span><span class="link-text">Utilisateurs</span></a></li>
-		<li class="dropdown-link"> 
+		<li class="<?php echo ($c == "comment" && $a == "index" )?"active":"";?>"><a href="<?php echo ROOT_URL ?>admin/commentaires"><span class="icon icon-bubbles2"></span><span class="link-text">Commentaires</span></a></li>
+		<li class="<?php echo ($c == "user" && $a == "allUsers" )?"active":"";?>"><a href="<?php echo ROOT_URL ?>admin/utilisateurs"><span class="icon icon-users"></span><span class="link-text">Utilisateurs</span></a></li>
+		<li class="dropdown-link <?php echo ($c == "theme" && $a == "index" )?"active":"";?>"> 
 			<a href="#"><span class="icon icon-paint-format"></span><span class="link-text">Apparence<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
 				<ul> 
@@ -54,7 +54,7 @@
 					<li><a href="<?php echo ROOT_URL ?>admin/theme-creator">Theme Creator</a> </li>  
 				</ul>
 			</div></li>
-			<li ><a href="<?php echo ROOT_URL ?>admin/parametres"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres</span></a></li>
+			<li class="<?php echo ($c == "settings" && $a == "index" )?"active":"";?>"><a href="<?php echo ROOT_URL ?>admin/parametres"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres</span></a></li>
     </ul>
 </div>
 

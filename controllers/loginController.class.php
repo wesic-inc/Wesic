@@ -21,7 +21,7 @@ class loginController{
 		}
 
 		$v = new View();
-		$v->setView("login/login","templateadmin");
+		$v->setView("login/login","templateadmin-modal");
 		$v->assign("title", "Connexion");
 		$v->assign("description", "Connexion");
 		$v->assign("config", $form);
@@ -71,7 +71,7 @@ class loginController{
 		}
 
 		$v = new View();
-		$v->setView("login/newpassword","templateadmin");
+		$v->setView("login/newpassword","templateadmin-modal");
 		$v->assign("title", "Nouveau mot de passe");
 		$v->assign("description", "Connexion");
 		$v->assign("config", $form);

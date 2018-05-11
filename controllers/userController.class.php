@@ -12,7 +12,8 @@ class userController {
 
 		$user = new User();
 		$usersRes = $user->getData('user');
-		$elementNumber = count(usersRes);
+		$elementNumber = count($usersRes);
+
 
 		$v = new View();
 		$v->setView("cms/users","templateadmin");

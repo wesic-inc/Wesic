@@ -26,6 +26,7 @@ body {
   position: absolute;
   left: 90px;
   top: 10px;
+  z-index: 1001;
 }
 .hamburger .line {
   width: 20px;
@@ -60,6 +61,7 @@ body {
   position: absolute;
   right: 50px;
   top: 5px;
+  z-index: 1000;
   a{
     color: $white;
   }
@@ -209,6 +211,32 @@ span.icon-ctrl.carret-down {
   &.collapsed{
     left:140px;
   }
+}
+@media (max-width: $sm-max){
+
+.content-wrapper{
+  margin-left: 20px;
+  min-height: 100vh;
+  margin-right: 20px;
+  margin-top:50px;
+}
+.navbar-sidebar.collapsed{
+  display:none;
+}
+#hamburger-menu{
+  left:10px;
+}
+#hamburger-menu.is-active{
+  left:80px !important;
+}
+ .user-menu{
+    display:none;
+  }
+.breadcrumb{
+      text-align: center;
+    width: 100%;
+    left:0;
+}
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 

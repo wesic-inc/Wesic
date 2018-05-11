@@ -149,6 +149,14 @@ body{
 	margin-left: 20px
 }
 
+@media (max-width: $sm-max){
+	.btn-add{
+		margin: 20px;
+		display: block;
+		text-align: center;
+	}
+}
+
 .search-input{
 	width: 300px;
 }
