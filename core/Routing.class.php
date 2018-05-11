@@ -46,10 +46,6 @@ public static function getPermissionsDev( $route ){
 	$connected = Auth::isConnected();
 	$rights = Auth::getRights();
 
-	// $rights = Auth::isAdmin();
-
-	/*var_dump($rights);
-	die();*/
 	
 	switch ($route['r']) {
 		case 'admin':
@@ -120,7 +116,7 @@ public static function makeRouting(){
 	if($c == NULL && $a == NULL){
 
 		$slug = new Slug();
-		$slugFound = $slug->getData('slug',['slug'=>$uri]);
+		$slugFound = $slug->getData('slug',['slug'=>$uri])[0];
 
 		if(empty($slugFound)){
 			$c = 'error';
@@ -140,8 +136,13 @@ public static function makeRouting(){
 					$a = 'single';
 					break;
 				case 4:
-					$c = 'mail';
-					$a = 'token';
+					$c = 'user';
+					$a = 'newPasswordConfirmation';
+					$args['token'] = $slugFound['slug']; 
+					break;
+				case 5:
+					$c = 'user';
+					$a = 'newAccountConfirmation';
 					break;
 				default:
 					$c = 'error';
@@ -151,7 +152,6 @@ public static function makeRouting(){
 			$r = 'all';
 		}
 	}
-
 	return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $args ];
 }
 }

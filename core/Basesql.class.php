@@ -20,8 +20,8 @@ class basesql{
 		
 
 		$this->columns = array_diff_key(
-					get_object_vars($this), 
-					get_class_vars(get_class()));
+			get_object_vars($this), 
+			get_class_vars(get_class()));
 	}
 
 
@@ -29,38 +29,52 @@ class basesql{
 
 		$this->setColumns();
 
+
 		if( $this->id ){
 
 			foreach ($this->columns as $key => $value) {
-					if(isset($value) ){
-						$sqlSet[] = $key."=:".$key;
-					}else{
-						unset($this->columns[$key]);
-					}
+				if(isset($value) ){
+					$sqlSet[] = $key."=:".$key;
+				}else{
+					unset($this->columns[$key]);
 				}
+			}
 
 			$query = $this->pdo->prepare(" UPDATE ".$this->table." SET ".implode(", ", $sqlSet)." WHERE id=:id ");
 			$query->execute($this->columns);
-
 
 		}else{
 
 			unset($this->columns['id']);
 
 			$query = $this->pdo->prepare("
-					INSERT INTO ".$this->table." 
-					(". implode(",", array_keys($this->columns)) .")
-					VALUES
-					(:". implode(",:", array_keys($this->columns)) .")
+				INSERT INTO ".$this->table." 
+				(". implode(",", array_keys($this->columns)) .")
+				VALUES
+				(:". implode(",:", array_keys($this->columns)) .")
 				");
 
 			$query->execute($this->columns);
 
 		}
-		
-
-
 	}
+		
+	function delete() {
+
+		$this->setColumns();
+
+			$query = $this->pdo->prepare("DELETE FROM ".$this->table." WHERE id=:id ");
+			$query->execute(array("id" => $this->columns["id"]));
+		
+	}
+
+	function flagDelete() {
+		$this->setColumns();
+
+		$query = $this->pdo->prepare("UPDATE ".$this->table." SET status= 5 WHERE id=:id");
+		$query->execute(array("id" => $this->columns["id"]));
+	}
+
 	function getData($table, $condition = [], $operator = [], $orderby = "", $groupby = "", $limit = [], $columns = "*" ){
 		$sql = 'SELECT '. $columns .' FROM '.$table.' ';
 
@@ -117,22 +131,24 @@ class basesql{
 
 	function slugExists($slug){
 
-        $sql = "SELECT slug FROM article
-        		WHERE slug = $slug
-				UNION
-				SELECT slug FROM event
-				WHERE slug = $slug
-				UNION
-				SELECT slug FROM category
-				WHERE slug = $slug
-				UNION
-				SELECT slug FROM page
-				WHERE slug = $slug";
+		$sql = "SELECT slug FROM article
+		WHERE slug = $slug
+		UNION
+		SELECT slug FROM event
+		WHERE slug = $slug
+		UNION
+		SELECT slug FROM category
+		WHERE slug = $slug
+		UNION
+		SELECT slug FROM page
+		WHERE slug = $slug
+		SELECT slug FROM passwordrecovery
+		WHERE slug = $slug;";
 
 		$query = $this->pdo->prepare($sql);
 		$query->execute($condition);
 		return $query->fetchAll();
 
-    }
+	}
 
 }

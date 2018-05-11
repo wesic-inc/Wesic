@@ -10,7 +10,8 @@ class Passwordrecovery extends Basesql{
 	protected $token;
 	protected $date;
     protected $user_id;
-	protected $slug;
+    protected $slug;
+	protected $type;
 
     /**
      * @return mixed
@@ -45,11 +46,15 @@ class Passwordrecovery extends Basesql{
      *
      * @return self
      */
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
+    public function setToken($token = null){
+        if( $token ){
+            $this->token = $token;
+        }else{
+            $this->token = substr(sha1("qzmldq2E2Eçqd".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("qDàqzdklqZ1".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("qlqdZMLD0é32".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("DZQlzqkdml2034".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+        }
     }
 
     /**
@@ -65,9 +70,9 @@ class Passwordrecovery extends Basesql{
      *
      * @return self
      */
-    public function setDate($date)
+    public function setDate()
     {
-        $this->date = $date;
+        $this->date = date('Y-m-d H:i:s');
 
         return $this;
     }
@@ -112,6 +117,19 @@ class Passwordrecovery extends Basesql{
         return $this;
     }
 
+    public function getType()
+    {
+        return $this->type;
+    }
+
+
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public static function getFormNewPassword(){
 
        return [
@@ -131,8 +149,29 @@ public static function sendResetPassword($login){
 
     if(User::loginExists($login)){
 
+
+        $passwordrecovery = new Passwordrecovery();
+        $cleanData = $passwordrecovery->getData('user',["login"=>$login])[0];
+
+
+
         $user = new User();
         $userFound = $user->getData('user',["login"=>$login])[0];
+
+        $passwordrecovery = new Passwordrecovery();
+        $passwordrecovery->setToken();
+        $passwordrecovery->setSlug($passwordrecovery->getToken());
+        $passwordrecovery->setType(1);
+        $passwordrecovery->setUserId($userFound['id']);
+
+        $slug = new Slug();
+        $slug->setSlug($passwordrecovery->getToken());
+        $slug->setType(4);
+
+        $slug->save();
+        $passwordrecovery->save();
+
+
 
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -149,10 +188,10 @@ public static function sendResetPassword($login){
             $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
 
             $mail->isHTML(true);
-            $mail->Subject = 'Réinitialiser votre mot de passe';
+            $mail->Subject = ucfirst($userFound['firstname']).', réinitialiser votre mot de passe';
             $message = file_get_contents('views/mail/passwordrecovery.tpl.php'); 
             $message = str_replace('%username%', ucfirst($userFound['firstname']), $message); 
-            $message = str_replace('%urlreset%', "http://".DOMAIN."/".$userFound['login'], $message);
+            $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
             $mail->Body = $message;
 
             

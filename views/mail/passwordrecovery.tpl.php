@@ -66,9 +66,9 @@
 
 								<tr>
 									<td class="align-center" style="font-size: 16px; line-height: 27px; color: #969696; padding: 10px;padding-bottom:30px" align="left">
-										<p class="align-left"> Bonjour <b> %username% </b>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p><br>
+										<p class="align-left"> Bonjour <b> %username% </b>, Nous avons reçu une demande de réinitialisation du mot de passe associé à cette adresse e-mail. Si vous êtes à l'origine de cette demande, suivez les instructions ci-dessous. Cliquez sur le bouton ci-dessous pour réinitialiser votre mot de passe à l'aide de notre serveur sécurisé : </p><br>
 									<a class="button " href="%urlreset%"> Réinitialiser mon mot de passe </a>
-
+									<p> Si vous n'avez pas demandé la réinitialisation de votre mot de passe, vous pouvez ignorer cet e-mail. </p>
 									</td>
 								</tr>
 							</table>

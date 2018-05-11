@@ -138,4 +138,27 @@ class userController {
 		$v->assign("errors", $errors);
 
 	}
+
+	public function newPasswordConfirmationAction($args){
+
+
+		$passwordrecovery = new Passwordrecovery();
+
+		$result = $passwordrecovery->getData('passwordrecovery',["token"=>$args['token']]);
+
+		$token_generated  = new DateTime($result['date']);
+		
+		
+
+		
+		if($token_generated->format('U') > $token_generated->format('U') + 86400 ) 
+		{     
+		    echo 'Trop vieux lien';
+		}
+		else
+		{
+		    echo 'Ok';
+		}
+
+	}
 }
