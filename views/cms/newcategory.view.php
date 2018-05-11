@@ -1,5 +1,3 @@
-<?php require('views/templates/navbar-admin.tpl.php'); ?>
-
 <h1 class="page-title"><span class="icon-newspaper">
 
 		</span>	 Catégories </h1> 

@@ -1,5 +1,4 @@
-<?php require('views/templates/navbar-admin-sidebar.tpl.php'); ?>
-<div class="content-wrapper" id="main-container">
+
 	<div class="container-fluid" >
 		<div class="row">
 			<div class="col-md-6">
@@ -117,7 +116,7 @@
 											</ul>
 										</div>
 									</div>
-									<p> Wesic est en version alpha-0.1 avec le thème <span> Minimalism </span> </p>
+									<p> Wesic est en version <?php echo WESIC_VERSION; ?> avec le thème <span> Minimalism </span> </p>
 									<a class="btn btn-lg update-wesic"> Mettre à jour </a>
 								</article>
 							</div>
@@ -186,5 +185,4 @@
 								</article>
 							</div>
 						</div>
-					</div>
 				</div>

@@ -2,10 +2,14 @@ $(document).ready(function(){
   $("#hamburger-menu").click(function(){
     $("#hamburger-menu").toggleClass("is-active");
     $('#navbar').toggleClass("collapsed");
-    $('#navbar').toggleClass("toggled");
-    $('#hamburger-menu').toggleClass("collapsed");
+    $('#navbar').toggleClass("toggled");;
     $('#main-container').toggleClass("collapsed");
-    $('#breadcrumb').toggleClass("collapsed");
+    $('#second-navbar').toggleClass("collapsed");
+    if($('#navbar').hasClass("toggled") == true){
+      document.cookie = "toggled-sidebar=false";
+    }else{
+      document.cookie = "toggled-sidebar=true";
+    }
   });
   $(".dropdown-link").click(function(){
     $(this).toggleClass("is-open");
@@ -13,19 +17,15 @@ $(document).ready(function(){
   $("#navbar").hover(
     function () {
      if(!$("#hamburger-menu").hasClass('is-active')){
-
        $('#navbar').removeClass("collapsed");
-       $("#hamburger-menu").toggleClass("collapsed");
-       $('#breadcrumb').toggleClass("collapsed");
        $('#navbar').toggleClass("toggled");
-
+       $('#second-navbar').toggleClass("collapsed");
      }
    },
    function () {
      if(!$("#hamburger-menu").hasClass('is-active')){
       $('#navbar').addClass("collapsed");
-      $("#hamburger-menu").toggleClass("collapsed");
-      $('#breadcrumb').toggleClass("collapsed");
+      $('#second-navbar').toggleClass("collapsed");
       $('#navbar').toggleClass("toggled");
 
     }

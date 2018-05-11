@@ -9,7 +9,8 @@ class Passwordrecovery extends Basesql{
 	protected $id;
 	protected $token;
 	protected $date;
-	protected $user_id;
+    protected $user_id;
+	protected $slug;
 
     /**
      * @return mixed
@@ -90,7 +91,26 @@ class Passwordrecovery extends Basesql{
 
         return $this;
     }
+    
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
+    /**
+     * @param mixed $slug
+     *
+     * @return self
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 
     public static function getFormNewPassword(){
 
@@ -107,12 +127,12 @@ class Passwordrecovery extends Basesql{
    ];
 
 }
-public static function sendResetPassword($data){
+public static function sendResetPassword($login){
 
-    if(User::loginExists($data['login'])){
+    if(User::loginExists($login)){
 
         $user = new User();
-        $userFound = $user->getData('user',["login"=>$data['login']])[0];
+        $userFound = $user->getData('user',["login"=>$login])[0];
 
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -124,7 +144,7 @@ public static function sendResetPassword($data){
             $mail->Password = 'wesic2018';           
             $mail->SMTPSecure = 'tls';                        
             $mail->Port = 587;
-
+            $mail->CharSet = "UTF-8";
             $mail->setFrom('wesic.corporate@gmail.com', 'Wesic Inc.');
             $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
 
@@ -142,4 +162,7 @@ public static function sendResetPassword($data){
             die();
         }
     }
+
+
+
 }

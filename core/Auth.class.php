@@ -2,9 +2,7 @@
 
 class Auth extends Basesql {
 
-	
 	static function isConnected(){
-
 
 		if(isset($_SESSION["token"])){
 			$user = new User();
@@ -26,12 +24,14 @@ class Auth extends Basesql {
 	}
 
 	static function isAdmin(){
+
 		if(!isset($_SESSION["token"])){
 			return FALSE;
 		}else{
 			$token = $_SESSION["token"];
 			$user = new User();
-			$user = $user->getData('users',["token"=>$token]);
+			$user = $user->getData('user',["token"=>$token]);
+
 			if(!empty($user[0])){
 				$userFound = $user[0];
 				if($userFound["role"] === "4" ){
@@ -41,8 +41,23 @@ class Auth extends Basesql {
 				}
 			}
 
+		}
+	}
 
+	static function getRights(){
+		if(!isset($_SESSION["token"])){
+			return FALSE;
+		}else{
+			$token = $_SESSION["token"];
+			$user = new User();
+			$user = $user->getData('user',["token"=>$token]);
 
+			if(!empty($user[0])){
+				$userFound = $user[0];
+				return $userFound["role"];
+			}else{
+				return FALSE;
+			}
 		}
 	}
 
@@ -65,8 +80,6 @@ class Auth extends Basesql {
 	}
 
 	static public function signIn($data){
-
-
 
 		$user = new User();
 
@@ -102,6 +115,5 @@ class Auth extends Basesql {
 
 		$_SESSION['token'] = $user->getToken();
 	}
-
 
 }

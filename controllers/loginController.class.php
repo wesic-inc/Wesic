@@ -42,7 +42,7 @@ class loginController{
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:header("Location: login");
+				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:header("Location: /connexion");
 				
 			}
 		}
@@ -76,5 +76,15 @@ class loginController{
 		$v->assign("description", "Connexion");
 		$v->assign("config", $form);
 		$v->assign("errors", $errors);
+	}
+
+	public static function forceNewPasswordAction($args){
+
+		$user = new User();
+    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+
+    	Passwordrecovery::sendResetPassword($userFound['login']);
+
+
 	}
 }

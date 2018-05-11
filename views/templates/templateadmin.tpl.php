@@ -14,8 +14,14 @@
 
 	</head>
 	<body>
-
+		<?php require('views/templates/navbar-admin-sidebar.tpl.php'); ?>
+		<?php if($_COOKIE["toggled-sidebar"] == 'true'): ?>
+		<div class="content-wrapper" id="main-container">
+		<?php else: ?>
+		<div class="content-wrapper collapsed" id="main-container"> 
+		<?php endif; ?>
 		<?php include $this->view;?>	
+		</div>
 		<script type="text/javascript" src="/public/js/jquery.min.js"></script>
 		<script src="/public/js/trumbowyg/trumbowyg.min.js"></script>
 		<script type="text/javascript" src="/public/js/code.js"></script>

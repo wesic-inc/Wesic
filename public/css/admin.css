@@ -746,11 +746,8 @@ body {
 
 #hamburger-menu {
   position: absolute;
-  left: 220px;
+  left: 90px;
   top: 10px; }
-
-#hamburger-menu.collapsed {
-  left: 90px; }
 
 .hamburger .line {
   width: 20px;
@@ -892,6 +889,8 @@ span.icon-ctrl.carret-down {
   height: 50px;
   background: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid #e7e7e7; }
+  .second-navbar.collapsed {
+    left: 140px; }
 
 @media (min-width: 1200px) {
   nav.navbar ul.nav {
@@ -947,7 +946,8 @@ span.icon-ctrl.carret-down {
     font-size: 14px;
     position: absolute;
     right: 30px;
-    top: 7px; }
+    top: 7px;
+    z-index: 1000; }
     .user-menu a {
       color: #000; }
     .user-menu a:hover {
@@ -986,6 +986,11 @@ input[type=text] {
   color: #010101;
   height: 32px;
   padding: 20px 10px; }
+
+.form-link {
+  width: 100%;
+  display: block;
+  text-align: center; }
 
 input[type=text].sm-input {
   padding: 10px 10px; }
@@ -1189,5 +1194,8 @@ ul.grid-actions {
 
 .m-10 {
   margin: 10px; }
+
+.row-no-margin {
+  margin: 0 !important; }
 
 /*# sourceMappingURL=admin.css.map */

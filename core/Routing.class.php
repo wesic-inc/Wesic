@@ -42,22 +42,40 @@ public static function getPermissions( $route ){
 }
 
 public static function getPermissionsDev( $route ){
+
 	$connected = Auth::isConnected();
-	$rights = Auth::isAdmin();
+	$rights = Auth::getRights();
+
+	// $rights = Auth::isAdmin();
+
+	/*var_dump($rights);
+	die();*/
 	
 	switch ($route['r']) {
 		case 'admin':
-		if(	$connected == true && $rights == true )
+		if(	$connected == true && $rights == 4)
 			return true;
+		case 'moderator':
+		if($connected == true && $rights == 3 || $connected == true && $rights == 4)
+			return true;
+		break;
+		case 'webmaster':
+		if($connected == true && $rights == 2 || $connected == true && $rights == 3 || $connected == true && $rights == 4)
+			return true;
+		break;
 		case 'user':
-		if($connected == true)
+		if($connected == true && $rights == 1 || $connected == true && $rights == 2 || $connected == true && $rights == 3 || $connected == true && $rights == 4)
+			return true;
+		break;
+		case 'connected':
+		if($connected != true)
 			return true;
 		break;
 		case 'all':
-		return true;
+			return true;
 		break;
 		default:
-		return false;
+			return false;
 		break;
 	}
 	return false;
@@ -95,7 +113,7 @@ public static function makeRouting(){
 		}
 	}
 
-		$currentUser = Singleton::getUser();
+	$currentUser = Singleton::getUser();
 
 	if($c == NULL && $a == NULL){
 
@@ -118,6 +136,10 @@ public static function makeRouting(){
 				case 3:
 					$c = 'article';
 					$a = 'single';
+					break;
+				case 4:
+					$c = 'mail';
+					$a = 'token';
 					break;
 				default:
 					$c = 'error';

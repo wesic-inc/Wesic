@@ -26,7 +26,7 @@ routing:
         path: admin
 
     Login:
-        restricted: all
+        restricted: connected
         controller: login:index
         path: connexion
 
@@ -36,7 +36,7 @@ routing:
         path: logout
 
     Signup:
-        restricted: all
+        restricted: connected
         controller: login:signup
         path: inscription
 
@@ -142,6 +142,11 @@ routing:
         path: admin/ajouter-evenements
 
     getNewPassword:
-        restricted: all
+        restricted: connected
         controller: login:getNewPassword
         path: recuperer-compte
+
+    forceNewPassword:
+        restricted: admin
+        controller: login:forceNewPassword
+        path: admin/nouveau-mot-de-passe

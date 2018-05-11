@@ -61,12 +61,12 @@
 							<!-- / Hero subheader -->
 							<table class="container" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
 								<tr>
-									<td style="font-size: 30px; font-weight: bold; padding: 80px 0 15px 0;" align="left">Réinitialiser votre mot de passe</td>
+									<td style="font-size: 20px; font-weight: bold; padding: 80px 0 15px 0;" align="left">Réinitialiser votre mot de passe</td>
 								</tr>
 
 								<tr>
 									<td class="align-center" style="font-size: 16px; line-height: 27px; color: #969696; padding: 10px;padding-bottom:30px" align="left">
-										<p class="align-left"> Bonjour %username%, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p><br>
+										<p class="align-left"> Bonjour <b> %username% </b>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p><br>
 									<a class="button " href="%urlreset%"> Réinitialiser mon mot de passe </a>
 
 									</td>

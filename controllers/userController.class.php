@@ -80,6 +80,8 @@ class userController {
 		$_POST["lastname"] = $editedUser['lastname'];
 		$_POST["email"] = $editedUser['email'];
 		$_POST["role"] = $editedUser['role'];
+		$_POST["newpasswordlink"] = "/admin/nouveau-mot-de-passe/".$args['params'][0];
+
 
 		$v = new View();
 		$v->setView("cms/newuser","templateadmin");
@@ -122,6 +124,7 @@ class userController {
 		$_POST["lastname"] = $editedUser['lastname'];
 		$_POST["email"] = $editedUser['email'];
 		$_POST["role"] = $editedUser['role'];
+		$_POST["editlink"] = "/admin/modifier-utilisateur/".$args['params'][0];
 
 		$v = new View();
 		$v->setView("cms/newuser","templateadmin");

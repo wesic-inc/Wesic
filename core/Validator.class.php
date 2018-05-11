@@ -63,7 +63,7 @@ class validator{
 					return Category::newCategory($data);
 					break;
 				case 'newpassword':
-					return Passwordrecovery::sendResetPassword($data);
+					return Passwordrecovery::sendResetPassword($data['login']);
 				default:
 					return false;
 					break;

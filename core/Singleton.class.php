@@ -19,13 +19,20 @@ class Singleton {
 	}
 
 	public static function getUser(){
-		if(Singleton::$_instanceUser == null){
+		if(Singleton::$_instanceUser == null && isset($_SESSION['token'])){
 			$_instanceUser = new User();
-			/*$_instanceUser = $user->getData('user',['id'=>$_SESSION['id']])[0];*/
-
+			$result = $_instanceUser->getData('user',['token'=>$_SESSION['token']])[0];
+				$_instanceUser->setId($result['id']);
+				$_instanceUser->setLogin($result['login']);
+				$_instanceUser->setFirstname($result['firstname']);
+				$_instanceUser->setLastname($result['lastname']);
+				$_instanceUser->setRole($result['role']);
+				$_instanceUser->setEmail($result['email']);
+				$_instanceUser->setStatus($result['status']);
+				$_instanceUser->setToken($result['token']);
 		}
 		/*$_instanceUser->setToken();
 			$_instanceUser->save();*/
-		return Singleton::$_instanceUser;
+		return $_instanceUser;
 	}
 }

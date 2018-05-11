@@ -41,6 +41,9 @@ class Form{
 			elseif($option["type"] == "submit"){
 				$output .= self::submit($name,$option,$data[$name]);
 			}
+			elseif($option["type"] == "link"){
+				$output .= self::link($name,$option,$data[$name]);
+			}
 			elseif($option["type"] == "separator"){
 				$output .= '<div class="separator"></div>';
 			}
@@ -90,6 +93,9 @@ class Form{
 				}
 				elseif($form["struct"][$child]["type"] == "separator"){
 					$step .= '<div class="separator"></div>';
+				}
+				elseif($form["struct"][$child]["type"] == "link"){
+					$step .= self::link($child,$form["struct"][$child],$data[$child]);
 				}
 				$step .= "</li>";
 			}
@@ -170,4 +176,13 @@ class Form{
 		}
 		return '<input class="'.$class.'" type="submit" value="'.$option['label'].'">'; 
 	}
+	public static function link($name, $option, $data){
+		if(isset($option['link'])){
+		return '<div class="input-group"><a href="'.$option['link'].'" class="form-link '.$option["class"].'">' . $option['label'] .'</a></div>';
+
+		}else{
+			
+		return '<div class="input-group"><a href="'.$data.'" class="form-link '.$option["class"].'">' . $option['label'] .'</a></div>';
+		}
+	}	
 }

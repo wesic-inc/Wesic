@@ -44,7 +44,7 @@ class User extends Basesql
      */
     public function getLogin()
     {
-        return $this->login;
+        return ucfirst($this->login);
     }
 
     /**
@@ -271,13 +271,12 @@ public static function getFormEditUser(){
 
             "separator"=> [ "type" => "separator" ],
 
-            "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
-
-            "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
+            "newpasswordlink"=>[ "label"=>"Réinitialiser le mot de passe", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
 
             "separator2"=> [ "type" => "separator" ],
 
-            "cancel"=>[ "label"=>"Annuler", "type"=>"submit", "id"=>"cancel", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
+            "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
+
 
             "save"=>[ "label"=>"Modifier l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
 
@@ -308,7 +307,7 @@ public static function getFormViewUser(){
 
             "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'], "disabled"=>1 ],
 
-            "edit"=>[ "label"=>"Modifier l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+            "editlink"=>[ "label"=>"Modifier l'utilisateur", "type"=>"link", "id"=>"save", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
 
         ]
     ];

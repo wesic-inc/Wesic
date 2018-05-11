@@ -1,4 +1,8 @@
-<div class="navbar-sidebar collapsed" id="navbar"> 
+<?php if($_COOKIE["toggled-sidebar"] == 'true'): ?>
+<div class="navbar-sidebar collapsed" id="navbar">
+<?php else: ?>
+<div class="navbar-sidebar toggled" id="navbar"> 
+<?php endif; ?>
 
 	<div class="siteinfo">
 		<a href="<?php echo ROOT_URL ?>admin">
@@ -53,8 +57,16 @@
 			<li ><a href="<?php echo ROOT_URL ?>admin/parametres"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres</span></a></li>
     </ul>
 </div>
-<div class="second-navbar">
-<div class="hamburger menu-sidebar collapsed" id="hamburger-menu">
+
+<?php if($_COOKIE["toggled-sidebar"] == 'true'): ?>
+<div class="second-navbar" id="second-navbar">
+<div class="hamburger menu-sidebar" id="hamburger-menu">
+<?php else: ?>
+<div class="second-navbar collapsed" id="second-navbar"> 
+<div class="hamburger menu-sidebar is-active" id="hamburger-menu">
+<?php endif; ?>
+
+
 	<span class="line"></span>
 	<span class="line"></span>
 	<span class="line"></span>
@@ -64,11 +76,11 @@
 	<span class="icon <?php echo $icon;?>"></span> <?php echo $title; ?> 
 </div>
 
+</div>
           <div class="user-menu">
             <a href="#">
-              <span> Elon Musk </span>
+              <span> <?php echo Singleton::getUser()->getLogin(); ?> </span>
               <img class="avatar" src="<?php echo ROOT_URL ?>/public/img/user.jpg">
               <span class="icon-ctrl carret-down-user">
             </a>
         </div>
-</div>

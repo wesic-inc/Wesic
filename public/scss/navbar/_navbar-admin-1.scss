@@ -24,14 +24,9 @@ body {
 
 #hamburger-menu {
   position: absolute;
-  left: 220px;
+  left: 90px;
   top: 10px;
 }
-
-#hamburger-menu.collapsed{
-  left: 90px;
-}
-
 .hamburger .line {
   width: 20px;
   height: 3px;
@@ -211,6 +206,9 @@ span.icon-ctrl.carret-down {
   height: 50px;
   background: rgba(255,255,255,.9);
   border-bottom: 1px solid #e7e7e7;;
+  &.collapsed{
+    left:140px;
+  }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 
@@ -289,6 +287,7 @@ span.icon-ctrl.carret-down {
     position: absolute;
     right: 30px;
     top: 7px;
+    z-index: 1000;
     a{
       color: $black;
     }
