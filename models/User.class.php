@@ -15,15 +15,15 @@ class User extends Basesql
 
   public function __construct()
   {
-   parent::__construct();
-}
+     parent::__construct();
+ }
 
 
 	 /**
      * @return mixed
      */
-    public function getId()
-    {
+     public function getId()
+     {
         return $this->id;
     }
 
@@ -211,32 +211,32 @@ class User extends Basesql
 
     public static function getFormLogin(){
 
-       return [	
-          "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Se connecter", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
-          "struct" => [
-           "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
+     return [	
+      "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Se connecter", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+      "struct" => [
+         "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
 
-           "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+         "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-           "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+         "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
 
-       ]
-   ];
+     ]
+ ];
 
 }
 
 public static function getFormModifyPassword(){
 
-   return [   
-      "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier mon mot de passe", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
-      "struct" => [
+ return [   
+  "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier mon mot de passe", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+  "struct" => [
 
-       "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+     "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-       "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
+     "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
 
-       "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
-   ]
+     "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+ ]
 
 ];
 
@@ -248,32 +248,37 @@ public static function getFormNewUser(){
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
+         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
 
-       "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+         "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
 
-       "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+         "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
 
-       "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-       "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+         "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-       "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
+         "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
 
-       "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+         "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
-       "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+         "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
 
-   ]
-];
+     ]
+ ];
 
 }
 
 public static function getFormEditUser(){
 
     return [    
-        "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true" ],
+        "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true", "groups"=>"true" ],
+        
+        "groups" => [   "edit-user-main" => ["login","firstname","lastname","email","role", "cancel","save"],  
+                            "edit-user-actions" => ["newpasswordlink","disableuser","banuser","deleteuser1","deleteuser2"] 
+                ],
+
         "struct" => [
 
             "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
@@ -287,14 +292,17 @@ public static function getFormEditUser(){
 
             "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
-            "separator"=> [ "type" => "separator" ],
+            "newpasswordlink"=>[ "label"=>"Réinitialiser le mot de passe", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-success"],
 
-            "newpasswordlink"=>[ "label"=>"Réinitialiser le mot de passe", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
+            "disableuser"=>[ "label"=>"Désactiver l'utilisateur", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
 
-            "separator2"=> [ "type" => "separator" ],
+            "banuser"=>[ "label"=>"Bannir l'utilisateur", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
+
+            "deleteuser1"=>[ "label"=>"Flaguer l'utilisateur à \"supprimé\"", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
+
+            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
 
             "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
-
 
             "save"=>[ "label"=>"Modifier l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
 
@@ -319,9 +327,7 @@ public static function getFormViewUser(){
 
             "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email", "disabled"=>1 ],
 
-            "creation"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email", "disabled"=>1 ],
-
-            "status"=>[ "label"=>"Status", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'], "disabled"=>1 ],
+            "status"=>[ "label"=>"Status", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'Actif','2'=>'En attente de confirmation e-mail','3'=>'Inactif','4'=>'Banni','5'=>'Supprimé'], "disabled"=>1 ],
 
             "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'], "disabled"=>1 ],
 
@@ -381,6 +387,32 @@ public static function newUser($data){
         return true;
 
     }
+}
+
+public static function editUser($data){
+
+    
+    if( self::emailExists($data['email']) && self::loginExists($data['login'])){
+
+        $user = new User();
+        $userData = $user->getData('user',['login'=>$data['login']])[0];
+
+        $user->setId($userData['id']);
+        $user->setStatus($userData['status']);
+
+        $user->setEmail($data['email']);
+        $user->setLogin($data['login']);
+        $user->setFirstname($data['firstname']);
+        $user->setLastname($data['lastname']);
+        $user->setRole($data['role']);
+
+        $user->save();
+        return true;
+
+    }else{
+        return false;
+    }
+
 }
 
 

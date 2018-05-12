@@ -140,6 +140,10 @@ class basesql{
 
 	}
 
+	function fetchObject($dataFound){
+		
+	}
+
 	function slugExists($slug){
 
 		$sql = "SELECT slug FROM article

@@ -73,6 +73,9 @@ class validator{
 				case 'articlenew':
 					return Article::newArticle($data);
 					break;
+				case 'edit-user':
+					return User::editUser($data);
+					break;
 				case 'categorynew':
 					return Category::newCategory($data);
 					break;

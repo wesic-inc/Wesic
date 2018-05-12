@@ -24,3 +24,15 @@ forms:
         container: col-md-12 form-group
         class: form-group
         aside: false
+
+    edit-user-main:
+        label:
+        container: col-md-12 form-group
+        class: form-group
+        aside: false
+
+    edit-user-actions:
+        label: Actions avancées
+        container: col-md-12 form-group
+        class: form-group
+        aside: true

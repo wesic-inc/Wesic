@@ -71,7 +71,7 @@ class userController {
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["userexists"]:header("Location: /admin/utilisateurs");
+				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["error"]:header("Location: /admin/utilisateurs");
 				
 			}
 		}

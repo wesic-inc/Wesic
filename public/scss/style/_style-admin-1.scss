@@ -90,54 +90,129 @@ body{
 }
 // Boutons
 .btn{
-	height: 20px;
+	display: inline-block;
 	font-size: 15px;
-	padding: 10px 20px 10px 20px;
-	text-decoration: none;
+		padding:10px 25px;
+	text-decoration:none;
 	background: $primary-color;
 	transition: all 0.2s ease-in-out;
 	color: $white;
 	border-radius: $btn-radius;
-	border: 1px solid $primary-color !important;
+	border: 2px solid $primary-color !important;
 	position:relative;
 	font: $roboto;
 	cursor: pointer;
 }
 
-.btn:hover{
-	background: darken($primary-color, 20%);
-	color: $white;
+.btn-margin{
+	margin:5px;
 }
-
+.btn-inline{
+	display: inline-block !important;
+	width: auto !important;
+}
 .btn-sm{
 	font-size: 15px;
-	height:30px;
-	padding: 6px 20px 6px 20px;
+	padding: 5px 20px;
 
 }
 
 .btn-lg{
 	font-size: 18px;
-	height: 50px;
+	padding:15px 25px;
 
 }
+
+.btn:hover, .btn:focus, .btn:active{
+	background: darken($primary-color, 20%);
+	color: $white;
+}
+
 
 .btn-alt{
-	background: $btn-other-color;
+	background: $btn-color-2;
+	border:2px solid $btn-color-2 !important;
 
 }
 
-.btn-alt:hover{
-	background: darken($btn-other-color,20%);
+.btn-alt:hover, .btn-alt:focus, .btn-alt:active{
+	background: darken($btn-color-2,20%);
 }
 
-.btn-alt-sm{
+.btn-success{
+	background: $btn-color-3;
+	border:2px solid $btn-color-3 !important;
 
 }
 
-.btn-alt-lg{
+.btn-success:hover, .btn-success:focus, .btn-success:active{
+	background: darken($btn-color-3,20%);
+}
+
+.btn-danger{
+	background: $btn-color-4;
+	border:2px solid $btn-color-4 !important;
 
 }
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active{
+	background: darken($btn-color-4,20%);
+}
+
+.btn-inverted{
+	background: #FFF;
+	border:2px solid $primary-color !important;
+	color:$primary-color;
+	font-weight: bold;
+}
+
+.btn-inverted:hover, .btn-inverted:focus, .btn-inverted:active{
+	background: $primary-color;
+	color: $white;
+}
+
+
+.btn-alt-inverted{
+	background: #FFF;
+	color:$btn-color-2;
+	font-weight: bold;
+	border:2px solid $btn-color-2 !important;
+
+}
+
+.btn-alt-inverted:hover, .btn-alt-inverted:focus, .btn-alt-inverted:active{
+	background: $btn-color-2;
+	color:#FFF;
+}
+
+.btn-success-inverted{
+	background: #FFF;
+	color: $btn-color-3;
+	border:2px solid $btn-color-3 !important;
+	font-weight: bold;
+}
+
+.btn-success-inverted:hover, .btn-success-inverted:focus, .btn-success-inverted:active{
+	background:$btn-color-3;
+	color:#FFF;
+}
+
+.btn-danger-inverted{
+	
+	background: #FFF;
+	color: $btn-color-4;
+	border:2px solid $btn-color-4 !important;
+	font-weight: bold;
+
+}
+
+.btn-danger-inverted:hover, .btn-danger-inverted:focus, .btn-danger-inverted:active{
+	background: $btn-color-4;
+	color:#FFF;
+}
+
+
+
 
 .input-group{
 	margin: 0;
@@ -150,6 +225,9 @@ body{
 }
 
 @media (max-width: $sm-max){
+	.bloc{
+		padding: 0 !important;
+	}
 	.btn-add{
 		margin: 20px;
 		display: block;
@@ -297,7 +375,7 @@ div.separator{
 			li{
 				display: inline-block;
 				a.active{
-					background: $btn-other-color;
+					background: $btn-color-2;
 				}
 			}
 
