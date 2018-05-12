@@ -8,7 +8,7 @@ routing:
     Error:
         restricted: all
         controller: error:notFound
-        path: error/index
+        path: error
 
     Error404:
         restricted: all

@@ -147,18 +147,58 @@ class userController {
 		$result = $passwordrecovery->getData('passwordrecovery',["token"=>$args['token']]);
 
 		$token_generated  = new DateTime($result['date']);
-		
-		
 
-		
 		if($token_generated->format('U') > $token_generated->format('U') + 86400 ) 
 		{     
-		    echo 'Trop vieux lien';
+			header('location: error/404');
 		}
 		else
 		{
-		    echo 'Ok';
+
+			$form = User::getFormModifyPassword();
+			$errors = [];
+
+			if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+				$errors = Validator::check($form["struct"], $args['post']);
+
+				if(!$errors){
+					$args['post']['token'] = $args['token'];
+					!Validator::process($form["struct"], $args['post'], 'modifypassword')?$errors=["password"]:header("Location: /connexion");
+
+				}
+			}
+
+			$v = new View();
+			$v->setView("login/modifypassword","templateadmin-modal");
+			$v->assign("title", "Connexion");
+			$v->assign("description", "Connexion");
+			$v->assign("form", $form);
+			$v->assign("errors", $errors);
+
 		}
 
+	}
+
+	public function newAccountConfirmationAction($args){
+
+		$passwordrecovery = new Passwordrecovery();
+
+		$item = $passwordrecovery->getData('passwordrecovery',['slug'=>$args['token']])[0];
+
+		$user = new User();
+
+		$user->setId($item['user_id']);
+		$user->setStatus(1);
+		$user->save();
+
+		$user->cleanUserSlugPasswordRecovery();
+
+		Format::dump($user,1);
+
+		$v = new View();
+		$v->setView("login/emailconfirmed","templateadmin-modal");
+		$v->assign("title", "Merci !");
+		$v->assign("description", "Connexion");
 	}
 }

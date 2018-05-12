@@ -57,6 +57,19 @@ class Passwordrecovery extends Basesql{
         }
     }
 
+    public function setTokenConfirmation($token = null){
+        if( $token ){
+            $this->token = $token;
+        }else{
+            $this->token = substr(sha1("qzmldq2E2Eçqd".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("qDàqzdklqZ1".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("qlqdZMLD0é32".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("DZQlzqkdml2034".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("DZQlzqkdml2034".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+            $this->token .= "-".substr(sha1("DZQlzqkdml2034".uniqid().substr(time(), 5).uniqid()."gdsfd"), 2, 10);
+        }
+    }
+
     /**
      * @return mixed
      */
@@ -150,13 +163,18 @@ public static function sendResetPassword($login){
     if(User::loginExists($login)){
 
 
+
         $passwordrecovery = new Passwordrecovery();
-        $cleanData = $passwordrecovery->getData('user',["login"=>$login])[0];
-
-
-
+        
         $user = new User();
         $userFound = $user->getData('user',["login"=>$login])[0];
+
+
+        if($userFound['status'] == 1){
+        
+        $user->setId($userFound['id']);
+        $user->cleanUserSlugPasswordRecovery();
+
 
         $passwordrecovery = new Passwordrecovery();
         $passwordrecovery->setToken();
@@ -188,17 +206,82 @@ public static function sendResetPassword($login){
             $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
 
             $mail->isHTML(true);
-            $mail->Subject = ucfirst($userFound['firstname']).', réinitialiser votre mot de passe';
+            $mail->Subject = rand()." ".ucfirst($userFound['firstname']).', réinitialiser votre mot de passe';
             $message = file_get_contents('views/mail/passwordrecovery.tpl.php'); 
             $message = str_replace('%username%', ucfirst($userFound['firstname']), $message); 
             $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
             $mail->Body = $message;
 
             
-            if($mail->send()){
-                echo "message envoyé !";
-            }
-            die();
+            $mail->send();
+            return true;
+        }else{
+            return false;
+        }
+        }else{
+            return false;
+        }
+
+    }
+
+
+public static function confirmEmailNewUser($login){
+
+    if(User::loginExists($login)){
+
+
+        $passwordrecovery = new Passwordrecovery();
+        
+        $user = new User();
+        $userFound = $user->getData('user',["login"=>$login])[0];
+
+        
+        $user->setId($userFound['id']);
+        $user->cleanUserSlugPasswordRecovery();
+
+
+        $passwordrecovery = new Passwordrecovery();
+        $passwordrecovery->setTokenConfirmation();
+        $passwordrecovery->setSlug($passwordrecovery->getToken());
+        $passwordrecovery->setType(2);
+        $passwordrecovery->setUserId($userFound['id']);
+
+        $slug = new Slug();
+        $slug->setSlug($passwordrecovery->getToken());
+        $slug->setType(5);
+
+        $slug->save();
+        $passwordrecovery->save();
+
+
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'wesic.corporate@gmail.com';                 
+            $mail->Password = 'wesic2018';           
+            $mail->SMTPSecure = 'tls';                        
+            $mail->Port = 587;
+            $mail->CharSet = "UTF-8";
+            $mail->setFrom('wesic.corporate@gmail.com', 'Wesic Inc.');
+
+            $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
+
+            $mail->isHTML(true);
+            $mail->Subject = rand()." ".ucfirst($userFound['firstname']).', veuillez confirmer votre e-mail';
+            $message = file_get_contents('views/mail/confirmationemail.tpl.php'); 
+            $message = str_replace('%username%', ucfirst($userFound['firstname']), $message); 
+            $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
+            $mail->Body = $message;
+
+            
+            $mail->send();
+            return true;
+        }else{
+            return false;
         }
     }
 

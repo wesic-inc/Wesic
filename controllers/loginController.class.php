@@ -30,6 +30,7 @@ class loginController{
 	}
 	public function logoutAction($args){
 		Auth::logoutUser();
+		header("location: /connexion");
 	}
 
 	public function signupAction($args){
@@ -66,7 +67,7 @@ class loginController{
 		$errors = Validator::check($form["struct"], $args['post']);
 
 			if(empty($errors)){
-				!Validator::process($form["struct"], $args['post'], 'newpassword')?$errors=["login404"]:header("Location: /admin");
+				!Validator::process($form["struct"], $args['post'], 'newpassword')?$errors=["login404"]:header("Location: /connexion");
 			}
 		}
 

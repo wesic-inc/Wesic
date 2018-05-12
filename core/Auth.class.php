@@ -73,10 +73,9 @@ class Auth extends Basesql {
 			);
 
 		}
-
+		
 		session_unset();
 		session_destroy();
-		header('Location: '.ROOT_URL.'login');
 	}
 
 	static public function signIn($data){
@@ -92,7 +91,6 @@ class Auth extends Basesql {
 			if(password_verify($data['password'],$userFound['password']) ){
 
 				self::tokenRenew($userFound);
-
 				return true;
 
 			}

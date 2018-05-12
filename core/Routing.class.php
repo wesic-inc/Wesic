@@ -120,7 +120,7 @@ public static function makeRouting(){
 
 		if(empty($slugFound)){
 			$c = 'error';
-			$a = 'notFound'; 
+			$a = 'notFound';
 		}else{
 			switch ($slugFound['type']) {
 				case 1:
@@ -139,10 +139,12 @@ public static function makeRouting(){
 					$c = 'user';
 					$a = 'newPasswordConfirmation';
 					$args['token'] = $slugFound['slug']; 
+					$args['post'] = $_POST;
 					break;
 				case 5:
 					$c = 'user';
 					$a = 'newAccountConfirmation';
+					$args['token'] = $slugFound['slug'];
 					break;
 				default:
 					$c = 'error';
@@ -152,6 +154,7 @@ public static function makeRouting(){
 			$r = 'all';
 		}
 	}
+
 	return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $args ];
 }
 }

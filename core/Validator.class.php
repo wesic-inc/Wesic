@@ -31,6 +31,20 @@ class validator{
 			}
 			if($name=="password2" && $data["password1"] != $data["password2"] ) {
 				$listErrors[]=$options["msgerror"];
+			};
+			if(isset($options["confirm"]) && $data[$name]!==$data[$options["confirm"]] ){
+					$errorsMsg[] = $name." doit être identique à ".$options["confirm"];
+			}
+
+			else if(!isset($options["confirm"])){
+				if($options["type"]=="email" && !self::emailCorrect($data[$name])){
+					
+					$listErrors[]=$options["msgerror"];
+
+				}else if($options["type"]=="password" && !self::passwordDevEnvCorrect($data[$name])){
+					$listErrors[]=$options["msgerror"];
+				}
+
 			}
 
 		}
@@ -39,11 +53,11 @@ class validator{
 				unset($listErrors[array_keys($listErrors, 'password2')[0]]);
 		}
 
-/*		echo "<pre>";
-		var_dump($listErrors);
-		var_dump($data);
-		var_dump($struct);
-		die();*/
+		// echo "<pre>";
+		// var_dump($listErrors);
+		// var_dump($data);
+		// var_dump($struct);
+		// die();
 		return $listErrors;
 	}
 
@@ -64,6 +78,8 @@ class validator{
 					break;
 				case 'newpassword':
 					return Passwordrecovery::sendResetPassword($data['login']);
+				case 'modifypassword':
+					return User::modifyPassword($data);
 				default:
 					return false;
 					break;
@@ -85,7 +101,7 @@ class validator{
 	}
 
 	public static function passwordDevEnvCorrect($var){
-		return !( strlen($var)<2 || strlen($var)>12);
+		return !( strlen($var)<2 || strlen($var)>25);
 	}
 
 	public static function urlCorrect($var){

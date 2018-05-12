@@ -15,15 +15,15 @@ class User extends Basesql
 
   public function __construct()
   {
-     parent::__construct();
- }
+   parent::__construct();
+}
 
 
 	 /**
      * @return mixed
      */
-     public function getId()
-     {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -211,17 +211,34 @@ class User extends Basesql
 
     public static function getFormLogin(){
 
-     return [	
-      "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Se connecter", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+       return [	
+          "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Se connecter", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+          "struct" => [
+           "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
+
+           "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+
+           "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+
+       ]
+   ];
+
+}
+
+public static function getFormModifyPassword(){
+
+   return [   
+      "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier mon mot de passe", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
-         "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
 
-         "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+       "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-         "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+       "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
 
-     ]
- ];
+       "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+   ]
+
+];
 
 }
 
@@ -231,24 +248,25 @@ public static function getFormNewUser(){
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
+       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
 
-         "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+       "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
 
-         "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+       "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
 
-         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+       "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-         "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+       "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-         "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
-         "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+       "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
 
-         "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+       "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+
+       "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
 
-     ]
- ];
+   ]
+];
 
 }
 
@@ -329,6 +347,34 @@ public static function signUp($data){
         $user->setEmail($data['email']);
         $user->setPassword($data['password2']);
         $user->setCreationDate(date('Y-m-d H:i:s'));
+        $user->setStatus(2);
+        $user->setToken();
+        $user->save();
+
+
+        Passwordrecovery::confirmEmailNewUser($data['login']);
+
+
+        return true;
+
+    }
+}
+
+public static function newUser($data){
+
+    if( self::emailExists($data['email']) || self::loginExists($data['login'])){
+        return false;
+    }
+    else{
+
+        $user = new User();
+        $user->setLogin($data['login']);
+        $user->setFirstname($data['firstname']);
+        $user->setLastname($data['lastname']);
+        $user->setRole($data['role']);
+        $user->setEmail($data['email']);
+        $user->setPassword($data['password2']);
+        $user->setCreationDate(date('Y-m-d H:i:s'));
         $user->setStatus(1);
         $user->setToken();
         $user->save();
@@ -336,6 +382,7 @@ public static function signUp($data){
 
     }
 }
+
 
 public static function emailExists($email){
 
@@ -356,7 +403,20 @@ public static function loginExists($login){
 
 }
 
+public static function modifyPassword($data){
 
+    $passwordrecovery = new Passwordrecovery();
+    $result = $passwordrecovery->getData('passwordrecovery',["token"=>$data['token']])[0];
+    $user = new User();
+
+    $user->setId($result['user_id']);
+    $user->setPassword($data['passwordconfirm']);
+    $user->setStatus(1);
+    $user->save();
+    $user->cleanUserSlugPasswordRecovery();
+    
+    return true;
+}
 
 
 }	

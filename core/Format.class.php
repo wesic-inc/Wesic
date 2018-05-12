@@ -49,9 +49,20 @@ class Format {
 
 
 	static function dump($var,$die = false){
-		echo "<pre>";
+		echo "<div>";
+		echo '<pre style="
+		position:relative;
+		top:0;
+		left:0;
+		width:100%;
+		display:block;
+		min-height:50px;
+		z-index:1000;
+		background:#FFF;
+		margin:0">';
 		print_r($var);
-		
+		echo "</pre>";
+		echo "</div>";
 		if($die == true){
 			die();
 		}

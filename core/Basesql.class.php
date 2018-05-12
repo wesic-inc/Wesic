@@ -39,7 +39,6 @@ class basesql{
 					unset($this->columns[$key]);
 				}
 			}
-
 			$query = $this->pdo->prepare(" UPDATE ".$this->table." SET ".implode(", ", $sqlSet)." WHERE id=:id ");
 			$query->execute($this->columns);
 
@@ -58,13 +57,13 @@ class basesql{
 
 		}
 	}
-		
+
 	function delete() {
 
 		$this->setColumns();
 
-			$query = $this->pdo->prepare("DELETE FROM ".$this->table." WHERE id=:id ");
-			$query->execute(array("id" => $this->columns["id"]));
+		$query = $this->pdo->prepare("DELETE FROM ".$this->table." WHERE id=:id ");
+		$query->execute(array("id" => $this->columns["id"]));
 		
 	}
 
@@ -72,6 +71,18 @@ class basesql{
 		$this->setColumns();
 
 		$query = $this->pdo->prepare("UPDATE ".$this->table." SET status= 5 WHERE id=:id");
+		$query->execute(array("id" => $this->columns["id"]));
+	}
+
+	function cleanUserSlugPasswordRecovery() {
+		$this->setColumns();
+		
+		$query = $this->pdo->prepare("DELETE passwordrecovery, slug  
+			FROM passwordrecovery
+			INNER JOIN slug 
+			ON slug.slug = passwordrecovery.slug
+			WHERE passwordrecovery.user_id  =:id");
+
 		$query->execute(array("id" => $this->columns["id"]));
 	}
 

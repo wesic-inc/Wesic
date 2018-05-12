@@ -6,9 +6,9 @@ $(document).ready(function(){
     $('#main-container').toggleClass("collapsed");
     $('#second-navbar').toggleClass("collapsed");
     if($('#navbar').hasClass("toggled") == true){
-      document.cookie = "toggled-sidebar=false";
+      document.cookie = "toggled-sidebar=false;path=/";
     }else{
-      document.cookie = "toggled-sidebar=true";
+      document.cookie = "toggled-sidebar=true;path=/";
     }
   });
   $(".dropdown-link").click(function(){

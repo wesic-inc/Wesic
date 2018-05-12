@@ -47,7 +47,7 @@ class View{
 
 		global $a, $c, $sitename;
 		extract($this->data);
-
+		
 		include $this->template;
 	}
 
