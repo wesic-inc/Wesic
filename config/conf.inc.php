@@ -23,4 +23,6 @@ $forms_group = $fof['forms'];
 $sitename = $cof['config']['sitename'];
 
 define("DOMAIN",$cof['config']['domain']);
+
+
 define("WESIC_VERSION","0.0.1-alpha");

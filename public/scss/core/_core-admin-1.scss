@@ -6,11 +6,11 @@ select {
 	border: $input-border;
 	color:$link-color-dark;
 	height: 40px;
-    padding: 5px 15px;
+	padding: 5px 15px;
 	appearance:none;
-    box-sizing: border-box;
-    font-size: 15px;
-    width: 100%;
+	box-sizing: border-box;
+	font-size: 15px;
+	width: 100%;
 }
 input[type=text] {
 	background-color:$input-bg;
@@ -68,8 +68,8 @@ textarea {
 }
 
 label.label-input {
-    margin-bottom: 5px;
-    display: block;
+	margin-bottom: 5px;
+	display: block;
 }
 
 .trumbowyg-editor{
@@ -80,7 +80,54 @@ label.label-input {
 	width:100%;
 }
 
+.pagination{
+	text-align: center;
+}
+li.page-item{
+	display: inline-block;
+	a{
+			padding: 7px 15px;
+	background: #FFF;
+	border: 1px solid $primary-color;
+	border-radius: 2px;
+	margin-left: -6px;
+	}
+	&.active{
+		a{
+		background: $primary-color;
+			color: #FFF;
+		}
+	}
+	&.disabled{
+		a{
+			color: darken(#dee2e6,20);
+		}
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+	}
+	a{
+		color: $darker3;
+		font-weight: bold;
 
+	}
+}
+li.page-item:hover
+{ 
+
+	a{
+		background: $primary-color;
+		color: #FFF;
+	}
+}
+
+
+.group-action{
+	a.active{
+		color:$primary-color;
+		font-weight: bold;
+	}
+}
 .table {
 	width:100%;
 	color:$black;
@@ -90,6 +137,8 @@ label.label-input {
 	background-color: $stripped-2;
 
 	tr {
+		border-bottom-color: rgb(128, 128, 128);
+
 		td{
 			padding-top: 15px;
 			padding-left: 5px;
@@ -103,6 +152,7 @@ label.label-input {
 	}
 	thead {
 		tr {
+			font-weight: bold;
 			background-color:$stripped-1;
 			th:nth-child(2) {
 				text-align:left;
@@ -110,6 +160,8 @@ label.label-input {
 		}
 	}
 	tfoot {
+			font-weight: bold;
+
 		tr {
 			background-color:$stripped-1;
 			td{
@@ -153,78 +205,78 @@ label.label-input {
 
 
 @media screen and (max-width: 768px) {
-  table {
-    border: 0;
-  }
+	table {
+		border: 0;
+	}
 
 
-  .entity-key{
-  	font-weight: bold;
-  	text-transform: uppercase;
-  	text-align: center !important;
-  }
-.grid-actions{
-	    width: 100%;
-	    display: block;
-	    text-align: center;
-}
-table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
-}
+	.entity-key{
+		font-weight: bold;
+		text-transform: uppercase;
+		text-align: center !important;
+	}
+	.grid-actions{
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	table tr {
+		background-color: #f8f8f8;
+		border: 1px solid #ddd;
+		padding: .35em;
+	}
 
-table th,
-table td {
-  padding: .625em;
-  text-align: center;
-}
+	table th,
+	table td {
+		padding: .625em;
+		text-align: center;
+	}
 
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
+	table th {
+		font-size: .85em;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+	}
 
-  
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
 
-    table tfoot {
-    display: none;
-  }
-  
-  table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-    background: $stripped-1;
-  }
-  
-  table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    text-align: right;
-  }
-  
-  table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  table td:last-child {
-    border-bottom: 0;
-  }
+	table thead {
+		border: none;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+
+	table tfoot {
+		display: none;
+	}
+
+	table tr {
+		border-bottom: 3px solid #ddd;
+		display: block;
+		margin-bottom: .625em;
+		background: $stripped-1;
+	}
+
+	table td {
+		border-bottom: 1px solid #ddd;
+		display: block;
+		text-align: right;
+	}
+
+	table td::before {
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	table td:last-child {
+		border-bottom: 0;
+	}
 }
 
 .table-bordered {

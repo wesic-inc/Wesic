@@ -6,7 +6,6 @@ class View{
 
 	public function setView($view, $layout="template"){
 
-		// $view = indexIndex
 		$path_view = "views/".$view.".view.php";
 		$path_template = "views/templates/".$layout.".tpl.php";
 

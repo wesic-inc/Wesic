@@ -11,9 +11,29 @@ class userController {
 
 
 		$user = new User();
-		$usersRes = $user->getData('user');
-		$elementNumber = count($usersRes);
 
+		$elementNumber = count($user->getData('user'));
+
+		$elementPerPage = 10;
+
+		$nbPage = $elementNumber/$elementPerPage;
+
+		if($elementNumber%$elementPerPage != 0 ){
+			$nbPage = ceil($nbPage);
+		}
+
+		$nbPage = intval($nbPage);
+
+		if(!isset($args['params'][0]) || $args['params'][0] == 1){
+			$usersRes = $user->getData('user',[],[],"","",['0',$elementPerPage]);
+			$currentPage = 1;
+		}else{
+			if($args['params'][0] > $nbPage || $args['params'][0] < 1){
+				header('location: /admin/utilisateurs');	
+			}
+			$currentPage = $args['params'][0];
+			$usersRes = $user->getData('user',[],[],"","",[$args['params'][0]*$elementPerPage-$elementPerPage,$elementPerPage]);
+		}	
 
 		$v = new View();
 		$v->setView("cms/users","templateadmin");
@@ -21,7 +41,11 @@ class userController {
 		$v->assign("title","Tous les utilisateurs");
 		$v->assign("icon","icon-users");
 		$v->assign("users",$usersRes);
-		$v->assign("number",$elementNumber);
+		$v->assign("elementNumber",$elementNumber);
+		$v->assign("nbPage",$nbPage);
+		$v->assign("elementPerPage",$elementPerPage);
+		$v->assign("currentPage",$currentPage);
+		$v->assign("targetUri","admin/utilisateurs/");
 	}
 
 	public function addUserAction($args){

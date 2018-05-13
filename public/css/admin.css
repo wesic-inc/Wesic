@@ -1132,6 +1132,38 @@ label.label-input {
 .full {
   width: 100%; }
 
+.pagination {
+  text-align: center; }
+
+li.page-item {
+  display: inline-block; }
+  li.page-item a {
+    padding: 7px 15px;
+    background: #FFF;
+    border: 1px solid #F83E48;
+    border-radius: 2px;
+    margin-left: -6px; }
+  li.page-item.active a {
+    background: #F83E48;
+    color: #FFF; }
+  li.page-item.disabled {
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff; }
+    li.page-item.disabled a {
+      color: #a4afba; }
+  li.page-item a {
+    color: #737373;
+    font-weight: bold; }
+
+li.page-item:hover a {
+  background: #F83E48;
+  color: #FFF; }
+
+.group-action a.active {
+  color: #F83E48;
+  font-weight: bold; }
+
 .table {
   width: 100%;
   color: #000;
@@ -1139,25 +1171,30 @@ label.label-input {
   border-collapse: collapse;
   text-align: center;
   background-color: #f8f8fd; }
-  .table tr td {
-    padding-top: 15px;
-    padding-left: 5px;
-    padding-bottom: 15px;
-    padding-right: 5px; }
-  .table tr th {
-    padding-top: 6px;
-    padding-bottom: 6px; }
+  .table tr {
+    border-bottom-color: gray; }
+    .table tr td {
+      padding-top: 15px;
+      padding-left: 5px;
+      padding-bottom: 15px;
+      padding-right: 5px; }
+    .table tr th {
+      padding-top: 6px;
+      padding-bottom: 6px; }
   .table thead tr {
+    font-weight: bold;
     background-color: #f0edf7; }
     .table thead tr th:nth-child(2) {
       text-align: left; }
-  .table tfoot tr {
-    background-color: #f0edf7; }
-    .table tfoot tr td {
-      padding-top: 6px;
-      padding-bottom: 6px; }
-    .table tfoot tr td:nth-child(2) {
-      text-align: left; }
+  .table tfoot {
+    font-weight: bold; }
+    .table tfoot tr {
+      background-color: #f0edf7; }
+      .table tfoot tr td {
+        padding-top: 6px;
+        padding-bottom: 6px; }
+      .table tfoot tr td:nth-child(2) {
+        text-align: left; }
   .table tbody tr:nth-child(odd) {
     background-color: #e8e8f8; }
   .table tbody tr:nth-child(even) {

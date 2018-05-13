@@ -1,14 +1,14 @@
 	<div class="container-fluid" >
 			<div class="row">
 				<div class="col-md-12 bloc article-bloc">
-					<a href="ajouter-utilisateur" class="btn btn-sm btn-add">Ajouter un utilisateur</a></h1> 
+					<a href="<?php echo ROOT_URL; ?>admin/ajouter-utilisateur" class="btn btn-sm btn-add">Ajouter un utilisateur</a></h1> 
 					<header>
 						<input type="text" class="search-input sm-input hidden-xs" >
 						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
 					</header>
 					<article>
-						<ul class="inline">
-							<li><a href="#"> Tous (4) </a></li>
+						<ul class="inline group-action">
+							<li><a href="#" class="active"> Tous (<?php echo $elementNumber; ?>) </a></li>
 							<li><a href="#"> Abonnés (2) </a></li>
 							<li><a href="#"> Modérateurs (3) </a></li>
 							<li><a href="#"> Admin (3) </a></li>
@@ -67,12 +67,23 @@
 						</table>
 					</article>
 					<footer>
+<!-- 						<nav>
+							<ul class="pagination">
+								<li class="page-item disabled"><a href="#" tabindex="-1">Précédent</a></li>
+								<li class="page-item active"><a href="/admin/utilisateurs/1">1</a></li>
+								<li class="page-item"><a href="/admin/utilisateurs/2">2</a></li>
+								<li class="page-item"><a href="/admin/utilisateurs/3">3</a></li>
+								<li class="page-item"><a href="#">Suivant</a>
+								</li>
+							</ul>
+						</nav> -->
+						<?php $this->addModal("pagination", ['nbElements'=>$elementNumber,'nbPage'=>$nbPage,'elementPerPage'=>$elementPerPage,'currentPage'=>$currentPage,'targetUri'=>$targetUri]); ?>
+
 						<ul class="inline hidden-xs">
 							<li>Actions groupées :  </li>
-							<li><a href="#"> Place dans la corbeille</a></li>
-							<li><a href="#">Dépublier</a></li>
+							<li><a href="#"> Supprimer</a></li>
 						</ul>
-						<span class="push-right"> <?php echo $number; ?> élément(s) </span>
+						<span class="push-right"> <?php echo $elementNumber; ?> élément(s) </span>
 					</footer>
 				</div>
 </div>

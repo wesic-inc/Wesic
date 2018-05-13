@@ -298,9 +298,9 @@ public static function getFormEditUser(){
 
             "banuser"=>[ "label"=>"Bannir l'utilisateur", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
 
-            "deleteuser1"=>[ "label"=>"Flaguer l'utilisateur à \"supprimé\"", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
+            "deleteuser1"=>[ "label"=>"Flaguer l'utilisateur à \"supprimé\"", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
 
-            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
+            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm"],
 
             "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
 
