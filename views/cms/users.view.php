@@ -8,12 +8,13 @@
 					</header>
 					<article>
 						<ul class="inline group-action">
-							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs" class="active"> Tous (<?php echo $elementNumber; ?>) </a></li>
-							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/1"> Abonnés (2) </a></li>
-							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/2"> Modérateurs (3) </a></li>
-							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/3"> Admin (3) </a></li>
-							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/4"> CM (3) </a></li>
-							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/5"> Utilisateurs supprimés </a></li>
+							<li><a href="<?php Route::echo('AllUsers'); ?>" 
+								class="<?php echo !isset($filter)?'active':''; ?>"> Tous (<?php echo $elementNumber; ?>) </a></li>
+							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonnés (2) </a></li>
+							<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> Modérateurs (3) </a></li>
+							<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/3"> CM (3) </a></li>
+							<li><a class="<?php echo $filter==4?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/4"> Admin (3) </a></li>
+							<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimés </a></li>
 						</ul>
 						<table class="table table-stripped">
 							<thead>
@@ -45,7 +46,7 @@
 							<tbody>
 
 								<?php foreach($users as $user): ?>
-								<tr ">
+								<tr">
 									<td class="hidden-xs"><label class="checkbox-container">
 								<input type="checkbox">
 								<span class="checkmark"></span>
@@ -64,6 +65,16 @@
 
 								</tr>
 							<?php endforeach; ?>
+							<?php if(empty($users)): ?>
+									<tr>
+										<td> Aucune utilisateurs trouvés </td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+							<? endif; ?>
 							</tbody>
 						</table>
 					</article>

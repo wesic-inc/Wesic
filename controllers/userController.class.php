@@ -12,52 +12,40 @@ class userController {
 		$qbUsers = new QueryBuilder();
 		$qbUsers->select('*')->from('user');
 
-		if($args['params'][0] === "filter"){
-			$filter = true;
-			switch ($args['params'][1]) {
-				case 1:
-					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',5);
-					break;
-				case 2:
-					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',2);
-					break;
-				case 3:
-					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',3);
-					break;
-				case 4:
-					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',4);
-					break;
-				case 5:
-					$qbUsers->addWhere('status = :status1')->setParameter('status1',5)->or()->addWhere('role != :role')->setParameter('role', 2);
-					break;
-			}
-		}else if($args['params'][0] === "p"){
-			$page = $args['params'][1];
-		}
+		$param = Route::checkParameters($args['params']);
 
-		Route::checkParameters($args['params']);
+
+		if( isset($param['filter']) ){
+			
+			$filter = true;
+			$qbUsers = Basesql::userDisplayFilters($qbUsers,$param['filter']);
+
+		}
+		if( isset($param['p']) ){
+			
+			$pagination = true;
+			$page = $param['p'];
+		}
 
 		$qb = new QueryBuilder();
 
-		$count = $qb->select('COUNT(*)')->from('user')->addWhere('status = :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
+		$count = $qb->select('COUNT(*)')->from('user')->addWhere('status != :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
 		
 		$elementPerPage = 5;
 
 		$nbPage = Format::pageCalc($count,elementPerPage);
 
-
-		if(!isset($page) || $args['params'][0] == 1){
+		if(!isset($page) || $page == 1){
 			$userRes = $qbUsers->limit('0',$elementPerPage)->execute();
 			$currentPage = 1;
 		}else{
 			if($page > $nbPage || $page < 1){
 				Route::redirect('AllUsers');	
 			}
-			$currentPage = $args['params'][0];
+			$currentPage = $page;
 			$userRes = $qbUsers->limit($page*$elementPerPage-$elementPerPage,$elementPerPage)->execute();
 		}
 
-		Format::dump($userRes,1);
 		$v = new View();
 		$v->setView("cms/users","templateadmin");
 		$v->assign("title","Tous les utilisateurs");
@@ -65,15 +53,12 @@ class userController {
 		$v->assign("users",$userRes);
 		$v->assign("elementNumber",$count);
 		$v->assign("nbPage",$nbPage);
+		$v->assign("filter",$param['filter']);
 		$v->assign("elementPerPage",$elementPerPage);
 		$v->assign("currentPage",$currentPage);
-		$v->assign("targetUri","admin/utilisateurs/");
 	}
 
 	public function addUserAction($args){
-
-		$user = new User();
-		$userFound = $user->getData('user',["id"=>$_SESSION["id"]])[0];
 
 		$form = User::getFormNewUser();
 		$errors = [];
@@ -90,8 +75,6 @@ class userController {
 
 		$v = new View();
 		$v->setView("cms/newuser","templateadmin");
-		$v->assign("pseudo", $userFound["email"]);
-		$v->assign("role",$userFound["role"]);
 		$v->assign("page","adduser");
 		$v->assign("title", "Ajouter un utilisateur");
 		$v->assign("icon", "icon-user-plus");
@@ -103,7 +86,8 @@ class userController {
 	public function editUserAction($args){
 		
 		if(!is_numeric($args['params'][0])){
-			header('location: /admin/utilisateurs');
+			Route::redirect('AllUsers');
+			
 		}
 
 		$user = new User();
@@ -296,12 +280,7 @@ class userController {
 	}
 	public function destroyUserAction($args){
 
-		// $user = new User();
-  //   	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
 
-  //   	if(!empty($userFound)){
-  //   		User::setUserStatus($userFound['id'],5);
-  //   	}
 		echo "user boom boom";
 	}
 }

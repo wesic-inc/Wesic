@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8">
-		<title><?php echo isset($title)?$title:"Mon site !" ?></title>
+		<title><?php if(isset($title)) echo $title ?></title>
 		<meta name="description" content="description de ma page">
 		<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no">
 

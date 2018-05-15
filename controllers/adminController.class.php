@@ -59,7 +59,7 @@ class adminController{
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'categorynew')?$errors=["categorynew"]:header("Location: /");
+				!Validator::process($form["struct"], $args['post'], 'categorynew')?$errors=["categorynew"]:Route::redirect('Admin');
 			}
 		}
 		$v = new View();

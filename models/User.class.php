@@ -336,6 +336,17 @@ public static function getFormViewUser(){
 
 }
 
+public static function getNewsletterSignUpForm(){
+      return [    
+        "options" => [ "method"=>"POST", "action"=>"", "submit"=>"S'inscrire", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true"],
+        "struct" => [
+            "name"=> [ "label"=> "Votre nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name"],
+            "email"=>[ "label"=>"Votre e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email"],
+            "signup"=>[ "label"=>"S'inscrire", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+        ]
+    ];
+}
+
 public static function signUp($data){
 
     if( self::emailExists($data['email']) || self::loginExists($data['login'])){
@@ -463,5 +474,8 @@ public static function setUserStatus($id,$status){
     }
 }
 
+public static function signUpNewsletter($data){
+    dump($data,1);
+}
 
 }	

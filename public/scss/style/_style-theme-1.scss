@@ -2,12 +2,12 @@
 // 
 
 
+
 body{
 	background-color: #FFF;
 	font-family: $roboto;
 	height: 100%;
-	font-size: 14px
-	;
+	font-size: 14px;
 }
 a{
 	color: #000;
@@ -81,6 +81,26 @@ section.news{
 	height: auto;
 	transition: .5s ease;
 	backface-visibility: hidden;
+}
+
+.position-ref {
+    position: relative;
+}
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.error-message{
+	font-size: 38px;
+	color:#636b6f;
+	font-weight: 100;
+	font-family: $raleway;
 }
 
 .middle {
@@ -180,6 +200,8 @@ section.news{
 	}
 
 }
+
+
 @media (max-width: $sm-min) {
 
 }
@@ -287,6 +309,7 @@ nav{
 
 
 @media (min-width: $md-min){
+
 
 	.media-container{
 	    height: 190px;

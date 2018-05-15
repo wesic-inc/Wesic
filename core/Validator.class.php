@@ -83,6 +83,8 @@ class validator{
 					return Passwordrecovery::sendResetPassword($data['login']);
 				case 'modifypassword':
 					return User::modifyPassword($data);
+				case 'signup-newsletter':
+					return User::signUpNewsletter($data);
 				default:
 					return false;
 					break;

@@ -21,8 +21,8 @@ $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
 
-function dump($a,$b = 0){
-	Format::dump($a,$b);
+function dump($a,$b = 0,$c = 1){
+	Format::dump($a,$b,$c);
 }
 
 if( file_exists($path_controller) ){
@@ -35,7 +35,7 @@ if( file_exists($path_controller) ){
 	$controller = new $name_controller;
 	
 	if(!Route::getPermissionsDev($route)){
-		header('location: '.ROOT_URL.$rof['routing']['Error403']['path']);
+		Route::redirect('Error404');
 	}
 
 	$name_action = $route["a"]."Action";
@@ -44,12 +44,11 @@ if( file_exists($path_controller) ){
 		$controller->$name_action($route["args"]);
 
 	}else{
-		header('location: '.ROOT_URL.$rof['routing']['Error404']['path']); 
-		
+		Route::redirect('Error404');
 	}
 
 }else{
-	header('location: '.ROOT_URL.$rof['routing']['Error404']['path']);
+		Route::redirect('Error404');
 }
 
 

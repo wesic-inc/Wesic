@@ -1,5 +1,5 @@
 routing:
-
+    
     Index:
         restricted: all
         controller: index:index
@@ -13,12 +13,12 @@ routing:
     Error404:
         restricted: all
         controller: error:notFound
-        path: error/404
+        path: 404
 
     Error403:
         restricted: all
         controller: error:forbidden
-        path: error/403
+        path: 403
 
     Admin:
         restricted: admin
@@ -56,8 +56,12 @@ routing:
         controller: user:allUsers
         path: admin/utilisateurs
         params: 
-            p: int
-            filter: int
+            p: 
+                type: int
+                optional: true
+            filter:
+                type: int
+                optional: true
 
     AddUser:
         restricted: admin
@@ -173,3 +177,8 @@ routing:
         restricted: admin
         controller: user:deleteUser
         path: admin/detruire-utilisateur
+
+    SignUpNewsletter:
+        restricted: all
+        controller: newsletter:signUp
+        path: newsletter
