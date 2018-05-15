@@ -68,8 +68,8 @@ class basesql{
 	}
 
 	function flagDelete() {
-		$this->setColumns();
 
+		$this->setColumns();
 		$query = $this->pdo->prepare("UPDATE ".$this->table." SET status= 5 WHERE id=:id");
 		$query->execute(array("id" => $this->columns["id"]));
 	}
@@ -94,22 +94,48 @@ class basesql{
 			$sql .='WHERE ';
 
 			foreach ($condition as $key => $value) {
-				if(is_string($value)){
-					$list_of_conditions[] = $key."= :".$key;
-				}else{
-					switch ($value[0]) {
-						case 'NOW()':
-						$list_of_conditions[] = $key.' '.$value[1].' NOW()';
-						break;
-						case $value[1]=='LIKE':
-						$list_of_conditions[] = $key.' '.$value[1].' \'%'.$value[0].'%\' ';
-						break;
-						case is_int($value[0]) || is_string($value[0]):
-						$list_of_conditions[] = $key.' '.$value[1].' :'.$key;
-						break;
 
+				if(is_array($value)){
+					$i = 0;
+					foreach($value as $subvalue){
+						if(is_string($subvalue)){
+							$list_of_conditions[] = $key."= :".$key.$i;
+						}else{
+							switch ($subvalue[0]) {
+								case 'NOW()':
+								$list_of_conditions[] = $key.' '.$subvalue[1].' NOW()';
+								break;
+								case $subvalue[1]=='LIKE':
+								$list_of_conditions[] = $key.' '.$subvalue[1].' \'%'.$subvalue[0].'%\' ';
+								break;
+								case is_int($subvalue[0]) || is_string($subvalue[0]):
+								$list_of_conditions[] = $key.' '.$subvalue[1].' :'.$key.$i;
+								break;
+
+							}
+							$condition[$key.$i] = $subvalue[0];
+						}
+						$i++;
 					}
-					$condition[$key] = $value[0];
+				}
+				else{
+					if(is_string($value)){
+						$list_of_conditions[] = $key."= :".$key;
+					}else{
+						switch ($value[0]) {
+							case 'NOW()':
+							$list_of_conditions[] = $key.' '.$value[1].' NOW()';
+							break;
+							case $value[1]=='LIKE':
+							$list_of_conditions[] = $key.' '.$value[1].' \'%'.$value[0].'%\' ';
+							break;
+							case is_int($value[0]) || is_string($value[0]):
+							$list_of_conditions[] = $key.' '.$value[1].' :'.$key;
+							break;
+
+						}
+						$condition[$key] = $value[0];
+					}
 				}
 
 			}

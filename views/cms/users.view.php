@@ -8,11 +8,12 @@
 					</header>
 					<article>
 						<ul class="inline group-action">
-							<li><a href="#" class="active"> Tous (<?php echo $elementNumber; ?>) </a></li>
-							<li><a href="#"> Abonnés (2) </a></li>
-							<li><a href="#"> Modérateurs (3) </a></li>
-							<li><a href="#"> Admin (3) </a></li>
-							<li><a href="#"> CM (3) </a></li>
+							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs" class="active"> Tous (<?php echo $elementNumber; ?>) </a></li>
+							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/1"> Abonnés (2) </a></li>
+							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/2"> Modérateurs (3) </a></li>
+							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/3"> Admin (3) </a></li>
+							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/4"> CM (3) </a></li>
+							<li><a href="<?php echo ROOT_URL;?>admin/utilisateurs/filter/5"> Utilisateurs supprimés </a></li>
 						</ul>
 						<table class="table table-stripped">
 							<thead>

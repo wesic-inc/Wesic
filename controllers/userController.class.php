@@ -10,11 +10,36 @@ class userController {
 	public function allUsersAction($args){
 
 
+		if($args['params'][0] === "filter"){
+			switch ($args['params'][1]) {
+				case 1:
+					$condition = ['status'=>[['5','!='],['2','!=']],'role'=>'5'];
+					$operator = ['AND','AND'];
+					break;
+				case 2:
+					$condition = ['status'=>[['5','!='],['2','!=']], 'role'=>'2'];
+					$operator = ['AND','AND']; 
+					break;
+				case 3:
+					$condition = ['status'=>[['5','!='],['2','!=']], 'role'=>'3'];
+					$operator = ['AND','AND'];
+					break;
+				case 4:
+					$condition = ['status'=>[['5','!='],['2','!=']], 'role'=>'4'];
+					$operator = ['AND','AND'];
+					break;
+				case 5:
+					$condition = ['status'=>['5','='], 'role'=>['2','!=']];
+					$operator = 'AND';
+					break;
+			}
+		}
+		// Format::dump($condition,1);
 		$user = new User();
 
-		$elementNumber = count($user->getData('user'));
+		$elementNumber = count($user->getData('user',['status'=>[['5','!='],['2','!=']]],'AND'));
 
-		$elementPerPage = 10;
+		$elementPerPage = 5;
 
 		$nbPage = $elementNumber/$elementPerPage;
 
@@ -23,17 +48,17 @@ class userController {
 		}
 
 		$nbPage = intval($nbPage);
-
+		
 		if(!isset($args['params'][0]) || $args['params'][0] == 1){
-			$usersRes = $user->getData('user',[],[],"","",['0',$elementPerPage]);
+			$usersRes = $user->getData('user',$condition,$operator,"","",['0',$elementPerPage]);
 			$currentPage = 1;
 		}else{
-			if($args['params'][0] > $nbPage || $args['params'][0] < 1){
-				header('location: /admin/utilisateurs');	
-			}
+			// if($args['params'][0] > $nbPage || $args['params'][0] < 1){
+			// 	header('location: /admin/utilisateurs');	
+			// }
 			$currentPage = $args['params'][0];
-			$usersRes = $user->getData('user',[],[],"","",[$args['params'][0]*$elementPerPage-$elementPerPage,$elementPerPage]);
-		}	
+			$usersRes = $user->getData('user',$condition,$operator,"","",[$args['params'][0]*$elementPerPage-$elementPerPage,$elementPerPage]);
+		}
 
 		$v = new View();
 		$v->setView("cms/users","templateadmin");
@@ -84,9 +109,12 @@ class userController {
 		}
 
 		$user = new User();
-		$userFound = $user->getData('user',["id"=>$_SESSION["id"]])[0];
 
 		$editedUser = $user->getData('user',["id"=>$args['params'][0]])[0];
+
+		if(empty($editedUser)){
+			header('location: /admin/utilisateurs');
+		}
 
 		$form = User::getFormEditUser();
 		$errors = [];
@@ -106,6 +134,9 @@ class userController {
 		$_POST["email"] = $editedUser['email'];
 		$_POST["role"] = $editedUser['role'];
 		$_POST["newpasswordlink"] = "/admin/nouveau-mot-de-passe/".$args['params'][0];
+		$_POST["deleteuser1"] = "/admin/supprimer-utilisateur/".$args['params'][0];
+		$_POST["deleteuser2"] = "/admin/detruire-utilisateur/".$args['params'][0];
+		$_POST["status"] = $editedUser['status'];
 
 
 		$v = new View();
@@ -224,5 +255,55 @@ class userController {
 		$v->setView("login/emailconfirmed","templateadmin-modal");
 		$v->assign("title", "Merci !");
 		$v->assign("description", "Connexion");
+	}
+
+
+	public static function forceNewPasswordAction($args){
+
+		$user = new User();
+    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+    	if(!empty($userFound)){
+    		Passwordrecovery::sendResetPassword($userFound['login']);
+    	}
+	}
+	public function disableUserAction($args){
+
+		$user = new User();
+    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+
+    	if(!empty($userFound)){
+    		User::setUserStatus($userFound['id'],3);
+    		header('location: /admin/modifier-utilisateur/'.$userFound['id']);
+    	}
+	}
+	public function banUserAction($args){
+
+		$user = new User();
+    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+
+    	if(!empty($userFound)){
+    		User::setUserStatus($userFound['id'],4);
+    		header('location: /admin/modifier-utilisateur/'.$userFound['id']);
+    	}
+	}
+	public function deleteUserAction($args){
+
+		$user = new User();
+    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+
+    	if(!empty($userFound)){
+    		User::setUserStatus($userFound['id'],5);
+    		header('location: /admin/modifier-utilisateur/'.$userFound['id']);
+    	}
+	}
+	public function destroyUserAction($args){
+
+		// $user = new User();
+  //   	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+
+  //   	if(!empty($userFound)){
+  //   		User::setUserStatus($userFound['id'],5);
+  //   	}
+		echo "user boom boom";
 	}
 }

@@ -275,7 +275,7 @@ public static function getFormEditUser(){
     return [    
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true", "groups"=>"true" ],
         
-        "groups" => [   "edit-user-main" => ["login","firstname","lastname","email","role", "cancel","save"],  
+        "groups" => [   "edit-user-main" => ["login","firstname","lastname","email","role","status", "cancel","save"],  
                             "edit-user-actions" => ["newpasswordlink","disableuser","banuser","deleteuser1","deleteuser2"] 
                 ],
 
@@ -289,18 +289,16 @@ public static function getFormEditUser(){
 
             "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-
             "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+
+            "status"=>[ "label"=>"Status", "type"=>"select", "id"=>"status", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Actif','3'=>'Inactif','4'=>'Banni','5'=>'Supprimé' ]],
 
             "newpasswordlink"=>[ "label"=>"Réinitialiser le mot de passe", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-success"],
 
-            "disableuser"=>[ "label"=>"Désactiver l'utilisateur", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt"],
+            "deleteuser1"=>[ "label"=>"Supprimer l'utilisateur", "type"=>"link", "id"=>"deleteuser1", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
+ 
+            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"deleteuser2", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm"],
 
-            "banuser"=>[ "label"=>"Bannir l'utilisateur", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
-
-            "deleteuser1"=>[ "label"=>"Flaguer l'utilisateur à \"supprimé\"", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
-
-            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm"],
 
             "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
 
@@ -398,8 +396,8 @@ public static function editUser($data){
         $userData = $user->getData('user',['login'=>$data['login']])[0];
 
         $user->setId($userData['id']);
-        $user->setStatus($userData['status']);
 
+        $user->setStatus($data['status']);
         $user->setEmail($data['email']);
         $user->setLogin($data['login']);
         $user->setFirstname($data['firstname']);
@@ -448,6 +446,21 @@ public static function modifyPassword($data){
     $user->cleanUserSlugPasswordRecovery();
     
     return true;
+}
+
+public static function setUserStatus($id,$status){
+
+    if($status == 1 || $status == 2 || $status == 3 || $status == 4 || $status == 5){
+
+    $user = new User();
+    $user->setStatus($status);
+    $user->setId($id);
+    $user->save();
+    return true;
+    
+    }else{
+        return false;
+    }
 }
 
 

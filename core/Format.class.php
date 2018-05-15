@@ -17,6 +17,9 @@ class Format {
 			case 4:
 			return 'Administrateur';
 			break;
+			case 5:
+			return 'Abonné';
+			break;
 			default:
 			return false;
 			break;

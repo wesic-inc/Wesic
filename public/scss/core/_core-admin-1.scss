@@ -63,6 +63,71 @@ textarea {
 	max-width:100%;
 }
 
+body.modal-open {
+	overflow: hidden;
+}
+
+.modal{
+	z-index: 1001;
+	position: fixed;
+	top: 30px;
+	left: 30px;
+	bottom: 30px;
+	right:30px;
+	background: #FFF;
+	border-radius: 5px;
+	box-shadow: $bloc-shadow;
+
+}
+.modal-closed{
+	display: none;
+}
+
+.modal-header{
+	background: $stripped-2;
+	border-top-left-radius: 5px; 
+	border-top-right-radius: 5px; 
+	height:60px;
+	line-height: 60px;
+	padding-left:30px;
+	width: 100%;
+}
+
+.modal-body {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 60px 30px 30px 30px;
+
+}
+
+.modal-overlay{
+	z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.7;
+	cursor:pointer;
+
+}
+.toolbox-modal{
+	position: absolute;
+	top: 5px;
+	right: 20px;
+}
+
+.thumbnail-fullscreen{
+	background: $darker2;
+}
+.modal-img{
+	height: 90%;
+}
 .trumbowyg-box{
 	z-index: 1;
 }
@@ -86,15 +151,15 @@ label.label-input {
 li.page-item{
 	display: inline-block;
 	a{
-			padding: 7px 15px;
-	background: #FFF;
-	border: 1px solid $primary-color;
-	border-radius: 2px;
-	margin-left: -6px;
+		padding: 7px 15px;
+		background: #FFF;
+		border: 1px solid $primary-color;
+		border-radius: 2px;
+		margin-left: -6px;
 	}
 	&.active{
 		a{
-		background: $primary-color;
+			background: $primary-color;
 			color: #FFF;
 		}
 	}
@@ -102,9 +167,9 @@ li.page-item{
 		a{
 			color: darken(#dee2e6,20);
 		}
-    pointer-events: none;
-    cursor: auto;
-    background-color: #fff;
+		pointer-events: none;
+		cursor: auto;
+		background-color: #fff;
 	}
 	a{
 		color: $darker3;
@@ -160,7 +225,7 @@ li.page-item:hover
 		}
 	}
 	tfoot {
-			font-weight: bold;
+		font-weight: bold;
 
 		tr {
 			background-color:$stripped-1;
@@ -181,6 +246,15 @@ li.page-item:hover
 			background-color: $stripped-2;
 		}
 		tr {
+			&:hover{
+				ul.grid-actions{
+					opacity: 1;
+				}
+			}
+			ul.grid-actions{
+				opacity: 0;
+				transition: opacity 0.05s ease-in;
+			}
 			td:nth-child(2) {
 				text-align:left;
 				ul {
@@ -219,6 +293,7 @@ li.page-item:hover
 		width: 100%;
 		display: block;
 		text-align: center;
+
 	}
 	table tr {
 		background-color: #f8f8f8;
@@ -288,6 +363,7 @@ li.page-item:hover
 
 ul.grid-actions{
 	text-align:right;
+	float: right;
 	li{
 		font-size:$small-text;
 	}

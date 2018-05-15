@@ -79,13 +79,5 @@ class loginController{
 		$v->assign("errors", $errors);
 	}
 
-	public static function forceNewPasswordAction($args){
 
-		$user = new User();
-    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
-
-    	Passwordrecovery::sendResetPassword($userFound['login']);
-
-
-	}
 }

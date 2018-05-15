@@ -25,8 +25,30 @@ body {
   font-size: 15px;
   margin-top: 20px; }
 
+.grid-media {
+  padding: 10px !important; }
+
+.grid-media img {
+  cursor: pointer;
+  border: 3px solid #FFF; }
+
+.grid-media:hover img {
+  border: 3px solid #F83E48; }
+
+.toolbar-media {
+  background: #f0edf7;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 20px;
+  border-radius: 2px; }
+
 .ignore-me {
   margin-top: 90px; }
+
+.reponsive-img {
+  max-width: 100%; }
 
 .breadcrumb {
   font-size: 20px;
@@ -1119,6 +1141,62 @@ textarea {
   width: 100%;
   max-width: 100%; }
 
+body.modal-open {
+  overflow: hidden; }
+
+.modal {
+  z-index: 1001;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  bottom: 30px;
+  right: 30px;
+  background: #FFF;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25); }
+
+.modal-closed {
+  display: none; }
+
+.modal-header {
+  background: #f8f8fd;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 60px;
+  line-height: 60px;
+  padding-left: 30px;
+  width: 100%; }
+
+.modal-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 30px 30px 30px; }
+
+.modal-overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.7;
+  cursor: pointer; }
+
+.toolbox-modal {
+  position: absolute;
+  top: 5px;
+  right: 20px; }
+
+.thumbnail-fullscreen {
+  background: #232323; }
+
+.modal-img {
+  height: 90%; }
+
 .trumbowyg-box {
   z-index: 1; }
 
@@ -1199,6 +1277,11 @@ li.page-item:hover a {
     background-color: #e8e8f8; }
   .table tbody tr:nth-child(even) {
     background-color: #f8f8fd; }
+  .table tbody tr:hover ul.grid-actions {
+    opacity: 1; }
+  .table tbody tr ul.grid-actions {
+    opacity: 0;
+    transition: opacity 0.05s ease-in; }
   .table tbody tr td:nth-child(2) {
     text-align: left; }
     .table tbody tr td:nth-child(2) ul {
@@ -1279,7 +1362,8 @@ li.page-item:hover a {
   border-collapse: 1px; }
 
 ul.grid-actions {
-  text-align: right; }
+  text-align: right;
+  float: right; }
   ul.grid-actions li {
     font-size: 14px; }
 

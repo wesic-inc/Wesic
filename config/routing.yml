@@ -148,5 +148,25 @@ routing:
 
     forceNewPassword:
         restricted: admin
-        controller: login:forceNewPassword
+        controller: user:forceNewPassword
         path: admin/nouveau-mot-de-passe
+
+    disabledUser:
+        restricted: admin
+        controller: user:disableUser
+        path: admin/desactiver-utilisateur
+
+    banUser:
+        restricted: admin
+        controller: user:banUser
+        path: admin/bannir-utilisateur
+
+    deleteUser:
+        restricted: admin
+        controller: user:deleteUser
+        path: admin/supprimer-utilisateur
+
+    destroyUser:
+        restricted: admin
+        controller: user:deleteUser
+        path: admin/detruire-utilisateur
