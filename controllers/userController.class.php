@@ -9,35 +9,94 @@ class userController {
 
 	public function allUsersAction($args){
 
+		$qbUsers = new QueryBuilder();
+		$qbUsers->select('*')->from('user');
 
 		if($args['params'][0] === "filter"){
+			$filter = true;
 			switch ($args['params'][1]) {
 				case 1:
-					$condition = ['status'=>[['5','!='],['2','!=']],'role'=>'5'];
-					$operator = ['AND','AND'];
+					$qbUsers
+					->openBracket()
+					->addWhere('status != :status1')
+					->setParameter('status1',5)
+					->or()
+					->addWhere('status != :status2')
+					->setParameter('status2',2)
+					->closeBracket()
+					->and()
+					->addWhere('role = :role')
+					->setParameter('role',5);
 					break;
 				case 2:
-					$condition = ['status'=>[['5','!='],['2','!=']], 'role'=>'2'];
-					$operator = ['AND','AND']; 
+					$qbUsers
+					->openBracket()
+					->addWhere('status != :status1')
+					->setParameter('status1',5)
+					->or()
+					->addWhere('status != :status2')
+					->setParameter('status2',2)
+					->closeBracket()
+					->and()
+					->addWhere('role = :role')
+					->setParameter('role',2);
 					break;
 				case 3:
-					$condition = ['status'=>[['5','!='],['2','!=']], 'role'=>'3'];
-					$operator = ['AND','AND'];
+					$qbUsers
+					->openBracket()
+					->addWhere('status != :status1')
+					->setParameter('status1',5)
+					->or()
+					->addWhere('status != :status2')
+					->setParameter('status2',2)
+					->closeBracket()
+					->and()
+					->addWhere('role = :role')
+					->setParameter('role',3);
 					break;
 				case 4:
-					$condition = ['status'=>[['5','!='],['2','!=']], 'role'=>'4'];
-					$operator = ['AND','AND'];
+					$qbUsers
+					->openBracket()
+					->addWhere('status != :status1')
+					->setParameter('status1',5)
+					->or()
+					->addWhere('status != :status2')
+					->setParameter('status2',2)
+					->closeBracket()
+					->and()
+					->addWhere('role = :role')
+					->setParameter('role',4);
 					break;
 				case 5:
-					$condition = ['status'=>['5','='], 'role'=>['2','!=']];
-					$operator = 'AND';
+					$qbUsers
+					->addWhere('status = :status1')
+					->setParameter('status1',5)
+					->or()
+					->addWhere('role != :role')
+					->setParameter('role', 2);
 					break;
 			}
 		}
-		// Format::dump($condition,1);
+
+
+		$qb = new QueryBuilder();
+		// $qb->findAll('user')->addWhere('token = :token')->setParameter('token',$_SESSION['token'])->fetchOne();
+	
 		$user = new User();
 
-		$elementNumber = count($user->getData('user',['status'=>[['5','!='],['2','!=']]],'AND'));
+		$qb->reset();
+
+		$elementNumber = $qb->select('COUNT(*)')
+			->from('user')
+			->addWhere('status = :status1')
+			->setParameter('status1',5)
+			->addSeparator('OR')
+			->addWhere('status = :status2')
+			->setParameter('status2',2)
+			->fetchOne()[0];
+
+		Format::dump($route_access,1);
+		
 
 		$elementPerPage = 5;
 
@@ -48,24 +107,25 @@ class userController {
 		}
 
 		$nbPage = intval($nbPage);
-		
+
 		if(!isset($args['params'][0]) || $args['params'][0] == 1){
-			$usersRes = $user->getData('user',$condition,$operator,"","",['0',$elementPerPage]);
+			$userRes = $qbUsers->limit('0',$elementPerPage)->execute();
 			$currentPage = 1;
 		}else{
 			// if($args['params'][0] > $nbPage || $args['params'][0] < 1){
 			// 	header('location: /admin/utilisateurs');	
 			// }
 			$currentPage = $args['params'][0];
-			$usersRes = $user->getData('user',$condition,$operator,"","",[$args['params'][0]*$elementPerPage-$elementPerPage,$elementPerPage]);
+			$userRes = $qbUsers->limit($args['params'][0]*$elementPerPage-$elementPerPage,$elementPerPage)->execute();
+
 		}
 
+		Format::dump($userRes,1);
 		$v = new View();
 		$v->setView("cms/users","templateadmin");
-		$v->assign("users",$usersRes);
 		$v->assign("title","Tous les utilisateurs");
 		$v->assign("icon","icon-users");
-		$v->assign("users",$usersRes);
+		$v->assign("users",$userRes);
 		$v->assign("elementNumber",$elementNumber);
 		$v->assign("nbPage",$nbPage);
 		$v->assign("elementPerPage",$elementPerPage);

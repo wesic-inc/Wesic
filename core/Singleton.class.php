@@ -20,8 +20,17 @@ class Singleton {
 
 	public static function getUser(){
 		if(Singleton::$_instanceUser == null && isset($_SESSION['token'])){
+			
 			$_instanceUser = new User();
-			$result = $_instanceUser->getData('user',['token'=>$_SESSION['token']])[0];
+
+			$qb = new QueryBuilder();
+
+			$result = 
+			$qb->findAll('user')
+			->addWhere('token = :token')
+			->setParameter('token',$_SESSION['token'])
+			->fetchOne();
+			
 				$_instanceUser->setId($result['id']);
 				$_instanceUser->setLogin($result['login']);
 				$_instanceUser->setFirstname($result['firstname']);

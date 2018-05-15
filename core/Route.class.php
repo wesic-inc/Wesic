@@ -3,11 +3,21 @@
 if(!isset($_SESSION)) 
 	session_start(); 
 
-class routing{
+class Route{
 
 
 public static function getRoot(){	
 	return getenv('HTTP_HOST')."/";
+}
+
+public static function get($route){
+	global $route_access;
+	return $route_access[$route]['path'];
+}
+
+public static function getAll($route){
+	global $route_access;
+	return ROOT_URL.$route_access[$route]['path'];
 }
 
 public static function getPermissions( $route ){

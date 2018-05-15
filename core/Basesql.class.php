@@ -1,8 +1,8 @@
 <?php
-class basesql{
+class Basesql{
 
 	private $table;
-	private $pdo;
+	protected $pdo;
 	private $columns = [];
 
 	public function __construct(){
@@ -17,7 +17,6 @@ class basesql{
 	}
 
 	public function setColumns(){
-		
 
 		$this->columns = array_diff_key(
 			get_object_vars($this), 
@@ -159,7 +158,7 @@ class basesql{
 			$sql .=' GROUP BY '.$orderby;
 		if(!empty($limit))
 			$sql .=' LIMIT '.$limit[0].', '.$limit[1];
-
+		
 		$query = $this->pdo->prepare($sql);
 		$query->execute($condition);
 		return $query->fetchAll();
