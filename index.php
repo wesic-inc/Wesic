@@ -21,6 +21,10 @@ $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
 
+function dump($a,$b = 0){
+	Format::dump($a,$b);
+}
+
 if( file_exists($path_controller) ){
 	
 

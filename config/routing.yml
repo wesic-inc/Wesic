@@ -55,6 +55,9 @@ routing:
         restricted: admin
         controller: user:allUsers
         path: admin/utilisateurs
+        params: 
+            p: int
+            filter: int
 
     AddUser:
         restricted: admin
@@ -131,12 +134,12 @@ routing:
         controller: setting:index
         path: admin/parametres
 
-    Event:
+    Events:
         restricted: admin
         controller: event:index
         path: admin/evenements
 
-    Event:
+    AddEvent:
         restricted: admin
         controller: event:addEvent
         path: admin/ajouter-evenements

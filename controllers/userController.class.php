@@ -16,108 +16,45 @@ class userController {
 			$filter = true;
 			switch ($args['params'][1]) {
 				case 1:
-					$qbUsers
-					->openBracket()
-					->addWhere('status != :status1')
-					->setParameter('status1',5)
-					->or()
-					->addWhere('status != :status2')
-					->setParameter('status2',2)
-					->closeBracket()
-					->and()
-					->addWhere('role = :role')
-					->setParameter('role',5);
+					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',5);
 					break;
 				case 2:
-					$qbUsers
-					->openBracket()
-					->addWhere('status != :status1')
-					->setParameter('status1',5)
-					->or()
-					->addWhere('status != :status2')
-					->setParameter('status2',2)
-					->closeBracket()
-					->and()
-					->addWhere('role = :role')
-					->setParameter('role',2);
+					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',2);
 					break;
 				case 3:
-					$qbUsers
-					->openBracket()
-					->addWhere('status != :status1')
-					->setParameter('status1',5)
-					->or()
-					->addWhere('status != :status2')
-					->setParameter('status2',2)
-					->closeBracket()
-					->and()
-					->addWhere('role = :role')
-					->setParameter('role',3);
+					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',3);
 					break;
 				case 4:
-					$qbUsers
-					->openBracket()
-					->addWhere('status != :status1')
-					->setParameter('status1',5)
-					->or()
-					->addWhere('status != :status2')
-					->setParameter('status2',2)
-					->closeBracket()
-					->and()
-					->addWhere('role = :role')
-					->setParameter('role',4);
+					$qbUsers->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',4);
 					break;
 				case 5:
-					$qbUsers
-					->addWhere('status = :status1')
-					->setParameter('status1',5)
-					->or()
-					->addWhere('role != :role')
-					->setParameter('role', 2);
+					$qbUsers->addWhere('status = :status1')->setParameter('status1',5)->or()->addWhere('role != :role')->setParameter('role', 2);
 					break;
 			}
+		}else if($args['params'][0] === "p"){
+			$page = $args['params'][1];
 		}
 
+		Route::checkParameters($args['params']);
 
 		$qb = new QueryBuilder();
-		// $qb->findAll('user')->addWhere('token = :token')->setParameter('token',$_SESSION['token'])->fetchOne();
-	
-		$user = new User();
 
-		$qb->reset();
-
-		$elementNumber = $qb->select('COUNT(*)')
-			->from('user')
-			->addWhere('status = :status1')
-			->setParameter('status1',5)
-			->addSeparator('OR')
-			->addWhere('status = :status2')
-			->setParameter('status2',2)
-			->fetchOne()[0];
-
-		Format::dump($route_access,1);
+		$count = $qb->select('COUNT(*)')->from('user')->addWhere('status = :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
 		
-
 		$elementPerPage = 5;
 
-		$nbPage = $elementNumber/$elementPerPage;
+		$nbPage = Format::pageCalc($count,elementPerPage);
 
-		if($elementNumber%$elementPerPage != 0 ){
-			$nbPage = ceil($nbPage);
-		}
 
-		$nbPage = intval($nbPage);
-
-		if(!isset($args['params'][0]) || $args['params'][0] == 1){
+		if(!isset($page) || $args['params'][0] == 1){
 			$userRes = $qbUsers->limit('0',$elementPerPage)->execute();
 			$currentPage = 1;
 		}else{
-			// if($args['params'][0] > $nbPage || $args['params'][0] < 1){
-			// 	header('location: /admin/utilisateurs');	
-			// }
+			if($page > $nbPage || $page < 1){
+				Route::redirect('AllUsers');	
+			}
 			$currentPage = $args['params'][0];
-			$userRes = $qbUsers->limit($args['params'][0]*$elementPerPage-$elementPerPage,$elementPerPage)->execute();
-
+			$userRes = $qbUsers->limit($page*$elementPerPage-$elementPerPage,$elementPerPage)->execute();
 		}
 
 		Format::dump($userRes,1);
@@ -126,7 +63,7 @@ class userController {
 		$v->assign("title","Tous les utilisateurs");
 		$v->assign("icon","icon-users");
 		$v->assign("users",$userRes);
-		$v->assign("elementNumber",$elementNumber);
+		$v->assign("elementNumber",$count);
 		$v->assign("nbPage",$nbPage);
 		$v->assign("elementPerPage",$elementPerPage);
 		$v->assign("currentPage",$currentPage);
@@ -145,7 +82,8 @@ class userController {
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:header("Location: /admin/utilisateurs");
+				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:Route::redirect('AllUsers');
+					
 				
 			}
 		}
@@ -173,7 +111,7 @@ class userController {
 		$editedUser = $user->getData('user',["id"=>$args['params'][0]])[0];
 
 		if(empty($editedUser)){
-			header('location: /admin/utilisateurs');
+			Route::redirect('AllUsers');
 		}
 
 		$form = User::getFormEditUser();
@@ -183,7 +121,7 @@ class userController {
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["error"]:header("Location: /admin/utilisateurs");
+				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["error"]:Route::redirect('AllUsers');
 				
 			}
 		}
@@ -215,7 +153,7 @@ class userController {
 	public function viewUserAction($args){
 
 		if(!is_numeric($args['params'][0])){
-			header('location: /admin/utilisateurs');
+			Route::redirect('AllUsers');
 		}
 
 		$user = new User();
@@ -230,7 +168,7 @@ class userController {
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["userexists"]:header("Location: /admin/utilisateurs");
+				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["userexists"]:Route::redirect('AllUsers');
 				
 			}
 		}
@@ -265,7 +203,7 @@ class userController {
 
 		if($token_generated->format('U') > $token_generated->format('U') + 86400 ) 
 		{     
-			header('location: error/404');
+			Route::redirect('Error404');
 		}
 		else
 		{
@@ -279,7 +217,7 @@ class userController {
 
 				if(!$errors){
 					$args['post']['token'] = $args['token'];
-					!Validator::process($form["struct"], $args['post'], 'modifypassword')?$errors=["password"]:header("Location: /connexion");
+					!Validator::process($form["struct"], $args['post'], 'modifypassword')?$errors=["password"]:Route::redirect('Login');
 
 				}
 			}
@@ -333,7 +271,7 @@ class userController {
 
     	if(!empty($userFound)){
     		User::setUserStatus($userFound['id'],3);
-    		header('location: /admin/modifier-utilisateur/'.$userFound['id']);
+    		Route::redirect('EditUser',$userFound['id']);
     	}
 	}
 	public function banUserAction($args){
@@ -343,7 +281,7 @@ class userController {
 
     	if(!empty($userFound)){
     		User::setUserStatus($userFound['id'],4);
-    		header('location: /admin/modifier-utilisateur/'.$userFound['id']);
+    		Route::redirect('EditUser',$userFound['id']);
     	}
 	}
 	public function deleteUserAction($args){
@@ -353,7 +291,7 @@ class userController {
 
     	if(!empty($userFound)){
     		User::setUserStatus($userFound['id'],5);
-    		header('location: /admin/modifier-utilisateur/'.$userFound['id']);
+    		Route::redirect('EditUser',$userFound['id']);
     	}
 	}
 	public function destroyUserAction($args){

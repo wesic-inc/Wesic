@@ -74,4 +74,18 @@ class Format {
 	{
 
 	}
+
+	static function pageCalc($count,$elementPerPage){
+
+		if($count < $elementPerPage){
+			return 1;
+		}
+		
+		if($count%$elementPerPage != 0 ){
+			return ceil($nbPage);
+		}
+
+		return intval($nbPage);
+
+	}
 }

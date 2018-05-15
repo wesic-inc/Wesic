@@ -11,13 +11,59 @@ public static function getRoot(){
 }
 
 public static function get($route){
+
 	global $route_access;
-	return $route_access[$route]['path'];
+	if(!empty($route_access[$route]['path'])){
+		return $route_access[$route]['path'];
+	}else{
+		return $route_access[$route]['error404']; 
+	}
+
 }
 
 public static function getAll($route){
+	
 	global $route_access;
-	return ROOT_URL.$route_access[$route]['path'];
+	if(!empty($route_access[$route]['path'])){
+		return ROOT_URL.$route_access[$route]['path'];
+	}else{
+		return $route_access[$route]['error404']; 
+	}
+}
+
+public static function echo($route){
+	echo self::getAll($route);
+}
+
+public static function redirect($route,$parameter = ""){
+	$redirect = 'location: '.self::getAll($route);
+	if(!empty($parameter)){
+		$redirect .= "/".$parameter;
+	}
+	header($redirect);
+
+}
+
+public static function getRouteInfo($route){
+	
+	global $route_access;
+	return [$route=>$route_access[$route]];		
+
+}
+
+
+
+public static function checkParameters($args){
+	
+	dump($args);
+
+	dump(self::getRouteInfo(self::getRoute()));
+
+
+
+	die();
+
+
 }
 
 public static function getPermissions( $route ){
@@ -87,22 +133,44 @@ public static function getPermissionsDev( $route ){
 	return false;
 }
 
+public static function getUri(){
+
+	$uri = $_SERVER['REQUEST_URI'];
+	$explode_uri = explode("?", $uri);
+	$uri = explode('/',$explode_uri[0]);
+	$params = $uri;
+	$uri = $uri[0].'/'.$uri[1].'/'.$uri[2];
+	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
+	unset($params[0]);
+	unset($params[1]);
+	unset($params[2]);
+
+	return [$uri,$params];
+}
+
+public static function getRoute(){
+	
+	global $route_access;
+	
+	$uri = self::getUri()[0];
+
+	foreach ($route_access as $key=>$rules){
+		if($uri == $rules['path']){
+			return $key;
+		}
+	}
+
+	self::getUri()[0];
+}
+
 public static function makeRouting(){
 
 	global $rof;
 	global $a;
 	global $c;
 	
-	$uri = $_SERVER['REQUEST_URI'];
-	$explode_uri = explode("?", $uri);
-	$uri = explode('/',$explode_uri[0]);
-	$params = $uri;
-	$uri = $uri[0].'/'.$uri[1].'/'.$uri[2];
-	
-	$uri = trim( str_replace(PATH_ROOT, "", $uri) , "/");
-	unset($params[0]);
-	unset($params[1]);
-	unset($params[2]);
+	$uri = self::getUri()[0];
+	$params = self::getUri()[1];
 
 	foreach($rof['routing'] as $rules) {
 
