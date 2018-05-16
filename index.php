@@ -1,6 +1,15 @@
 <?php
+
+
+// DEV ENV ONLY !!!!
 error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);
 ini_set('display_errors', TRUE);
+
+function dump($a,$b = 0,$c = 1){
+	Format::dump($a,$b,$c);
+}
+// DEV ENV ONLY !!!!
+
 
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
 
@@ -15,15 +24,25 @@ function autoloader($class) {
 
 spl_autoload_register('autoloader');
 
+// TEST AREA
+
+session_start();
+
+// $_SESSION['flash-title'] = "Mise à jour";
+// $_SESSION['flash-type'] = "success";
+// $_SESSION['flash-body'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+// $_SESSION['flash-id'] = uniqid();
+
+// dump($_SESSION);
+
+
+// END
+
 $route = Route::makeRouting();
 
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
 
-
-function dump($a,$b = 0,$c = 1){
-	Format::dump($a,$b,$c);
-}
 
 if( file_exists($path_controller) ){
 	

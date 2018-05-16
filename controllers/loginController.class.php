@@ -16,7 +16,7 @@ class loginController{
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(empty($errors)){
-				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:header("Location: /admin");
+				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:Route::redirect('Admin');
 			}
 		}
 
@@ -43,7 +43,7 @@ class loginController{
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:header("Location: /connexion");
+				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:Route::redirect('Login');
 				
 			}
 		}
@@ -67,7 +67,7 @@ class loginController{
 		$errors = Validator::check($form["struct"], $args['post']);
 
 			if(empty($errors)){
-				!Validator::process($form["struct"], $args['post'], 'newpassword')?$errors=["login404"]:header("Location: /connexion");
+				!Validator::process($form["struct"], $args['post'], 'newpassword')?$errors=["login404"]:Route::redirect('Login');
 			}
 		}
 

@@ -84,15 +84,28 @@ class Auth extends Basesql {
 
 		$users = $user->getData('user',["login"=>$data['login'],"status"=>'1']);
 
-		if(!empty($users)){
+		$qb = new QueryBuilder();
 
-			$userFound = $users[0];
+		$user = $qb
+		->select('*')
+		->from('user')
+		->addWhere('login = :login')
+		->setParameter('login',$data['login'])
+		->and()
+		->addWhere('status = :status')
+		->setParameter('status',1)
+		->and()
+		->addWhere('role != :role')
+		->setParameter('role',5)
+		->fetchOne();
 
-			if(password_verify($data['password'],$userFound['password']) ){
 
-				self::tokenRenew($userFound);
+
+		if(!empty($user)){
+
+			if(password_verify($data['password'],$user['password']) ){
+				self::tokenRenew($user);
 				return true;
-
 			}
 			self::logoutUser();
 			return false;

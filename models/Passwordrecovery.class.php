@@ -285,6 +285,72 @@ public static function confirmEmailNewUser($login){
         }
     }
 
+ static public function confirmEmailNewsletter($email){
+        
+        if(User::emailExists($email)){
 
+
+        $passwordrecovery = new Passwordrecovery();
+        
+        $user = new User();
+
+        $qb = new QueryBuilder();
+
+        $userFound = $qb
+        ->select('*')
+        ->from('user')
+        ->addWhere('email = :email')
+        ->setParameter('email',$email)
+        ->fetchOne();
+
+        
+        $user->setId($userFound['id']);
+        $user->cleanUserSlugPasswordRecovery();
+
+
+        $passwordrecovery = new Passwordrecovery();
+        $passwordrecovery->setTokenConfirmation();
+        $passwordrecovery->setSlug($passwordrecovery->getToken());
+        $passwordrecovery->setType(3);
+        $passwordrecovery->setUserId($userFound['id']);
+
+        $slug = new Slug();
+        $slug->setSlug($passwordrecovery->getToken());
+        $slug->setType(6);
+
+        $slug->save();
+        $passwordrecovery->save();
+
+
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'wesic.corporate@gmail.com';                 
+            $mail->Password = 'wesic2018';           
+            $mail->SMTPSecure = 'tls';                        
+            $mail->Port = 587;
+            $mail->CharSet = "UTF-8";
+            $mail->setFrom('wesic.corporate@gmail.com', 'Wesic Inc.');
+
+            $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
+
+            $mail->isHTML(true);
+            $mail->Subject = rand()." ".ucfirst($userFound['firstname']).', veuillez confirmer votre abonnemet à la newsletter';
+            $message = file_get_contents('views/mail/confirmationemailnewsletter.tpl.php'); 
+            $message = str_replace('%username%', ucfirst($userFound['firstname']), $message); 
+            $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
+            $mail->Body = $message;
+
+            
+            $mail->send();
+            return true;
+        }else{
+            return false;
+        }
+ }
 
 }

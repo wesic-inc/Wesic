@@ -29,7 +29,7 @@ class userController {
 
 		$qb = new QueryBuilder();
 
-		$count = $qb->select('COUNT(*)')->from('user')->addWhere('status != :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
+		$countAll = $qb->select('COUNT(*)')->from('user')->addWhere('status != :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
 		
 		$elementPerPage = 5;
 
@@ -57,7 +57,12 @@ class userController {
 		$v->assign("elementPerPage",$elementPerPage);
 		$v->assign("currentPage",$currentPage);
 	}
+	public function allUsersAjaxAction($args){
 
+		$v = new View();
+		$v->setView("ajax/test","templateajax");
+		
+	}
 	public function addUserAction($args){
 
 		$form = User::getFormNewUser();
@@ -67,7 +72,7 @@ class userController {
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:Route::redirect('AllUsers');
+				!Validator::process($form["struct"], $args['post'], 'add-user')?$errors=["userexists"]:Route::redirect('AllUsers');
 					
 				
 			}
@@ -240,6 +245,28 @@ class userController {
 	}
 
 
+	public function newsletterConfirmationActio($args){
+
+		$passwordrecovery = new Passwordrecovery();
+
+		$item = $passwordrecovery->getData('passwordrecovery',['slug'=>$args['token']])[0];
+
+		$user = new User();
+
+		$user->setId($item['user_id']);
+		$user->setStatus(1);
+		$user->save();
+
+		$user->cleanUserSlugPasswordRecovery();
+
+		Format::dump($user,1);
+
+		$v = new View();
+		$v->setView("login/emailconfirmed","templateadmin-modal");
+		$v->assign("title", "Merci !");
+		$v->assign("description", "Connexion");
+		
+	}
 	public static function forceNewPasswordAction($args){
 
 		$user = new User();

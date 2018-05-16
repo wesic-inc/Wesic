@@ -11,7 +11,7 @@ public function signUpAction($args){
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup-newsletter')?$errors=["email"]:Route::redirect('SignUpNewsletter');
+				!Validator::process($form["struct"], $args['post'], 'signup-newsletter')?$errors=["email-newsletter"]:Route::redirect('SignUpNewsletter');
 			}
 		}
 

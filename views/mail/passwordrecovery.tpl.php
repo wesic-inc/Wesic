@@ -28,6 +28,9 @@
 	.align-left{
 		text-align: left;
 	}
+	a{
+		color:#FFF;
+	}
 	@media only screen and (max-width: 700px){
 		.main-container{
 			width: 100% !important;

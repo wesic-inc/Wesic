@@ -9,3 +9,4 @@ errors:
     password1: votre mot de passe de confirmation ne correspond pas
     login404: votre login/mot de passe est incorrect
     userexists: le login/email existe déjà
+    email-newsletter: Vous êtes déjà inscrit à la newsletter

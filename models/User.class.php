@@ -341,7 +341,7 @@ public static function getNewsletterSignUpForm(){
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"S'inscrire", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true"],
         "struct" => [
             "name"=> [ "label"=> "Votre nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name"],
-            "email"=>[ "label"=>"Votre e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email"],
+            "email"=>[ "label"=>"Votre e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email-newsletter"],
             "signup"=>[ "label"=>"S'inscrire", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
         ]
     ];
@@ -393,10 +393,43 @@ public static function newUser($data){
         $user->setStatus(1);
         $user->setToken();
         $user->save();
+        
+
         return true;
 
     }
 }
+
+public static function addUser($data){
+
+    if( self::emailExists($data['email']) || self::loginExists($data['login'])){
+        return false;
+    }
+    else{
+
+        $user = new User();
+        $user->setLogin($data['login']);
+        $user->setFirstname($data['firstname']);
+        $user->setLastname($data['lastname']);
+        $user->setRole($data['role']);
+        $user->setEmail($data['email']);
+        $user->setPassword($data['password2']);
+        $user->setCreationDate(date('Y-m-d H:i:s'));
+        $user->setStatus(1);
+        $user->setToken();
+
+        View::setFlash("Succès !","L'utilisateur <i>".ucfirst($data['login'])."</i> a bien été ajouté","success");
+
+
+        $user->save();
+        
+
+        return true;
+
+    }
+} 
+
+
 
 public static function editUser($data){
 
@@ -416,6 +449,9 @@ public static function editUser($data){
         $user->setRole($data['role']);
 
         $user->save();
+        
+        View::setFlash("Succès !","L'utilisateur <i>".ucfirst($data['login'])."</i> a bien été modifié","success");
+
         return true;
 
     }else{
@@ -455,6 +491,7 @@ public static function modifyPassword($data){
     $user->setStatus(1);
     $user->save();
     $user->cleanUserSlugPasswordRecovery();
+
     
     return true;
 }
@@ -475,7 +512,25 @@ public static function setUserStatus($id,$status){
 }
 
 public static function signUpNewsletter($data){
-    dump($data,1);
+
+    // dump($data,1);
+    $user = new User();
+
+    $user->setFirstname($data['name']);
+    $user->setEmail($data['email']);
+    $user->setLogin($data['email']);
+    $user->setRole(5);
+    $user->setCreationDate();
+    $user->setStatus('2');
+    $user->save();
+
+    Passwordrecovery::confirmEmailNewsletter($data['email']);
+
+
+    return true;
+
 }
+
+
 
 }	

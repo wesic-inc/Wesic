@@ -31,6 +31,10 @@ class Route{
 		}
 	}
 
+	public static function assets($uri){
+		echo ROOT_URL.'public/'.$object;
+	}
+
 	public static function echo($route){
 		echo self::getAll($route);
 	}
@@ -286,6 +290,11 @@ class Route{
 					case 5:
 					$c = 'user';
 					$a = 'newAccountConfirmation';
+					$args['token'] = $slugFound['slug'];
+					break;
+					case 6:
+					$c = 'user';
+					$a = 'newsletterConfirmation';
 					$args['token'] = $slugFound['slug'];
 					break;
 					default:

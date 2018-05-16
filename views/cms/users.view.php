@@ -23,27 +23,14 @@
 								<input type="checkbox">
 								<span class="checkmark checkmark-header"></span>
 							</label></th>
-									<th>Identifiant</th>
-									<th>Nom</th>
-									<th>E-mail</th>
-									<th>Rôle</th>
-									<th>Posts</th>
+									<th><a onclick="test(1)" > Identifiant</a></th>
+									<th><a onclick="test(2)" > Nom</a></th>
+									<th><a onclick="test(3)" > E-mail</a></th>
+									<th><a onclick="test(4)" > Rôle</a></th>
+									<th><a onclick="test(5)" > Posts</a></th>
 								</tr>
 							</thead>
-							<tfoot>
-								<tr>
-									<td><label class="checkbox-container">
-								<input type="checkbox">
-								<span class="checkmark checkmark-footer"></span>
-							</label></td>
-									<td>Identifiant</td>
-									<td>Nom</td>
-									<td>E-mail</td>
-									<td>Rôle</td>
-									<td>Posts</td>
-								</tr>
-							</tfoot>
-							<tbody>
+							<tbody id="body-ajax">
 
 								<?php foreach($users as $user): ?>
 								<tr">

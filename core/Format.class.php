@@ -94,4 +94,8 @@ class Format {
 		return intval($nbPage);
 
 	}
+
+	static function img($name){
+		echo ROOT_URL.'/public/img/'.$name;
+	}
 }

@@ -70,6 +70,11 @@ class adminController{
 
 	}
 
+	public function devTestAction($args){
+		$v = new View();
+		$v->setView('dev/captcha','templateajax');
+	}
+
 
 
 

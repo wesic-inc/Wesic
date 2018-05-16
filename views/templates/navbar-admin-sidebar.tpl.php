@@ -6,7 +6,7 @@
 
 	<div class="siteinfo">
 		<a href="<?php Route::echo('Admin'); ?>">
-			<img class="navbar-icon" src="<?php echo ROOT_URL ?>/public/img/dark.svg">
+			<img class="navbar-icon" src="<?php Format::img('dark.svg'); ?>">
 			<span class="link-text"><?php echo $sitename; ?></span>
 		</a>
 	</div>
@@ -63,6 +63,10 @@
 			</div></li>
 			<li class="<?php echo ($c == "settings" && $a == "index" )?"active":"";?>">
 				<a href="<?php Route::echo('Parameters'); ?>"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres</span></a></li>
+						<li class="<?php echo ($c == "user" && $a == "allUsers" )?"active":"";?>">
+			<a href="<?php Route::echo('DevTest'); ?>">
+				<span class="icon icon-users"></span><span class="link-text">Dev test</span></a>
+			</li>
     </ul>
 </div>
 
@@ -88,7 +92,12 @@
           <div class="user-menu">
             <a href="#">
               <span> <?php echo Singleton::getUser()->getLogin(); ?> </span>
-              <img class="avatar" src="<?php echo ROOT_URL ?>/public/img/user.jpg">
-              <span class="icon-ctrl carret-down-user">
+              <img class="avatar" src="<?php Format::img('user.jpg'); ?>">
             </a>
+          <div class="dropdown">
+            <ul> 
+              <li><a href="<?php Route::echo('Profile'); ?>">Mon profil</a> </li> 
+              <li><a href="<?php Route::echo('Logout'); ?>">Se déconneter</a> </li> 
+            </ul>
+          </div>
         </div>

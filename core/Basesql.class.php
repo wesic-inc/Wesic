@@ -207,7 +207,7 @@ class Basesql{
 			$obj->openBracket()->addWhere('status != :status1')->setParameter('status1',5)->or()->addWhere('status != :status2')->setParameter('status2',2)->closeBracket()->and()->addWhere('role = :role')->setParameter('role',4);
 			break;
 			case 5:
-			$obj->addWhere('status = :status1')->setParameter('status1',5)->or()->addWhere('role != :role')->setParameter('role', 2);
+			$obj->addWhere('status = :status1')->setParameter('status1',5);
 			break;
 		}
 		return $obj;

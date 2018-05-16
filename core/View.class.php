@@ -38,6 +38,22 @@ class View{
 
 	}
 
+	public static function setFlash($title,$body,$type){
+		$_SESSION['flash-type'] = $type;
+		$_SESSION['flash-title'] = $title;
+		$_SESSION['flash-body'] = $body;
+		$_SESSION['flash-id'] = uniqid();
+
+	}
+
+	public static function destroyFlash(){
+
+		unset($_SESSION['flash-type']);
+		unset($_SESSION['flash-title']);
+		unset($_SESSION['flash-body']);
+		unset($_SESSION['flash-id']);
+	}
+
 	public function assign($key, $value){
 		$this->data[$key]=$value;
 	}

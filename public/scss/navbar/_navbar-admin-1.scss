@@ -275,32 +275,7 @@ span.icon-ctrl.carret-down {
           color: $white;      
         }
       }
-      .dropdown{
-        display: none;
-        padding: 0;
-        background-color: $input-bg;
-        border-radius-bottom-left: $input-radius;
-        border-radius-bottom-right: $input-radius;
-        padding-top: 5px;
-        padding-bottom: 10px;
-        margin-top:10px;
-        position: absolute;
-        box-shadow: $light-shadow;
-        top: 40px;
-        width: 170px;
-        li{
-          display:block;
-        }
-        li:hover{
-          background: $bloc-color;
-          a{
-            color: $primary-color;
-          }
-        }
-        a:hover{
-          color: $white;
-        }
-      }
+
       .dropdown-link:hover .dropdown{
         display:block;
       }
@@ -312,10 +287,44 @@ span.icon-ctrl.carret-down {
 
   .user-menu{
     font-size: $small-text;
-    position: absolute;
+    position: fixed;
     right: 30px;
     top: 7px;
     z-index: 1000;
+    &:hover .dropdown{
+      display: block;
+      position: absolute;
+
+    }
+      .dropdown{
+        display: none;
+        padding: 10px;
+        background-color: $input-bg;
+        border-radius-bottom-left: $input-radius;
+        border-radius-bottom-right: $input-radius;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top:10px;
+        position: absolute;
+        box-shadow: $light-shadow;
+        top: 30px;
+        width: 170px;
+        right:-15px;
+        z-index: 999;
+        li{
+          display:block;
+          padding: 10px;
+        }
+        li:hover{
+          background: $bloc-color;
+          a{
+            color: $primary-color;
+          }
+        }
+        a:hover{
+          color: $white;
+        }
+      }
     a{
       color: $black;
     }

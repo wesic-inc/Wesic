@@ -3,6 +3,7 @@
  [ ] pop up confirmation
  [ ] messages d'erreurs
  ✔ Pagination des tableaux @
+ [ ] flash message en sessions
  
 
  [ ] Rendre la pagination plus belle 

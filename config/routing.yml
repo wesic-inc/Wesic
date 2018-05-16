@@ -44,7 +44,7 @@ routing:
     Profile:
         restricted: user
         controller: user:index
-        path: admin/profile
+        path: profil
 
     NewArticle:
         restricted: admin
@@ -62,6 +62,14 @@ routing:
             filter:
                 type: int
                 optional: true
+            sort:
+                type: int
+                optional: true
+
+    AllUsersAjax:
+        restricted: admin
+        controller: user:allUsersAjax
+        path: admin/utilisateurs-ajax
 
     AddUser:
         restricted: admin
@@ -182,3 +190,13 @@ routing:
         restricted: all
         controller: newsletter:signUp
         path: newsletter
+
+    DevTest:
+        restricted: all
+        controller: admin:devTest
+        path: admin/test
+
+    DeleteFlashSessionAjax:
+        restricted: all
+        controller: framework:deleteFlashSessionAjax
+        path: admin/delete-flash-session-ajax
