@@ -109,6 +109,16 @@ routing:
         controller: admin:newArticle
         path: admin/modifier-article
 
+    Stats:
+        restricted: admin
+        controller: stat:index
+        path: admin/statistiques
+
+    ExportStats:
+        restricted: admin
+        controler: stat:export
+        path: admin/exporter-statistiques
+
     Medias:
         restricted: admin
         controller: media:index

@@ -92,7 +92,7 @@ body{
 
 .bloc-close{
 	font-size: 12px;
-	color: $darker1;
+	color: #000;
 	transition: all 0.3s ease-in;
 	position: relative;
 	top: -15px;
@@ -241,6 +241,33 @@ body{
 	color:#FFF;
 }
 
+
+.theme-one{
+	padding: 40px;
+	text-align: center;
+}
+
+	.theme-item:hover{
+		border:3px solid $darker3;
+	}
+.theme-item {
+	cursor:pointer;
+	position: relative;
+	background-position: center;
+    height: 300px;
+    width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
+	border:3px solid #FFF;
+	border-radius: 10px;
+
+}
+
+.theme-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 
 
@@ -422,6 +449,8 @@ div.separator{
 		}
 	}
 }
+
+
 
 .last-comments{
 	article{

@@ -2,6 +2,7 @@
 	<div class="container-fluid" >
 		<div class="row">
 			<div class="col-md-6">
+				<?php if( Setting::getParam('welcome-bloc') == '1'): ?>
 				<div class="col-md-12 bloc welcome-bloc">
 					<span class="icon-cross bloc-close"></span>
 					<header>
@@ -15,11 +16,13 @@
 							</div>
 							<div class="col-md-6 text-center welcome-start">
 								<a href="#" class="btn btn-lg welcome-btn"> Démarage rapide </a>
-								<p class="subtext"> Vous découvrez notre outil pour la première fois ? Essayez le démarage rapide ! </p>
+								<p class="subtext"> Vous découvrez notre outil pour la première fois ? Suivez le guide ! </p>
 							</div>
 						</div>
 					</article>
 				</div>
+				<?php endif; ?>
+				<?php if( Setting::getParam('links-bloc') == '1'): ?>
 				<div class="col-md-12 bloc links-bloc">
 					<span class="icon-cross bloc-close">
 					</span>
@@ -71,6 +74,7 @@
 									</div>
 								</article>
 							</div>
+					<?php endif; ?>
 						<div class="col-lg-12 bloc gutter-bloc stats">
 								<span class="icon-menu bloc-close"> </span>
 								<header>
@@ -85,11 +89,11 @@
 									<canvas id="myChart" width="400" height="200"></canvas>
 
 									<ul class="btns">
-										<li><a href="#" class="btn btn-sm"> 1 an </a></li>
-										<li><a href="#" class="btn btn-sm"> 6 mois </a></li>
-										<li><a href="#" class="btn btn-sm"> 3 mois </a></li>
-										<li><a href="#" class="btn btn-sm active"> 30 jours </a></li>
-										<li><a href="#" class="btn btn-sm"> Aujourd'hui </a></li>
+										<li><a href="#" class="btn btn-sm btn-alt-inverted"> 1 an </a></li>
+										<li><a href="#" class="btn btn-sm btn-alt-inverted"> 6 mois </a></li>
+										<li><a href="#" class="btn btn-sm btn-alt-inverted"> 3 mois </a></li>
+										<li><a href="#" class="btn btn-sm btn-alt-inverted"> 30 jours </a></li>
+										<li><a href="#" class="btn btn-sm btn-alt-inverted"> Aujourd'hui </a></li>
 									</ul>
 								</article>
 							</div>
@@ -117,7 +121,7 @@
 										</div>
 									</div>
 									<p> Wesic est en version <?php echo WESIC_VERSION; ?> avec le thème <span> Minimalism </span> </p>
-									<a class="btn btn-lg update-wesic"> Mettre à jour </a>
+									<a class="btn btn-sm btn-danger update-wesic"> Mettre à jour </a>
 								</article>
 							</div>
 							<div class="col-lg-12 bloc activity">

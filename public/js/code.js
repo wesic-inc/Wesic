@@ -40,9 +40,9 @@ $('#wesic-wysiwyg').trumbowyg({
 $.trumbowyg.svgPath = './trumbowyg/ui/icons.svg';
 
 
-function viewMedia(idMedia){
-  $('body').toggleClass('modal-open');
-  $('.modal').toggleClass('modal-closed');
-  $('.modal-overlay').toggleClass('modal-closed');
-}
+// function viewMedia(idMedia){
+//   $('body').toggleClass('modal-open');
+//   $('.modal').toggleClass('modal-closed');
+//   $('.modal-overlay').toggleClass('modal-closed');
+// }
 

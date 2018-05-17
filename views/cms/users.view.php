@@ -1,7 +1,7 @@
 	<div class="container-fluid" >
 			<div class="row">
 				<div class="col-md-12 bloc article-bloc">
-					<a href="<?php echo ROOT_URL; ?>admin/ajouter-utilisateur" class="btn btn-sm btn-add">Ajouter un utilisateur</a></h1> 
+					<a href="<?php Route::echo('AddUser') ?>" class="btn btn-sm btn-add">Ajouter un utilisateur</a> 
 					<header>
 						<input type="text" class="search-input sm-input hidden-xs" >
 						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 

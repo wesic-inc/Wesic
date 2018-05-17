@@ -172,6 +172,9 @@ public static function editSettings($data){
   ->setParam('timezone',$data['timezone'])
   ->setParam('datetype',$data['datetype'])
   ->setParam('timetype',$data['timetype']);
+
+  View::setFlash('Génial !','Les paramètres ont bien été enregistrés !','success');
+
   return true;
 }
 
@@ -185,6 +188,9 @@ public static function editSettingsPost($data){
   ->setParam('mail-password',$data['mail-password'])
   ->setParam('default-cat',$data['default-cat'])
   ->setParam('default-format',$data['default-format']);
+
+  View::setFlash('Génial !','Les paramètres ont bien été enregistrés !','success');
+
   return true;
 
 }
@@ -196,6 +202,9 @@ public static function editSettingsView($data){
   ->setParam('pagination-posts',$data['pagination-posts'])
   ->setParam('pagination-rss',$data['pagination-rss'])
   ->setParam('display-post',$data['display-post']);
+
+  View::setFlash('Génial !','Les paramètres ont bien été enregistrés !','success');
+
   return true;
 
 }

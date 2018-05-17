@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le :  jeu. 17 mai 2018 à 07:57
+-- Généré le :  jeu. 17 mai 2018 à 10:02
 -- Version du serveur :  10.2.13-MariaDB-10.2.13+maria~jessie
 -- Version de PHP :  7.1.9
 
@@ -26,26 +26,28 @@ SET time_zone = "+00:00";
 -- Déchargement des données de la table `setting`
 --
 
-INSERT INTO `setting` (`type`, `id`, `value`) VALUES
-( 1, 'title', 'Wesic Inc.'),
-( 1, 'slogan', NULL),
-( 1, 'url', 'http://www.docker.local'),
-( 1, 'email', 'lharang.pro@gmail.com'),
-( 2, 'timezone', '1'),
-( 1, 'datetype', '1'),
-( 1, 'timetype', '1'),
-( 1, 'favicon', 'public/storage/favicon.png'),
-( 2, 'signup', '1'),
-( 2, 'mail-server', 'smtp.gmail.com'),
-( 2, 'mail-port', '587'),
-( 2, 'mail-login', 'wesic.corporate@gmail.com'),
-( 2, 'mail-password', 'wesic2018'),
-( 2, 'default-cat', '1'),
-( 2, 'default-format', '1'),
-( 3, 'homepage', '0'),
-( 3, 'pagination-posts', '1'),
-( 3, 'pagination-rss', '1'),
-( 3, 'display-post', '1');
+INSERT INTO `setting` (`id`, `type`, `value`) VALUES
+('datetype', 1, '1'),
+('default-cat', 2, '1'),
+('default-format', 2, '1'),
+('display-post', 3, '1'),
+('email', 1, 'lharang.pro@gmail.com'),
+('favicon', 1, 'public/storage/favicon.png'),
+('homepage', 3, '0'),
+('links-bloc', 4, '1'),
+('mail-login', 2, 'wesic.corporate@gmail.com'),
+('mail-password', 2, 'wesic2018'),
+('mail-port', 2, '587'),
+('mail-server', 2, 'smtp.gmail.com'),
+('pagination-posts', 3, '1'),
+('pagination-rss', 3, '1'),
+('signup', 2, '1'),
+('slogan', 1, 'TROP BIEN LE SLOGAN LOLILOL'),
+('timetype', 1, '1'),
+('timezone', 2, '1'),
+('title', 1, 'Wesic Dev.'),
+('url', 1, 'http://www.docker.local'),
+('welcome-bloc', 4, '1');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -36,7 +36,7 @@ class Route{
 	}
 
 	public static function echo($route){
-		echo self::getAll($route);
+			echo self::getAll($route);
 	}
 
 	public static function redirect($route,$parameter = ""){

@@ -238,7 +238,7 @@ class Form{
 		}
 	}	
 	public static function captcha($name, $option, $data){
-		return '<img class="captcha" src="captcha.view.php"><div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>
+		return '<img class="captcha" src="captcha.php"><div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>
 		<input 	name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . (($option["required"])?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . ((isset($option["required"]))?"required='required'":"") . '></div>';
 	}
 	public static function radio($name, $option, $date){

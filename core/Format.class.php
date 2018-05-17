@@ -96,7 +96,7 @@ class Format {
 	}
 
 	static function img($name){
-		echo ROOT_URL.'/public/img/'.$name;
+		echo ROOT_URL.'public/img/'.$name;
 	}
 
 	static function dateDisplay($date,$type){

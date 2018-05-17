@@ -3,8 +3,6 @@ class settingController{
 
 	public function indexAction($args){
 
-
-
 		$form = Setting::getFormSettings();
 		$errors = [];
 

@@ -5,7 +5,8 @@
 <?php endif; ?>
 
 	<div class="siteinfo">
-		<a href="<?php Route::echo('Admin'); ?>">
+
+		<a href="<?php echo Setting::getParam('url'); ?>">
 			<img class="navbar-icon" src="<?php echo ROOT_URL.Setting::getParam('favicon'); ?>">
 			<span class="link-text"><?php echo Setting::getParam('title'); ?></span>
 		</a>
@@ -70,7 +71,11 @@
 					<li><a href="<?php Route::echo('viewSettings'); ?>">Lecture</a> </li>  
 				</ul>
 			</div></li>
-						<li class="<?php echo ($c == "admin" && $a == "devTest" )?"active":"";?>">
+			<li class="<?php echo ($c == "stat" && $a == "index" )?"active":"";?>">
+			<a href="<?php Route::echo('Stats'); ?>">
+				<span class="icon icon-stats-dots"></span><span class="link-text">Statistiques</span></a>
+			</li>
+			<li class="<?php echo ($c == "admin" && $a == "devTest" )?"active":"";?>">
 			<a href="<?php Route::echo('DevTest'); ?>">
 				<span class="icon icon-embed2"></span><span class="link-text">Dev test</span></a>
 			</li>
