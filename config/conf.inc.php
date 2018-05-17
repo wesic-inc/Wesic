@@ -17,6 +17,8 @@ define('DOMAIN',$_SERVER['HTTP_HOST']);
 define('ROOT_URL', preg_replace("/\/$/",'',PROTOCOL.DOMAIN.str_replace(array('\\',"index.php","index.html"), '', dirname(htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES))),1).'/',true);
 
 
+
+
 $errors_msg = $erf['errors'];
 $route_access = $rof['routing'];
 $forms_group = $fof['forms'];

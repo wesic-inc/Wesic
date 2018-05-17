@@ -8,6 +8,7 @@ ini_set('display_errors', TRUE);
 function dump($a,$b = 0,$c = 1){
 	Format::dump($a,$b,$c);
 }
+
 // DEV ENV ONLY !!!!
 
 
@@ -24,19 +25,12 @@ function autoloader($class) {
 
 spl_autoload_register('autoloader');
 
-// TEST AREA
-
-session_start();
-
-// $_SESSION['flash-title'] = "Mise à jour";
-// $_SESSION['flash-type'] = "success";
-// $_SESSION['flash-body'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-// $_SESSION['flash-id'] = uniqid();
-
-// dump($_SESSION);
+// START TEST AREA
 
 
-// END
+
+
+// END TEST AREA
 
 $route = Route::makeRouting();
 

@@ -45,3 +45,4 @@ function viewMedia(idMedia){
   $('.modal').toggleClass('modal-closed');
   $('.modal-overlay').toggleClass('modal-closed');
 }
+

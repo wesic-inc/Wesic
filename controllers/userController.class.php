@@ -14,6 +14,9 @@ class userController {
 
 		$param = Route::checkParameters($args['params']);
 
+		if($param == false){
+			Route::redirect('allUsers');
+		}
 
 		if( isset($param['filter']) ){
 			
@@ -51,17 +54,54 @@ class userController {
 		$v->assign("title","Tous les utilisateurs");
 		$v->assign("icon","icon-users");
 		$v->assign("users",$userRes);
-		$v->assign("elementNumber",$count);
+		$v->assign("elementNumber",$countAll);
 		$v->assign("nbPage",$nbPage);
 		$v->assign("filter",$param['filter']);
 		$v->assign("elementPerPage",$elementPerPage);
 		$v->assign("currentPage",$currentPage);
 	}
 	public function allUsersAjaxAction($args){
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-		$v = new View();
-		$v->setView("ajax/test","templateajax");
-		
+			$qbUsers = new QueryBuilder();
+			$qbUsers->select('*')->from('user');
+
+			$param = Route::checkParameters($args['params']);
+			switch ($param['sort']) {
+				case 1:
+					$qbUsers->OrderBy('login','DESC');
+					break;
+				case -1:
+					$qbUsers->OrderBy('login','ASC');
+					break;
+				case 2:
+					$qbUsers->OrderBy('lastname','DESC');
+					break;
+				case -2:
+					$qbUsers->OrderBy('lastname','ASC');
+					break;
+				case 3:
+					$qbUsers->OrderBy('email','DESC');
+					break;
+				case -3:
+					$qbUsers->OrderBy('email','ASC');
+					break;
+				case 4:
+					$qbUsers->OrderBy('role','DESC');
+					break;
+				case -4:
+					$qbUsers->OrderBy('role','ASC');
+					break;
+				default:
+					return false;
+				break;
+			}			
+
+			$users = $qbUsers->execute();
+			$v = new View();
+			$v->setView("ajax/allUsers","templateajax");
+			$v->assign("users",$users);
+		}
 	}
 	public function addUserAction($args){
 
@@ -73,7 +113,7 @@ class userController {
 
 			if(!$errors){
 				!Validator::process($form["struct"], $args['post'], 'add-user')?$errors=["userexists"]:Route::redirect('AllUsers');
-					
+
 				
 			}
 		}
@@ -270,40 +310,39 @@ class userController {
 	public static function forceNewPasswordAction($args){
 
 		$user = new User();
-    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
-    	if(!empty($userFound)){
-    		Passwordrecovery::sendResetPassword($userFound['login']);
-    	}
+		$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+		if(!empty($userFound)){
+			Passwordrecovery::sendResetPassword($userFound['login']);
+		}
 	}
 	public function disableUserAction($args){
 
 		$user = new User();
-    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+		$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
 
-    	if(!empty($userFound)){
-    		User::setUserStatus($userFound['id'],3);
-    		Route::redirect('EditUser',$userFound['id']);
-    	}
+		if(!empty($userFound)){
+			User::setUserStatus($userFound['id'],3);
+			Route::redirect('EditUser',$userFound['id']);
+		}
 	}
 	public function banUserAction($args){
 
 		$user = new User();
-    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+		$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
 
-    	if(!empty($userFound)){
-    		User::setUserStatus($userFound['id'],4);
-    		Route::redirect('EditUser',$userFound['id']);
-    	}
+		if(!empty($userFound)){
+			User::setUserStatus($userFound['id'],4);
+			Route::redirect('EditUser',$userFound['id']);
+		}
 	}
 	public function deleteUserAction($args){
-
 		$user = new User();
-    	$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
+		$userFound = $user->getData("user",['id' => $args['params'][0]])[0];
 
-    	if(!empty($userFound)){
-    		User::setUserStatus($userFound['id'],5);
-    		Route::redirect('EditUser',$userFound['id']);
-    	}
+		if(!empty($userFound)){
+			User::setUserStatus($userFound['id'],5);
+			Route::redirect('EditUser',$userFound['id']);
+		}
 	}
 	public function destroyUserAction($args){
 

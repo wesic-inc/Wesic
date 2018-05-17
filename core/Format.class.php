@@ -64,12 +64,12 @@ class Format {
 		background:#FFF;
 		margin:0;color:#000;font-weight:bold">';
 		if($type == 1){
-		var_dump($var);
+			var_dump($var);
 		}
 		if($type == 2){
-		print_r($var);
+			print_r($var);
 		}
-			
+
 		echo "</pre>";
 		echo "</div>";
 		if($die == true){
@@ -97,5 +97,54 @@ class Format {
 
 	static function img($name){
 		echo ROOT_URL.'/public/img/'.$name;
+	}
+
+	static function dateDisplay($date,$type){
+
+		if($date==0){
+			$date = date("Y-m-d");
+		}
+
+		switch ($type) {
+			case 1:
+			return date("j F Y", strtotime($date));
+			break;
+			case 2:
+			return date("Y-m-d", strtotime($date));
+			break;
+			case 3:
+			return date("m/d/Y", strtotime($date));
+			break;
+			case 4:
+			return date("d/m/Y", strtotime($date));
+			break;
+			default:
+				return false;
+			break;
+		}
+	}
+		static function timeDisplay($time,$type){
+		
+		if($time==0){
+			$time = date("Y-m-d");
+		}
+
+		switch ($type) {
+			case 1:
+			return date("j F Y", strtotime($time));
+			break;
+			case 2:
+			return date("Y-m-d", strtotime($time));
+			break;
+			case 3:
+			return date("m/d/Y", strtotime($time));
+			break;
+			case 4:
+			return date("d/m/Y", strtotime($time));
+			break;
+			default:
+				return false;
+			break;
+		}
 	}
 }

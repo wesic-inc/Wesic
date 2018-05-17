@@ -369,6 +369,10 @@ ul.inline li {
   margin-right: 10px;
   display: inline-block; }
 
+.captcha {
+  width: 200px;
+  border-radius: 5px; }
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0; }
@@ -432,8 +436,43 @@ a.active {
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  filter: grayscale(100%); }
+  background-size: cover; }
+
+.modal {
+  top: 15vh;
+  background: #FFF;
+  text-align: center; }
+  .modal .modal-title {
+    margin: 20px; }
+  .modal .input-group {
+    margin: 10px; }
+    .modal .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold; }
+    .modal .input-group input {
+      background: #EFEFEFEF;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 4px;
+      width: 100%; }
+  .modal input.btn {
+    background: #737373;
+    border: 2px solid #737373 !important;
+    display: inline-block;
+    font-size: 15px;
+    padding: 5px 20px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    color: #FFFFFF;
+    border-radius: 5px;
+    position: relative;
+    font: "Roboto", sans-serif;
+    cursor: pointer;
+    margin: 15px; }
+  .modal input.btn:hover {
+    background: #404040;
+    border: 2px solid #404040 !important; }
 
 section {
   margin-top: 40px; }

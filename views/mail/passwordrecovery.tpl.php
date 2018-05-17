@@ -1,9 +1,9 @@
-<!doctype html>
+s<!doctype html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Wesic Inc. - R&eacute;initialisation de votre mot de passe</title>
+	<title>%sitename% - R&eacute;initialisation de votre mot de passe</title>
 	<style>
 	
 	@import url(https://fonts.googleapis.com/css?family=Roboto:400);
@@ -55,7 +55,7 @@
 							<table class="container header" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
 								<tr>
 									<td style="padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee;" align="left">
-										<a href="#" style="font-size:30px;text-decoration:none; color: #000000;">Wesic Inc.</a>
+										<a href="#" style="font-size:30px;text-decoration:none; color: #000000;">%sitename%</a>
 									</td>
 								</tr>
 							</table>

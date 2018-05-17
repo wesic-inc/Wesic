@@ -5,9 +5,10 @@
 						<div class="hamburger not-active" id="hamburger-menu">
 			<span class="line"></span>
 			<span class="line"></span>
+
 		</div>
 				<ul class="nav sitename push-left">
-					<li> <a href="#">BAND NAME</a></li>
+					<li> <a href="#"><?php echo strtoupper(Setting::getParam('title')); ?></a></li>
 				</ul>
 				<ul class="nav push-right" id="menu">
 					<li ><a href="#" class="active">Home</a></li>

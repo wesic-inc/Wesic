@@ -20,13 +20,24 @@ input[type=text] {
 	height:32px;
 	padding: 20px 10px;
 }
+
 .form-link{
 	width: 100%;
 	display: block;
 	text-align: center;
 }
+.form-helper{
+	color: $darker3 !important;
+	font-size: $small-text !important;
+	text-align: center;
+}
 input[type=text].sm-input {
 	padding: 10px 10px;
+}
+
+.captcha{
+	width: 200px;
+	border-radius: 5px;
 }
 
 input[type=password] {
@@ -63,39 +74,31 @@ textarea {
 	max-width:100%;
 }
 
-.fade.show {
-    opacity: 1;
-}
-
 .alert-warning {
-    color: #856404;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
+    color: darken($warning,20);
+    background-color: lighten($warning,30);
+    border-color: lighten($warning,20)
 }
 .alert-danger {
-       color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+    color: darken($danger,20);
+    background-color: lighten($danger,30);
+    border-color: lighten($danger,20);
 }
 .alert-success {
-        color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+    color: darken($success,20);
+    background-color: lighten($success,30);
+    border-color: lighten($success,20)
 }
 .alert-info {
-        color: #0c5460;
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-}
-.alert-dismissible {
-    padding-right: 4rem;
+    color: darken($info,20);
+    background-color: lighten($info,30);
+    border-color: lighten($info,20);
 }
 .alert {
     position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
+    padding:14px 30px;
     border: 1px solid transparent;
-    border-radius: .25rem;
+    border-radius: 3px;
     margin-top: 70px;
     box-shadow: $bloc-shadow;
 }
@@ -480,7 +483,7 @@ ul.grid-actions{
 }
 
 .login-modal{
-	background:$stripped-1;
+	background:$darker1;
 	border-radius: 2px;
 	box-shadow: $bloc-shadow;
 	top:25vh;
@@ -492,7 +495,6 @@ ul.grid-actions{
 		width: 100%;
 	}
 }
-
 
 .mb-10{
 	margin-bottom:10px;

@@ -200,7 +200,7 @@ class User extends Basesql
         }else if(!empty($this->email)){
             $this->token = substr(sha1("GDQgfds4354".$this->email.substr(time(), 5).uniqid()."gdsfd"), 2, 10);
         }else{
-            die("Veuillez préciser un email");
+            Route::redirect('login');
         }
     }
 
@@ -341,7 +341,8 @@ public static function getNewsletterSignUpForm(){
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"S'inscrire", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true"],
         "struct" => [
             "name"=> [ "label"=> "Votre nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name"],
-            "email"=>[ "label"=>"Votre e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email-newsletter"],
+            "email"=>[ "label"=>"Votre e-mail", "type"=>"email", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email-newsletter", "checkexist"=>true], 
+            "captcha"=>[ "label"=>"Captcha", "type"=>"captcha", "id"=>"captcha", "placeholder"=>"Captcha", "required"=>1, "msgerror"=>"captcha"],
             "signup"=>[ "label"=>"S'inscrire", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
         ]
     ];
@@ -513,7 +514,10 @@ public static function setUserStatus($id,$status){
 
 public static function signUpNewsletter($data){
 
-    // dump($data,1);
+    if( self::emailExists($data['email']) || self::loginExists($data['email'])){
+        return false;
+    }else{
+
     $user = new User();
 
     $user->setFirstname($data['name']);
@@ -525,10 +529,9 @@ public static function signUpNewsletter($data){
     $user->save();
 
     Passwordrecovery::confirmEmailNewsletter($data['email']);
-
-
     return true;
-
+    
+    }
 }
 
 

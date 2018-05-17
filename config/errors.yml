@@ -10,3 +10,6 @@ errors:
     login404: votre login/mot de passe est incorrect
     userexists: le login/email existe déjà
     email-newsletter: Vous êtes déjà inscrit à la newsletter
+    captcha: Le captcha est incorrect
+    settings: Une erreur est survenue
+    slogan: Slogan incorrect

@@ -23,7 +23,7 @@ class Form{
 
 		foreach($form["struct"] as $name => $option){
 
-			if($option["type"] == "text"|| $option["type"]=="password"){
+			if($option["type"] == "text"|| $option["type"]=="password" || $option["type"]=="email"){
 				$output .= self::input($name,$option,$data[$name]);
 			}
 			elseif($option["type"]=="textarea"){
@@ -44,14 +44,26 @@ class Form{
 			elseif($option["type"] == "link"){
 				$output .= self::link($name,$option,$data[$name]);
 			}
+			elseif($option["type"] == "radio"){
+				$output .= self::radio($name,$option,$data[$name]);
+			}
+			elseif($option["type"] == "info"){
+				$output .= self::info($name,$option,$data[$name]);
+			}
+			elseif($option["type"] == "title"){
+				$output .= self::title($name,$option,$data[$name]);
+			}
 			elseif($option["type"] == "separator"){
 				$output .= '<div class="separator"></div>';
+			}
+			elseif($option["type"] == "captcha"){
+				$output .= self::captcha($name,$option,$data[$name]);
 			}
 		}
 		if($form['options']['submit-custom'] != true){
 			$output .= '<input type="submit" value="'.$form["options"]["submit"].'">';
 		}
-
+		
 		$output .= '</form>';
 		echo $output;
 
@@ -96,6 +108,18 @@ class Form{
 				}
 				elseif($form["struct"][$child]["type"] == "link"){
 					$step .= self::link($child,$form["struct"][$child],$data[$child]);
+				}				
+				elseif($form["struct"][$child]["type"] == "info"){
+					$step .= self::info($child,$form["struct"][$child],$data[$child]);
+				}
+				elseif($form["struct"][$child]["type"] == "title"){
+					$step .= self::title($child,$form["struct"][$child],$data[$child]);
+				}				
+				elseif($form["struct"][$child]["type"] == "captcha"){
+					$step .= self::captcha($child,$form["struct"][$child],$data[$child]);
+				}
+				elseif($form["struct"][$child]["type"] == "radio"){
+					$step .= self::radio($child,$form["struct"][$child],$data[$child]);
 				}
 				$step .= "</li>";
 			}
@@ -124,18 +148,25 @@ class Form{
 
 	public static function input($name,$option,$data){
 
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
 		return '<div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>
-		<input 	name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . (($option["required"])?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . (($option["disabled"])?"disabled":"") . '></div>';
+		<input 	name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . ((isset($option["required"]))?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . (($option["disabled"])?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div>';
 	}
 	public static function text($name,$option,$data){
 
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
 		return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
 		<textarea name="'.$name.'"
 		id="'.$option["id"].'"
 		placeholder="'.$option["placeholder"].'"' 
-		.(($option["required"])?"required='required'":"").' ' . (($option["disabled"])?"disabled'":"") . '>'
-		.((isset($data))?$data:"").'</textarea></div>';
+		.((isset($option["required"]))?"required='required'":"").' ' . (($option["disabled"])?"disabled'":"") . '>'
+		.((isset($data))?$data:"").'</textarea>'.(isset($helper)?$helper:"").'</div>';
 	}
+	
 
 	public static function texteditor($name,$option,$data){
 		return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
@@ -145,8 +176,12 @@ class Form{
 
 	public static function select($name,$option,$data){
 
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
+
 		$output = '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<select name="'.$name.'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'" '.(($option["required"])?"required='required'":"").' ' . (($option["disabled"])?"disabled":"") . '>';
+		<select name="'.$name.'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'" '.((isset($option["required"]))?"required='required'":"").' ' . (($option["disabled"])?"disabled":"") . '>';
 
 		foreach ($option["choices"] as $value=>$title){
 
@@ -154,35 +189,71 @@ class Form{
 			.ucfirst($title).'</option>';
 		}
 
-		$output .= "</select></div>";
+		$output .= '</select>'.(isset($helper)?$helper:"").'</div>';
 		return $output;
 	}
 	public static function date($name,$option,$data){
 
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
 		return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
 		<input name="'.$name.'" 
 		type="'.$option["type"].'"
 		id="'.$option["id"].'"
 		placeholder="'.$option["placeholder"].'"'
-		.(($option["required"])?"required='required'":"").'
+		.((isset($option["required"]))?"required='required'":"").'
 		value="'.((isset($data))?$data:"").'" ' . (($option["disabled"])?"disabled":"") . '></div>'; 
 	}
 
 	public static function submit($name,$option,$data){
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
 		if($option['button'] == "btn-alt"){
 			$class = "btn btn-alt btn-sm";
 		}else{
 			$class = "btn btn-sm";
 		}
-		return '<input class="'.$class.'" type="submit" value="'.$option['label'].'">'; 
+		return '<input class="'.$class.'" type="submit" value="'.$option['label'].'"> '.(isset($helper)?$helper:""); 
+	}
+	public static function info($name,$option,$data){
+		
+		return '<div class="input-group"><p>'.$option['text'].'</p></div>'; 
+	}
+	public static function title($name,$option,$data){
+		
+		return '<div class="input-group"><p class="title-form">'.$option['text'].'</p></div>'; 
 	}
 	public static function link($name, $option, $data){
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
 		if(isset($option['link'])){
-		return '<div class="input-group"><a href="'.$option['link'].'" class="form-link '.$option["class"].'">' . $option['label'] .'</a></div>';
+			return '<div class="input-group"><a href="'.$option['link'].'" class="form-link '.$option["class"].'">' . $option['label'] .'</a>'.(isset($helper)?$helper:"").'</div>';
 
 		}else{
 			
-		return '<div class="input-group"><a href="'.$data.'" class="form-link '.$option["class"].'">' . $option['label'] .'</a></div>';
+			return '<div class="input-group"><a href="'.$data.'" class="form-link '.$option["class"].'">' . $option['label'] .'</a>'.(isset($helper)?$helper:"").'</div>';
 		}
 	}	
+	public static function captcha($name, $option, $data){
+		return '<img class="captcha" src="captcha.view.php"><div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>
+		<input 	name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . (($option["required"])?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . ((isset($option["required"]))?"required='required'":"") . '></div>';
+	}
+	public static function radio($name, $option, $date){
+
+		if(isset($option['helper'])){
+			$helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+		}
+		$output = "";
+
+		foreach ($option["choices"] as $value=>$title){
+
+			$output = $output.'<input type="radio" name="'.$name.'" id="'.$option["id"].'"'.(($data==$value)?'checkeds="checked"':"").'value="'.$value.'">' 
+			.ucfirst($title);
+		}
+
+		return $output.(isset($helper)?$helper:"");
+	}
 }

@@ -11,7 +11,7 @@ public function signUpAction($args){
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup-newsletter')?$errors=["email-newsletter"]:Route::redirect('SignUpNewsletter');
+				!Validator::process($form["struct"], $args['post'], 'signup-newsletter')?$errors=["email-newsletter"]:Route::redirect('SignUpNewsletterSuccess');
 			}
 		}
 
@@ -23,6 +23,10 @@ public function signUpAction($args){
 		$v->assign("errors", $errors);
 
 }
-
+	public function signUpSuccessAction($args){
+				$v = new View();
+		$v->setView("dev/template","website-modal");
+		$v->assign("title", "Insrivez vous à la newsletter");
+	}
 	
 }

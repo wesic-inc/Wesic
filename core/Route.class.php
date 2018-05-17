@@ -64,11 +64,19 @@ class Route{
 		$getParams = [];
 		$validParams = [];
 
+		if(count($args)%2 != 0){
+			return false;
+		}
+
 		if(isset($routeInfo['params'])){
 
 			for($i = 0,$j = 1; $i < count($args); $i = $i+2,$j = $j + 2){
-				$getParams[$args[$i]] = $args[$j]; 
+				if(isset($getParams[$args[$i]])){
+					return false;
+				}
+				$getParams[$args[$i]] = $args[$j];
 			}
+
 
 			$expectedParams = $routeInfo['params'];
 

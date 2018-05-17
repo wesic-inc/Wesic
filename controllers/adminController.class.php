@@ -13,7 +13,7 @@ class adminController{
 		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 		$v->assign("role",$userFound["role"]);
 		$v->assign("page","adduser");
-		$v->assign("title", "Administration");
+		$v->assign("title", "Dashboard");
 		$v->assign("icon", "icon-home");
 		$v->assign("form", $form);
 		$v->assign("errors", $errors);

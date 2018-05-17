@@ -6,13 +6,13 @@
 
 	<div class="siteinfo">
 		<a href="<?php Route::echo('Admin'); ?>">
-			<img class="navbar-icon" src="<?php Format::img('dark.svg'); ?>">
-			<span class="link-text"><?php echo $sitename; ?></span>
+			<img class="navbar-icon" src="<?php echo ROOT_URL.Setting::getParam('favicon'); ?>">
+			<span class="link-text"><?php echo Setting::getParam('title'); ?></span>
 		</a>
 	</div>
 
 	<ul class="nav" id="menu">
-		<li class="<?php echo ($c == "admin" && $a == "index" )?"active":"";?>"><a href="<?php echo Route::echo('Admin'); ?>"><span class="icon icon-home"></span><span class="link-text">Dashboard</span></a></li>
+		<li class="<?php echo ($c == "admin" && $a == "index" )?"active":"";?>"><a href="<?php echo Route::echo('Admin'); ?>"><span class="icon icon-stats-bars"></span><span class="link-text">Dashboard</span></a></li>
 		<li class="dropdown-link <?php echo ($c == "article" && $a == "allArticles" )?"active":"";?>">
 			</span><a href="#""><span class="icon icon-newspaper"></span><span class="link-text">Articles <span class="icon-ctrl carret-down" id="dropdown-toggle"></span></span></a>
 			<div class="dropdown">
@@ -48,7 +48,7 @@
 		<li class="<?php echo ($c == "comment" && $a == "index" )?"active":"";?>">
 			<a href="<?php Route::echo('Comments'); ?>"><span class="icon icon-bubbles2"></span><span class="link-text">Commentaires</span></a>
 		</li>
-		<li class="<?php echo ($c == "user" && $a == "allUsers" )?"active":"";?>">
+		<li class="<?php echo ($c == "user" )?"active":"";?>">
 			<a href="<?php Route::echo('AllUsers'); ?>">
 				<span class="icon icon-users"></span><span class="link-text">Utilisateurs</span></a>
 			</li>
@@ -61,11 +61,18 @@
 					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Theme Creator</a> </li>  
 				</ul>
 			</div></li>
-			<li class="<?php echo ($c == "settings" && $a == "index" )?"active":"";?>">
-				<a href="<?php Route::echo('Parameters'); ?>"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres</span></a></li>
-						<li class="<?php echo ($c == "user" && $a == "allUsers" )?"active":"";?>">
+		<li class="dropdown-link <?php echo ($c == "setting" )?"active":""; ?>"> 
+			<a href="#"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres<span class="icon-ctrl carret-down"></span></span></a>
+			<div class="dropdown">
+				<ul> 
+					<li><a href="<?php Route::echo('generalSettings'); ?>">Général</a> </li> 
+					<li><a href="<?php Route::echo('postSettings'); ?>">Ecriture</a> </li>  
+					<li><a href="<?php Route::echo('viewSettings'); ?>">Lecture</a> </li>  
+				</ul>
+			</div></li>
+						<li class="<?php echo ($c == "admin" && $a == "devTest" )?"active":"";?>">
 			<a href="<?php Route::echo('DevTest'); ?>">
-				<span class="icon icon-users"></span><span class="link-text">Dev test</span></a>
+				<span class="icon icon-embed2"></span><span class="link-text">Dev test</span></a>
 			</li>
     </ul>
 </div>
@@ -90,7 +97,7 @@
 
 </div>
           <div class="user-menu">
-            <a href="#">
+
               <span> <?php echo Singleton::getUser()->getLogin(); ?> </span>
               <img class="avatar" src="<?php Format::img('user.jpg'); ?>">
             </a>

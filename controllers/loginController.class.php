@@ -35,6 +35,10 @@ class loginController{
 
 	public function signupAction($args){
 
+		if( Setting::getParam('signup') == '0'){
+			Route::redirect('Error404');
+		}
+
 		$form = User::getFormNewUser();
 
 		$errors = [];

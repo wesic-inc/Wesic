@@ -30,9 +30,52 @@ a.active{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	filter: grayscale(100%);
 }
 
+.modal{
+	top:15vh;
+	background: #FFF;
+	text-align: center;
+			.modal-title{
+			margin:20px;
+				
+		}
+	.input-group{
+		margin:10px;
+		label{
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		input{
+			background: #EFEFEFEF;
+			padding: 15px 20px;
+			border:none;
+			border-radius: 4px;
+			width: 100%;
+		}
+	}
+			input.btn {
+
+		background: #737373;
+	    border: 2px solid #737373 !important;
+	    display: inline-block;
+	    font-size: 15px;
+	    padding: 5px 20px;
+	    text-decoration: none;
+	    transition: all 0.2s ease-in-out;
+	    color: #FFFFFF;
+	    border-radius: 5px;
+	    position: relative;
+	    font: "Roboto", sans-serif;
+	    cursor: pointer;
+		margin:15px;
+		}
+		input.btn:hover{
+			background: darken(#737373,20);
+	    	border: 2px solid darken(#737373,20) !important;
+		}
+}
 
 
 section {

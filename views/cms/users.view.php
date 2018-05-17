@@ -23,11 +23,11 @@
 								<input type="checkbox">
 								<span class="checkmark checkmark-header"></span>
 							</label></th>
-									<th><a onclick="test(1)" > Identifiant</a></th>
-									<th><a onclick="test(2)" > Nom</a></th>
-									<th><a onclick="test(3)" > E-mail</a></th>
-									<th><a onclick="test(4)" > Rôle</a></th>
-									<th><a onclick="test(5)" > Posts</a></th>
+									<th><a id="filter1" sort="" onclick="test(this.id)" > Identifiant</a></th>
+									<th><a id="filter2" sort="" onclick="test(this.id)" > Nom</a></th>
+									<th><a id="filter3" sort="" onclick="test(this.id)" > E-mail</a></th>
+									<th><a id="filter4" sort="" onclick="test(this.id)" > Rôle</a></th>
+									<th>Posts</th>
 								</tr>
 							</thead>
 							<tbody id="body-ajax">
@@ -62,20 +62,12 @@
 										<td></td>
 									</tr>
 							<? endif; ?>
+							
 							</tbody>
 						</table>
 					</article>
 					<footer>
-<!-- 						<nav>
-							<ul class="pagination">
-								<li class="page-item disabled"><a href="#" tabindex="-1">Précédent</a></li>
-								<li class="page-item active"><a href="/admin/utilisateurs/1">1</a></li>
-								<li class="page-item"><a href="/admin/utilisateurs/2">2</a></li>
-								<li class="page-item"><a href="/admin/utilisateurs/3">3</a></li>
-								<li class="page-item"><a href="#">Suivant</a>
-								</li>
-							</ul>
-						</nav> -->
+
 						<?php $this->addModal("pagination", ['nbElements'=>$elementNumber,'nbPage'=>$nbPage,'elementPerPage'=>$elementPerPage,'currentPage'=>$currentPage,'targetUri'=>$targetUri]); ?>
 
 						<ul class="inline hidden-xs">

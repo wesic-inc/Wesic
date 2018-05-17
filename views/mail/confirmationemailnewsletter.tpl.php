@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Wesic Inc. - Confirmation de votre abonnement à la newsletter</title>
+	<title>%sitename% - Confirmation de votre abonnement à la newsletter</title>
 	<style>
 	
 	@import url(https://fonts.googleapis.com/css?family=Roboto:400);
@@ -55,7 +55,7 @@
 							<table class="container header" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
 								<tr>
 									<td style="padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee;" align="left">
-										<a href="#" style="font-size:30px;text-decoration:none; color: #000000;">Wesic Inc.</a>
+										<a href="#" style="font-size:30px;text-decoration:none; color: #000000;">%sitename%</a>
 									</td>
 								</tr>
 							</table>
@@ -64,7 +64,7 @@
 							<!-- / Hero subheader -->
 							<table class="container" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
 								<tr>
-									<td style="font-size: 20px; font-weight: bold; padding: 80px 0 15px 0;" align="left">Activez votre compter !</td>
+									<td style="font-size: 20px; font-weight: bold; padding: 80px 0 15px 0;" align="left">Activez votre compte !</td>
 								</tr>
 
 								<tr>

@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title><?php echo isset($title)?$title:"Mon site !" ?></title>
-		<meta name="description" content="description de ma page">
+		<meta name="description" content="<?php echo isset($description)?$description:"Mon site !" ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no">
 
-		<link rel="icon" type="image/png" href="/public/img/favicon.png" />
+		<link rel="icon" type="image/png" href="<?php echo ROOT_URL.Setting::getParam('favicon'); ?>" />
 
 		<link rel="stylesheet" type="text/css" href="/public/css/homepage.css">
 	</head>

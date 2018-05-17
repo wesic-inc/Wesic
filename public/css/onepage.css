@@ -355,7 +355,6 @@ body {
   .col-lg-offset-12 {
     margin-left: 100%; } }
 img {
-  filter: grayscale(100%);
   z-index: 1000; }
 
 a, a:visited {

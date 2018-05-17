@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: image/png");
 
 $image = imagecreatetruecolor(350, 200);
@@ -58,5 +59,7 @@ for($i=0;$i < strlen($captcha);$i++){
 
 imagepng($image);
 imagedestroy($image);
+
+
 
 $_SESSION['captcha'] = $captcha;

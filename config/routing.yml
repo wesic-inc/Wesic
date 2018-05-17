@@ -40,7 +40,6 @@ routing:
         controller: login:signup
         path: inscription
 
-
     Profile:
         restricted: user
         controller: user:index
@@ -70,6 +69,10 @@ routing:
         restricted: admin
         controller: user:allUsersAjax
         path: admin/utilisateurs-ajax
+        params:
+            sort: 
+                type: int
+                optional: false
 
     AddUser:
         restricted: admin
@@ -113,7 +116,7 @@ routing:
 
     EditTheme:
         restricted: admin
-        controller: theme:editThemes
+        controller: theme:editTheme
         path: admin/modifier-theme
 
     Themes:
@@ -141,10 +144,20 @@ routing:
         controller: comment:index
         path: admin/commentaires
 
-    Parameters:
+    generalSettings:
         restricted: admin
         controller: setting:index
         path: admin/parametres
+
+    viewSettings:
+        restricted: admin
+        controller: setting:view
+        path: admin/parametre-lecture
+
+    postSettings:
+        restricted: admin
+        controller: setting:post        
+        path: admin/parametre-publication
 
     Events:
         restricted: admin
@@ -187,9 +200,14 @@ routing:
         path: admin/detruire-utilisateur
 
     SignUpNewsletter:
-        restricted: all
+        restricted: connected
         controller: newsletter:signUp
-        path: newsletter
+        path: inscription-newsletter
+
+    SignUpNewsletterSuccess:
+        restricted: connected
+        controller: newsletter:signUpSuccess
+        path: newsletter-merci 
 
     DevTest:
         restricted: all

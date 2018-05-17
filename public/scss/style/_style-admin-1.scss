@@ -245,10 +245,20 @@ body{
 
 
 .input-group{
-	margin: 0;
-	margin-bottom: 10px;
-	margin-top: 10px;
+	.form-helper{
+	color: $darker3 !important;
+	font-size: $small-text !important;
+	text-align: center;
+	margin-bottom: 30px;
+	}
+	margin: 20px;
+	.label-input{
+		margin-bottom: 10px;
+	}
 }
+
+
+
 
 .btn-add{
 	margin-left: 20px
@@ -455,6 +465,12 @@ div.separator{
 	font-size: $smallest-text;
 }
 
+p.title-form {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #626262;
+}
 .form-group{
 	background: #e6e9f3;
 	margin-top: 10px;
@@ -475,6 +491,9 @@ div.separator{
 		right:20px;
 		top:30px;
 	}
+}
+.form-group-alt-color{
+	background: $stripped-2;
 }
 .row-forms{
 	margin-right: 0px !important;

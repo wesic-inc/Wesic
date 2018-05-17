@@ -33,6 +33,27 @@ forms:
 
     edit-user-actions:
         label: Actions avancées
-        container: col-md-12 form-group
+        container: col-md-12 form-group  form-group-alt-color
+        class: form-group
+        aside: true
+
+    title-settings:
+        label: 
+        containere: col-md-12 form-group
+        class: form-group
+        aside: false
+    url-settings:
+        label:
+        containere: col-md-12 form-group
+        class: form-group
+        aside: false
+    date-settings:
+        label:
+        containere: col-md-12 form-group
+        class: form-group
+        aside: true
+    publish-settings:
+        label:
+        containere: col-md-12 form-group
         class: form-group
         aside: true

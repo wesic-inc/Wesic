@@ -10,8 +10,9 @@ class validator{
 
 
 	public static function check($struct, $data){
-		$listErrors = [];
+		session_start();
 
+		$listErrors = [];
 		foreach ($struct as $name => $options) {
 
 			if($options["required"] && self::isEmpty($data[$name])){
@@ -21,17 +22,28 @@ class validator{
 				$listErrors[]=$options["msgerror"];
 			}
 			if($options["type"]=="text" && !self::simpleEntryCorrect($data[$name])) {
-				$listErrors[]=$options["msgerror"];
+				if($options["required"] == true && self::isEmpty($data[$name])){
+					$listErrors[]=$options["msgerror"];
+				}
 			}
 			if($name=="login" && !self::simpleEntryCorrect($data[$name])) {
 				$listErrors[]=$options["msgerror"];
 			}
-			if($name=="email" && !self::emailCorrect($data[$name])) {
+			if($name=="login" && $options['checkexist'] && User::loginExists($data[$name]) ){
+				$listErrors[]=$options["msgerror"];
+			}
+			if($options["type"]=="email" && !self::emailCorrect($data[$name])) {
+				$listErrors[]= $email;
+			}
+			if($options["type"]=="captcha" && !self::captchaCorrect($data[$name])) {
+				$listErrors[]= $options["msgerror"];
+			}
+			if($options["type"]=="email" && $options['checkexist'] && User::emailExists($data[$name]) ){
 				$listErrors[]=$options["msgerror"];
 			}
 			if($name=="password2" && $data["password1"] != $data["password2"] ) {
 				$listErrors[]=$options["msgerror"];
-			};
+			}
 			if(isset($options["confirm"]) && $data[$name]!==$data[$options["confirm"]] ){
 					$errorsMsg[] = $name." doit être identique à ".$options["confirm"];
 			}
@@ -88,6 +100,12 @@ class validator{
 					return User::modifyPassword($data);
 				case 'signup-newsletter':
 					return User::signUpNewsletter($data);
+				case 'setting':
+					return Setting::editSettings($data);
+				case 'setting-view':
+					return Setting::editSettingsView($data);
+				case 'setting-post':
+					return Setting::editSettingsPost($data);
 				default:
 					return false;
 					break;
@@ -110,6 +128,11 @@ class validator{
 
 	public static function passwordDevEnvCorrect($var){
 		return !( strlen($var)<2 || strlen($var)>25);
+	}
+
+	public static function captchaCorrect($var){
+		session_start();
+		return !($var != $_SESSION['captcha']);
 	}
 
 	public static function urlCorrect($var){

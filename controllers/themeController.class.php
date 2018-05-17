@@ -1,13 +1,29 @@
 <?php
 class themeController{
 	public static function indexAction($args){
-		echo "themes";
+
+		$v = new View();
+		$v->setView("themes/index","templateadmin");
+		$v->assign("title","Tous les thèmes");
+		$v->assign("icon","icon-paint-format");
+		$v->assign("form", $form);
+		$v->assign("errors", $errors);
 	}
 	public static function editThemeAction($args){
-		echo "editer themes";
+		$v = new View();
+		$v->setView("themes/all-themes","templateadmin");
+		$v->assign("title","Modifier mon thème");
+		$v->assign("icon","icon-eyedropper");
+		$v->assign("form", $form);
+		$v->assign("errors", $errors);
 
 	}
 	public static function themeCreatorAction($args){
-		echo "theme creator";
+		$v = new View();
+		$v->setView("themes/themecreator","templateadmin");
+		$v->assign("title","Theme Creator");
+		$v->assign("icon","icon-droplet");
+		$v->assign("form", $form);
+		$v->assign("errors", $errors);
 	}
 }

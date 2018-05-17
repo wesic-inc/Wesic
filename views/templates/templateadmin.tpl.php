@@ -6,11 +6,15 @@
 	<meta name="description" content="description de ma page">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-	<link rel="icon" type="image/png" href="/public/img/light.png" />
+	<link rel="icon" type="image/png" href="<?php echo ROOT_URL.Setting::getParam('favicon'); ?>" />
 
 	<link rel="stylesheet" type="text/css" href="/public/css/admin.css">
 	<link rel="stylesheet" href="/public/icomoon/style.css"></head>
 	<link rel="stylesheet" href="/public/js/trumbowyg/ui/trumbowyg.min.css"></head>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
 
 </head>
 <body>
@@ -30,8 +34,7 @@
 					<hidden value="<?php echo $_SESSION['flash-id']; ?>">
 				</div>
 				<?php endif; ?>
-
-				<?php include $this->view;?>	
+				<?php include $this->view;?>		
 			</div>
 			<script type="text/javascript" src="/public/js/jquery.min.js"></script>
 			<script src="/public/js/trumbowyg/trumbowyg.min.js"></script>

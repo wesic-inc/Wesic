@@ -44,4 +44,5 @@ class Singleton {
 			$_instanceUser->save();*/
 		return $_instanceUser;
 	}
+
 }
