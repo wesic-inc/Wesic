@@ -45,7 +45,16 @@ class Route{
 			$redirect .= "/".$parameter;
 		}
 		header($redirect);
+	}
 
+	public static function allRouteSlug(){
+		
+		global $route_access;
+		$slugPartial = [];
+		foreach ($route_access as $key => $value) {
+			array_push($slugPartial, $value['path']);
+		}
+		return $slugPartial;
 	}
 
 	public static function getRouteInfo($route){
@@ -269,8 +278,12 @@ class Route{
 
 		if($c == NULL && $a == NULL){
 
-			$slug = new Slug();
-			$slugFound = $slug->getData('slug',['slug'=>$uri])[0];
+			$qb = new QueryBuilder();
+			$slugFound = 
+			$qb->findAll('slug')
+			->addWhere('slug = :slug')
+			->setParameter('slug',$uri)
+			->fetchOne();
 
 			if(empty($slugFound)){
 				$c = 'error';
@@ -278,16 +291,19 @@ class Route{
 			}else{
 				switch ($slugFound['type']) {
 					case 1:
-					$c = 'category';
-					$a = 'archive';
+					$c = 'article';
+					$a = 'single';
+					$args['slug'] = $slugFound['slug'];
 					break;
 					case 2:
 					$c = 'page';
 					$a = 'single';
+					$args['slug'] = $slugFound['slug'];
 					break;
 					case 3:
-					$c = 'article';
-					$a = 'single';
+					$c = 'category';
+					$a = 'archive';
+					$args['slug'] = $slugFound['slug'];
 					break;
 					case 4:
 					$c = 'user';

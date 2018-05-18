@@ -1,59 +1,78 @@
 forms:
     publish:
         label: Publication
-        container: col-md-12 form-group 
+        container: col-md-12 form-group form-group-alt-color
         class: form-group
         aside: true
     title:
         label: Titre
-        container: col-md-12 form-group
+        container: col-md-12
         class: form-group
         aside: false
     content:
         label: Contenu
-        container: col-md-12 form-group
+        container: col-md-12
         class: form-group
         aside: false
     excerpt:
         label: Résumé
-        container: col-md-12 form-group
-        class: form-group
-        aside: false
-    description:
-        label: Description
-        container: col-md-12 form-group
+        container: col-md-12
         class: form-group
         aside: false
 
+    description:
+        label: Description
+        container: col-md-12
+        class: form-group
+        aside: false
+
+    tags:
+        label: Tags
+        container: col-md-12 form-group form-group-alt-color
+        class: form-group
+        aside: true
+
+    category:
+        label: Catégorie
+        container: col-md-12 form-group form-group-alt-color
+        class: form-group
+        aside: true
+
     edit-user-main:
         label:
-        container: col-md-12 form-group
-        class: form-group
+        container: 
+        class: 
         aside: false
 
     edit-user-actions:
         label: Actions avancées
-        container: col-md-12 form-group  form-group-alt-color
+        container: col-md-12 form-group form-group-alt-color
         class: form-group
         aside: true
 
     title-settings:
         label: 
-        containere: col-md-12 form-group
+        container: col-md-12 form-group
         class: form-group
         aside: false
     url-settings:
         label:
-        containere: col-md-12 form-group
+        container: col-md-12 form-group
         class: form-group
         aside: false
     date-settings:
         label:
-        containere: col-md-12 form-group
+        container: col-md-12 form-group
         class: form-group
         aside: true
     publish-settings:
         label:
-        containere: col-md-12 form-group
+        container: col-md-12 form-group
+        class: form-group
+        aside: true
+
+    attribute:
+        label: Attributs de la page
+        container: col-md-12 form-group form-group-alt-color
         class: form-group
         aside: true

@@ -51,7 +51,6 @@ class Basesql{
 				VALUES
 				(:". implode(",:", array_keys($this->columns)) .")
 				");
-
 			$query->execute($this->columns);
 
 		}
@@ -169,26 +168,10 @@ class Basesql{
 		
 	}
 
-	function slugExists($slug){
+	public static function slugExists($slug){
 
-		$sql = "SELECT slug FROM article
-		WHERE slug = $slug
-		UNION
-		SELECT slug FROM event
-		WHERE slug = $slug
-		UNION
-		SELECT slug FROM category
-		WHERE slug = $slug
-		UNION
-		SELECT slug FROM page
-		WHERE slug = $slug
-		SELECT slug FROM passwordrecovery
-		WHERE slug = $slug;";
-
-		$query = $this->pdo->prepare($sql);
-		$query->execute($condition);
-		return $query->fetchAll();
-
+		return in_array($slug, Slug::getSlugTable());
+		
 	}
 
 	public static function userDisplayFilters($obj,$filter){

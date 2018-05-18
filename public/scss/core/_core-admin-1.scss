@@ -9,16 +9,26 @@ select {
 	padding: 5px 15px;
 	appearance:none;
 	box-sizing: border-box;
-	font-size: 15px;
+	font-size: $small-text;
 	width: 100%;
 }
-input[type=text] {
+input[type=text],input[type=password] {
+
 	background-color:$input-bg;
 	border-radius:$input-radius;
 	border:$input-border;
 	color:$link-color-dark;
 	height:32px;
+	font-size: $small-text;
 	padding: 20px 10px;
+
+}
+
+
+.trumbowyg-box{
+	border-radius: 4px !important;
+	font-size: $small-text;
+
 }
 
 .form-link{
@@ -40,16 +50,6 @@ input[type=text].sm-input {
 	border-radius: 5px;
 }
 
-input[type=password] {
-	background-color:$input-bg;
-	border-color: transparent;
-	border-radius:$input-radius;
-	border:$input-border;
-	color:$link-color-dark;
-	height:32px;
-
-}
-
 input{
 	background-color:$input-bg;
 	border-radius:$input-radius;
@@ -67,11 +67,14 @@ textarea {
 	border-color: transparent;
 	border-radius:$input-radius;
 	color: $link-color-dark;
+	border: 1px solid #e4eaec;
+
 	width:auto;
-	height:auto;
+	min-height: 60px;
 	overflow:hidden;
 	width:100%;
 	max-width:100%;
+
 }
 
 .alert-warning {
@@ -182,7 +185,7 @@ label.label-input {
 }
 
 .trumbowyg-editor{
-	background: $white;
+	background: $input-bg;
 }
 
 .full{

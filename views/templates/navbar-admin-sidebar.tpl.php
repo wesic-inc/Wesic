@@ -22,10 +22,11 @@
 					<li><a href="<?php Route::echo('NewArticle'); ?>">Ajouter un article</a> </li> 
 					<li><a href="<?php Route::echo('Categories'); ?>">Catégories</a> </li> 
 					<li><a href="<?php Route::echo('Tags'); ?>">Tags</a> </li> 
+					<li><a href="<?php Route::echo('Newsletter'); ?>">Newsletter</a> </li>
 				</ul>
 			</div>
 		</li>
-		<li class="dropdown-link <?php echo ($c == "comment" && $a == "index" )?"active":"";?>" ><a href="#"><span class="icon icon-file-empty"></span><span class="link-text">Pages<span class="icon-ctrl carret-down"></span></span></a>
+		<li class="dropdown-link <?php echo ($c == "page" && $a == "index" )?"active":"";?>" ><a href="#"><span class="icon icon-files-empty"></span><span class="link-text">Pages<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
 				<ul> 
 					<li><a href="<?php Route::echo('Pages'); ?>">Toutes les pages</a> </li> 
@@ -59,7 +60,9 @@
 				<ul> 
 					<li><a href="<?php Route::echo('EditTheme'); ?>">Modifier le thème</a> </li> 
 					<li><a href="<?php Route::echo('Themes'); ?>">Mes thèmes</a> </li>  
-					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Theme Creator</a> </li>  
+					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Menu</a> </li>  
+					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Theme Creator</a> </li> 
+
 				</ul>
 			</div></li>
 		<li class="dropdown-link <?php echo ($c == "setting" )?"active":""; ?>"> 

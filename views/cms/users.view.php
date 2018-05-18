@@ -1,3 +1,4 @@
+
 	<div class="container-fluid" >
 			<div class="row">
 				<div class="col-md-12 bloc article-bloc">
@@ -38,7 +39,7 @@
 								<input type="checkbox">
 								<span class="checkmark"></span>
 							</label></td>
-									<td class="entity-key"><a href="#post=id"><?php echo ucfirst($user['login']); ?></a>
+									<td class="entity-key"><a href="#"><?php echo ucfirst($user['login']); ?></a>
 										<ul class="grid-actions">
 											<a href="/admin/afficher-utilisateur/<?php echo $user['id']; ?>"><li>Afficher</li></a>
 											<a href="/admin/modifier-utilisateur/<?php echo $user['id']; ?>"><li>Modifier</li></a>

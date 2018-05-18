@@ -28,7 +28,7 @@ body{
 
 	padding:30px;
 	color: $link-color-dark;
-	font-size: $text;
+	font-size: $lato;
 	margin-top: 20px;
 }
 
@@ -122,7 +122,7 @@ body{
 .btn{
 	display: inline-block;
 	font-size: 15px;
-		padding:10px 25px;
+	padding:10px 25px;
 	text-decoration:none;
 	background: $primary-color;
 	transition: all 0.2s ease-in-out;
@@ -241,51 +241,110 @@ body{
 	color:#FFF;
 }
 
-
+.label-theme-active{
+	font-weight: bold;
+}
 .theme-one{
-	padding: 40px;
+	padding-top: 40px;
 	text-align: center;
+
 }
 
-	.theme-item:hover{
-		border:3px solid $darker3;
+.theme-item:hover{
+	opacity:0.9;
+	.action-theme{
+		display: block;
 	}
+}
 .theme-item {
+	opacity: 1;
+	transition: opacity 0.2s ease-in;
+	margin: 0 auto;
 	cursor:pointer;
 	position: relative;
 	background-position: center;
-    height: 300px;
-    width: 400px;
-    max-width: 100%;
-    margin: 0 auto;
-	border:3px solid #FFF;
-	border-radius: 10px;
+	height: 300px;
+	max-width: 100%;
+	margin: 0 auto;
+	border: 2px solid #ddd;
+	box-shadow: 0 1px 1px -1px rgba(0,0,0,.1);
 
+	&.active{
+		.action-theme{
+			background: darken($darker3,20);
+			display: block;
+		}
+		.title-theme{
+			background: darken($darker3,20);
+		}
+	}
+
+	.action-theme{
+		display: none;
+		background: darken($darker3,1);
+		height: 50px;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		a{
+			position: relative;
+			top:10px;
+		}
+	}
+	.title-theme{
+		background: darken($darker3,1);
+		color: #fff;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		p{
+
+			position: relative;
+		}
+	}
 }
 
 .theme-image {
-  display: block;
-  width: 100%;
-  height: auto;
+	display: block;
+	width: 100%;
+	height: auto;
 }
 
 
 
 .input-group{
 	.form-helper{
-	color: $darker3 !important;
-	font-size: $small-text !important;
-	text-align: center;
-	margin-bottom: 30px;
+		color: $darker3 !important;
+		font-size: $small-text !important;
+		text-align: center;
+		margin-bottom: 30px;
 	}
-	margin: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	.label-input{
 		margin-bottom: 10px;
 	}
 }
+.group-form{
+	.form-helper{
+		margin-bottom:inherit;
+	}
+}
 
 
-
+.datepicker{
+    width: 100%;
+	text-align: center;
+	label{
+		text-align: left;
+	}
+	input, select{
+    width: auto;
+    padding: 0!important;
+    height: 30px !important;
+	}
+}
 
 .btn-add{
 	margin-left: 20px
@@ -495,21 +554,28 @@ div.separator{
 }
 
 p.title-form {
-    font-size: 20px;
-    margin-top: 20px;
-    font-weight: bold;
-    color: #626262;
+	font-size: 20px;
+	margin-top: 20px;
+	font-weight: bold;
+	color: #626262;
+}
+	.form-group-title{
+		font-size: 20px;
+		font-weight: bold;
+		margin: 0;
+	}
+
+.form-group-light{
+	margin-bottom:40px;
 }
 .form-group{
-	background: #e6e9f3;
+	background: $form-group-bg;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	border-radius: $input-radius;
 	padding: 20px;
-	.form-group-title{
-		
-		font-size: $form-title;
-	}
+	border: 1px solid #ddd;
+	border-radius: 4px;
+
 	.form-group-aside{
 		position: relative;
 		top: -20px;
@@ -521,8 +587,12 @@ p.title-form {
 		top:30px;
 	}
 }
+.submit-form{
+	margin: 5px;
+}
 .form-group-alt-color{
-	background: $stripped-2;
+	background: $group-form-alt-color;
+	    box-shadow: 0 2px 10px rgba(0,0,0,.05);
 }
 .row-forms{
 	margin-right: 0px !important;

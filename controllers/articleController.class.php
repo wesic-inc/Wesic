@@ -7,22 +7,22 @@ class articleController{
 
 	public static function singleAction($args){
 
-
-		$article = new Article();
-		$articleFound = $article->getData('article',['slug'=>$args['slug']]);
+		$qb = new QueryBuilder();
+		$article = 
+		$qb->findAll('post')
+		->addWhere('slug = :slug')
+		->setParameter('slug',$args['slug'])
+		->fetchOne();
 
 		$v = new View();
-
 		$v->setView("article/single");
-		$v->assign("article", $articleFound[0]);
-		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
+		$v->assign("article", $article);
 	}
 
 	public function allArticlesAction($args){
 		
 		$v = new View();
 		$v->setView("cms/articles","templateadmin");
-		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 		$v->assign("title", "Articles");
 		$v->assign("icon", "icon-newspaper");
 

@@ -34,7 +34,7 @@ $(document).ready(function(){
 });
 
 $('#wesic-wysiwyg').trumbowyg({
-  lang: 'fr'
+  lang: 'fr',
 });
 
 $.trumbowyg.svgPath = './trumbowyg/ui/icons.svg';
@@ -46,3 +46,11 @@ $.trumbowyg.svgPath = './trumbowyg/ui/icons.svg';
 //   $('.modal-overlay').toggleClass('modal-closed');
 // }
 
+$.getJSON( "ajax/test.json", function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  alert(items);
+});

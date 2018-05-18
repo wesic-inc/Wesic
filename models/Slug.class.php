@@ -27,4 +27,20 @@ class Slug extends Basesql{
     {
         $this->type = $type;
     }
+
+    public static function getSlugTable(){
+
+        $qb = new QueryBuilder();
+        $slugDb = $qb->findAll('slug')->execute();
+
+
+        $slugPartial = [];
+
+        foreach ($slugDb as $value) {
+            array_push($slugPartial, $value['slug']);
+        }
+        
+        return array_merge( $slugPartial,Route::allRouteSlug());
+
+    }
 }

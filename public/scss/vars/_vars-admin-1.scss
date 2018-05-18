@@ -24,22 +24,26 @@ $bloc-color: #FFFFFF;
 $bg-color: #f9f9f9;
 $form-color: #FFF;
 $subtext-color: #7D7D7D;
+$group-form-alt-color: #fff;
+
 
 $white: #FFFFFF;
 $black: #000;
 
-$stripped-1: #f0edf7;
-$stripped-2: #f8f8fd;
-$header-table: #f0edf7;
+$header-table: #c4c9ce;
+$stripped-1: lighten($header-table,10); 
+$stripped-2: lighten($header-table,20); 
+
 
 $darker1: $form-color;
 $darker2: #232323;
 $darker3: #737373;
 
 $input-bg: #f8f8fd;
-$input-border: 1px solid #EFEFFA;
+$input-border: 1px solid #e4eaec;
 $input-radius: 4px;
 $input-height: 30px;
+$form-group-bg: lighten($darker3,5);
 
 $bloc-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
 $light-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -55,6 +59,8 @@ $content-title: 16px;
 $form-title: 17px;
 $page-title-size: 20px;
 $bloc-title-size: 18px;
+
+
 
 // Button size 
 $btn: 30px;

@@ -14,6 +14,8 @@ class userController {
 
 		$param = Route::checkParameters($args['params']);
 
+		$param_json = json_encode($param);
+
 		if($param == false){
 			Route::redirect('allUsers');
 		}
@@ -59,6 +61,7 @@ class userController {
 		$v->assign("filter",$param['filter']);
 		$v->assign("elementPerPage",$elementPerPage);
 		$v->assign("currentPage",$currentPage);
+		$v->assign("param_json",$param_json);
 	}
 	public function allUsersAjaxAction($args){
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -275,8 +278,6 @@ class userController {
 		$user->save();
 
 		$user->cleanUserSlugPasswordRecovery();
-
-		Format::dump($user,1);
 
 		$v = new View();
 		$v->setView("login/emailconfirmed","templateadmin-modal");

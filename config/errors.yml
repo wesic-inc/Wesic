@@ -13,3 +13,5 @@ errors:
     captcha: Le captcha est incorrect
     settings: Une erreur est survenue
     slogan: Slogan incorrect
+    date: La date est incorrecte
+    slug: Le permalien est existe

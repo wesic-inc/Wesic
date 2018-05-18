@@ -139,14 +139,23 @@ routing:
         controller: theme:themeCreator
         path: admin/theme-creator
 
+    SetTheme:
+        restricted: admin
+        controller: theme:themeCreator
+        path: admin/test
+        params:
+            id:
+                type: int
+                optional: false
+
     Pages:
         restricted: admin
-        controller: page:index
+        controller: page:allPages
         path: admin/pages
 
     NewPage:
         restricted: admin
-        controller: page:addPage
+        controller: page:newPage
         path: admin/ajouter-page
 
     Comments:

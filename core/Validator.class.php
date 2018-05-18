@@ -13,8 +13,16 @@ class validator{
 		session_start();
 
 		$listErrors = [];
-		foreach ($struct as $name => $options) {
+		if(isset($data['jj']) 
+			&& isset($data['mm']) 
+			&& isset($data['aa'])
+			&& isset($data['hh'])
+			&& isset($data['mn'])){
+			$data['datepicker-custom'] = 
+		$data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
+		}
 
+		foreach ($struct as $name => $options) {
 			if($options["required"] && self::isEmpty($data[$name])){
 				$listErrors[]=$options["msgerror"];
 			}
@@ -28,10 +36,13 @@ class validator{
 			}
 			if($name=="login" && !self::simpleEntryCorrect($data[$name])) {
 				$listErrors[]=$options["msgerror"];
+			}			
+			if($name=="datepicker-custom" && !self::dateCorrect($data[$name])) {
+				$listErrors[]=$options["msgerror"];
 			}
 			if($name=="login" && $options['checkexist'] && User::loginExists($data[$name]) ){
 				$listErrors[]=$options["msgerror"];
-			}
+			}			
 			if($options["type"]=="email" && !self::emailCorrect($data[$name])) {
 				$listErrors[]= $email;
 			}
@@ -41,11 +52,14 @@ class validator{
 			if($options["type"]=="email" && $options['checkexist'] && User::emailExists($data[$name]) ){
 				$listErrors[]=$options["msgerror"];
 			}
+			if($name=="slug" && $options['checkexist'] && Basesql::slugExists($data[$name]) ){
+				$listErrors[]=$options["msgerror"];
+			}
 			if($name=="password2" && $data["password1"] != $data["password2"] ) {
 				$listErrors[]=$options["msgerror"];
 			}
 			if(isset($options["confirm"]) && $data[$name]!==$data[$options["confirm"]] ){
-					$errorsMsg[] = $name." doit être identique à ".$options["confirm"];
+				$errorsMsg[] = $name." doit être identique à ".$options["confirm"];
 			}
 
 			else if(!isset($options["confirm"])){
@@ -62,7 +76,7 @@ class validator{
 		}
 
 		if(count(array_keys($listErrors, 'password2')) > 1){
-				unset($listErrors[array_keys($listErrors, 'password2')[0]]);
+			unset($listErrors[array_keys($listErrors, 'password2')[0]]);
 		}
 
 		// echo "<pre>";
@@ -75,41 +89,44 @@ class validator{
 
 
 	public static function process($struct, $data, $form){
-			switch ($form) {
-				case 'signin':
-					return Auth::signIn($data);
-					break;
-				case 'signup':
-					return User::signUp($data);
-					break;
-				case 'articlenew':
-					return Article::newArticle($data);
-					break;
-				case 'edit-user':
-					return User::editUser($data);
-					break;
-				case 'add-user':
-					return User::addUser($data);
-					break;
-				case 'categorynew':
-					return Category::newCategory($data);
-					break;
-				case 'newpassword':
-					return Passwordrecovery::sendResetPassword($data['login']);
-				case 'modifypassword':
-					return User::modifyPassword($data);
-				case 'signup-newsletter':
-					return User::signUpNewsletter($data);
-				case 'setting':
-					return Setting::editSettings($data);
-				case 'setting-view':
-					return Setting::editSettingsView($data);
-				case 'setting-post':
-					return Setting::editSettingsPost($data);
-				default:
-					return false;
-					break;
-			}
+		switch ($form) {
+			case 'signin':
+			return Auth::signIn($data);
+			break;
+			case 'signup':
+			return User::signUp($data);
+			break;
+			case 'articlenew':
+			return Post::newArticle($data);
+			break;			
+			case 'pagenew':
+			return Post::newPage($data);
+			break;
+			case 'edit-user':
+			return User::editUser($data);
+			break;
+			case 'add-user':
+			return User::addUser($data);
+			break;
+			case 'categorynew':
+			return Category::newCategory($data);
+			break;
+			case 'newpassword':
+			return Passwordrecovery::sendResetPassword($data['login']);
+			case 'modifypassword':
+			return User::modifyPassword($data);
+			case 'signup-newsletter':
+			return User::signUpNewsletter($data);
+			case 'setting':
+			return Setting::editSettings($data);
+			case 'setting-view':
+			return Setting::editSettingsView($data);
+			case 'setting-post':
+			return Setting::editSettingsPost($data);
+			default:
+			return false;
+			break;
+		}
 	}
 
 
@@ -138,15 +155,12 @@ class validator{
 	public static function urlCorrect($var){
 		return !( filter_var($var, FILTER_VALIDATE_URL) === FALSE || strlen($var)<2 || strlen($var)>500 );
 	}
-	public static function dateCorrect($var){
-		if(strlen($var) !=10 ){
-			return false;
-		}else{
-			list($d, $m, $y) = explode('/', $var);
-			return (checkdate($m, $d, $y));
-		}
-
+	public static function dateCorrect($date, $format = 'Y-m-d H:i:s')
+	{
+	    $d = DateTime::createFromFormat($format, $date);
+	    return $d && $d->format($format) == $date;
 	}
+
 	public static function selectEntryCorrect($var){
 		return !( $var == 0 || $var == 1 );
 	}
