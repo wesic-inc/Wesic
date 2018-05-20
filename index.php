@@ -2,12 +2,18 @@
 
 
 // DEV ENV ONLY !!!!
+
+
 error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);
 ini_set('display_errors', TRUE);
+
+
 
 function dump($a,$b = 0,$c = 1){
 	Format::dump($a,$b,$c);
 }
+
+
 
 // DEV ENV ONLY !!!!
 
@@ -28,11 +34,13 @@ spl_autoload_register('autoloader');
 // START TEST AREA
 
 
-
-
 // END TEST AREA
 
+
+
+
 $route = Route::makeRouting();
+
 
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";

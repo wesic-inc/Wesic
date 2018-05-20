@@ -77,6 +77,10 @@ class QueryBuilder extends Basesql{
 		$this->where .= " ".$where." ";
 		return $this;
 	}
+	public function setLike($parameter, $value){
+		$this->parameters[$parameter] = '%'.$value.'%';
+		return $this;
+	}
 	public function setParameter($parameter, $value){
 		$this->parameters[$parameter] = $value;
 		return $this;
@@ -122,15 +126,15 @@ class QueryBuilder extends Basesql{
 	}
 
 	public function reset(){
-			$this->query = "";
-			$this->selector = "";
-			$this->table = "";
-			$this->where = "";
-			$this->order = "";
-			$this->limit = "";
-			$this->join = "";
-			$this->parameters = [];
-			return $this;
+		$this->query = "";
+		$this->selector = "";
+		$this->table = "";
+		$this->where = "";
+		$this->order = "";
+		$this->limit = "";
+		$this->join = "";
+		$this->parameters = [];
+		return $this;
 	}
 
 	public function execute(){
@@ -139,24 +143,33 @@ class QueryBuilder extends Basesql{
 			return false;
 		}else{
 
-		$this->query = 
-		$this->selector
-		." FROM ".$this->table
-		.(!empty($this->join)?$this->join:"")
-		.(!empty($this->where)?"WHERE".$this->where:"")
-		.(!empty($this->order)?"ORDER BY".$this->order:"")
-		.(!empty($this->limit)?"LIMIT".$this->limit:"");
+			$this->query = 
+			$this->selector
+			." FROM ".$this->table
+			.(!empty($this->join)?$this->join:"")
+			.(!empty($this->where)?"WHERE".$this->where:"")
+			.(!empty($this->order)?"ORDER BY".$this->order:"")
+			.(!empty($this->limit)?"LIMIT".$this->limit:"");
 
-		$query = $this->pdo->prepare($this->query);
-		$query->execute($this->parameters);
-		return $query->fetchAll();
+			$query = $this->pdo->prepare($this->query);
+			$query->execute($this->parameters);
+			return $query->fetchAll();
 			
 		}
 
 	}
 
 	public function fetchOne(){
-		return $this->execute()[0];
+		$result = $this->execute();
+
+		if(empty($result))
+			{
+				return $result;
+			}
+		else
+		{
+			return $result[0];
+		}
 	}
 
 

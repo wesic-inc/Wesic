@@ -35,8 +35,9 @@ class Route{
 		echo ROOT_URL.'public/'.$object;
 	}
 
-	public static function echo($route){
-			echo self::getAll($route);
+	public static function echo($route,$parameter = ""){
+					
+				echo self::getAll($route).$parameter;
 	}
 
 	public static function redirect($route,$parameter = ""){
@@ -57,9 +58,12 @@ class Route{
 		return $slugPartial;
 	}
 
-	public static function getRouteInfo($route){
+	public static function getRouteInfo($route = ""){
 
 		global $route_access;
+		if(empty($route)){
+			$route = self::getRoute();
+		}
 		return [$route_access[$route]][0];		
 
 	}
@@ -67,6 +71,8 @@ class Route{
 
 
 	public static function checkParameters($args){
+
+
 
 		$routeInfo = self::getRouteInfo(self::getRoute());
 
@@ -127,18 +133,48 @@ class Route{
 		}
 	}
 
+	public static function makeParams($params,$key,$value){
+
+		$generatedParams = "";
+		
+		if($value == 0){
+			unset($params[$key]);
+		}else{
+			$params[$key] = $value;
+		}
+
+		foreach ($params as $param => $val) {
+			$generatedParams .= "/".$param."/".$val;
+		}
+
+		return $generatedParams; 
+
+	}
+
 	public static function validateParameterType($type,$parameter){
 
-		switch ($type) {
-			case 'int':
-			(filter_var($parameter, FILTER_VALIDATE_INT) == 'false'?$parameterFlag=false:$parameterFlag=true);
-			break;
-			case 'string':
-			(filter_var($parameter, FILTER_VALIDATE_STRING) == 'false'?$parameterFlag=false:$parameterFlag=true);
-			break;
-			default:
-			$parameterFlag = false;
-			break;
+		$parameterFlag = false;
+		
+		if($type=="boolean" && filter_var($value,FILTER_VALIDATE_BOOLEAN)) {
+			$parameterFlag = true;
+		}
+		if($type=="float" && filter_var($value,FILTER_VALIDATE_FLOAT)) {
+			$parameterFlag = true;
+		}
+		if($type=="email" && filter_var($value,FILTER_VALIDATE_EMAIL)) {
+			$parameterFlag = true;
+		}
+		if($type=="int" && filter_var($value,FILTER_VALIDATE_INT)) {
+			$parameterFlag = true;
+		}
+		if($type=="ip" && filter_var($value,FILTER_VALIDATE_IP)) {
+			$parameterFlag = true;
+		}
+		if($type=="regex" && filter_var($value,FILTER_VALIDATE_REGEXP)) {
+			$parameterFlag = true;
+		}
+		if($type=="url" && filter_var($value,FILTER_VALIDATE_URL)) {
+			$parameterFlag = true;
 		}
 
 		return $parameterFlag;
@@ -181,7 +217,6 @@ class Route{
 		$connected = Auth::isConnected();
 		$rights = Auth::getRights();
 
-
 		switch ($route['r']) {
 			case 'admin':
 			if(	$connected == true && $rights == 4)
@@ -199,8 +234,9 @@ class Route{
 				return true;
 			break;
 			case 'connected':
-			if($connected != true)
+			if($connected != true){
 				return true;
+			}
 			break;
 			case 'all':
 			return true;

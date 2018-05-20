@@ -101,6 +101,12 @@ class validator{
 			break;			
 			case 'pagenew':
 			return Post::newPage($data);
+			break;			
+			case 'edit-page':
+			return Post::editPage($data);
+			break;			
+			case 'edit-article':
+			return Post::editArticle($data);
 			break;
 			case 'edit-user':
 			return User::editUser($data);

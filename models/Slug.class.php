@@ -43,4 +43,5 @@ class Slug extends Basesql{
         return array_merge( $slugPartial,Route::allRouteSlug());
 
     }
+
 }

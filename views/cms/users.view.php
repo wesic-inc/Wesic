@@ -1,82 +1,89 @@
 
-	<div class="container-fluid" >
-			<div class="row">
-				<div class="col-md-12 bloc article-bloc">
-					<a href="<?php Route::echo('AddUser') ?>" class="btn btn-sm btn-add">Ajouter un utilisateur</a> 
-					<header>
-						<input type="text" class="search-input sm-input hidden-xs" >
-						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
-					</header>
-					<article>
-						<ul class="inline group-action">
-							<li><a href="<?php Route::echo('AllUsers'); ?>" 
-								class="<?php echo !isset($filter)?'active':''; ?>"> Tous (<?php echo $elementNumber; ?>) </a></li>
-							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonnés (2) </a></li>
-							<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> Modérateurs (3) </a></li>
-							<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/3"> CM (3) </a></li>
-							<li><a class="<?php echo $filter==4?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/4"> Admin (3) </a></li>
-							<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimés </a></li>
-						</ul>
-						<table class="table table-stripped">
-							<thead>
-								<tr>
-									<th><label class="checkbox-container">
-								<input type="checkbox">
-								<span class="checkmark checkmark-header"></span>
-							</label></th>
-									<th><a id="filter1" sort="" onclick="test(this.id)" > Identifiant</a></th>
-									<th><a id="filter2" sort="" onclick="test(this.id)" > Nom</a></th>
-									<th><a id="filter3" sort="" onclick="test(this.id)" > E-mail</a></th>
-									<th><a id="filter4" sort="" onclick="test(this.id)" > Rôle</a></th>
-									<th>Posts</th>
-								</tr>
-							</thead>
-							<tbody id="body-ajax">
+<div class="container-fluid" >
+	<div class="row">
+		<div class="col-md-12 bloc article-bloc">
+			<a href="<?php Route::echo('AddUser') ?>" class="btn btn-sm btn-add">Ajouter un utilisateur</a> 
+			<header>
+				<input type="text" class="search-input sm-input hidden-xs" >
+				<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
+			</header>
+			<article>
+				<ul class="inline group-action">
+					<li><a href="<?php Route::echo('AllUsers'); ?>" 
+						class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonnés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> Modérateurs <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/3"> CM <?php echo $filter==3?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==4?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/4"> Admin <?php echo $filter==4?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimés <?php echo $filter==5?'('.$elementNumber.')':''; ?></a></li>
+					</ul>
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th><label class="checkbox-container">
+									<input type="checkbox" id="checkAll">
+									<span class="checkmark checkmark-header"></span>
+								</label></th>
+								<th><a class="<?php echo $params['sort']==1?'active-sort':''; ?>" id="filter1" sort="" onclick="test(this.id)" > Identifiant <span class="icon icon-sort-alpha-asc"></span></a></th>
+								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2" sort="" onclick="test(this.id)" > Nom <span class="icon icon-sort-alpha-asc"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==3?'active-sort':''; ?>" id="filter3" sort="" onclick="test(this.id)" > E-mail <span class="icon icon-sort-alpha-asc"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==4?'active-sort':''; ?>" id="filter4" sort="" onclick="test(this.id)" > Rôle <span class="icon icon-sort-alpha-asc"></span> </a></th>
+								<th>Posts</th>
+							</tr>
+						</thead>
+						<tbody id="body-ajax">
 
-								<?php foreach($users as $user): ?>
+							<?php foreach($users as $user): ?>
 								<tr">
-									<td class="hidden-xs"><label class="checkbox-container">
-								<input type="checkbox">
-								<span class="checkmark"></span>
-							</label></td>
-									<td class="entity-key"><a href="#"><?php echo ucfirst($user['login']); ?></a>
-										<ul class="grid-actions">
-											<a href="/admin/afficher-utilisateur/<?php echo $user['id']; ?>"><li>Afficher</li></a>
-											<a href="/admin/modifier-utilisateur/<?php echo $user['id']; ?>"><li>Modifier</li></a>
-											<a href="#"><li>Supprimer</li></a>
-										</ul>
-									</td>
-									<td data-label="Nom"><?php echo $user['lastname']." ".$user['firstname']; ?></td>
-									<td data-label="E-mail"><a href="#"><?php echo $user['email']; ?></a></td>
-									<td data-label="Rôle"><?php echo Format::getRole($user['role']); ?></td>
-									<td data-label="Posts">0</td>
+								<td class="hidden-xs"><label class="checkbox-container">
+									<input type="checkbox">
+									<span class="checkmark"></span>
+								</label></td>
+								<td class="entity-key"><a href="#"><?php echo ucfirst($user['login']); ?></a>
+									<ul class="grid-actions">
+										<a href="/admin/afficher-utilisateur/<?php echo $user['id']; ?>" ><li>Afficher</li></a>
+										<a href="/admin/modifier-utilisateur/<?php echo $user['id']; ?>"><li>Modifier</li></a>
+										<a href="#"><li>Supprimer</li></a>
+									</ul>
+								</td>
+								<td data-label="Nom"><?php echo $user['lastname']." ".$user['firstname']; ?></td>
+								<td data-label="E-mail"><a href="#"><?php echo $user['email']; ?></a></td>
+								<td data-label="Rôle"><?php echo Format::getRole($user['role']); ?></td>
+								<td data-label="Posts">0</td>
 
-								</tr>
-							<?php endforeach; ?>
-							<?php if(empty($users)): ?>
-									<tr>
-										<td> Aucune utilisateurs trouvés </td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-							<? endif; ?>
-							
-							</tbody>
-						</table>
-					</article>
-					<footer>
+							</tr>
+						<?php endforeach; ?>
+						<?php if(empty($users)): ?>
+							<tr>
+								<td> Aucune utilisateurs trouvés </td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						<? endif; ?>
+						
+					</tbody>
+				</table>
+				<input type="hidden" id="params" value='<?php echo $param_json; ?>'>
 
-						<?php $this->addModal("pagination", ['nbElements'=>$elementNumber,'nbPage'=>$nbPage,'elementPerPage'=>$elementPerPage,'currentPage'=>$currentPage,'targetUri'=>$targetUri]); ?>
+			</article>
+			<footer>
 
-						<ul class="inline hidden-xs">
-							<li>Actions groupées :  </li>
-							<li><a href="#"> Supprimer</a></li>
-						</ul>
-						<span class="push-right"> <?php echo $elementNumber; ?> élément(s) </span>
-					</footer>
-				</div>
-</div>
+					<?php $this->addModal("pagination", 
+					['nbElements'=>$elementNumber,
+					'nbPage'=>$nbPage,
+					'elementPerPage'=>$elementPerPage,
+					'currentPage'=>$currentPage,
+					'params'=>$params]); ?>
+
+					<ul class="inline hidden-xs">
+						<li>Actions groupées :  </li>
+						<li><a href="#"> Supprimer</a></li>
+					</ul>
+					<span class="push-right"> <?php echo count($users); ?> élément(s) </span>
+				</footer>
 			</div>
+		</div>
+	</div>

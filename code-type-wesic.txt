@@ -1,0 +1,56 @@
+Slug : type
+
+1 : article
+2 : page
+3 : categorie
+4 : passwordrecovery
+5:  confirmation email
+6:  confirmation email newsletter
+
+Password recovery : type
+1: new password
+2: email confirmation
+3: email confirmation newsletter
+
+User : status
+
+1: Active
+2: confirmation mail
+3: inactif
+4: banni
+5: supprimé
+
+User : role
+
+1 : Utilisateur
+2 : Community Manager
+3 : Modérateur02:59 18/05/201803:22 18/05/2018
+4 : Administrateur
+5 : Abonné
+
+Post : type
+
+1 : article
+2 : page
+
+Media : type
+
+1 : photo
+2 : video
+3 : musique
+4 : gallerie image
+5 : album musique
+
+
+Stats : 
+
+Content type :
+
+1 : Article
+2 : Page
+3 : Accueil
+4 : ajout commentaire
+5 : inscription newsletter
+6 : confirmation16:37 20/05/2018
+
+

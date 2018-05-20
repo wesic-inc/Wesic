@@ -12,8 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="/public/css/homepage.css">
 	</head>
 	<body>
-		<?php if(Auth::isConnected()){$this->addModal("admin-navbar","");}
-		?>	
+		<?php if(Auth::isConnected()){ $this->addModal("admin-navbar",""); } ?>	
 		
 		<?php include $this->view;?>
 		<script type="text/javascript" src="/public/js/jquery.min.js"></script>

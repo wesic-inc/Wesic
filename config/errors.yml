@@ -15,3 +15,4 @@ errors:
     slogan: Slogan incorrect
     date: La date est incorrecte
     slug: Le permalien est existe
+    content: Le corps de l'article est incorrect

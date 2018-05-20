@@ -326,6 +326,46 @@ class Post extends Basesql{
             ]
         ];
     }
+        public static function getFormEditArticle(){
+        return [    
+            "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
+            "groups" => [   "title" => ["title"], 
+                            "content" => ["wesic-wysiwyg"], 
+                            "excerpt" => ["excerpt"], 
+                            "description"=>["description"],
+                            "publish" => ["slug","datepicker-custom","time","status","visibility","draft","save"],
+                            "category"=>["category"],
+                            "tags"=>["tags"], 
+                ],
+            "struct" => [
+
+               "title"=>[ "label"=>"", "type"=>"text", "id"=>"title", "placeholder"=>"Titre de l'article", "required"=>1, "msgerror"=>"title"],
+
+                "wesic-wysiwyg"=>[ "label"=>"", "type"=>"texteditor", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content"],
+
+                "excerpt"=>[ "label"=>"", "type"=>"textarea", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt", "helper"=>"L'extrait de l'article sur votre site"],
+
+                "description"=>[ "label"=>"", "type"=>"textarea", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description", "helper"=>"La description de votre article pour l'indexation des moteurs de recherche"],
+
+
+                "slug"=>[ "label"=>"Permalien", "type"=>"text", "id"=>"slug", "placeholder"=>"Lien", "required"=>1, "msgerror"=>"slug", "helper"=>"Le lien de l'article sur le site"],
+                
+                "datepicker-custom"=>[ "label"=>"Date de publication", "type"=>"custom-datepicker", "id"=>"datepublied", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
+                
+                "visibility"=>[ "label"=>"Visibilité", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement']],
+
+                "category"=>[ "label"=>"La catégorie de votre article", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>['1'=>'Aucune catégorie','2'=>'Privés','3'=>'Auteur uniquement']],
+
+                "tags"=>[ "label"=>"", "type"=>"text", "id"=>"tags", "placeholder"=>"Tags de l'article", "required"=>0, "msgerror"=>"tags","helper"=>"Séparez les tags par des virgules"],
+
+                "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
+
+                "save"=>[ "label"=>"Publier", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+
+                
+            ]
+        ];
+    }
     public static function getFormNewPage(){
         return [    
             "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
@@ -358,10 +398,49 @@ class Post extends Basesql{
         ];
     }
 
+    public static function getFormEditPage(){
+        return [    
+            "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
+            "groups" => [   "title" => ["title"], 
+                            "content" => ["wesic-wysiwyg"], 
+                            "publish" => ["slug","datepicker-custom","time","status","visibility","draft","save"],
+                            "attribute"=>["parent","model"],
+                ],
+            "struct" => [
+
+               "title"=>[ "label"=>"", "type"=>"text", "id"=>"title", "placeholder"=>"Nom de la page", "required"=>1, "msgerror"=>"title"],
+
+                "wesic-wysiwyg"=>[ "label"=>"", "type"=>"texteditor", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content"],
+
+                "slug"=>[ "label"=>"Permalien", "type"=>"text", "id"=>"slug", "placeholder"=>"Lien", "required"=>1, "msgerror"=>"slug", "helper"=>"Le lien de la page sur le site"],
+                
+                "datepicker-custom"=>[ "label"=>"Date de publication", "type"=>"custom-datepicker", "id"=>"datepublied", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
+                
+                "parent"=>[ "label"=>"Parent", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>['1'=>'Aucune catégorie','2'=>'Privés','3'=>'Auteur uniquement']],
+
+                "model"=>[ "label"=>"Modèle", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>['1'=>'Par défaut','2'=>'Privés','3'=>'Auteur uniquement']],
+
+
+                "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
+
+                "save"=>[ "label"=>"Publier", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+
+                
+            ]
+        ];
+    }
+
     public static function newArticle($data){
             
-        // dump(htmlentities($data['wesic-wysiwyg']),0,2);
+        if(isset($data['draft'])){
+            $status = 2;
+            $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été engistré comme brouillon";
+        }
+        if(isset($data['save'])){
+            $status = 1;
+            $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été publié";
 
+        }
         $slug = new Slug();
         $slug->setSlug($data['slug']);
         $slug->setType(1);
@@ -379,10 +458,13 @@ class Post extends Basesql{
         $article->setDescription($data['description']);
         $article->setDatePublied($datePublied);
         $article->setDateCreation();
-        $article->setStatus(1);
+        $article->setStatus($status);
         $article->setVisibility($data['visibility']);
         $article->setUserId(Singleton::getUser()->getId());
-        $article->save();        
+        $article->save();
+
+        View::setFlash("Succès !",$flashmessage,"success");
+
 
         return true;
             
@@ -410,12 +492,131 @@ class Post extends Basesql{
         $page->setUserId(Singleton::getUser()->getId());
         $page->save();  
 
+        View::setFlash("Succès !","La page <i>".ucfirst($data['title'])."</i> a bien été ajoutée","success");
+
 
         return true;
             
     }
 
+    public static function editArticle($data){
 
+            
+        if(isset($data['draft'])){
+            $status = 2;
+            $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été modifié comme brouillon";
+        }
+        if(isset($data['save'])){
+            $status = 1;
+            $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été modifié";
+
+        }
+
+        $qb = new QueryBuilder();
+
+        $currentPost = $qb->findAll('post')->addWhere('id = :id')->setParameter('id',$data['id'])->fetchOne();
+
+
+        if($currentPost['slug'] == $data['slug']){
+            $slug = $currentPost['slug'];
+            $slugUpdate = false;
+        }else{
+            $slug = $data['slug'];
+
+            $newSlug = new Slug();
+            $newSlug->setSlug($slug);
+            $newSlug->setType(1);
+            $newSlug->save();
+
+            $slugUpdate = true;
+
+        }
+
+        $datePublied = $data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
+            
+        $article = new Post();
+        
+        $article->setType(1);  
+        $article->setId($data['id']);  
+        $article->setTitle($data['title']);
+        $article->setSlug($slug);
+        $article->setContent(htmlentities($data['wesic-wysiwyg']));
+        $article->setExcerpt($data['excerpt']);
+        $article->setDescription($data['description']);
+        $article->setDatePublied($datePublied);
+        $article->setStatus($status);
+        $article->setVisibility($data['visibility']);
+        $article->setUserId(Singleton::getUser()->getId());
+        $article->save();
+
+        View::setFlash("Succès !",$flashmessage,"success");
+
+        if($slugUpdate == true){
+            $qb->reset();
+            $qb->delete()->from('slug')->addWhere('slug = :slug')->setParameter('slug',$currentPost['slug'])->execute();
+        }
+
+        return true;
+            
+    }    
+
+    public static function editPage($data){
+
+        $slug = new Slug();
+        $slug->setSlug($data['slug']);
+        $slug->setType(2);
+        $slug->save();
+
+
+        $qb = new QueryBuilder();
+
+        $currentPost = $qb->findAll('post')->addWhere('id = :id')->setParameter('id',$data['id'])->fetchOne();
+
+
+        if($currentPost['slug'] == $data['slug']){
+            $slug = $currentPost['slug'];
+            $slugUpdate = false;
+        }else{
+            $slug = $data['slug'];
+
+            $newSlug = new Slug();
+            $newSlug->setSlug($slug);
+            $newSlug->setType(1);
+            $newSlug->save();
+
+            $slugUpdate = true;
+
+        }
+
+
+        $datePublied = $data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
+            
+        $page = new Post();
+        $page->setType(2);  
+        $page->setId($data['id']);  
+        $page->setTitle($data['title']);
+        $page->setSlug($data['slug']);
+        $page->setContent(htmlentities($data['wesic-wysiwyg']));
+        $page->setDatePublied($datePublied);
+        $page->setDateCreation();
+        $page->setStatus(1);
+        $page->setVisibility(1);
+        $page->setUserId(Singleton::getUser()->getId());
+        $page->save();  
+
+
+        if($slugUpdate == true){
+            $qb->reset();
+            $qb->delete()->from('slug')->addWhere('slug = :slug')->setParameter('slug',$currentPost['slug'])->execute();
+        }
+
+
+        View::setFlash("Succès !","La page <i>".ucfirst($data['title'])."</i> a bien été modifié","success");
+
+
+        return true;
+            
+    }
 
 }
 

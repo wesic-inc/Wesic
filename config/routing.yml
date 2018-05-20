@@ -27,6 +27,7 @@ routing:
 
     Login:
         restricted: connected
+        redirect: Admin
         controller: login:index
         path: connexion
 
@@ -37,6 +38,7 @@ routing:
 
     Signup:
         restricted: connected
+        redirect: Admin
         controller: login:signup
         path: inscription
 
@@ -64,6 +66,9 @@ routing:
             sort:
                 type: int
                 optional: true
+            s:
+                type: string
+                optional: true
 
     AllUsersAjax:
         restricted: admin
@@ -73,6 +78,30 @@ routing:
             sort: 
                 type: int
                 optional: false
+            filter:
+                type: int
+                optional: true
+            p:
+                type: int
+                optional: true
+            perPage:
+                type: int
+                optional: false    
+
+    AllArticlesAjax:
+        restricted: admin
+        controller: article:allArticlesAjax
+        path: admin/articles-ajax
+        params:
+            sort: 
+                type: int
+                optional: false
+            filter:
+                type: int
+                optional: true
+            sort:
+                type: int
+                optional: true
 
     AddUser:
         restricted: admin
@@ -103,11 +132,25 @@ routing:
         restricted: admin
         controller: article:allArticles
         path: admin/articles
+        params:
+            filter:
+                type: int
+                optional: true
+            p:
+                type: int
+                optional: true
+            sort:
+                type: int
+                optional: true
 
     EditArticle:
         restricted: admin
-        controller: admin:newArticle
+        controller: article:editArticle
         path: admin/modifier-article
+        params:
+            id: 
+                type: int
+                optional: false
 
     Stats:
         restricted: admin
@@ -152,11 +195,39 @@ routing:
         restricted: admin
         controller: page:allPages
         path: admin/pages
+        params:
+            filter:
+                type: int
+                optional: true
+            p:
+                type: int
+                optional: true
+            sort:
+                type: int
+                optional: true
 
     NewPage:
         restricted: admin
         controller: page:newPage
         path: admin/ajouter-page
+
+    EditPage:
+        restricted: admin
+        controller: page:editPage
+        path: admin/modifier-page
+        params:
+            id:
+                type: int
+                optional: false
+
+    DeletePage:
+        restricted: admin
+        controller: page:deletePage
+        path: admin/supprimer-page
+        params:
+            id:
+                type: int
+                optional: false
 
     Comments:
         restricted: admin
@@ -190,6 +261,7 @@ routing:
 
     getNewPassword:
         restricted: connected
+        redirect: Admin
         controller: login:getNewPassword
         path: recuperer-compte
 
@@ -219,12 +291,14 @@ routing:
         path: admin/detruire-utilisateur
 
     SignUpNewsletter:
-        restricted: connected
+        restricted: all
+        redirect: Admin
         controller: newsletter:signUp
         path: inscription-newsletter
 
     SignUpNewsletterSuccess:
         restricted: connected
+        redirect: Admin
         controller: newsletter:signUpSuccess
         path: newsletter-merci 
 
@@ -237,3 +311,8 @@ routing:
         restricted: all
         controller: framework:deleteFlashSessionAjax
         path: admin/delete-flash-session-ajax
+
+    Rss:
+        restricted: all
+        controller: article:getRss
+        path: rss

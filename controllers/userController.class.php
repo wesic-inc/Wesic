@@ -14,31 +14,57 @@ class userController {
 
 		$param = Route::checkParameters($args['params']);
 
-		$param_json = json_encode($param);
-
 		if($param == false){
 			Route::redirect('allUsers');
 		}
+
+		$qb = new QueryBuilder();
 
 		if( isset($param['filter']) ){
 			
 			$filter = true;
 			$qbUsers = Basesql::userDisplayFilters($qbUsers,$param['filter']);
 
+
+			$qb->select('COUNT(id)')->from('user')
+			->addWhere('status != :status')
+			->setParameter('status',5)->and();
+
+			$qb = Basesql::userDisplayFilters($qb,$param['filter']);		
+			$countAll = $qb->fetchOne()[0];
+
+			if(empty($countAll)){
+				$countAll = 0;
+			}
+
 		}
+		else{
+			$countAll = $qb->select('COUNT(id)')->from('user')->addWhere('status != :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
+
+		}
+
 		if( isset($param['p']) ){
 			
 			$pagination = true;
 			$page = $param['p'];
 		}
 
-		$qb = new QueryBuilder();
+		if( isset($param['sort']) ){
+			$sort = $param['sort'];
+			$qbUsers = Basesql::userDisplaySorting($qbUsers,$sort);
+		}
 
-		$countAll = $qb->select('COUNT(*)')->from('user')->addWhere('status != :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
+		if( isset($param['s']) ){
+			$search = $param['sort'];
+
+			$qbUsers->reset();
+			$qbUsers->select('*')->from('user')->addWhere('title LIKE '%mon%'');
+		}
+
 		
-		$elementPerPage = 5;
+		$elementPerPage = 3;
 
-		$nbPage = Format::pageCalc($count,elementPerPage);
+		$nbPage = Format::pageCalc($countAll,$elementPerPage);
 
 		if(!isset($page) || $page == 1){
 			$userRes = $qbUsers->limit('0',$elementPerPage)->execute();
@@ -51,59 +77,57 @@ class userController {
 			$userRes = $qbUsers->limit($page*$elementPerPage-$elementPerPage,$elementPerPage)->execute();
 		}
 
+		$param_json = $param;
+		$param_json['perPage'] = $elementPerPage;
+		$param_json = json_encode($param_json);
+
 		$v = new View();
 		$v->setView("cms/users","templateadmin");
 		$v->assign("title","Tous les utilisateurs");
 		$v->assign("icon","icon-users");
 		$v->assign("users",$userRes);
+
 		$v->assign("elementNumber",$countAll);
-		$v->assign("nbPage",$nbPage);
+		
 		$v->assign("filter",$param['filter']);
+		
+		$v->assign("nbPage",$nbPage);
 		$v->assign("elementPerPage",$elementPerPage);
 		$v->assign("currentPage",$currentPage);
+		
 		$v->assign("param_json",$param_json);
+		$v->assign("params",$param);
 	}
 	public function allUsersAjaxAction($args){
+
+
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
+
 
 			$qbUsers = new QueryBuilder();
 			$qbUsers->select('*')->from('user');
 
 			$param = Route::checkParameters($args['params']);
-			switch ($param['sort']) {
-				case 1:
-					$qbUsers->OrderBy('login','DESC');
-					break;
-				case -1:
-					$qbUsers->OrderBy('login','ASC');
-					break;
-				case 2:
-					$qbUsers->OrderBy('lastname','DESC');
-					break;
-				case -2:
-					$qbUsers->OrderBy('lastname','ASC');
-					break;
-				case 3:
-					$qbUsers->OrderBy('email','DESC');
-					break;
-				case -3:
-					$qbUsers->OrderBy('email','ASC');
-					break;
-				case 4:
-					$qbUsers->OrderBy('role','DESC');
-					break;
-				case -4:
-					$qbUsers->OrderBy('role','ASC');
-					break;
-				default:
-					return false;
-				break;
-			}			
 
-			$users = $qbUsers->execute();
+
+			if(isset($param['filter'])){
+				$qbUsers = Basesql::userDisplayFilters($qbUsers,$param['filter']);	
+			}
+
+			$qbUsers = Basesql::userDisplaySorting($qbUsers,$param['sort']);		
+
+			if(isset($param['p'])){
+			}
+			
+			$users = $qbUsers->limit(0,$param['perPage'])->execute();	
+			
+
 			$v = new View();
 			$v->setView("ajax/allUsers","templateajax");
 			$v->assign("users",$users);
+			
+		}else{
+			Route::redirect('Error404');
 		}
 	}
 	public function addUserAction($args){
@@ -135,7 +159,6 @@ class userController {
 		
 		if(!is_numeric($args['params'][0])){
 			Route::redirect('AllUsers');
-			
 		}
 
 		$user = new User();

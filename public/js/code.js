@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  setTimeout(function() {
+         
   $("#hamburger-menu").click(function(){
     $("#hamburger-menu").toggleClass("is-active");
     $('#navbar').toggleClass("collapsed");
@@ -31,6 +33,7 @@ $(document).ready(function(){
     }
   }
   );
+    }, 200);
 });
 
 $('#wesic-wysiwyg').trumbowyg({
@@ -40,17 +43,49 @@ $('#wesic-wysiwyg').trumbowyg({
 $.trumbowyg.svgPath = './trumbowyg/ui/icons.svg';
 
 
-// function viewMedia(idMedia){
-//   $('body').toggleClass('modal-open');
-//   $('.modal').toggleClass('modal-closed');
-//   $('.modal-overlay').toggleClass('modal-closed');
-// }
 
-$.getJSON( "ajax/test.json", function( data ) {
-  var items = [];
-  $.each( data, function( key, val ) {
-    items.push( "<li id='" + key + "'>" + val + "</li>" );
-  });
+var countChecked = function() {
+  var n = $( "input:checked" ).length;
+    var inputs = $(this).parent().find('input[value=""]');
+    $('input:checkbox').not(this).prop('checked', this.checked);
+
+    if (!inputs.length) {
+        // you have empty fields if this section is reached
+    }
+  // alert(n);
+};
+countChecked();
  
-  alert(items);
+$( "#checkAll" ).on( "click", countChecked );
+
+// $("#checkAll").on( "click", function(){
+//     $('input:checkbox').not(this).prop('checked', this.checked);
+// } );
+
+
+
+var selected = [];
+$('#checkboxes input:checked').each(function() {
+    selected.push($(this).attr('name'));
 });
+
+  // var quill = new Quill('#wesic-wysiwyg', {
+  // modules: {
+  //   toolbar: [
+  //     [{ header: [1, 2, false] }],
+  //     ['bold', 'italic', 'underline'],
+  //     ['image', 'code-block']
+  //   ]
+  // },
+  // placeholder: 'Compose an epic...',
+  // theme: 'snow'  // or 'bubble'
+  // });
+
+
+
+$(document).ready(function(){
+setTimeout(function() {
+  document.getElementById("loader-wrapper").style.display = "none";
+  }, 400);
+});
+

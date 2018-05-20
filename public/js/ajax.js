@@ -1,4 +1,60 @@
 function test(filter) {
+	
+	var params = jQuery.parseJSON($('#params').val());
+
+	filterVar = filter.slice(-1);
+
+	if($('#'+filter).attr('sort')=='DESC'){
+		$('#'+filter).attr('sort','ASC');
+	}else{
+		$('#'+filter).attr('sort','DESC');
+		filterVar = -filterVar;
+	}
+
+	$("#filter1").removeClass();
+	$("#filter2").removeClass();
+	$("#filter3").removeClass();
+	$("#filter4").removeClass();
+	$("#filter5").removeClass();
+
+
+	$('#'+filter).toggleClass("active-sort");
+	$('#'+filter).children().toggleClass("icon icon-sort-alpha-asc");
+	$('#'+filter).children().toggleClass("icon icon-sort-alpha-desc");
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById('body-ajax').innerHTML = this.responseText;
+		}
+	};
+
+	var paramString = ""
+	params['p'] = 1;
+	params['sort'] = filterVar;
+	var perPage = params['perPage']
+	
+	delete params['perPage'];
+
+	for (var param in params){
+   		paramString += "/"+param+"/"+params[param];
+	}
+
+	var url = "/admin/utilisateurs-ajax"+paramString+"/perPage/"+perPage;
+	xhttp.open("POST", url, true);
+	xhttp.send();
+
+	var urlRoot = parseUrl(window.location.href);
+
+	var url = window.location.href;
+	if(url.substr(url.length - 1) != "/"){
+		url += "/";
+	}
+
+	window.history.pushState("", "", urlRoot+paramString);
+}
+
+function test2(filter) {
 
 	filterVar = filter.slice(-1);
 
@@ -15,7 +71,7 @@ function test(filter) {
 			document.getElementById('body-ajax').innerHTML = this.responseText;
 		}
 	};
-	var url = "/admin/utilisateurs-ajax/sort/"+filterVar;
+	var url = "/admin/articles-ajax/sort/"+filterVar;
 	xhttp.open("POST", url, true);
 	xhttp.send();
 
@@ -48,7 +104,6 @@ function test(filter) {
 	}
 	window.history.pushState("", "", urlRoot+params['filter']+params['p']+'/sort/'+filterVar);
 }
-
 
 function parseUrl(url){
 	

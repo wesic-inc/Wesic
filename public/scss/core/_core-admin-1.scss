@@ -1,5 +1,7 @@
 @import "../vars/_vars-admin-1.scss";
 
+
+
 select {
 	background-color:$input-bg;
 	border-radius:$input-radius;
@@ -50,6 +52,11 @@ input[type=text].sm-input {
 	border-radius: 5px;
 }
 
+.active-sort{
+	font-weight: bold;
+	color: $primary-color;
+}
+
 input{
 	background-color:$input-bg;
 	border-radius:$input-radius;
@@ -68,6 +75,8 @@ textarea {
 	border-radius:$input-radius;
 	color: $link-color-dark;
 	border: 1px solid #e4eaec;
+	font-size: 14px;
+    font-family: 'Roboto';
 
 	width:auto;
 	min-height: 60px;
@@ -448,6 +457,7 @@ ul.grid-actions{
 .checkmark-header{
 	left: 12px;
 	top:-7px;
+	background: #FFF;
 }
 .checkmark-footer{
 	left: 8px;
@@ -457,6 +467,9 @@ ul.grid-actions{
 	background-color: #ccc;
 }
 
+.checkbox-container:hover input ~ .checkmark-header {
+	background-color: #fff;
+}
 
 .checkbox-container input:checked ~ .checkmark {
 	background-color: $primary-color;

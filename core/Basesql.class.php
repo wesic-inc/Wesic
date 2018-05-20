@@ -84,6 +84,18 @@ class Basesql{
 		$query->execute(array("id" => $this->columns["id"]));
 	}
 
+	function deleteSlugReference($table, $target){
+		
+		$query = $this->pdo->prepare("DELETE " . $table . ", slug  
+			FROM " . $table . "
+			INNER JOIN slug 
+			ON slug.slug = " . $table . ".slug
+			WHERE " . $table . ".slug  =:slug");
+
+		$query->execute(array("slug" => " . $target . "));
+	}
+
+
 	function getData($table, $condition = [], $operator = [], $orderby = "", $groupby = "", $limit = [], $columns = "*" ){
 		$sql = 'SELECT '. $columns .' FROM '.$table.' ';
 
@@ -191,6 +203,71 @@ class Basesql{
 			break;
 			case 5:
 			$obj->addWhere('status = :status1')->setParameter('status1',5);
+			break;
+		}
+		return $obj;
+	}
+
+	public static function userDisplaySorting($obj,$sort){
+
+			switch ($sort) {
+				case 1:
+					$obj->OrderBy('login','DESC');
+					break;
+				case -1:
+					$obj->OrderBy('login','ASC');
+					break;
+				case 2:
+					$obj->OrderBy('lastname','DESC');
+					break;
+				case -2:
+					$obj->OrderBy('lastname','ASC');
+					break;
+				case 3:
+					$obj->OrderBy('email','ASC');
+					break;
+				case -3:
+					$obj->OrderBy('email','DESC');
+					break;
+				case 4:
+					$obj->OrderBy('role','DESC');
+					break;
+				case -4:
+					$obj->OrderBy('role','ASC');
+					break;
+				default:
+					return $obj;
+				break;
+			}
+			return $obj;	
+	}
+		public static function articleDisplayFilters($obj,$filter){
+
+		switch ($filter) {
+			case 1:
+			$obj
+			->and()
+			->addWhere('status = :status')
+			->setParameter('status',1);
+			break;
+			case 2:
+			$obj
+			->and()
+			->addWhere('status = :status')
+			->setParameter('status',2);
+			break;
+		}
+		return $obj;
+	}
+
+	public static function pageDisplayFilters($obj,$filter){
+
+		switch ($filter) {
+			case 1:
+			$obj
+			->and()
+			->addWhere('status = :status')
+			->setParameter('status',1);
 			break;
 		}
 		return $obj;

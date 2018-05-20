@@ -293,7 +293,7 @@
 		<nav class="footer" id="footer">
 
 				<ul class="nav sitename push-left">
-					<li> <a href="#">BAND NAME</a></li>
+					<li> <a href="#"><?php echo strtoupper(Setting::getParam('title')); ?></a></li>
 				</ul>
 				<ul class="nav mentions push-right">
 					<li> All rights reserved. </li>

@@ -51,6 +51,34 @@ class Format {
 	}
 
 
+	static function getStatusArticle($code){
+		
+		switch ($code) {
+			case 1:
+			return 'Publié';
+			break;
+			case 2:
+			return 'Brouillon';
+			break;
+			case 3:
+			return 'Programmé';
+			break;
+			default:
+			return false;
+			break;
+		}
+	}
+
+	static function getAuthorName($id){
+
+		$qb = new QueryBuilder();
+
+		$author = $qb->select('login')->from('user')->addWhere("id = :id")->setParameter("id",$id)->fetchOne();
+
+		return ucfirst($author['login']);
+	}
+
+
 	static function dump($var,$die = false,$type = 1){
 		echo "<div>";
 		echo '<pre style="
@@ -76,12 +104,41 @@ class Format {
 			die();
 		}
 	}
-	static function humanTime($date)
+	static function humanTime($datetime, $full = false)
 	{
+
+		$now = new DateTime;
+		$ago = new DateTime($datetime);
+		$diff = $now->diff($ago);
+
+		$diff->w = floor($diff->d / 7);
+		$diff->d -= $diff->w * 7;
+
+		$string = array(
+			'y' => 'year',
+			'm' => 'month',
+			'w' => 'week',
+			'd' => 'day',
+			'h' => 'hour',
+			'i' => 'minute',
+			's' => 'second',
+		);
+		foreach ($string as $k => &$v) {
+			if ($diff->$k) {
+				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+			} else {
+				unset($string[$k]);
+			}
+		}
+
+		if (!$full) $string = array_slice($string, 0, 1);
+		return $string ? implode(', ', $string) . ' ago' : 'just now';
 
 	}
 
 	static function pageCalc($count,$elementPerPage){
+
+		$nbPage = $count/$elementPerPage;
 
 		if($count < $elementPerPage){
 			return 1;
@@ -119,11 +176,11 @@ class Format {
 			return date("d/m/Y", strtotime($date));
 			break;
 			default:
-				return false;
+			return false;
 			break;
 		}
 	}
-		static function timeDisplay($time,$type){
+	static function timeDisplay($time,$type){
 		
 		if($time==0){
 			$time = date("Y-m-d");
@@ -143,7 +200,7 @@ class Format {
 			return date("d/m/Y", strtotime($time));
 			break;
 			default:
-				return false;
+			return false;
 			break;
 		}
 	}

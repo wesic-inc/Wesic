@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12 bloc article-bloc">
-			<article>
+<!-- 			<article>
 				<a href="#" class="btn btn-sm btn-alt">Test</a>
 				<a href="#" class="btn btn-alt">Test</a>
 				<a href="#" class="btn btn-lg btn-alt">Test</a>
@@ -36,7 +36,15 @@
 				<a href="#" class="btn btn-sm btn-danger-inverted">Test</a>
 				<a href="#" class="btn btn-danger-inverted" >Test</a>
 				<a href="#" class="btn btn-lg btn-danger-inverted">Test</a>
-			</article>
+			</article> -->
+
+<div class="standalone-container" style="height:400px">
+  <div id="wesic-wysiwyg"></div>
+</div>
+
+  
+
+
 		</div>
 	</div>
 </div>
