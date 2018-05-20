@@ -204,6 +204,9 @@ label.label-input {
 .pagination{
 	text-align: center;
 }
+.paginator{
+	margin: 30px;
+}
 li.page-item{
 	display: inline-block;
 	a{
@@ -386,7 +389,6 @@ li.page-item:hover
 	}
 
 	table tr {
-		border-bottom: 3px solid #ddd;
 		display: block;
 		margin-bottom: .625em;
 		background: $stripped-1;

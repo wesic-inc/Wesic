@@ -1,3 +1,4 @@
 .docker/database/*
 !.docker/database/.gitkeep
 public/.sass-cache
+public/storage/*

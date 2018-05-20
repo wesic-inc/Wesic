@@ -29,8 +29,6 @@ RUN buildRequirements="libyaml-dev" \
 	&& apt-get purge -y ${buildRequirements} \
 	&& rm -rf /var/lib/apt/lists/*
 
-
-
 RUN a2enmod rewrite
 
 WORKDIR /var/www

@@ -1,11 +1,4 @@
-<nav>
-
-
-	<?php 
-
-
-
-	?>
+<nav class="paginator">
 	<ul class="pagination">
 		<?php if($config['currentPage'] != 1): ?>
 		

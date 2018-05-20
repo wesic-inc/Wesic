@@ -183,5 +183,4 @@ class validator{
 		return !( 	strlen($var)<8 || strlen($var)>50 );
 	}
 
-
 }
