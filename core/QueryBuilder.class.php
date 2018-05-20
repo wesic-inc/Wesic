@@ -9,6 +9,7 @@ class QueryBuilder extends Basesql{
 	private $order = "";
 	private $limit = "";
 	private $join = "";
+	private $groupBy = "";
 	private $parameters = [];
 
 	public function __construct(){
@@ -125,6 +126,11 @@ class QueryBuilder extends Basesql{
 		return $this;
 	}
 
+	public function groupBy($group){
+		$this->groupBy .= " ".$group." ";
+		return $this;
+	}
+
 	public function reset(){
 		$this->query = "";
 		$this->selector = "";
@@ -132,7 +138,7 @@ class QueryBuilder extends Basesql{
 		$this->where = "";
 		$this->order = "";
 		$this->limit = "";
-		$this->join = "";
+		$this->groupBy = "";
 		$this->parameters = [];
 		return $this;
 	}
@@ -148,6 +154,7 @@ class QueryBuilder extends Basesql{
 			." FROM ".$this->table
 			.(!empty($this->join)?$this->join:"")
 			.(!empty($this->where)?"WHERE".$this->where:"")
+			.(!empty($this->groupBy)?"GROUP BY".$this->groupBy:"")
 			.(!empty($this->order)?"ORDER BY".$this->order:"")
 			.(!empty($this->limit)?"LIMIT".$this->limit:"");
 

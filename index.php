@@ -34,6 +34,13 @@ spl_autoload_register('autoloader');
 // START TEST AREA
 
 
+
+
+
+// stat::fakeStats(30000);
+// die();
+
+
 // END TEST AREA
 
 
