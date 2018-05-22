@@ -2,6 +2,8 @@ function test(filter) {
 	
 	var params = jQuery.parseJSON($('#params').val());
 
+
+
 	filterVar = filter.slice(-1);
 
 	if($('#'+filter).attr('sort')=='DESC'){

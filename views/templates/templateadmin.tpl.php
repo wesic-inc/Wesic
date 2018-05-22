@@ -48,6 +48,7 @@
 			
 			<script type="text/javascript" src="/public/js/code.js"></script>
 			<script type="text/javascript" src="/public/js/ajax.js"></script>
+			<script type="text/javascript" src="/public/js/stats.js"></script>
 		
 
 		</body>

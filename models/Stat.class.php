@@ -224,16 +224,13 @@ class Stat extends Basesql{
 
   }
 
-  public static function mostViewedArticles(){
+public static function mostViewedArticles(){
 
-    $lastYear = date('Y-m-d',strtotime("-1 year", time()));
+    $lastYear = date('Y-m-d',strtotime("-365 days", time()));
     $lastSemester = date('Y-m-d',strtotime("-6 months", time()));
     $lastTrimester = date('Y-m-d',strtotime("-3 months", time()));
     $lastWeek = date('Y-m-d',strtotime("-1 week", time()));
     $today = date('Y-m-d',strtotime("-1 day", time()));
-
-    // $lastYearQuery = "SELECT COUNT(id) FROM `stat` WHERE date > '".$lastYear."' and date < '".$date('Y-m-d')."' GROUP BY YEAR(date), MONTH(date) ORDER BY date ASC"     
-    
    
     $qb = new QueryBuilder();
    
@@ -302,8 +299,36 @@ class Stat extends Basesql{
     ->execute();
 
     return $results;
+}
 
+public static function recreateScale(){
 
+    $scale = [];
+
+    for($i=0;$i<12;$i++){
+        $scale['year'][$i] = date('M', strtotime('-'.$i.' month'));
+
+    }
+
+    for($i=0;$i<6;$i++){
+        $scale['semester'][$i] = date('M', strtotime('-'.$i.' month'));
+    }
+
+    for($i=0;$i<3;$i++){
+        $scale['trimester'][$i] = date('M', strtotime('-'.$i.' month'));
+    }
+
+    for($i=0;$i<7;$i++){
+        $scale['week'][$i] = date('D', strtotime('-'.$i.' days'));
+    }
+
+    for($i=0;$i<24;$i++){
+        $scale['today'][$i] = date('H', strtotime('-'.$i.' hours')).':00';
+    }
+
+    // dump($scale,2,2);
+
+    return $scale;
 
 }
 

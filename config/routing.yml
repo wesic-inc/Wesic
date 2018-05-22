@@ -182,6 +182,11 @@ routing:
         controller: theme:themeCreator
         path: admin/theme-creator
 
+    MenuCreator:
+        restricted: admin
+        controller: theme:menuCreator
+        path: admin/personnaliser-menu
+
     SetTheme:
         restricted: admin
         controller: theme:themeCreator
@@ -316,3 +321,4 @@ routing:
         restricted: all
         controller: article:getRss
         path: rss
+

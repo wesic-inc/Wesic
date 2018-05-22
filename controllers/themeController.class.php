@@ -25,5 +25,15 @@ class themeController{
 		$v->assign("icon","icon-droplet");
 		$v->assign("form", $form);
 		$v->assign("errors", $errors);
+	}	
+	public static function menuCreatorAction($args){
+		
+		$v = new View();
+		$v->setView("theme/menucreator","templateadmin");
+		$v->assign("title","Menu Creator");
+		$v->assign("icon","icon-menu");
+		$v->assign("form", $form);
+		$v->assign("errors", $errors);
+	
 	}
 }

@@ -60,7 +60,7 @@
 				<ul> 
 					<li><a href="<?php Route::echo('EditTheme'); ?>">Modifier le thème</a> </li> 
 					<li><a href="<?php Route::echo('Themes'); ?>">Mes thèmes</a> </li>  
-					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Menu</a> </li>  
+					<li><a href="<?php Route::echo('MenuCreator'); ?>">Menu</a> </li>  
 					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Theme Creator</a> </li> 
 
 				</ul>

@@ -52,5 +52,3 @@ Content type :
 4 : ajout commentaire
 5 : inscription newsletter
 6 : confirmation16:37 20/05/2018
-
-
