@@ -181,9 +181,7 @@ class Basesql{
 	}
 
 	public static function slugExists($slug){
-
 		return in_array($slug, Slug::getSlugTable());
-		
 	}
 
 	public static function userDisplayFilters($obj,$filter){

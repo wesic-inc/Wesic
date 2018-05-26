@@ -1,39 +1,39 @@
 $(document).ready(function(){
   setTimeout(function() {
-         
-  $("#hamburger-menu").click(function(){
-    $("#hamburger-menu").toggleClass("is-active");
-    $('#navbar').toggleClass("collapsed");
-    $('#navbar').toggleClass("toggled");;
-    $('#main-container').toggleClass("collapsed");
-    $('#second-navbar').toggleClass("collapsed");
-    if($('#navbar').hasClass("toggled") == true){
-      document.cookie = "toggled-sidebar=false;path=/";
-    }else{
-      document.cookie = "toggled-sidebar=true;path=/";
-    }
-  });
-  $(".dropdown-link").click(function(){
-    $(this).toggleClass("is-open");
-  });
-  $("#navbar").hover(
-    function () {
-     if(!$("#hamburger-menu").hasClass('is-active')){
-       $('#navbar').removeClass("collapsed");
-       $('#navbar').toggleClass("toggled");
-       $('#second-navbar').toggleClass("collapsed");
-     }
-   },
-   function () {
-     if(!$("#hamburger-menu").hasClass('is-active')){
-      $('#navbar').addClass("collapsed");
-      $('#second-navbar').toggleClass("collapsed");
-      $('#navbar').toggleClass("toggled");
 
+    $("#hamburger-menu").click(function(){
+      $("#hamburger-menu").toggleClass("is-active");
+      $('#navbar').toggleClass("collapsed");
+      $('#navbar').toggleClass("toggled");;
+      $('#main-container').toggleClass("collapsed");
+      $('#second-navbar').toggleClass("collapsed");
+      if($('#navbar').hasClass("toggled") == true){
+        document.cookie = "toggled-sidebar=false;path=/";
+      }else{
+        document.cookie = "toggled-sidebar=true;path=/";
+      }
+    });
+    $(".dropdown-link").click(function(){
+      $(this).toggleClass("is-open");
+    });
+    $("#navbar").hover(
+      function () {
+       if(!$("#hamburger-menu").hasClass('is-active')){
+         $('#navbar').removeClass("collapsed");
+         $('#navbar').toggleClass("toggled");
+         $('#second-navbar').toggleClass("collapsed");
+       }
+     },
+     function () {
+       if(!$("#hamburger-menu").hasClass('is-active')){
+        $('#navbar').addClass("collapsed");
+        $('#second-navbar').toggleClass("collapsed");
+        $('#navbar').toggleClass("toggled");
+
+      }
     }
-  }
-  );
-    }, 200);
+    );
+  }, 200);
 });
 
 $('#wesic-wysiwyg').trumbowyg({
@@ -46,16 +46,16 @@ $.trumbowyg.svgPath = './trumbowyg/ui/icons.svg';
 
 var countChecked = function() {
   var n = $( "input:checked" ).length;
-    var inputs = $(this).parent().find('input[value=""]');
-    $('input:checkbox').not(this).prop('checked', this.checked);
+  var inputs = $(this).parent().find('input[value=""]');
+  $('input:checkbox').not(this).prop('checked', this.checked);
 
-    if (!inputs.length) {
+  if (!inputs.length) {
         // you have empty fields if this section is reached
-    }
+      }
   // alert(n);
 };
 countChecked();
- 
+
 $( "#checkAll" ).on( "click", countChecked );
 
 // $("#checkAll").on( "click", function(){
@@ -66,26 +66,50 @@ $( "#checkAll" ).on( "click", countChecked );
 
 var selected = [];
 $('#checkboxes input:checked').each(function() {
-    selected.push($(this).attr('name'));
+  selected.push($(this).attr('name'));
 });
 
-  // var quill = new Quill('#wesic-wysiwyg', {
-  // modules: {
-  //   toolbar: [
-  //     [{ header: [1, 2, false] }],
-  //     ['bold', 'italic', 'underline'],
-  //     ['image', 'code-block']
-  //   ]
-  // },
-  // placeholder: 'Compose an epic...',
-  // theme: 'snow'  // or 'bubble'
-  // });
+
 
 
 
 $(document).ready(function(){
-setTimeout(function() {
-  document.getElementById("loader-wrapper").style.display = "none";
+  setTimeout(function() {
+    document.getElementById("loader-wrapper").style.display = "none";
   }, 400);
 });
 
+
+var modal = document.getElementById('myModal');
+
+document.getElementById('close-modal').onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+function deleteModalCategory(id){
+
+  elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
+  document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
+  document.getElementById('modal-helper').innerHTML = "Cette action supprimera la catégorie de tous vos articles";
+  document.getElementById('valid-action').setAttribute('href','supprimer-categorie/id/'+id);
+  modal.style.display = "block";
+
+}
+
+function deleteModalArticle(id){
+
+  elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
+  document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
+  document.getElementById('modal-helper').innerHTML = "Cette action deplacera cet article dans la corbeille";
+  document.getElementById('valid-action').setAttribute('href','supprimer-article/id/'+id);
+  modal.style.display = "block";
+
+}

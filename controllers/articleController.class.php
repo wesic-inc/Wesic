@@ -208,11 +208,10 @@ class articleController{
 
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			dump($args,1,2);
+				$args['post']['id'] = $param['id'];
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				$args['post']['id'] = $param['id'];
 				!Validator::process($form["struct"], $args['post'], 'edit-article')?$errors=["articlenew"]:Route::redirect('AllArticles');
 			}
 		}
@@ -244,7 +243,8 @@ class articleController{
 		$_POST['category'] = $data['category'];
 		$_POST['excerpt'] = $data['excerpt'];
 		$_POST['description'] = $data['description'];
-
+		$_POST['category'] = Category::getCategory($data['id']);
+		
 		$v = new View();
 		$v->setView("cms/newarticle","templateadmin");
 		$v->assign("form", $form);
@@ -252,6 +252,19 @@ class articleController{
 		$v->assign("icon", "icon-pen");
 		$v->assign("errors", $errors);
 	}
+
+	public static function deleteArticleAction($args){
+		$param = Route::checkParameters($args['params']);
+
+		if($param == false){
+			Route::redirect('Categories');
+		}
+
+		Post::deleteArticle($param['id']);
+
+		Route::redirect('AllArticles');
+
+	} 
 
 	public function getRssAction($args){
 

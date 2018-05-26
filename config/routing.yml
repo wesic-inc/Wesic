@@ -121,12 +121,48 @@ routing:
     Categories:
         restricted: admin
         controller: category:allCategories
-        path: admin/categories
+        path: admin/categories    
+
+    DeleteCategory:
+        restricted: admin
+        controller: category:deleteCategory
+        path: admin/supprimer-categorie
+        params:
+            id:
+                type: int
+                optional: false
+
+    EditCategory:
+        restricted: admin
+        controller: category:editCategory
+        path: admin/modifier-categorie
+        params:
+            id:
+                type: int
+                optional: false
 
     Tags:
         restricted: admin
         controller: category:allTags
         path: admin/tags
+
+    DeleteTag:
+        restricted: admin
+        controller: category:deleteTag
+        path: admin/supprimer-tag
+        params:
+            id:
+                type: int
+                optional: false
+
+    EditTag:
+        restricted: admin
+        controller: category:editTag
+        path: admin/modifier-tag
+        params:
+            id:
+                type: int
+                optional: false
 
     AllArticles:
         restricted: admin
@@ -147,6 +183,15 @@ routing:
         restricted: admin
         controller: article:editArticle
         path: admin/modifier-article
+        params:
+            id: 
+                type: int
+                optional: false
+
+    DeleteArticle:
+        restricted: admin
+        controller: article:deleteArticle
+        path: admin/supprimer-article
         params:
             id: 
                 type: int
@@ -315,7 +360,22 @@ routing:
     DeleteFlashSessionAjax:
         restricted: all
         controller: framework:deleteFlashSessionAjax
-        path: admin/delete-flash-session-ajax
+        path: admin/delete-flash-session-ajax    
+
+    AddFlashSessionAjaxAction:
+        restricted: all
+        controller: framework:addFlashSessionAjaxAction
+        path: admin/add-flash-session-ajax
+        params:
+            type:
+                type: string
+                optional: false
+            body:
+                type: string
+                optional: false
+            title:
+                type: string
+                optional: false
 
     Rss:
         restricted: all

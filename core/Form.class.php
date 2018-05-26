@@ -66,7 +66,7 @@ class Form{
 		if($form['options']['submit-custom'] != true){
 			$output .= '<input type="submit"  value="'.$form["options"]["submit"].'">';
 		}
-		
+		$output .= self::getCSRF();
 		$output .= '</form>';
 		echo $output;
 
@@ -146,7 +146,7 @@ class Form{
 		if($form['options']['submit-custom'] != true){
 			$output .= '<input type="submit" name="'.$child.'" id="'.$child.'" value="'.$form["options"]["submit"].'">';
 		}
-
+		$output .= self::getCSRF();
 		$output .= '</form>';
 		echo $output;
 
@@ -181,28 +181,28 @@ class Form{
 
 	public static function datepicker($name,$option,$data){
 		return '<div class="datepicker" name="lolilol" id="timestampdiv"><label class="label-input">'.$option['label'].'</label>
-	<div class="timestamp-wrap"><input type="text" id="jj" name="jj" value="'.((isset($data['jj']))?$data['jj']:date("d")).'" size="2" maxlength="2" autocomplete="off"><select id="mm" name="mm">
-	<option value="01" '.(($data['mm']=="01")||date("m")=="01"?'selected="selected"':"").'>01-Jan</option>
-	<option value="02" '.(($data['mm']=="02")||date("m")=="02"?'selected="selected"':"").'>02-Fév</option>
-	<option value="03" '.(($data['mm']=="03")||date("m")=="03"?'selected="selected"':"").'>03-Mar</option>
-	<option value="04" '.(($data['mm']=="04")||date("m")=="04"?'selected="selected"':"").'>04-Avr</option>
-	<option value="05" '.(($data['mm']=="05")||date("m")=="05"?'selected="selected"':"").'>05-Mai</option>
-	<option value="06"" '.(($data['mm']=="06")||date("m")=="06"?'selected="selected"':"").'>06-Juin</option>
-	<option value="07"" '.(($data['mm']=="07")||date("m")=="07"?'selected="selected"':"").'>07-Juil</option>
-	<option value="08"" '.(($data['mm']=="08")||date("m")=="08"?'selected="selected"':"").'>08-Août</option>
-	<option value="09" '.(($data['mm']=="09")||date("m")=="09"?'selected="selected"':"").'>09-Sep</option>
-	<option value="10" '.(($data['mm']=="10")||date("m")=="10"?'selected="selected"':"").'>10-Oct</option>
-	<option value="11" '.(($data['mm']=="11")||date("m")=="11"?'selected="selected"':"").'>11-Nov</option>
-	<option value="12" '.(($data['mm']=="12")||date("m")=="12"?'selected="selected"':"").'>12-Déc</option>
-	</select>
-	<input type="text" id="aa" name="aa" value="'
+		<div class="timestamp-wrap"><input type="text" id="jj" name="jj" value="'.((isset($data['jj']))?$data['jj']:date("d")).'" size="2" maxlength="2" autocomplete="off"><select id="mm" name="mm">
+		<option value="01" '.(($data['mm']=="01")||date("m")=="01"?'selected="selected"':"").'>01-Jan</option>
+		<option value="02" '.(($data['mm']=="02")||date("m")=="02"?'selected="selected"':"").'>02-Fév</option>
+		<option value="03" '.(($data['mm']=="03")||date("m")=="03"?'selected="selected"':"").'>03-Mar</option>
+		<option value="04" '.(($data['mm']=="04")||date("m")=="04"?'selected="selected"':"").'>04-Avr</option>
+		<option value="05" '.(($data['mm']=="05")||date("m")=="05"?'selected="selected"':"").'>05-Mai</option>
+		<option value="06"" '.(($data['mm']=="06")||date("m")=="06"?'selected="selected"':"").'>06-Juin</option>
+		<option value="07"" '.(($data['mm']=="07")||date("m")=="07"?'selected="selected"':"").'>07-Juil</option>
+		<option value="08"" '.(($data['mm']=="08")||date("m")=="08"?'selected="selected"':"").'>08-Août</option>
+		<option value="09" '.(($data['mm']=="09")||date("m")=="09"?'selected="selected"':"").'>09-Sep</option>
+		<option value="10" '.(($data['mm']=="10")||date("m")=="10"?'selected="selected"':"").'>10-Oct</option>
+		<option value="11" '.(($data['mm']=="11")||date("m")=="11"?'selected="selected"':"").'>11-Nov</option>
+		<option value="12" '.(($data['mm']=="12")||date("m")=="12"?'selected="selected"':"").'>12-Déc</option>
+		</select>
+		<input type="text" id="aa" name="aa" value="'
 		.((isset($data['aa']))?$data['aa']:date("Y")).'" size="4" maxlength="4" autocomplete="off"> 
-	<input type="text" id="hh" name="hh" value="'
+		<input type="text" id="hh" name="hh" value="'
 		.((isset($data['hh']))?$data['hh']:date("H")).'" size="2" maxlength="2" autocomplete="off">&nbsp;h&nbsp;
-	<input type="text" id="mn" name="mn" value="'
+		<input type="text" id="mn" name="mn" value="'
 		.((isset($data['mn']))?$data['mn']:date("i")).'" size="2" maxlength="2" autocomplete="off">
-	</div>
-</div>';
+		</div>
+		</div>';
 	}
 
 	public static function select($name,$option,$data){
@@ -214,13 +214,56 @@ class Form{
 		$output = '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
 		<select name="'.$name.'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'" '.((isset($option["required"]))?"required='required'":"").' ' . (($option["disabled"])?"disabled":"") . '>';
 
-		foreach ($option["choices"] as $value=>$title){
+		if(is_array($option["choices"])){
 
-			$output = $output.'<option '.(($data==$value)?'selected="selected"':"").' value="'.$value.'">' 
-			.ucfirst($title).'</option>';
+			foreach ($option["choices"] as $value=>$title){
+
+				$output = $output.'<option '.(($data==$value)?'selected="selected"':"").' value="'.$value.'">' 
+				.ucfirst($title).'</option>';
+			}
+
+		}else{
+			switch ($option["choices"]) {
+				case 'category':
+					$output .= self::categoryChoices($data);
+				break;
+				case 'tag':
+					$output .= self::tagChoices();
+				break;
+				default:
+				break;
+			}
 		}
 
 		$output .= '</select>'.(isset($helper)?$helper:"").'</div>';
+		return $output;
+	}
+
+	public static function categoryChoices($data){
+
+		$qb = new QueryBuilder();
+		$categories = $qb->findAll('category')
+		->addWhere('type = :type')
+		->setParameter('type',1)
+		->or()
+		->addWhere('type = :type2')
+		->setParameter('type2',3)
+		->execute();
+
+
+
+		$output = "";
+		foreach($categories as $value){
+			if(isset($data['id'])){
+				$current = $data['id'];
+			}
+			else{
+				$current = Setting::getParam('default-cat');
+			}
+			$output = $output.'<option '.(($current==$value['id'])?'selected="selected"':"").' value="'.$value['id'].'">' 
+				.ucfirst($value['label']).'</option>';
+		}
+
 		return $output;
 	}
 	public static function date($name,$option,$data){
@@ -302,16 +345,22 @@ class Form{
 	 * @source https://gravatar.com/site/implement/images/php/
 	 */
 	public static function get_gravatar( $email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array() ) {
-	    $url = 'https://www.gravatar.com/avatar/';
-	    $url .= md5( strtolower( trim( $email ) ) );
-	    $url .= "?s=$s&d=$d&r=$r";
-	    if ( $img ) {
-	        $url = '<img src="' . $url . '"';
-	        foreach ( $atts as $key => $val )
-	            $url .= ' ' . $key . '="' . $val . '"';
-	        $url .= ' />';
-	    }
-	    return $url;
+		$url = 'https://www.gravatar.com/avatar/';
+		$url .= md5( strtolower( trim( $email ) ) );
+		$url .= "?s=$s&d=$d&r=$r";
+		if ( $img ) {
+			$url = '<img src="' . $url . '"';
+			foreach ( $atts as $key => $val )
+				$url .= ' ' . $key . '="' . $val . '"';
+			$url .= ' />';
+		}
+		return $url;
 	}
 	
+	public static function getCSRF(){
+		$token = md5(uniqid(rand(), TRUE));
+		session_start();
+		$_SESSION['csrf'] = $token;
+		return '<input type="hidden" name="csrf" id="csrf" value="'.$token.'">';
+	}
 }

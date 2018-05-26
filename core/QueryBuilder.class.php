@@ -6,6 +6,7 @@ class QueryBuilder extends Basesql{
 	private $selector = "";
 	private $table = "";
 	private $where = "";
+	private $set = "";
 	private $order = "";
 	private $limit = "";
 	private $join = "";
@@ -49,6 +50,13 @@ class QueryBuilder extends Basesql{
 		return $this;
 	} 
 
+	public function update($table){
+
+		$this->selector .= "UPDATE ".$table." ";
+		return $this;
+
+	} 
+
 	public function findAll($table){
 
 		$this->selector = "SELECT *";
@@ -76,6 +84,10 @@ class QueryBuilder extends Basesql{
 	}
 	public function addWhere($where){
 		$this->where .= " ".$where." ";
+		return $this;
+	}
+	public function set($values){
+		$this->set .= " ".$values." ";
 		return $this;
 	}
 	public function setLike($parameter, $value){
@@ -122,6 +134,13 @@ class QueryBuilder extends Basesql{
 		return $this;
 	}
 
+
+	public function innerJoin($table, $condition){
+		$this->join .= "INNER JOIN ".$table;
+		$this->join .= " ON ".$condition." ";
+		return $this;
+	}
+
 	public function debugObject(){
 		return $this;
 	}
@@ -136,9 +155,11 @@ class QueryBuilder extends Basesql{
 		$this->selector = "";
 		$this->table = "";
 		$this->where = "";
+		$this->set = "";
 		$this->order = "";
 		$this->limit = "";
 		$this->groupBy = "";
+		$this->join = "";
 		$this->parameters = [];
 		return $this;
 	}
@@ -165,14 +186,35 @@ class QueryBuilder extends Basesql{
 		}
 
 	}
+	public function save(){
+
+		if(!isset($this->selector) || !isset($this->table)){
+			return false;
+		}else{
+
+			$this->query = 
+			$this->selector
+			." SET ".$this->set
+			.(!empty($this->join)?$this->join:"")
+			.(!empty($this->where)?"WHERE".$this->where:"")
+			.(!empty($this->groupBy)?"GROUP BY".$this->groupBy:"")
+			.(!empty($this->order)?"ORDER BY".$this->order:"")
+			.(!empty($this->limit)?"LIMIT".$this->limit:"");
+			$query = $this->pdo->prepare($this->query);
+			$query->execute($this->parameters);
+			return $query->fetchAll();
+			
+		}
+
+	}
 
 	public function fetchOne(){
 		$result = $this->execute();
 
 		if(empty($result))
-			{
-				return $result;
-			}
+		{
+			return $result;
+		}
 		else
 		{
 			return $result[0];

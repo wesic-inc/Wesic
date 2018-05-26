@@ -51,6 +51,14 @@ class Format {
 	}
 
 
+	static function translateCategory($code){
+		$qb = new QueryBuilder();
+		return $qb->findAll('category')
+		->addWhere('id = :id')
+		->setParameter('id',$code)
+		->fetchOne()['label'];
+	}
+
 	static function getStatusArticle($code){
 		
 		switch ($code) {

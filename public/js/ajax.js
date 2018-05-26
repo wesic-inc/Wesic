@@ -39,7 +39,7 @@ function test(filter) {
 	delete params['perPage'];
 
 	for (var param in params){
-   		paramString += "/"+param+"/"+params[param];
+		paramString += "/"+param+"/"+params[param];
 	}
 
 	var url = "/admin/utilisateurs-ajax"+paramString+"/perPage/"+perPage;
@@ -126,13 +126,27 @@ function destroyFlash(id){
 }
 
 function destroy_flash_session(id){
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('POST','/admin/delete-flash-session-ajax', true);
-    xmlhttp.onreadystatechange=function(){
-       if (xmlhttp.readyState == 4){
-          if(xmlhttp.status == 200){
-         }
-       }
-    };
-    xmlhttp.send(null);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('POST','/admin/delete-flash-session-ajax', true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+			}
+		}
+	};
+	xmlhttp.send(null);
+}
+
+
+function append_flash_session(type,title,body){
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('POST','/admin/add-flash-session-ajax/type'+type+'/body'+body+'/title'+title, true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+
+			}
+		}
+	};
+	xmlhttp.send(null);
 }

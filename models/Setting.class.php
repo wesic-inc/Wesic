@@ -117,7 +117,7 @@ public static function getFormSettingsPost(){
  return [   
   "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Sauvegarder", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
   "struct" => [
-   "default-cat"=>["label"=> "Catégorie par défaut des articles", "type"=>"select", "id"=>"loginco", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login","choices"=>["1"=>"Catégorie","2"=>"Catégorie","3"=>"Catégorie"] ],
+   "default-cat"=>["label"=> "Catégorie par défaut des articles", "type"=>"select", "id"=>"loginco", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login","choices"=>"category" ],
 
    "default-format"=>["label"=> "Format par défaut des articles", "type"=>"select", "id"=>"passwordco", "placeholder"=>"Slogan", "msgerror"=>"slogand","choices"=>["1"=>"Le post en entier","2"=>"L'extrait du post"] ],
 
