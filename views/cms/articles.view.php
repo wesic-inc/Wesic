@@ -39,7 +39,7 @@
 										</thead>
 										<tbody id="body-ajax">
 											<?php foreach($articles as $article): ?>
-												<tr id="<?php echo $article['id'] ?>">
+												<tr id="<?php echo $article['id'] ?>" >
 													<td class="hidden-xs hidden-sm">
 														<label class="checkbox-container">
 															<input type="checkbox" id="<?php echo $article['id'] ?>">

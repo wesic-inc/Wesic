@@ -20,7 +20,7 @@
 						</ul>
 						<table class="table table-stripped">
 							<thead>
-								<tr>
+								<tr >
 									<th><label class="checkbox-container">
 										<input type="checkbox" id="checkAll">
 										<span class="checkmark checkmark-header"></span>
@@ -35,7 +35,7 @@
 							<tbody id="body-ajax">
 
 								<?php foreach($users as $user): ?>
-									<tr">
+									<tr id="<?php echo $user['id'] ?>" >
 									<td class="hidden-xs"><label class="checkbox-container">
 										<input type="checkbox">
 										<span class="checkmark"></span>
@@ -44,7 +44,9 @@
 										<ul class="grid-actions">
 											<a href="/admin/afficher-utilisateur/<?php echo $user['id']; ?>" ><li>Afficher</li></a>
 											<a href="/admin/modifier-utilisateur/<?php echo $user['id']; ?>"><li>Modifier</li></a>
-											<a href="#"><li>Supprimer</li></a>
+											<?php if((Singleton::getUser()->getId() != $user['id']) && $user['status'] != 5): ?>
+											<a onclick="deleteModalUser(<?php echo $user['id'] ?>)"><li>Supprimer</li></a>
+											<?php endif; ?>
 										</ul>
 									</td>
 									<td data-label="Nom"><?php echo $user['lastname']." ".$user['firstname']; ?></td>
@@ -89,3 +91,21 @@
 			</div>
 		</div>
 	</div>
+
+							<div id="myModal" class="modal">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3>Confirmation suppression</h3>
+					</div>
+					<div class="modal-body">
+						<p id="modal-body"></p>
+						<p id="modal-helper"></p>
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
+						<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
+					</div>
+				</div>
+
+			</div>

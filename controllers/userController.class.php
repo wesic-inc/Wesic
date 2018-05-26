@@ -10,7 +10,8 @@ class userController {
 	public function allUsersAction($args){
 
 		$qbUsers = new QueryBuilder();
-		$qbUsers->select('*')->from('user');
+		$qbUsers->select('*')
+		->from('user');
 
 		$param = Route::checkParameters($args['params']);
 
@@ -26,9 +27,7 @@ class userController {
 			$qbUsers = Basesql::userDisplayFilters($qbUsers,$param['filter']);
 
 
-			$qb->select('COUNT(id)')->from('user')
-			->addWhere('status != :status')
-			->setParameter('status',5)->and();
+			$qb->select('COUNT(id)')->from('user');
 
 			$qb = Basesql::userDisplayFilters($qb,$param['filter']);		
 			$countAll = $qb->fetchOne()[0];
@@ -40,7 +39,9 @@ class userController {
 		}
 		else{
 			$countAll = $qb->select('COUNT(id)')->from('user')->addWhere('status != :status1')->setParameter('status1',5)->addSeparator('OR')->addWhere('status = :status2')->setParameter('status2',2)->fetchOne()[0];
-
+			$qbUsers
+			->addWhere('status != :status')
+			->setParameter('status',5);
 		}
 
 		if( isset($param['p']) ){
@@ -152,6 +153,19 @@ class userController {
 		$v->assign("icon", "icon-user-plus");
 		$v->assign("form", $form);
 		$v->assign("errors", $errors);
+
+	}	
+	public function flagDeleteUserAction($args){
+		
+		$param = Route::checkParameters($args['params']);
+
+		if($param == false){
+			Route::redirect('AllUsers');
+		}
+
+		User::setUserStatus($param['id'],5);
+
+		Route::redirect('AllUsers');
 
 	}
 

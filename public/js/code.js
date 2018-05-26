@@ -108,8 +108,28 @@ function deleteModalArticle(id){
 
   elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
   document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
-  document.getElementById('modal-helper').innerHTML = "Cette action deplacera cet article dans la corbeille";
+  document.getElementById('modal-helper').innerHTML = "Cette action supprime définitivement cet article";
   document.getElementById('valid-action').setAttribute('href','supprimer-article/id/'+id);
+  modal.style.display = "block";
+
+}
+
+function deleteModalPage(id){
+
+  elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
+  document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
+  document.getElementById('modal-helper').innerHTML = "Cette action supprime définitivement cette page";
+  document.getElementById('valid-action').setAttribute('href','supprimer-page/id/'+id);
+  modal.style.display = "block";
+
+}
+
+function deleteModalUser(id){
+
+  elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
+  document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
+  document.getElementById('modal-helper').innerHTML = "Cette action deplace l'utilisateur à la corbeille";
+  document.getElementById('valid-action').setAttribute('href','supprimer-utilisateur/id/'+id);
   modal.style.display = "block";
 
 }

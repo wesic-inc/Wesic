@@ -32,7 +32,7 @@
 								<tbody>
 									<?php foreach ($pages as $page): ?>
 
-										<tr>
+										<tr id="<?php echo $page['id'] ?>">
 											<td class="hidden-xs hidden-sm">
 												<label class="checkbox-container">
 													<input type="checkbox">
@@ -43,7 +43,7 @@
 												<ul class="grid-actions">
 													<a href="<?php echo Setting::getParam('url')."/".$page['slug']; ?>"><li>Afficher</li></a>
 													<a href="<?php echo Route::getAll('EditPage').'/id/'.$page['id']; ?>"><li>Modifier</li></a>
-													<a href="<?php echo Route::getAll('DeletePage').'/id/'.$page['id']; ?>"><li>Supprimer</li></a>
+													<a onclick="deleteModalPage(<?php echo $page['id'] ?>)"><li>Supprimer</li></a>
 												</ul>
 											</td>
 											<td data-label="Auteur"><a href="#"><?php echo Format::getAuthorName($page['user_id']); ?></a></td>
@@ -74,4 +74,21 @@
 
 					</div>
 				</div>
+			</div>
+						<div id="myModal" class="modal">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3>Confirmation suppression</h3>
+					</div>
+					<div class="modal-body">
+						<p id="modal-body"></p>
+						<p id="modal-helper"></p>
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
+						<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
+					</div>
+				</div>
+
 			</div>

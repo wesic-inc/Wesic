@@ -120,21 +120,10 @@ public static function singleAction($args){
 
 		$param = Route::checkParameters($args['params']);
 
-		$qb = new QueryBuilder();
-		$page = $qb
-		->delete()
-		->from('post')
-		->addWhere('type = :type')
-		->setParameter('type',2)
-		->addWhere('id = :id')
-		->setParameter('id',$param['id']);
+		Post::deletePage($param['id']);
 
+		Route::redirect('Pages');
 
-
-		if(!empty($userFound)){
-			User::setUserStatus($userFound['id'],5);
-			Route::redirect('EditUser',$userFound['id']);
-		}
 	}
 	public function newPageAction($args){
 

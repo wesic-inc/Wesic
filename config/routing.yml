@@ -113,6 +113,16 @@ routing:
         controller: user:editUser
         path: admin/modifier-utilisateur
 
+
+    DeleteUserFlag:
+        restricted: admin
+        controller: user:flagDeleteUser
+        path: admin/supprimer-utilisateur
+        params:
+            id:
+                type: int
+                optional: false
+
     ViewUser:
         restricted: admin
         controller: user:viewUser
@@ -329,11 +339,6 @@ routing:
         restricted: admin
         controller: user:banUser
         path: admin/bannir-utilisateur
-
-    deleteUser:
-        restricted: admin
-        controller: user:deleteUser
-        path: admin/supprimer-utilisateur
 
     destroyUser:
         restricted: admin
