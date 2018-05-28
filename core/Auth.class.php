@@ -46,17 +46,18 @@ class Auth extends Basesql {
 
 	static function getRights(){
 		if(!isset($_SESSION["token"])){
-			return FALSE;
+			return false;
 		}else{
 			$token = $_SESSION["token"];
 			$user = new User();
 			$user = $user->getData('user',["token"=>$token]);
 
+
 			if(!empty($user[0])){
 				$userFound = $user[0];
 				return $userFound["role"];
 			}else{
-				return FALSE;
+				return false;
 			}
 		}
 	}

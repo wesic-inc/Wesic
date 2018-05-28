@@ -136,7 +136,7 @@ public static function singleAction($args){
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'pagenew')?$errors=["pagenew"]:Route::redirect('AllArticles');
+				!Validator::process($form["struct"], $args['post'], 'pagenew')?$errors=["pagenew"]:Route::redirect('Pages');
 			}
 		}
 		$v = new View();

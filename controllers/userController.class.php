@@ -106,8 +106,9 @@ class userController {
 
 
 			$qbUsers = new QueryBuilder();
-			$qbUsers->select('*')->from('user');
-
+			$qbUsers->select('*')->from('user')
+			->addWhere('status != :status')
+			->setParameter('status',5);
 			$param = Route::checkParameters($args['params']);
 
 
@@ -171,17 +172,19 @@ class userController {
 
 	public function editUserAction($args){
 		
-		if(!is_numeric($args['params'][0])){
+
+		$param = Route::checkParameters($args['params']);
+
+		if(!$param){
 			Route::redirect('AllUsers');
 		}
 
-		$user = new User();
+		$qb = new QueryBuilder();
+		$editedUser = $qb->findAll('user')
+		->addWhere('id = :id')
+		->setParameter('id',$param['id'])
+		->fetchOne();
 
-		$editedUser = $user->getData('user',["id"=>$args['params'][0]])[0];
-
-		if(empty($editedUser)){
-			Route::redirect('AllUsers');
-		}
 
 		$form = User::getFormEditUser();
 		$errors = [];
@@ -190,7 +193,12 @@ class userController {
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'edit-user')?$errors=["error"]:Route::redirect('AllUsers');
+				$args['post']['id'] = $param['id'];
+				$errors = Validator::process($form["struct"], $args['post'], 'edit-user');
+
+				if(!$errors){
+					Route::redirect('AllUsers');
+				}
 				
 			}
 		}
@@ -221,14 +229,17 @@ class userController {
 
 	public function viewUserAction($args){
 
-		if(!is_numeric($args['params'][0])){
+		$param = Route::checkParameters($args['params']);
+
+		if(!$param){
 			Route::redirect('AllUsers');
 		}
 
-		$user = new User();
-		$userFound = $user->getData('user',["id"=>$_SESSION["id"]])[0];
-
-		$editedUser = $user->getData('user',["id"=>$args['params'][0]])[0];
+		$qb = new QueryBuilder();
+		$editedUser = $qb->findAll('user')
+		->addWhere('id = :id')
+		->setParameter('id',$param['id'])
+		->fetchOne();
 
 		$form = User::getFormViewUser();
 		$errors = [];
@@ -251,8 +262,6 @@ class userController {
 
 		$v = new View();
 		$v->setView("cms/newuser","templateadmin");
-		$v->assign("pseudo", $userFound["email"]);
-		$v->assign("role",$userFound["role"]);
 		$v->assign("page","adduser");
 		$v->assign("title", "Afficher un utilisateur");
 		$v->assign("icon", "icon-user");

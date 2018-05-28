@@ -3,36 +3,63 @@
 class statController{
 	public function indexAction($args){
 		
-		$stats = stat::mostViewedArticles();
+		$statsK = stat::numberOfViewsKnown();
+		$statsA = stat::numberOfViewsAnon();
 
-		foreach ($stats['year'] as $key => $value) {
-			$stats['year'][$key] = $value[0];
+		foreach ($statsK['year'] as $key => $value) {
+			$statsK['year'][$key] = $value[0];
 		}
 
-				foreach ($stats['semester'] as $key => $value) {
-			$stats['semester'][$key] = $value[0];
+				foreach ($statsK['semester'] as $key => $value) {
+			$statsK['semester'][$key] = $value[0];
 		}
 
-				foreach ($stats['trimester'] as $key => $value) {
-			$stats['trimester'][$key] = $value[0];
+				foreach ($statsK['trimester'] as $key => $value) {
+			$statsK['trimester'][$key] = $value[0];
 		}
 
-				foreach ($stats['week'] as $key => $value) {
-			$stats['week'][$key] = $value[0];
+				foreach ($statsK['week'] as $key => $value) {
+			$statsK['week'][$key] = $value[0];
 		}
 
-				foreach ($stats['today'] as $key => $value) {
-			$stats['today'][$key] = $value[0];
+				foreach ($statsK['today'] as $key => $value) {
+			$statsK['today'][$key] = $value[0];
 		}
+
+
+
+				foreach ($statsK['year'] as $key => $value) {
+			$statsA['year'][$key] = $value[0];
+		}
+
+				foreach ($statsK['semester'] as $key => $value) {
+			$statsA['semester'][$key] = $value[0];
+		}
+
+				foreach ($statsK['trimester'] as $key => $value) {
+			$statsA['trimester'][$key] = $value[0];
+		}
+
+				foreach ($statsK['week'] as $key => $value) {
+			$statsA['week'][$key] = $value[0];
+		}
+
+				foreach ($statsK['today'] as $key => $value) {
+			$statsA['today'][$key] = $value[0];
+		}
+
 
 		$scale = Stat::recreateScale();
-		$stat_json = json_encode($stats);
+
+		$statsK = json_encode($statsK);
+		$statsA = json_encode($statsA);
 		$scale_json = json_encode($scale);
 
 		$v = new View();
 		$v->setView("stat/index","templateadmin");
 		$v->assign("icon","icon-stats-dots");
-		$v->assign("stat_json",$stat_json);
+		$v->assign("statA_json",$statsA);
+		$v->assign("statK_json",$statsK);
 		$v->assign("scale_json",$scale_json);
 		$v->assign("title","Statistiques");
 	

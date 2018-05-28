@@ -163,7 +163,7 @@ class categoryController{
 		$_POST['slug'] = $category['slug'];
 
 		$v = new View();
-		$v->setView("category/edit","templateadmin");
+		$v->setView("category/edit-tag","templateadmin");
 		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
 		$v->assign("title", "Modifier un tag");
 		$v->assign("icon", "icon-pushpin");

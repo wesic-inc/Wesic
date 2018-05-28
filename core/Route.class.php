@@ -186,6 +186,8 @@ class Route{
 		$connected = Auth::isConnected();
 		$rights = Auth::isAdmin();
 
+		
+
 		global $route_access;
 
 		if($route['c'] !== "" && $route['a'] === ""){
@@ -214,13 +216,21 @@ class Route{
 
 	public static function getPermissionsDev( $route ){
 
+
 		$connected = Auth::isConnected();
 		$rights = Auth::getRights();
 
+/*		dump($rights);
+		dump($route['r']);
+		dump($route['redirect']);
+		dump($connected);
+*/
+
 		switch ($route['r']) {
 			case 'admin':
-			if(	$connected == true && $rights == 4)
+			if(	$connected == 1 && $rights == 4)
 				return true;
+			break;
 			case 'moderator':
 			if($connected == true && $rights == 3 || $connected == true && $rights == 4)
 				return true;
@@ -230,13 +240,15 @@ class Route{
 				return true;
 			break;
 			case 'user':
-			if($connected == true && $rights == 1 || $connected == true && $rights == 2 || $connected == true && $rights == 3 || $connected == true && $rights == 4)
+			if($connected == true && $rights == 1 
+				|| $connected == true && $rights == 2 
+				|| $connected == true && $rights == 3 
+				|| $connected == true && $rights == 4 )
 				return true;
 			break;
 			case 'connected':
-			if($connected != true){
+			if($connected != true)
 				return true;
-			}
 			break;
 			case 'all':
 			return true;
@@ -245,7 +257,7 @@ class Route{
 			return false;
 			break;
 		}
-		return false;
+		return $route['redirect'];
 	}
 
 	public static function getUri(){
@@ -300,6 +312,7 @@ class Route{
 				$c = explode(":",$rules['controller'])[0];
 				$a = explode(":",$rules['controller'])[1];
 				$r = $rules['restricted'];
+				$redirect = $rules['redirect'];
 				$args = [
 					'request'=>$_REQUEST,
 					'post'=>$_POST,
@@ -309,6 +322,7 @@ class Route{
 
 			}
 		}
+
 
 		$currentUser = Singleton::getUser();
 
@@ -366,6 +380,6 @@ class Route{
 			}
 		}
 
-		return ['a' => $a, 'c' => $c, 'r' => $r, 'args' => $args ];
+		return ['a' => $a, 'c' => $c, 'r' => $r, 'redirect'=>$redirect, 'args' => $args  ];
 	}
 }

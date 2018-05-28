@@ -16,3 +16,8 @@ errors:
     date: La date est incorrecte
     slug: Le permalien est existe
     content: Le corps de l'article est incorrect
+    newlogin: votre login est incorrect
+    role: le rôle est incorrect
+    firstname: le prénom saisi est incorrect
+    lastname: le nom saisi est incorrect
+    edituser: une erreur s'est produite

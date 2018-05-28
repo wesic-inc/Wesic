@@ -42,8 +42,8 @@
 									</label></td>
 									<td class="entity-key"><a href="#"><?php echo ucfirst($user['login']); ?></a>
 										<ul class="grid-actions">
-											<a href="/admin/afficher-utilisateur/<?php echo $user['id']; ?>" ><li>Afficher</li></a>
-											<a href="/admin/modifier-utilisateur/<?php echo $user['id']; ?>"><li>Modifier</li></a>
+											<a href="/admin/afficher-utilisateur/id/<?php echo $user['id']; ?>" ><li>Afficher</li></a>
+											<a href="/admin/modifier-utilisateur/id/<?php echo $user['id']; ?>"><li>Modifier</li></a>
 											<?php if((Singleton::getUser()->getId() != $user['id']) && $user['status'] != 5): ?>
 											<a onclick="deleteModalUser(<?php echo $user['id'] ?>)"><li>Supprimer</li></a>
 											<?php endif; ?>

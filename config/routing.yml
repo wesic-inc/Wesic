@@ -22,6 +22,7 @@ routing:
 
     Admin:
         restricted: admin
+        redirect: Login
         controller: admin:index
         path: admin
 
@@ -112,6 +113,10 @@ routing:
         restricted: admin
         controller: user:editUser
         path: admin/modifier-utilisateur
+        params:
+            id:
+                type: int
+                optional: false
 
 
     DeleteUserFlag:
@@ -127,6 +132,10 @@ routing:
         restricted: admin
         controller: user:viewUser
         path: admin/afficher-utilisateur
+        params:
+            id:
+                type: int
+                optional: false
 
     Categories:
         restricted: admin

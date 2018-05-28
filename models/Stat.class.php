@@ -224,7 +224,7 @@ class Stat extends Basesql{
 
   }
 
-public static function mostViewedArticles(){
+public static function numberOfViewsAnon(){
 
     $lastYear = date('Y-m-d',strtotime("-365 days", time()));
     $lastSemester = date('Y-m-d',strtotime("-6 months", time()));
@@ -238,6 +238,9 @@ public static function mostViewedArticles(){
     ->from('stat')
     ->addWhere('date > :dateStart')
     ->setParameter('dateStart',$lastYear)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',1)
     ->and()
     ->addWhere('date < :dateEnd')
     ->setParameter('dateEnd',date('Y-m-d'))
@@ -253,6 +256,9 @@ public static function mostViewedArticles(){
     ->addWhere('date > :dateStart')
     ->setParameter('dateStart',$lastSemester)
     ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',1)
+    ->and()
     ->addWhere('date < :dateEnd')
     ->setParameter('dateEnd',date('Y-m-d'))
     ->groupBy('YEAR(date), MONTH(date)')
@@ -265,6 +271,9 @@ public static function mostViewedArticles(){
     ->from('stat')
     ->addWhere('date > :dateStart')
     ->setParameter('dateStart',$lastTrimester)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',1)
     ->and()
     ->addWhere('date < :dateEnd')
     ->setParameter('dateEnd',date('Y-m-d'))
@@ -279,6 +288,9 @@ public static function mostViewedArticles(){
     ->addWhere('date > :dateStart')
     ->setParameter('dateStart',$lastWeek)
     ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',1)
+    ->and()
     ->addWhere('date < :dateEnd')
     ->setParameter('dateEnd',date('Y-m-d'))
     ->groupBy('DAY(date)')
@@ -291,6 +303,101 @@ public static function mostViewedArticles(){
     ->from('stat')
     ->addWhere('date > :dateStart')
     ->setParameter('dateStart',$today)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',1)
+    ->and()
+    ->addWhere('date < :dateEnd')
+    ->setParameter('dateEnd',date('Y-m-d'))
+    ->groupBy('HOUR(date)')
+    ->orderBy('date','ASC')
+    ->execute();
+
+    return $results;
+}
+
+public static function numberOfViewsKnown(){
+
+    $lastYear = date('Y-m-d',strtotime("-365 days", time()));
+    $lastSemester = date('Y-m-d',strtotime("-6 months", time()));
+    $lastTrimester = date('Y-m-d',strtotime("-3 months", time()));
+    $lastWeek = date('Y-m-d',strtotime("-1 week", time()));
+    $today = date('Y-m-d',strtotime("-1 day", time()));
+   
+    $qb = new QueryBuilder();
+   
+    $results['year'] = $qb->select('COUNT(id)')
+    ->from('stat')
+    ->addWhere('date > :dateStart')
+    ->setParameter('dateStart',$lastYear)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',2)
+    ->and()
+    ->addWhere('date < :dateEnd')
+    ->setParameter('dateEnd',date('Y-m-d'))
+    ->groupBy('YEAR(date), MONTH(date)')
+    ->orderBy('date','ASC')
+    ->execute();
+    
+
+    $qb->reset();
+
+    $results['semester'] = $qb->select('COUNT(id)')
+    ->from('stat')
+    ->addWhere('date > :dateStart')
+    ->setParameter('dateStart',$lastSemester)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',2)
+    ->and()
+    ->addWhere('date < :dateEnd')
+    ->setParameter('dateEnd',date('Y-m-d'))
+    ->groupBy('YEAR(date), MONTH(date)')
+    ->orderBy('date','ASC')
+    ->execute();
+
+    $qb->reset();
+
+    $results['trimester'] = $qb->select('COUNT(id)')
+    ->from('stat')
+    ->addWhere('date > :dateStart')
+    ->setParameter('dateStart',$lastTrimester)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',2)
+    ->and()
+    ->addWhere('date < :dateEnd')
+    ->setParameter('dateEnd',date('Y-m-d'))
+    ->groupBy('YEAR(date), MONTH(date)')
+    ->orderBy('date','ASC')
+    ->execute();
+
+    $qb->reset();
+
+    $results['week'] = $qb->select('COUNT(id)')
+    ->from('stat')
+    ->addWhere('date > :dateStart')
+    ->setParameter('dateStart',$lastWeek)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',2)
+    ->and()
+    ->addWhere('date < :dateEnd')
+    ->setParameter('dateEnd',date('Y-m-d'))
+    ->groupBy('DAY(date)')
+    ->orderBy('date','ASC')
+    ->execute();
+
+    $qb->reset();
+
+    $results['today'] = $qb->select('COUNT(id)')
+    ->from('stat')
+    ->addWhere('date > :dateStart')
+    ->setParameter('dateStart',$today)
+    ->and()
+    ->addWhere('type = :type')
+    ->setParameter('type',2)
     ->and()
     ->addWhere('date < :dateEnd')
     ->setParameter('dateEnd',date('Y-m-d'))
@@ -359,14 +466,14 @@ $stat = new Stat();
 
 for($i=0;$i<$number;$i++){
 
-     $stat->setType(rand(1,7));
+     $stat->setType(rand(1,2));
      $stat->setBody("testPurpoe");
 
      $int= rand(1495317983,1526853983);
 
       $stat->setDate(date("Y-m-d H:i:s",$int));
-      $stat->setContentType($contentType);
-      $stat->setContentId(rand(1,7));
+      $stat->setContentType(rand(1,7));
+      $stat->setContentId(rand(1,50));
 
       $stat->setIp(long2ip(rand(0, "4294967295")));
       $stat->setUseragent();

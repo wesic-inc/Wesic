@@ -291,18 +291,18 @@ public static function getFormEditUser(){
 
             "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
-            "status"=>[ "label"=>"Status", "type"=>"select", "id"=>"status", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Actif','3'=>'Inactif','4'=>'Banni','5'=>'Supprimé' ]],
+            "status"=>[ "label"=>"Status", "type"=>"select", "id"=>"status", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'Actif','3'=>'Inactif','4'=>'Banni','5'=>'Supprimé' ]],
 
-            "newpasswordlink"=>[ "label"=>"Réinitialiser le mot de passe", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-success"],
+            "newpasswordlink"=>[ "label"=>"Réinitialiser le mot de passe", "type"=>"link", "id"=>"newpassword", "placeholder"=>"", "class"=>"btn btn-sm btn-success"],
 
-            "deleteuser1"=>[ "label"=>"Supprimer l'utilisateur", "type"=>"link", "id"=>"deleteuser1", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-danger"],
+            "deleteuser1"=>[ "label"=>"Supprimer l'utilisateur", "type"=>"link", "id"=>"deleteuser1", "placeholder"=>"", "class"=>"btn btn-sm btn-danger"],
  
-            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"deleteuser2", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm"],
+            "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"deleteuser2", "placeholder"=>"", "class"=>"btn btn-sm"],
 
 
-            "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"", "required"=>0, "class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
+            "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"","class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
 
-            "save"=>[ "label"=>"Modifier l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+            "save"=>[ "label"=>"Modifier l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>""],
 
 
 
@@ -433,6 +433,10 @@ public static function addUser($data){
 
 
 public static function editUser($data){
+
+    dump($data,2,2);
+
+    // return $errors = [];
 
     
     if( self::emailExists($data['email']) && self::loginExists($data['login'])){

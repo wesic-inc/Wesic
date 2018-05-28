@@ -211,6 +211,19 @@ public static function deleteCategory($category){
     ->addWhere('type = :type')
     ->setParameter('type',1)->fetchOne();
 
+    $qb->reset();
+    
+
+    $protectedCat = $qb->findAll('category')
+    ->addWhere('type = :type')
+    ->setParameter('type',3)
+    ->fetchOne();
+
+    if(Setting::getParam('default-cat')==$category){
+        $setting = new Setting();
+        $setting->setParam('default-cat',$protectedCat['id']);
+        $setting->save();
+    }
 
 }
 

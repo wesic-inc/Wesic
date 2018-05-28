@@ -33,9 +33,9 @@ spl_autoload_register('autoloader');
 
 // START TEST AREA
 
-// stat::fakeStats(30000);
-// die();
-
+/*stat::fakeStats(30000);
+die();
+*/
 // END TEST AREA
 
 
@@ -57,8 +57,16 @@ if( file_exists($path_controller) ){
 	include $path_controller;
 	$controller = new $name_controller;
 	
-	if(!Route::getPermissionsDev($route)){
-		Route::redirect('Error404');
+	$permission = Route::getPermissionsDev($route);
+
+	// dump($permission,2,2);
+
+	if($permission != 1){
+
+		if($permission == 0 || is_null($permission)){
+			Route::redirect('Error404');
+		}
+		Route::redirect($permission);
 	}
 
 	$name_action = $route["a"]."Action";

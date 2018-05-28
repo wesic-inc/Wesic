@@ -26,6 +26,8 @@
 <hidden id='json_stats' value='<?php echo $stat_json; ?>' >
 
 <script type="text/javascript">
-	var dataStats = <?php echo $stat_json ?>;
+	var dataStatsA = <?php echo $statA_json ?>;
+	var dataStatsK = <?php echo $statK_json ?>;
 	var dataScales = <?php echo $scale_json ?>;
+
 </script>

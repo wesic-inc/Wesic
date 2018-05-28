@@ -137,6 +137,7 @@ textarea {
 /* Modal Content/Box */
 .modal-content {
     background-color: #FFF;
+    position: relative;
     margin: 0 auto;
     width: 27%;
     border-bottom-left-radius: 10px;
@@ -147,7 +148,7 @@ textarea {
 }
 
 @keyframes animatetop {
-    from {top:-1000px;opacity:0}
+    from {top:-200px;opacity:0}
     to {top:0;opacity:1}
 }
 
