@@ -46,7 +46,7 @@ class userController
             "filter"=>$filter,
             "sort"=>$sort,
             "elementNumber"=>Singleton::request()->getPaginate()['total'],
-            "users"=>$users,
+            "users"=>$users
 
         ]);
     }

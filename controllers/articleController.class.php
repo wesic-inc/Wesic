@@ -24,6 +24,7 @@ class articleController{
 		$qbArticles->all('post')->where('type',1);
 
 		$param = $request->getParams();
+		$get = $request->getGet();
 
 		$filter = $sort = null;
 
@@ -35,11 +36,11 @@ class articleController{
         if (isset($param['sort'])) {
             $sort = $param['sort'];
             $qbArticles->articleDisplaySorting($sort);
-        }
-
+        
+}
         if (isset($get['s'])) {
             $search = $get['s'];
-            $qbArticles->all('user')->search('title', $search);
+            $qbArticles->and()->search('title', $search);
         }
 
         $articles = $qbArticles->paginate(10);

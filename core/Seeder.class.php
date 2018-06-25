@@ -3,13 +3,13 @@
 class Seeder{
 	public static function FakeNews($nb = 50){
 		
-		$article = new Post();
 
 
 		for($i=0;$i<$nb;$i++){
 
 			$slugStr = Faker::slug();
 
+			$article = new Post();
 			$slug = new Slug();
 			$slug->setSlug($slugStr);
 			$slug->setType(1);
@@ -33,9 +33,13 @@ class Seeder{
 		}
 
 
+	}
+
+	public static function flushArticles(){
+
 	}	
 
-	public static function pages($nb = 50){
+	public static function FakePages($nb = 50){
 
 	}
 }

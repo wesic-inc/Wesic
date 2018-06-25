@@ -68,7 +68,7 @@
 						
 					</tbody>
 				</table>
-				<input type="hidden" id="params" value='<?php echo $param_json; ?>'>
+				<input type="hidden" id="params">
 			</article>
 			<footer>
 				<?php $this->addModal("pagination"); ?>
