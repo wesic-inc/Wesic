@@ -36,7 +36,6 @@ class categoryController
         $v = new View();
         $v->setView("category/category", "templateadmin");
         $v->massAssign([
-            "pseudo" => $userFound['firstname']." ".$userFound['lastname'],
             "title" => "Catégories",
             "icon" => "icon-bookmarks",
             "form" => $form,

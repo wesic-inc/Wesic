@@ -1,10 +1,12 @@
 <?php
 class pageController{
-	public static function indexAction($args){
+	public static function indexAction(Request $request){
 		echo "pages";
 	}
 
-	public static function singleAction($args){
+	public static function singleAction(Request $request){
+
+		dd($request);
 
 		$qb = new QueryBuilder();
 		
@@ -17,73 +19,37 @@ class pageController{
 
 	}
 
-	public function allPagesAction($args){
+	public function allPagesAction(Request $request){
 		
+
+		$param = $request->getParams();
+		$get = $request->getGet();
 
 		$qbPage = new QueryBuilder();
 
-		$qbPage->findAll('post')->addWhere('type = :type')->setParameter('type',2);
+		$qbPage->all('post')->where('type',2);
 
-		$param = $args['params'];
-
-		$qb = new QueryBuilder();
-
-		if( isset($param['filter']) ){
-			
-			$filter = true;
-			$qbPage = Basesql::pageDisplayFilters($qbPage,$param['filter']);
-
-			$qb->select('COUNT(id)')
-			->from('post')
-			->addWhere('type = :type')
-			->setParameter('type',2);
-
-			$qb = Basesql::pageDisplayFilters($qb,$param['filter']);		
-			$countAll = $qb->fetchOne()[0];
-
-			if(empty($countAll)){
-				$countAll = 0;
-			}
-
-		}else{
-			$countAll = 
-			$qb ->select('COUNT(*)')
-			->from('post')
-			->addWhere('type = :type')
-			->setParameter('type',2)
-			->fetchOne()[0];
-
+		if (isset($param['filter'])) {
+			$filter = $param['filter'];
+			$qbPage->pageDisplayFilters($filter);
 		}
-		if( isset($param['p']) ){
-			
-			$pagination = true;
-			$page = $param['p'];
-		}
+        if (isset($param['sort'])) {
+            $sort = $param['sort'];
+            $qbPage->pageDisplaySorting($sort);
+        }
+        if (isset($get['s'])) {
+            $search = $get['s'];
+            $qbPage->all('post')
+            ->where('type',2)
+            ->and()
+            ->openBracket()
+            ->search('login', $search)
+            ->or()
+            ->search('email', $search)
+            ->closeBracket();
+        }
 
-		if( isset($param['sort']) ){
-			$sort = $param['sort'];
-			$qbArticles = Basesql::pageDisplaySorting($qbPage,$sort);
-		}
-
-		$elementPerPage = 2;
-
-		$nbPage = Format::pageCalc($count,$elementPerPage);
-
-		if(!isset($page) || $page == 1){
-			$pages = $qbPage->limit('0',$elementPerPage)->execute();
-			$currentPage = 1;
-		}else{
-			if($page > $nbPage || $page < 1){
-				Route::redirect('Pages');	
-			}
-			$currentPage = $page;
-			$pages = $qbPage->limit($page*$elementPerPage-$elementPerPage,$elementPerPage)->execute();
-		}
-		
-		$param_json = $param;
-		$param_json['perPage'] = $elementPerPage;
-		$param_json = json_encode($param_json);
-
+        $pages = $qbPage->paginate(10);
 
 		$v = new View();
 
@@ -92,13 +58,9 @@ class pageController{
 			"title" => "Pages",
 			"icon" =>"icon-files-empty",
 			"pages" => $pages,
-			"elementNumber" => $countAll,
+			"sort"=>$param['sort'],
+			"elementNumber" => Singleton::request()->getPaginate()['total'],
 			"filter" => $param['filter'],
-			"nbPage" => $nbPage,
-			"elementPerPage" => $elementPerPage,
-			"currentPage" => $currentPage,
-			"param_json" => $param_json,
-			"params" => $param
 		]);
 		
 

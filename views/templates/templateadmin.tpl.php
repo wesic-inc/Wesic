@@ -23,7 +23,7 @@
 </div>
  
 	<?php require('views/templates/navbar-admin-sidebar.tpl.php'); ?>
-	<?php if($_COOKIE["toggled-sidebar"] == 'true'): ?>
+	<?php if(isset($_COOKIE["toggled-sidebar"]) && $_COOKIE["toggled-sidebar"] == "true"): ?>
 		<div class="content-wrapper" id="main-container">
 			<?php else: ?>
 				<div class="content-wrapper collapsed" id="main-container"> 

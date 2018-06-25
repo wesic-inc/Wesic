@@ -12,13 +12,15 @@ class userController
     {
         $param = $request->getParams();
         $get = $request->getGet();
+        $filter = null;
+        $sort = null;
 
         $qbUsers = new QueryBuilder();
         $qbUsers->all('user');
 
         if (isset($param['filter'])) {
             $filter = $param['filter'];
-            $users = $qbUsers->userDisplayFilters($filter);
+            $qbUsers->userDisplayFilters($filter);
         } else {
             $qbUsers->where('status', "!=", 5);
         }
@@ -149,8 +151,6 @@ class userController
         $v = new View();
         $v->setView("cms/newuser", "templateadmin");
         $v->massAssign([
-            "pseudo" => $userFound["email"],
-            "role" =>$userFound["role"],
             "page" =>"adduser",
             "title" => "Modifier un utilisateur",
             "icon" => "icon-user",
@@ -184,7 +184,7 @@ class userController
             "page"=>"adduser",
             "title"=>"Afficher un utilisateur",
             "icon"=>"icon-user",
-            "form", $form,
+            "form" => $form,
             "errors"=>$errors
         ]);
     }

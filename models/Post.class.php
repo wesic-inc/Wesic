@@ -294,7 +294,7 @@ class Post extends PostRepository
             "content" => ["wesic-wysiwyg"],
             "excerpt" => ["excerpt"],
             "description"=>["description"],
-            "publish" => ["slug","datepicker-custom","time","status","visibility","draft","save"],
+            "publish" => ["slug","datepicker-custom","visibility","draft","save"],
             "category"=>["category"],
             "tags"=>["tags"],
         ],
@@ -374,7 +374,7 @@ class Post extends PostRepository
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
         "groups" => [   "title" => ["title"],
         "content" => ["wesic-wysiwyg"],
-        "publish" => ["slug","datepicker-custom","time","status","visibility","draft","save"],
+        "publish" => ["slug","datepicker-custom","draft","save"],
         "attribute"=>["parent","model"],
     ],
     "struct" => [

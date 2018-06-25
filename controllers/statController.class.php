@@ -1,7 +1,7 @@
 <?php
 
 class statController{
-	public function indexAction($args){
+	public function indexAction(Request $request){
 		
 		$statsK = stat::numberOfViewsKnown();
 		$statsA = stat::numberOfViewsAnon();
@@ -65,7 +65,7 @@ class statController{
 	
 	}
 
-	public function exportAction($args){
+	public function exportAction(Request $request){
 		
 		$v = new View();
 		$v->setView("stat/index","templateadmin")->massAssign(["icon"=>"icon-stats-dots","title"=>"Exporter mes statistiques"]);

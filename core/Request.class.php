@@ -92,8 +92,11 @@ class Request
      * @return mixed
      */
     public function getParam($key)
-    {
+    {   if(isset($this->params[$key])){
         return $this->params[$key];
+        }else{
+            return null;
+        }
     }
 
     /**

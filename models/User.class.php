@@ -184,7 +184,7 @@ class User extends UserRepository
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Le nom de l'utilasateur, il permet de se connecter" ],
+       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
 
        "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
 
@@ -211,7 +211,7 @@ class User extends UserRepository
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true", "groups"=>"true" ],
         
         "groups" => [   "edit-user-main" => ["login","firstname","lastname","email","role","status", "cancel","save"],
-        "edit-user-actions" => ["newpasswordlink","disableuser","banuser","deleteuser1","deleteuser2"]
+        "edit-user-actions" => ["newpasswordlink","deleteuser1","deleteuser2"]
     ],
 
     "struct" => [

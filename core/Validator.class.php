@@ -10,7 +10,9 @@ class validator{
 
 
 	public static function check($struct, $data){
+		if(!isset($_SESSION)){
 		session_start();
+		}
 
 		$listErrors = [];
 		if(isset($data['jj']) 
@@ -23,14 +25,14 @@ class validator{
 	}
 
 	foreach ($struct as $name => $options) {
-		if($options["required"] && self::isEmpty($data[$name])){
+		if(isset($options["required"]) && $options["required"] == true && self::isEmpty($data[$name])){
 			$listErrors[]=$options["msgerror"];
 		}
 		if($options["type"]=="password" && !self::passwordDevEnvCorrect($data[$name])) {
 			$listErrors[]=$options["msgerror"];
 		}
 		if($options["type"]=="text" && !self::simpleEntryCorrect($data[$name])) {
-			if($options["required"] == true && self::isEmpty($data[$name])){
+			if(isset($options["required"]) && $options["required"] == true && self::isEmpty($data[$name])){
 				$listErrors[]=$options["msgerror"];
 			}
 		}
@@ -41,7 +43,7 @@ class validator{
 		if($name=="datepicker-custom" && !self::dateCorrect($data[$name])) {
 			$listErrors[]=$options["msgerror"];
 		}
-		if($name=="login" && $options['checkexist'] && User::loginExists($data[$name]) ){
+		if($name=="login" && isset($options['checkexist']) && $options['checkexist'] && User::loginExists($data[$name]) ){
 			$listErrors[]=$options["msgerror"];
 		}	
 		if($name=="csrf" && self::csrfCorrect($data[$name]) ){
@@ -53,7 +55,7 @@ class validator{
 		if($options["type"]=="captcha" && !self::captchaCorrect($data[$name])) {
 			$listErrors[]= $options["msgerror"];
 		}
-		if($options["type"]=="email" && $options['checkexist'] && User::emailExists($data[$name]) ){
+		if($options["type"]=="email" && isset($options['checkexist']) && $options['checkexist'] == true && User::emailExists($data[$name]) ){
 			$listErrors[]=$options["msgerror"];
 		}
 		if($name=="slug" && $options['checkexist'] && self::slugCorrect($data[$name],$data['id']) ){

@@ -64,7 +64,7 @@
 									<li><a href="#"> Place dans la corbeille</a></li>
 									<li><a href="#">Dépublier</a></li>
 								</ul>
-								<span class="push-right"> <?php echo count($articles); ?> éléments </span>
+								<span class="push-right"> <?php echo count($categories); ?> éléments </span>
 							</footer>
 						</div>
 					</div>

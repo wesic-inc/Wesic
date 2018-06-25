@@ -57,12 +57,7 @@
 
 						</article>
 						<footer>
-							<?php $this->addModal("pagination", 
-								['nbElements'=>$elementNumber,
-								'nbPage'=>$nbPage,
-								'elementPerPage'=>$elementPerPage,
-								'currentPage'=>$currentPage,
-								'params'=>$params]); ?>
+							<?php $this->addModal("pagination"); ?>
 								<ul class="inline">
 									<li>Actions groupées :  </li>
 									<li><a href="#"> Place dans la corbeille</a></li>

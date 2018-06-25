@@ -1,4 +1,4 @@
-<?php if($_COOKIE["toggled-sidebar"] == 'true'): ?>
+<?php if(isset($_COOKIE["toggled-sidebar"]) && $_COOKIE["toggled-sidebar"] == "true"): ?>
 <div class="navbar-sidebar collapsed" id="navbar">
 <?php else: ?>
 <div class="navbar-sidebar toggled" id="navbar"> 
@@ -85,7 +85,7 @@
     </ul>
 </div>
 
-<?php if($_COOKIE["toggled-sidebar"] == 'true'): ?>
+<?php if(isset($_COOKIE["toggled-sidebar"]) && $_COOKIE["toggled-sidebar"] == "true"): ?>
 <div class="second-navbar" id="second-navbar">
 <div class="hamburger menu-sidebar" id="hamburger-menu">
 <?php else: ?>

@@ -147,7 +147,7 @@ class Route
         return $generatedParams;
     }
 
-    public static function validateParameterType($type, $parameter)
+    public static function validateParameterType($type, $value)
     {
         $parameterFlag = false;
         

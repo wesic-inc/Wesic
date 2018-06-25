@@ -2,20 +2,16 @@
 class eventController{
 
 
-	public function indexAction($args){
+	public function indexAction(Request $request){
 
-		$param = Route::checkParameters($args['params']);
-
-		if($param == false){
-			Route::redirect('allUsers');
-		}
+		$params = $request->getParams();
 
 		$v = new View();
 		$v->setView("event/index","templateadmin")->massAssign(["title"=>"Evenements","icon"=>"icon-alarm"]);
 
 	}
 
-	public function addEventAction($args){
+	public function addEventAction(Request $request){
 		echo "hello";
 
 
