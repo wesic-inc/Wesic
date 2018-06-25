@@ -1,11 +1,17 @@
 <?php
 
-class Join_article_category extends JoinArticleCatRepository
+class Join_article_category extends Basesql
 {
     protected $id;
     protected $category_id;
     protected $post_id;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
     public function __construct()
     {
         parent::__construct();

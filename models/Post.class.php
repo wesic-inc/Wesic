@@ -16,6 +16,12 @@ class Post extends PostRepository
     protected $parent;
     protected $user_id;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
     public function __construct()
     {
         parent::__construct();
@@ -335,7 +341,7 @@ class Post extends PostRepository
         "content" => ["wesic-wysiwyg"],
         "excerpt" => ["excerpt"],
         "description"=>["description"],
-        "publish" => ["slug","datepicker-custom","time","status","visibility","draft","save"],
+        "publish" => ["slug","datepicker-custom","visibility","draft","save"],
         "category"=>["category"],
         "tags"=>["tags"],
     ],

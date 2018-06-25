@@ -28,9 +28,7 @@ class Singleton
 			$qb = new QueryBuilder();
 
 			$result =
-			$qb->findAll('user')
-			->where('token', $_SESSION['token'])
-			->fetchOrFail();
+			$qb->findAll('user')->where('token', $_SESSION['token'])->fetchOrFail();
 			
 			$_instanceUser->setId($result['id']);
 			$_instanceUser->setLogin($result['login']);
@@ -40,6 +38,7 @@ class Singleton
 			$_instanceUser->setEmail($result['email']);
 			$_instanceUser->setStatus($result['status']);
 			$_instanceUser->setToken($result['token']);
+		
 		}
 		if(isset($_SESSION['token'])){
 			return $_instanceUser;

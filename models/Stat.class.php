@@ -11,6 +11,12 @@ class Stat extends StatRepository
     protected $content_type;
     protected $content_id;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
     public function __construct()
     {
         parent::__construct();

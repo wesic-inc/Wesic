@@ -6,8 +6,6 @@ class pageController{
 
 	public static function singleAction(Request $request){
 
-		dd($request);
-
 		$qb = new QueryBuilder();
 		
 		$page = $qb->findAll('post')->addWhere('slug = :slug')->setParameter('slug',$args['slug'])->fetchOrFail();
@@ -24,6 +22,8 @@ class pageController{
 
 		$param = $request->getParams();
 		$get = $request->getGet();
+
+		$filter = $sort = null;
 
 		$qbPage = new QueryBuilder();
 
@@ -58,7 +58,7 @@ class pageController{
 			"title" => "Pages",
 			"icon" =>"icon-files-empty",
 			"pages" => $pages,
-			"sort"=>$param['sort'],
+			"sort"=>$sort,
 			"elementNumber" => Singleton::request()->getPaginate()['total'],
 			"filter" => $param['filter'],
 		]);

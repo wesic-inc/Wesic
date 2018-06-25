@@ -12,6 +12,12 @@ class Media extends MediaRepository{
 	protected $url;
 	protected $user_id;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
     /**
      * @return mixed
      */

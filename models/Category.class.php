@@ -7,10 +7,18 @@ class Category extends CategoryRepository
     protected $type;
     protected $slug;
 
+    public function updateOnKey(){
+        return $this->id;
+    }    
+    public function getPkStr(){
+        return "id";
+    }
+
     public function __construct()
     {
         parent::__construct();
     }
+
 
     public function getId()
     {

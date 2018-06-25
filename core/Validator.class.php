@@ -58,7 +58,7 @@ class validator{
 		if($options["type"]=="email" && isset($options['checkexist']) && $options['checkexist'] == true && User::emailExists($data[$name]) ){
 			$listErrors[]=$options["msgerror"];
 		}
-		if($name=="slug" && $options['checkexist'] && self::slugCorrect($data[$name],$data['id']) ){
+		if($name=="slug" && $options['checkexist'] && self::slugCorrect($data[$name],$data['slug']) ){
 			$listErrors[]=$options["msgerror"];
 		}
 		if($name=="password2" && $data["password1"] != $data["password2"] ) {

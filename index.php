@@ -38,13 +38,11 @@ function autoloader($class) {
 
 spl_autoload_register('autoloader');
 
-// START TEST AREA
+// Seeder::FakeNews();
 
-/*stat::fakeStats(30000);
-die();
-*/
 
-// END TEST AREA
+
+
 
 
 

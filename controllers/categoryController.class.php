@@ -14,7 +14,7 @@ class categoryController
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-                $args['post']['type'] = 1;
+                $request->setPost('type',1);
                 if (!Validator::process($form["struct"], $post, 'new-category')) {
                     $errors = ["categorynew"];
                 } else {
@@ -24,7 +24,7 @@ class categoryController
         }
 
         $qb = new QueryBuilder();
-        $qb->findAll('category')->where('type', 1)->or()->addWhere('type', 3);
+        $qb->findAll('category')->where('type', 1)->or()->where('type', 3);
 
         // if (isset($get['s'])) {
         // 	$search = $get['s'];
@@ -100,18 +100,21 @@ class categoryController
         echo "oljkhhkhkm";
     }
 
-    public static function allTagsAction($args)
+    public static function allTagsAction(Request $request)
     {
         $form = Category::getFormNewTag();
         $errors = [];
 
+        $post = $request->getPost();
+        $param = $request->getParams();
+
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $errors = Validator::check($form["struct"], $args['post']);
+            $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-                $args['post']['type'] = 2;
-                if (!Validator::process($form["struct"], $args['post'], 'new-category')) {
+                $request->setPost('type',2);
+                if (!Validator::process($form["struct"], $post, 'new-category')) {
                     $errors=["categorynew"];
                 } else {
                     Route::redirect('Tags');
@@ -120,10 +123,7 @@ class categoryController
         }
 
         $qb = new QueryBuilder();
-        $tags = $qb->findAll('category')
-        ->addWhere('type = :type')
-        ->setParameter('type', 2)
-        ->execute();
+        $tags = $qb->findAll('category')->where('type',2)->get();
 
         $v = new View();
         $v->setView("category/tag", "templateadmin");

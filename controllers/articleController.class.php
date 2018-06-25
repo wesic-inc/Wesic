@@ -9,11 +9,7 @@ class articleController{
 		$param = $request->getParams();
 
 		$qb = new QueryBuilder();
-		$article = 
-		$qb->all('post')
-		->where('slug',$param['slug'])->and()->where('status',1)->fetchOrFail();
-
-		dd($article);
+		$article = $qb->all('post')->where('slug',$param['slug'])->and()->where('status',1)->fetchOrFail();
 
 		$v = new View();
 		$v->setView("article/single")->assign("article", $article);
@@ -25,18 +21,17 @@ class articleController{
 	public function allArticlesAction(Request $request){
 
 		$qbArticles = new QueryBuilder();
-		$qbArticles->findAll('post')->where('type',1)->openBracket();
+		$qbArticles->all('post')->where('type',1);
 
 		$param = $request->getParams();
+
+		$filter = $sort = null;
 
 		$qb = new QueryBuilder();
         if (isset($param['filter'])) {
             $filter = $param['filter'];
             $qbArticles->articleDisplayFilters($filter);
-        } else {
-            $qbArticles->where('status', "!=", 5);
         }
-
         if (isset($param['sort'])) {
             $sort = $param['sort'];
             $qbArticles->articleDisplaySorting($sort);
@@ -47,7 +42,7 @@ class articleController{
             $qbArticles->all('user')->search('title', $search);
         }
 
-        $articles = $qbArticles->closeBracket()->paginate(10);
+        $articles = $qbArticles->paginate(10);
 
 		$v = new View();
 		
@@ -57,7 +52,8 @@ class articleController{
 			"icon"=>"icon-newspaper",
 			"articles"=>$articles,
 			"elementNumber"=>Singleton::request()->getPaginate()['total'],
-			"filter"=>$param['filter']
+			"filter"=>$filter,
+			"sort"=>$sort
 		]);
 	}
 
@@ -177,7 +173,6 @@ class articleController{
 		$_POST['hh'] = substr($data['datePublied'],11,2);
 		$_POST['mn'] = substr($data['datePublied'],14,2);
 		$_POST['visibility'] = $data['visibility'];
-		$_POST['category'] = $data['category'];
 		$_POST['excerpt'] = $data['excerpt'];
 		$_POST['description'] = $data['description'];
 		$_POST['category'] = Category::getCategory($data['id']);

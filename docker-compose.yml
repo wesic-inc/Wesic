@@ -21,6 +21,7 @@ services:
         volumes:
           - ./:/var/www/html/
           - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
+          - .docker/logs:/var/log/apache2/
         ports:
           - "80:80"
     phpmyadmin:

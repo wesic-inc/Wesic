@@ -10,4 +10,10 @@ class Navbar extends NavbarRepository{
 	protected $contend_id;
 	protected $slug;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+        public function getPkStr(){
+        return "id";
+    }
 }

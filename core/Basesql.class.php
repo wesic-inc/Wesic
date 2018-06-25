@@ -27,10 +27,12 @@ class Basesql
 
     public function save()
     {
+
+        global $debug; 
+
         $this->setColumns();
-
-
-        if ($this->id) {
+        
+        if ($this->updateOnKey()) {
             foreach ($this->columns as $key => $value) {
                 if (isset($value)) {
                     $sqlSet[] = $key."=:".$key;
@@ -38,18 +40,22 @@ class Basesql
                     unset($this->columns[$key]);
                 }
             }
-            $query = $this->pdo->prepare(" UPDATE ".$this->table." SET ".implode(", ", $sqlSet)." WHERE id=:id ");
+            
+            $query = $this->pdo->prepare(" UPDATE ".$this->table." SET ".implode(", ", $sqlSet)." WHERE ".$this->getPkStr()."=:".$this->getPkStr()." ");
+
             $query->execute($this->columns);
         } else {
             unset($this->columns['id']);
 
             $query = $this->pdo->prepare("
-				INSERT INTO ".$this->table." 
-				(". implode(",", array_keys($this->columns)) .")
-				VALUES
-				(:". implode(",:", array_keys($this->columns)) .")
-				");
+                INSERT INTO ".$this->table." 
+                (". implode(",", array_keys($this->columns)) .")
+                VALUES
+                (:". implode(",:", array_keys($this->columns)) .")
+                ");
+
             $query->execute($this->columns);
+            $this->id = $this->pdo->lastInsertId(); 
         }
     }
 
@@ -73,10 +79,10 @@ class Basesql
         $this->setColumns();
         
         $query = $this->pdo->prepare("DELETE passwordrecovery, slug  
-			FROM passwordrecovery
-			INNER JOIN slug 
-			ON slug.slug = passwordrecovery.slug
-			WHERE passwordrecovery.user_id  =:id");
+           FROM passwordrecovery
+           INNER JOIN slug 
+           ON slug.slug = passwordrecovery.slug
+           WHERE passwordrecovery.user_id  =:id");
 
         $query->execute(array("id" => $this->columns["id"]));
     }
@@ -84,10 +90,10 @@ class Basesql
     public function deleteSlugReference($table, $target)
     {
         $query = $this->pdo->prepare("DELETE " . $table . ", slug  
-			FROM " . $table . "
-			INNER JOIN slug 
-			ON slug.slug = " . $table . ".slug
-			WHERE " . $table . ".slug  =:slug");
+           FROM " . $table . "
+           INNER JOIN slug 
+           ON slug.slug = " . $table . ".slug
+           WHERE " . $table . ".slug  =:slug");
 
         $query->execute(array("slug" => " . $target . "));
     }
@@ -234,56 +240,56 @@ class Basesql
     public function userDisplaySorting($sort)
     {
         switch ($sort) {
-                case 1:
-                    $this->OrderBy('login', 'DESC');
-                    break;
-                case -1:
-                    $this->OrderBy('login', 'ASC');
-                    break;
-                case 2:
-                    $this->OrderBy('lastname', 'DESC');
-                    break;
-                case -2:
-                    $this->OrderBy('lastname', 'ASC');
-                    break;
-                case 3:
-                    $this->OrderBy('email', 'ASC');
-                    break;
-                case -3:
-                    $this->OrderBy('email', 'DESC');
-                    break;
-                case 4:
-                    $this->OrderBy('role', 'DESC');
-                    break;
-                case -4:
-                    $this->OrderBy('role', 'ASC');
-                    break;
-                default:
-                    return $this;
-                break;
-            }
-        return $this;
-    }
-    public static function articleDisplayFilters($obj, $filter)
-    {
-        switch ($filter) {
             case 1:
-            $obj->and()->where('status',1);
+            $this->OrderBy('login', 'DESC');
+            break;
+            case -1:
+            $this->OrderBy('login', 'ASC');
             break;
             case 2:
-            $obj->and()->where('status',2);
+            $this->OrderBy('lastname', 'DESC');
+            break;
+            case -2:
+            $this->OrderBy('lastname', 'ASC');
+            break;
+            case 3:
+            $this->OrderBy('email', 'ASC');
+            break;
+            case -3:
+            $this->OrderBy('email', 'DESC');
+            break;
+            case 4:
+            $this->OrderBy('role', 'DESC');
+            break;
+            case -4:
+            $this->OrderBy('role', 'ASC');
+            break;
+            default:
+            return $this;
             break;
         }
-        return $obj;
+        return $this;
     }
-
-    public static function pageDisplayFilters($obj, $filter)
+    public function articleDisplayFilters($filter)
     {
         switch ($filter) {
             case 1:
-            $obj->and()->where('status',1);
+            $this->and()->where('status',1);
+            break;
+            case 2:
+            $this->and()->where('status',2);
             break;
         }
-        return $obj;
+        return $this;
+    }
+
+    public function pageDisplayFilters($filter)
+    {
+        switch ($filter) {
+            case 1:
+            $this->and()->where('status',1);
+            break;
+        }
+        return $this;
     }
 }

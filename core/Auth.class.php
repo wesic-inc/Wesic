@@ -5,13 +5,12 @@ class Auth extends Basesql {
 	static function isConnected(){
 
 		if(isset($_SESSION["token"])){
-			$user = new User();
-			$token = $_SESSION["token"];
-			$user = $user->getData('user',["token"=>$token]);
+			$qb = new QueryBuilder();
+			$user = $qb->all('user')->where("token",$_SESSION["token"])->fetchOrFail();
 			if(empty($user)){
 				return FALSE;
 			}else{
-				$user = $user[0];
+
 				if($token = $user['token']){
 					self::tokenRenew($user);
 					return TRUE;

@@ -13,6 +13,12 @@ class User extends UserRepository
     protected $status = 1;
     protected $token;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
     public function __construct()
     {
         parent::__construct();

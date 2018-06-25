@@ -331,10 +331,11 @@ class Route
         if ($c == null && $a == null) {
             $qb = new QueryBuilder();
             $slugFound = $qb->findAll('slug')->where('slug', $uri)->fetchOne();
-            if (empty($slugFound)) {
+            if (empty($slugFound)){
                 $c = 'error';
                 $a = 'notFound';
-            } else {
+                $r = 'all';
+            } else{
                 switch ($slugFound['type']) {
                     case 1:
                     $c = 'article';
@@ -387,7 +388,6 @@ class Route
             $a = 'notFound';
             $r = 'all';
         }
-
         return ['a' => $a, 'c' => $c, 'r' => $r, 'redirect'=>$redirect, 'args' => $args, 'request'=>$request  ];
     }
 }

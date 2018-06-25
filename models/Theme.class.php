@@ -7,6 +7,12 @@ class Theme extends ThemeRepository
     protected $version;
     protected $author;
 
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
 
     public function getId()
     {

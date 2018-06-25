@@ -1,6 +1,7 @@
 <?php 
 class PostRepository extends Basesql{
 
+
 public static function newArticle($data){
 
     if(isset($data['draft'])){
@@ -12,6 +13,7 @@ public static function newArticle($data){
         $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été publié";
 
     }
+    
     $slug = new Slug();
     $slug->setSlug($data['slug']);
     $slug->setType(1);
@@ -40,9 +42,8 @@ public static function newArticle($data){
     
     $qb = new QueryBuilder();
 
-    $newArticle = $qb->findAll('post')->addWhere('slug = :slug')->setParameter('slug',$data['slug'])->fetchOne();
-
-    Category::createCategoryJoin($data['category'],$newArticle['id']);
+    $newArticle = $qb->findAll('post')->where('slug',$data['slug'])->fetchOne();
+    Category::createCategoryJoin($data['category'],$article->getId());
 
     return true;
 

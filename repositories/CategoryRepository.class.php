@@ -28,6 +28,7 @@ class CategoryRepository extends Basesql
             $category->save();
 
             $message = ($data['type']==1)?'La catégorie':'Le Tag';
+            
             View::setFlash("Succès !", $message.' "'.$data['label'].'" a bien été créé', "success");
 
             return true;
@@ -40,7 +41,7 @@ class CategoryRepository extends Basesql
     {
         $qb = new QueryBuilder();
 
-        $currentCat = $qb->findAll('category')->addWhere('id = :id')->setParameter('id', $data['id'])->fetchOne();
+        $currentCat = $qb->all('category')->where('id',$data['id'])->fetchOne();
 
 
         if ($currentCat['slug'] === $data['slug']) {
@@ -66,7 +67,7 @@ class CategoryRepository extends Basesql
 
         if ($slugUpdate == true) {
             $qb->reset();
-            $qb->delete()->from('slug')->addWhere('slug = :slug')->setParameter('slug', $currentPost['slug'])->execute();
+            $qb->delete()->from('slug')->where('slug',$currentPost['slug'])->get();
         }
 
         return true;
@@ -83,30 +84,16 @@ class CategoryRepository extends Basesql
     {
         $qb = new QueryBuilder();
 
-        $qb->update('join_article_category')
-         ->set('category_id = :default')
-         ->setParameter('default', Setting::getParam('default-cat'))
-         ->addWhere('category_id = :cat')
-         ->setParameter('cat', $category)
-         ->save();
+        $qb->update('join_article_category')->set('category_id = :default')->setParameter('default', Setting::getParam('default-cat'))->where('category_id',$category)->save();
 
         $qb->reset();
         $current =
-         $qb->delete()
-         ->from('category')
-         ->addWhere('id = :id')
-         ->setParameter('id', $category)
-         ->and()
-         ->addWhere('type = :type')
-         ->setParameter('type', 1)->fetchOne();
+         $qb->delete()->from('category')->where('id',$category)->and()->where('type',1)->fetchOne();
 
         $qb->reset();
 
 
-        $protectedCat = $qb->findAll('category')
-         ->addWhere('type = :type')
-         ->setParameter('type', 3)
-         ->fetchOne();
+        $protectedCat = $qb->findAll('category')->where('type',3)->fetchOne();
 
         if (Setting::getParam('default-cat')==$category) {
             $setting = new Setting();
@@ -123,15 +110,12 @@ class CategoryRepository extends Basesql
         $relation = $qb->select('join_article_category.category_id')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
-        ->addWhere('join_article_category.post_id = :post')
-        ->setParameter('post', $article)
+        ->where('join_article_category.post_id',$article)
         ->and()
         ->openBracket()
-        ->addWhere('category.type = :type')
-        ->setParameter('type', 1)
+        ->where('category.type',1)
         ->or()
-        ->addWhere('category.type = :type2')
-        ->setParameter('type2', 3)
+        ->addWhere('category.type',3)
         ->closeBracket()
         ->execute();
 
@@ -141,15 +125,12 @@ class CategoryRepository extends Basesql
             $qb->delete('join_article_category')
             ->from('join_article_category')
             ->innerJoin('category', 'category.id = join_article_category.category_id')
-            ->addWhere('join_article_category.post_id = :post')
-            ->setParameter('post', $article)
+            ->where('join_article_category.post_id',$article)
             ->and()
             ->openBracket()
-            ->addWhere('category.type = :type')
-            ->setParameter('type', 1)
+            ->addWhere('category.type',1)
             ->or()
-            ->addWhere('category.type = :type2')
-            ->setParameter('type2', 3)
+            ->addWhere('category.type',3)
             ->closeBracket()
             ->execute();
         }
@@ -160,20 +141,17 @@ class CategoryRepository extends Basesql
         $catRelation->save();
     }
     public static function getCategory($article)
-    {
+    {   
         $qb = new QueryBuilder();
         $cat = $qb->select('join_article_category.category_id')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
-        ->addWhere('join_article_category.post_id = :post')
-        ->setParameter('post', $article)
+        ->where('join_article_category.post_id',$article)
         ->and()
         ->openBracket()
-        ->addWhere('category.type = :type')
-        ->setParameter('type', 1)
+        ->addWhere('category.type',1)
         ->or()
-        ->addWhere('category.type = :type2')
-        ->setParameter('type2', 3)
+        ->addWhere('category.type',3)
         ->closeBracket()
         ->fetchOne();
         return $cat['category_id'];

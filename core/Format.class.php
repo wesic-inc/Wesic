@@ -88,26 +88,13 @@ class Format {
 
 
 	static function dump($var,$die = false,$type = 1){
-		echo "<div>";
-		echo '<pre style="
-		position:relative;
-		top:0;
-		left:0;
-		width:100%;
-		display:block;
-		min-height:50px;
-		z-index:1000;
-		background:#FFF;
-		margin:0;color:#000;font-weight:bold">';
+
 		if($type == 1){
-			var_dump($var);
+			highlight_string("<?php\n\$data =\n" . var_export($var, true) . ";\n?>");
 		}
 		if($type == 2){
 			print_r($var);
 		}
-
-		echo "</pre>";
-		echo "</div>";
 		if($die == true){
 			die();
 		}

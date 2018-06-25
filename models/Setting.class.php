@@ -6,7 +6,12 @@ class Setting extends SettingRepository
     protected $type;
     protected $value;
 
-
+    public function updateOnKey(){
+        return $this->id;
+    }
+    public function getPkStr(){
+        return "id";
+    }
     public function getId()
     {
         return $this->id;
