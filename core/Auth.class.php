@@ -128,4 +128,11 @@ class Auth extends Basesql {
 		$_SESSION['token'] = $user->getToken();
 	}
 
+	public static function user(){
+		return Singleton::getUser();
+	}	
+	public static function id(){
+		return Singleton::getUser()->getId();
+	}
+
 }

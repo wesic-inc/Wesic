@@ -5,8 +5,7 @@ class mediaController{
 		public function indexAction($args){
 
 		$v = new View();
-		$v->setView("media/medias","templateadmin");
-		$v->assign("title","Médias");
-		$v->assign("icon","icon-images");
+		$v->setView("media/medias","templateadmin")->massAssign(["title"=>"Médias","icon"=>"icon-images"]);
+		
 	}
 }

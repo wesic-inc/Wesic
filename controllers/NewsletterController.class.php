@@ -1,7 +1,7 @@
 <?php
 class newsletterController{
 
-public function signUpAction($args){
+	public function signUpAction($args){
 
 
 		$form = User::getNewsletterSignUpForm();
@@ -11,26 +11,34 @@ public function signUpAction($args){
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
+				
 				Stat::add(1,"inscription newsletter",5);
-				!Validator::process($form["struct"], $args['post'], 'signup-newsletter')?$errors=["email-newsletter"]:Route::redirect('SignUpNewsletterSuccess');
+
+				if(!Validator::process($form["struct"], $args['post'], 'signup-newsletter')){
+					$errors=["email-newsletter"];
+				}
+				else{
+					Route::redirect('SignUpNewsletterSuccess');
+				}
 
 			}
 		}
 
 		$v = new View();
 		$v->setView("newsletter/signup","website-modal");
-		$v->assign("title", "Insrivez vous à la newsletter");
-		$v->assign("icon", "icon-user-plus");
-		$v->assign("form", $form);
-		$v->assign("errors", $errors);
-
-}
-	public function signUpSuccessAction($args){
-		
-		$v = new View();
-		$v->setView("dev/template","website-modal");
-		$v->assign("title", "Insrivez vous à la newsletter");
+		$v->massAssign([
+			"title" => "Insrivez vous à la newsletter",
+			"icon" => "icon-user-plus",
+			"form" => $form,
+			"errors" => $errors
+		]);
 
 	}
-	
+	public function signUpSuccessAction($args){
+
+		$v = new View();
+		$v->setView("dev/template","website-modal")->assign("title", "Insrivez vous à la newsletter");
+
+	}
+
 }

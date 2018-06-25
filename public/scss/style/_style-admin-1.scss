@@ -182,14 +182,12 @@ body{
 .btn-back{
 	
 	display: inline-block;
-	
-	// padding:10px 25px;
 	text-decoration:none;
 	transition: all 0.2s ease-in-out;
 	color: $darker3;
 	position:relative;
 	cursor: pointer;
-	font-size:15px;
+	font-size:12px;
 	margin-bottom: 20px;
 	margin-left: 20px;
 	span.icon{

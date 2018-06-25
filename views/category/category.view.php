@@ -3,8 +3,10 @@
 		<div class="col-md-12 bloc article-bloc"></span>
 			<div class="inner-bloc">
 				<header>
-					<input type="text" class="search-input sm-input hidden-xs" >
-					<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
+					<form action="<?php Route::echo('Categories') ?>" method="get">
+						<input name="s" type="text" class="search-input sm-input hidden-xs" >
+						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
+					</form>
 				</header>
 				<article >
 					<div class="row">
@@ -55,12 +57,7 @@
 							</table>
 							<footer>
 
-								<?php $this->addModal("pagination", 
-								['nbElements'=>$elementNumber,
-								'nbPage'=>$nbPage,
-								'elementPerPage'=>$elementPerPage,
-								'currentPage'=>$currentPage,
-								'params'=>$params]); ?>
+								<?php $this->addModal("pagination"); ?>
 
 								<ul class="inline">
 									<li>Actions groupées :  </li>

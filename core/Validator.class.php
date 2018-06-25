@@ -172,7 +172,7 @@ public static function csrfCorrect($var){
 	session_start();
 
 	if($_SESSION['csrf'] != $var){
-		return false;
+		Route::redirect('403');
 	}else{
 		return true;
 	}
@@ -199,6 +199,7 @@ public static function loginCorrect($var){
 	return !( 	strlen($var)<8 || strlen($var)>50 );
 }	
 public static function slugCorrect($var,$id){
+	
 	if(isset($id)){
 		return Slug::slugExistsWithId($var,$id);
 	}else{

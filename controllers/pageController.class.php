@@ -1,25 +1,19 @@
 <?php
 class pageController{
-		public static function indexAction($args){
-			echo "pages";
-		}
+	public static function indexAction($args){
+		echo "pages";
+	}
 
-public static function singleAction($args){
+	public static function singleAction($args){
 
 		$qb = new QueryBuilder();
-		$page = 
-		$qb->findAll('post')
-		->addWhere('slug = :slug')
-		->setParameter('slug',$args['slug'])
-		->fetchOne();
-
-		$v = new View();
-		$v->setView("page/single");
-		$v->assign("title",$page['title']);
-		$v->assign("page", $page);
+		
+		$page = $qb->findAll('post')->addWhere('slug = :slug')->setParameter('slug',$args['slug'])->fetchOrFail();
 
 		Stat::add(1,"lecture page",2,$page['id']);
-		
+
+		$v = new View();
+		$v->setView("page/single")->massAssign(["title"=>$page['title'],"page"=>$page]);
 
 	}
 
@@ -27,14 +21,10 @@ public static function singleAction($args){
 		
 
 		$qbPage = new QueryBuilder();
+
 		$qbPage->findAll('post')->addWhere('type = :type')->setParameter('type',2);
 
-		$param = Route::checkParameters($args['params']);
-
-		if($param == false){
-			Route::redirect('allUsers');
-		}
-
+		$param = $args['params'];
 
 		$qb = new QueryBuilder();
 
@@ -56,12 +46,12 @@ public static function singleAction($args){
 			}
 
 		}else{
-				$countAll = 
-		$qb ->select('COUNT(*)')
-		->from('post')
-		->addWhere('type = :type')
-		->setParameter('type',2)
-		->fetchOne()[0];
+			$countAll = 
+			$qb ->select('COUNT(*)')
+			->from('post')
+			->addWhere('type = :type')
+			->setParameter('type',2)
+			->fetchOne()[0];
 
 		}
 		if( isset($param['p']) ){
@@ -96,21 +86,20 @@ public static function singleAction($args){
 
 
 		$v = new View();
+
 		$v->setView("cms/pages","templateadmin");
-		$v->assign("title", "Pages");
-		$v->assign("icon", "icon-files-empty");
-		$v->assign("pages",$pages);
-
-		$v->assign("elementNumber",$countAll);
-
-		$v->assign("filter",$param['filter']);
-		
-		$v->assign("nbPage",$nbPage);
-		$v->assign("elementPerPage",$elementPerPage);
-		$v->assign("currentPage",$currentPage);
-		
-		$v->assign("param_json",$param_json);
-		$v->assign("params",$param);
+		$v->massAssign([
+			"title" => "Pages",
+			"icon" =>"icon-files-empty",
+			"pages" => $pages,
+			"elementNumber" => $countAll,
+			"filter" => $param['filter'],
+			"nbPage" => $nbPage,
+			"elementPerPage" => $elementPerPage,
+			"currentPage" => $currentPage,
+			"param_json" => $param_json,
+			"params" => $param
+		]);
 		
 
 
@@ -118,7 +107,7 @@ public static function singleAction($args){
 	public function deletePageAction($args){
 		
 
-		$param = Route::checkParameters($args['params']);
+		$param = $args['params'];
 
 		Post::deletePage($param['id']);
 
@@ -136,29 +125,33 @@ public static function singleAction($args){
 			$errors = Validator::check($form["struct"], $args['post']);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'pagenew')?$errors=["pagenew"]:Route::redirect('Pages');
+				if(!Validator::process($form["struct"], $args['post'], 'pagenew')){
+					$errors=["pagenew"];
+				}
+				else{
+					Route::redirect('Pages');
+				}
+
 			}
 		}
 		$v = new View();
+
 		$v->setView("cms/newpage","templateadmin");
-		$v->assign("form", $form);
-		$v->assign("title", "Nouvelle page");
-		$v->assign("icon", "icon-file-text2");
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"form" => $form ,
+			"title" => "Nouvelle page",
+			"icon" => "icon-file-text2",
+			"errors" => $errors
+		]);
 	}
 
-		public function editPageAction($args){
+	public function editPageAction($args){
 
 
 		$form = Post::getFormEditPage();
 		$errors = [];
 
-		$param = Route::checkParameters($args['params']);
-
-		if(!$param){
-			Route::redirect('Pages');
-		}
-
+		$param = $args['params'];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -166,7 +159,12 @@ public static function singleAction($args){
 
 			if(!$errors){
 				$args['post']['id'] = $param['id'];
-				!Validator::process($form["struct"], $args['post'], 'edit-page')?$errors=["pagenew"]:Route::redirect('Pages');
+				if(!Validator::process($form["struct"], $args['post'], 'edit-page')){
+					$errors=["pagenew"];
+				}
+				else{
+					Route::redirect('Pages');
+				}
 			}
 		}
 
@@ -180,7 +178,7 @@ public static function singleAction($args){
 		->addWHere('type = :type')
 		->setParameter('type',2)
 		->fetchOne();
-			
+
 		if(	empty($data) ){
 			Route::redirect('Pages');
 		}
@@ -198,9 +196,11 @@ public static function singleAction($args){
 
 		$v = new View();
 		$v->setView("cms/newpage","templateadmin");
-		$v->assign("form", $form);
-		$v->assign("title", "Nouvelle page");
-		$v->assign("icon", "icon-file-text2");
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"form" => $form,
+			"title" => "Nouvelle page",
+			"icon" => "icon-file-text2",
+			"errors" => $errors
+		]);
 	}
 }	

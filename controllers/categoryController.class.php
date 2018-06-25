@@ -1,174 +1,181 @@
 <?php
-class categoryController{
+class categoryController
+{
+    public static function allCategoriesAction(Request $request)
+    {
+        $post = $request->getPost();
+        $get = $request->getGet();
 
-	public static function allCategoriesAction($args){
-
-
-
-		$form = Category::getFormNewCategory();
-		$errors = [];
-
-
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
-
-			if(!$errors){
-				$args['post']['type'] = 1;
-				!Validator::process($form["struct"], $args['post'], 'new-category')?$errors=["categorynew"]:Route::redirect('Categories');
-			}
-		}
-
-		$qb = new QueryBuilder();
-		$categories = $qb->findAll('category')
-		->addWhere('type = :type')
-		->setParameter('type',1)
-		->or()
-		->addWhere('type = :type2')
-		->setParameter('type2',3)
-		->execute();
-
-		$v = new View();
-		$v->setView("category/category","templateadmin");
-		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
-		$v->assign("title", "Catégories");
-		$v->assign("icon", "icon-bookmarks");
-		$v->assign("form", $form);
-		$v->assign("categories", $categories);
-		$v->assign("errors", $errors);
-
-	} 
-
-	public static function editCategoryAction($args){
+        $form = Category::getFormNewCategory();
+        $errors = [];
 
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $errors = Validator::check($form["struct"], $post);
 
-		$form = Category::getFormEditCategory();
-		$errors = [];
+            if (!$errors) {
+                $args['post']['type'] = 1;
+                if (!Validator::process($form["struct"], $post, 'new-category')) {
+                    $errors = ["categorynew"];
+                } else {
+                    Route::redirect('Categories');
+                }
+            }
+        }
 
-		$param = Route::checkParameters($args['params']);
+        $qb = new QueryBuilder();
+        $qb->findAll('category')->where('type', 1)->or()->addWhere('type', 3);
 
-		if($param == false){
-			Route::redirect('allUsers');
-		}
+        // if (isset($get['s'])) {
+        // 	$search = $get['s'];
+        // 	$qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
+        // }
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$args['post']['id'] = $param['id'];
-			$errors = Validator::check($form["struct"], $args['post']);
+        $categories = $qb->get();
 
-			if(!$errors){
-				$args['post']['type'] = 1;
-				!Validator::process($form["struct"], $args['post'], 'edit-category')?$errors=["categorynew"]:Route::redirect('Categories');
-			}
-		}
+        $v = new View();
+        $v->setView("category/category", "templateadmin");
+        $v->massAssign([
+            "pseudo" => $userFound['firstname']." ".$userFound['lastname'],
+            "title" => "Catégories",
+            "icon" => "icon-bookmarks",
+            "form" => $form,
+            "categories" => $categories,
+            "errors" => $errors
+        ]);
+    }
 
-		$qb = new QueryBuilder();
-		$category = $qb->findAll('category')
-		->addWhere('id = :id')
-		->setParameter('id',$param['id'])
-		->fetchOne();
+    public static function editCategoryAction(Request $request)
+    {
+        $post = $request->getPost();
+        $param = $request->getParams();
 
-		$_POST['label'] = $category['label'];
-		$_POST['slug'] = $category['slug'];
-
-		$v = new View();
-		$v->setView("category/edit","templateadmin");
-		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
-		$v->assign("title", "Modifier une catégorie");
-		$v->assign("icon", "icon-bookmarks");
-		$v->assign("form", $form);
-		$v->assign("errors", $errors);
-
-	}
-	 	
-	public static function deleteCategoryAction($args){
-		$param = Route::checkParameters($args['params']);
-
-		if($param == false){
-			Route::redirect('Categories');
-		}
-
-		Category::deleteCategory($param['id']);
-
-		Route::redirect('Categories');
-
-	} 
-
-	public static function archiveAction($args){
-
-		echo "oljkhhkhkm";
-
-	} 
-
-	public static function allTagsAction($args){
-
-		$form = Category::getFormNewTag();
-		$errors = [];
+        $form = Category::getFormEditCategory();
+        $errors = [];
 
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $request->setPost(['id'], $param['id']);
+            $errors = Validator::check($form["struct"], $post);
 
-			if(!$errors){
-				$args['post']['type'] = 2;
-				!Validator::process($form["struct"], $args['post'], 'new-category')?$errors=["categorynew"]:Route::redirect('Tags');
-			}
-		}
+            if (!$errors) {
 
-		$qb = new QueryBuilder();
-		$tags = $qb->findAll('category')
-		->addWhere('type = :type')
-		->setParameter('type',2)
-		->execute();
+                $request->setPost(['type'], 1);
 
-		$v = new View();
-		$v->setView("category/tag","templateadmin");
+                if (!Validator::process($form["struct"], $post, 'edit-category')) {
+                    $errors=["categorynew"];
+                } else {
+                    Route::redirect('Categories');
+                }
+            }
+        }
 
-		$v->assign("title", "Tags");
-		$v->assign("icon", "icon-pushpin");
-		$v->assign("form", $form);
-		$v->assign("tags", $tags);
-		$v->assign("errors", $errors);
-	}
+        $qb = new QueryBuilder();
+        $category = $qb->findAll('category')->where('id',$param['id'])->fetchOrFail();
 
-		public static function editTagAction($args){
+        $_POST['label'] = $category['label'];
+        $_POST['slug'] = $category['slug'];
+
+        $v = new View();
+        $v->setView("category/edit", "templateadmin");
+        $v->assign([
+            "pseudo" => $userFound['firstname']." ".$userFound['lastname'],
+            "title" => "Modifier une catégorie",
+            "icon" => "icon-bookmarks",
+            "form" => $form,
+            "errors" => $errors
+        ]);
+    }
+
+    public static function deleteCategoryAction($args)
+    {
+        $param = $args['params'];
+        
+        Category::deleteCategory($param['id']);
+
+        Route::redirect('Categories');
+    }
+
+    public static function archiveAction($args)
+    {
+        echo "oljkhhkhkm";
+    }
+
+    public static function allTagsAction($args)
+    {
+        $form = Category::getFormNewTag();
+        $errors = [];
 
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $errors = Validator::check($form["struct"], $args['post']);
 
-		$form = Category::getFormEditCategory();
-		$errors = [];
+            if (!$errors) {
+                $args['post']['type'] = 2;
+                if (!Validator::process($form["struct"], $args['post'], 'new-category')) {
+                    $errors=["categorynew"];
+                } else {
+                    Route::redirect('Tags');
+                }
+            }
+        }
 
-		$param = Route::checkParameters($args['params']);
+        $qb = new QueryBuilder();
+        $tags = $qb->findAll('category')
+        ->addWhere('type = :type')
+        ->setParameter('type', 2)
+        ->execute();
 
-		if($param == false){
-			Route::redirect('allUsers');
-		}
+        $v = new View();
+        $v->setView("category/tag", "templateadmin");
+        $v->massAssign([
+            "title" => "Tags",
+            "icon" => "icon-pushpin",
+            "form" => $form,
+            "tags" => $tags,
+            "errors" => $errors
+        ]);
+    }
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$args['post']['id'] = $param['id'];
-			$errors = Validator::check($form["struct"], $args['post']);
+    public static function editTagAction($args)
+    {
+        $form = Category::getFormEditCategory();
+        $errors = [];
 
-			if(!$errors){
-				$args['post']['type'] = 2;
-				!Validator::process($form["struct"], $args['post'], 'edit-category')?$errors=["categorynew"]:Route::redirect('Tags');
-			}
-		}
+        $param = $args['params'];
 
-		$qb = new QueryBuilder();
-		$category = $qb->findAll('category')
-		->addWhere('id = :id')
-		->setParameter('id',$param['id'])
-		->fetchOne();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $args['post']['id'] = $param['id'];
+            $errors = Validator::check($form["struct"], $args['post']);
 
-		$_POST['label'] = $category['label'];
-		$_POST['slug'] = $category['slug'];
+            if (!$errors) {
+                $args['post']['type'] = 2;
+                
+                if (!Validator::process($form["struct"], $args['post'], 'edit-category')) {
+                    $errors=["categorynew"];
+                } else {
+                    Route::redirect('Tags');
+                }
+            }
+        }
 
-		$v = new View();
-		$v->setView("category/edit-tag","templateadmin");
-		$v->assign("pseudo", $userFound['firstname']." ".$userFound['lastname']);
-		$v->assign("title", "Modifier un tag");
-		$v->assign("icon", "icon-pushpin");
-		$v->assign("form", $form);
-		$v->assign("errors", $errors);
+        $qb = new QueryBuilder();
+        $category = $qb->findAll('category')
+        ->addWhere('id = :id')
+        ->setParameter('id', $param['id'])
+        ->fetchOne();
 
-	} 
+        $_POST['label'] = $category['label'];
+        $_POST['slug'] = $category['slug'];
+
+        $v = new View();
+        $v->setView("category/edit-tag", "templateadmin");
+        $v->massAssign([
+            "pseudo"=>$userFound['firstname']." ".$userFound['lastname'],
+            "title"=>"Modifier un tag",
+            "icon"=>"icon-pushpin",
+            "form"=>$form,
+            "errors"=>$errors
+        ]);
+    }
 }

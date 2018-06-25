@@ -1,85 +1,45 @@
 <?php
 
-class Setting extends Basesql{
-	
-	protected $id;
-  protected $type;
-  protected $value;
+class Setting extends SettingRepository
+{
+    protected $id;
+    protected $type;
+    protected $value;
 
 
-  public function getId()
-  {
-    return $this->id;
-  }
-
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
-
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-
-  public function getType()
-  {
-    return $this->type;
-  }
-
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public static function getSettings(){
-
-    $qb = new QueryBuilder();
-
-    $params = $qb->findAll('setting')->execute();
-
-    $output = [];
-
-    foreach ($params as $value) {
-      $output[$value['id']] = $value;
+    public function getId()
+    {
+        return $this->id;
     }
 
-    return $output;
-  }
-
-  public static function getParam($id){
-
-    $qb = new QueryBuilder();
-    $param = 
-    $qb->select('value')
-    ->from('setting')
-    ->addWhere('id = :id')
-    ->setParameter('id',$id)
-    ->fetchOne();
-
-    return $param['value'];
-  }
-
-  public function setParam($id,$value){
-
-    if(empty($value)){
-      $this->value == NULL;
-    }else{
-      $this->value = $value;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
-    $this->id = $id;
-    $this->save(); 
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-  
-    return $this;
-  }
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
 
-  public static function getFormSettings(){
+    public function getType()
+    {
+        return $this->type;
+    }
 
-   return [   
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+
+    public static function getFormSettings()
+    {
+        return [
     "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Sauvegarder", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "group"=>"true"],
     "struct" => [
      "title"=>["label"=> "Titre du site", "type"=>"text", "id"=>"loginco", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login" ],
@@ -97,10 +57,10 @@ class Setting extends Basesql{
      "separator2"=>["type"=>"separator"],
 
      "timezone"=>["label"=> "Fuseau Horraire", "type"=>"select", "id"=>"passwordco", "placeholder"=>"Mot de passe", "msgerror"=>"slogand","choices"=>[
-      '1'=>'j F Y : '.Format::dateDisplay(0,1),
-      '2'=>'Y-m-d '.Format::dateDisplay(0,2),
-      '3'=>'m/d/Y '.Format::dateDisplay(0,3),
-      '4'=>'d/m/Y '.Format::dateDisplay(0,4)] ],
+      '1'=>'j F Y : '.Format::dateDisplay(0, 1),
+      '2'=>'Y-m-d '.Format::dateDisplay(0, 2),
+      '3'=>'m/d/Y '.Format::dateDisplay(0, 3),
+      '4'=>'d/m/Y '.Format::dateDisplay(0, 4)] ],
 
       "datetype"=>["label"=> "Affichage de la date", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login","choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
@@ -110,11 +70,10 @@ class Setting extends Basesql{
 
     ]
   ];
-
-}
-public static function getFormSettingsPost(){
-
- return [   
+    }
+    public static function getFormSettingsPost()
+    {
+        return [
   "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Sauvegarder", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
   "struct" => [
    "default-cat"=>["label"=> "Catégorie par défaut des articles", "type"=>"select", "id"=>"loginco", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login","choices"=>"category" ],
@@ -140,16 +99,15 @@ public static function getFormSettingsPost(){
 
  ]
 ];
-
-}
-public static function getFormSettingsView(){
-
- return [   
+    }
+    public static function getFormSettingsView()
+    {
+        return [
   "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Sauvegarder", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
   "struct" => [
    "homepage"=>["label"=> "La page d’accueil affiche", "type"=>"select", "id"=>"homepage", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login","choices"=>['1'=>'Les derniers articles','2'=>'Page 1','3'=>'Page 2','4'=>'Page 3'] ],
 
-   "pagination-posts"=>["label"=> "Les pages du site doivent afficher au plus", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Slogan", "msgerror"=>"slogand" ],         
+   "pagination-posts"=>["label"=> "Les pages du site doivent afficher au plus", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Slogan", "msgerror"=>"slogand" ],
 
    "pagination-rss"=>["label"=> "Le flux RSS du site doivent afficher au plus", "type"=>"text", "id"=>"pagination-rss", "placeholder"=>"Slogan", "msgerror"=>"slogand" ],
 
@@ -159,54 +117,5 @@ public static function getFormSettingsView(){
 
  ]
 ];
-
-}
-public static function editSettings($data){
-
-  $setting = new Setting();
-  $setting
-  ->setParam('title',$data['title'])
-  ->setParam('slogan',$data['slogan'])
-  ->setParam('url',$data['url'])
-  ->setParam('email',$data['email'])
-  ->setParam('timezone',$data['timezone'])
-  ->setParam('datetype',$data['datetype'])
-  ->setParam('timetype',$data['timetype']);
-
-  View::setFlash('Génial !','Les paramètres ont bien été enregistrés !','success');
-
-  return true;
-}
-
-public static function editSettingsPost($data){
-
-  $setting = new Setting();
-  $setting
-  ->setParam('mail-server',$data['mail-server'])
-  ->setParam('mail-port',$data['mail-port'])
-  ->setParam('mail-login',$data['mail-login'])
-  ->setParam('mail-password',$data['mail-password'])
-  ->setParam('default-cat',$data['default-cat'])
-  ->setParam('default-format',$data['default-format']);
-
-  View::setFlash('Génial !','Les paramètres ont bien été enregistrés !','success');
-
-  return true;
-
-}
-public static function editSettingsView($data){
-  
-  $setting = new Setting();
-  $setting
-  ->setParam('homepage',$data['homepage'])
-  ->setParam('pagination-posts',$data['pagination-posts'])
-  ->setParam('pagination-rss',$data['pagination-rss'])
-  ->setParam('display-post',$data['display-post']);
-
-  View::setFlash('Génial !','Les paramètres ont bien été enregistrés !','success');
-
-  return true;
-
-}
-
+    }
 }

@@ -1,24 +1,29 @@
 <?php
 
-
-// DEV ENV ONLY !!!!
-
-
-error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);
-ini_set('display_errors', TRUE);
-
-
-
-function dump($a,$b = 0,$c = 1){
-	Format::dump($a,$b,$c);
-}
-
-
-
-// DEV ENV ONLY !!!!
-
-
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
+
+
+
+if($debug==true){
+	
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
+	ini_set('display_errors', TRUE);
+
+	function dump($a,$b = 0,$c = 1){
+		Format::dump($a,$b,$c);
+	}
+	function dd($a,$c = 1){
+		Format::dump($a,1,$c);
+	}
+	function Req(){
+		return Singleton::request();
+	}
+
+}else{
+	error_reporting(0);
+	ini_set('display_errors', 0);
+}
 
 function autoloader($class) {
 	
@@ -26,6 +31,8 @@ function autoloader($class) {
 		include "core/".$class.".class.php";
 	}else if(file_exists("models/".$class.".class.php")){
 		include "models/".$class.".class.php";
+	}else if(file_exists("repositories/".$class.".class.php")){
+		include "repositories/".$class.".class.php";
 	}
 }
 
@@ -36,13 +43,13 @@ spl_autoload_register('autoloader');
 /*stat::fakeStats(30000);
 die();
 */
+
 // END TEST AREA
 
 
 
 
 $route = Route::makeRouting();
-
 
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
@@ -52,14 +59,12 @@ if( file_exists($path_controller) ){
 	
 
 	if(!isset($_SESSION)) 
-	session_start();
+		session_start();
 	
 	include $path_controller;
 	$controller = new $name_controller;
 	
 	$permission = Route::getPermissionsDev($route);
-
-	// dump($permission,2,2);
 
 	if($permission != 1){
 
@@ -72,14 +77,14 @@ if( file_exists($path_controller) ){
 	$name_action = $route["a"]."Action";
 	if( method_exists($controller, $name_action)){
 
-		$controller->$name_action($route["args"]);
+		$controller->$name_action($route["request"]);
 
 	}else{
 		Route::redirect('Error404');
 	}
 
 }else{
-		Route::redirect('Error404');
+	Route::redirect('Error404');
 }
 
 

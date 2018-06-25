@@ -1,26 +1,23 @@
 <?php
 
-class Comment extends Basesql{
-	
-	protected $id;
-	protected $body;
-	protected $creationDate;
-	protected $status;
-	protected $post_id;
+class Comment extends CommentRepository
+{
+    protected $id;
+    protected $body;
+    protected $creationDate;
+    protected $status;
+    protected $post_id;
 
-    /**
-     * @return mixed
-     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     *
-     * @return self
-     */
     public function setId($id)
     {
         $this->id = $id;
@@ -28,19 +25,12 @@ class Comment extends Basesql{
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getBody()
     {
         return $this->body;
     }
 
-    /**
-     * @param mixed $body
-     *
-     * @return self
-     */
     public function setBody($body)
     {
         $this->body = $body;
@@ -48,19 +38,11 @@ class Comment extends Basesql{
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCreationDate()
     {
         return $this->creationDate;
     }
 
-    /**
-     * @param mixed $creationDate
-     *
-     * @return self
-     */
     public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;

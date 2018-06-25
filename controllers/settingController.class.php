@@ -1,16 +1,24 @@
 <?php
 class settingController{
 
-	public function indexAction($args){
+	public function indexAction(Request $request){
+
+		$post = $request->getPost();
 
 		$form = Setting::getFormSettings();
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"], $post);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'setting')?$errors=["settings"]:Route::redirect('generalSettings');
+				if(!Validator::process($form["struct"], $post, 'setting')){
+					$errors=["settings"];
+				}
+				else{
+					Route::redirect('generalSettings');
+				}
+				
 			}
 		}
 
@@ -26,30 +34,34 @@ class settingController{
 
 		$v = new View();
 		$v->setView("admin/settings","templateadmin");
-		$v->assign("title","Général");
-		$v->assign("icon","icon-equalizer");
-		$v->assign("form", $form);
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"title" => "Général",
+			"icon" => "icon-equalizer",
+			"form" =>  $form,
+			"errors" =>  $errors
+		]);
 	}
 
-		public function postAction($args){
+	public function postAction(Request $request){
 
-
+		$post = $request->getPost();
 
 		$form = Setting::getFormSettingsPost();
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"], $post);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'setting-post')?$errors=["settings"]:Route::redirect('postSettings');
+				if(!Validator::process($form["struct"], $post, 'setting-post'))
+				{
+					$errors=["settings"]; 
+				}else{
+					Route::redirect('postSettings');
+				}
 
-				
 			}
 		}
-
-
 		$data = Setting::getSettings();
 		
 		$_POST['mail-server'] = $data['mail-server']['value']; 
@@ -61,44 +73,49 @@ class settingController{
 
 		$v = new View();
 		$v->setView("admin/settings","templateadmin");
-		$v->assign("title","Publication");
-		$v->assign("icon","icon-equalizer");
-		$v->assign("form", $form);
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"title" => "Publication", 
+			"icon" => "icon-equalizer",
+			"form" =>  $form,
+			"errors" => $errors
+		]);
 		
 	}
 
-		public function viewAction($args){
+	public function viewAction(Request $request){
 
-
+		$post = $request->getPost();
 
 		$form = Setting::getFormSettingsView();
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"], $post);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'setting-view')?$errors=["settings"]:Route::redirect('viewSettings');
+				if(!Validator::process($form["struct"], $post, 'setting-view')){
+					$errors=["settings"];
+				}else{
+					Route::redirect('viewSettings');
+				}
 
-				
 			}
 		}
 		
 		$data = Setting::getSettings();
-
-
+		
 		$_POST['homepage'] = $data['homepage']['value']; 
 		$_POST['pagination-posts'] = $data['pagination-posts']['value']; 
 		$_POST['pagination-rss'] = $data['pagination-rss']['value']; 
 		$_POST['display-post'] = $data['display-post']['value'];
 
-
 		$v = new View();
 		$v->setView("admin/settings","templateadmin");
-		$v->assign("title","Lecture");
-		$v->assign("icon","icon-equalizer");
-		$v->assign("form", $form);
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"title" => "Lecture",
+			"icon" => "icon-equalizer",
+			"form" =>  $form,
+			"errors" => $errors
+		]);
 	}
 }

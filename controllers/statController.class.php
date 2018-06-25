@@ -26,8 +26,6 @@ class statController{
 			$statsK['today'][$key] = $value[0];
 		}
 
-
-
 				foreach ($statsK['year'] as $key => $value) {
 			$statsA['year'][$key] = $value[0];
 		}
@@ -57,20 +55,20 @@ class statController{
 
 		$v = new View();
 		$v->setView("stat/index","templateadmin");
-		$v->assign("icon","icon-stats-dots");
-		$v->assign("statA_json",$statsA);
-		$v->assign("statK_json",$statsK);
-		$v->assign("scale_json",$scale_json);
-		$v->assign("title","Statistiques");
+		$v->massAssign([
+			"icon" => "icon-stats-dots",
+			"statA_json" => $statsA,
+			"statK_json" => $statsK,
+			"scale_json" => $scale_json,
+			"title" => "Statistiques"
+		]);
 	
 	}
 
 	public function exportAction($args){
 		
 		$v = new View();
-		$v->setView("stat/index","templateadmin");
-		$v->assign("icon","icon-stats-dots");
-		$v->assign("title","Exporter mes statistiques");
+		$v->setView("stat/index","templateadmin")->massAssign(["icon"=>"icon-stats-dots","title"=>"Exporter mes statistiques"]);
 	
 	}
 }

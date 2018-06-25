@@ -15,7 +15,7 @@ forms:
         class: form-group
         aside: false
     excerpt:
-        label: Résumé
+        label: RÃ©sumÃ©
         container: col-md-12
         class: form-group
         aside: false
@@ -33,7 +33,7 @@ forms:
         aside: true
 
     category:
-        label: Catégorie
+        label: CatÃ©gorie
         container: col-md-12 form-group form-group-alt-color
         class: form-group
         aside: true
@@ -45,7 +45,7 @@ forms:
         aside: false
 
     edit-user-actions:
-        label: Actions avancées
+        label: Actions avancÃ©es
         container: col-md-12 form-group form-group-alt-color
         class: form-group
         aside: true

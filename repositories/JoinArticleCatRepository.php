@@ -1,15 +1,9 @@
 <?php
 
-class Join_article_category extends JoinArticleCatRepository
-{
-    protected $id;
-    protected $category_id;
-    protected $post_id;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
+class Join_article_category extends JoinArticleCatRepository{
+	protected $id;
+	protected $category_id;
+	protected $post_id;
 
     /**
      * @return mixed
@@ -70,4 +64,7 @@ class Join_article_category extends JoinArticleCatRepository
 
         return $this;
     }
+
+    
+
 }

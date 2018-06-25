@@ -1,6 +1,6 @@
 <?php
 
-class Media extends Basesql{
+class Media extends MediaRepository{
 	
 	protected $id;
 	protected $name;

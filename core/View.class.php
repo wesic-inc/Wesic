@@ -22,8 +22,7 @@ class View{
 			header('location: '.ROOT_URL.$rof['routing_dev']['Error404']['path']);
 		}
 
-
-
+		return $this;
 	}
 
 	public function createForm($form, $errors){
@@ -31,7 +30,7 @@ class View{
 		include "views/templates/form.tpl.php";
 	}
 
-	public function addModal($modal, $config, $errors=[]){
+	public function addModal($modal, $config=[], $errors=[]){
 
 		global $errors_msg;
 		include "views/modals/".$modal.".mdl.php";
@@ -56,11 +55,17 @@ class View{
 
 	public function assign($key, $value){
 		$this->data[$key]=$value;
+	}	
+
+	public function massAssign($vars){
+		foreach ($vars as $key => $value) {
+			$this->data[$key]=$value;
+		}
 	}
 
 	public function __destruct(){
 
-		global $a, $c, $sitename;
+		global $a, $c, $sitename, $args;
 		extract($this->data);
 		
 		include $this->template;

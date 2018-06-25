@@ -6,24 +6,21 @@ if(!isset($_SESSION))
 
 class errorController{
 
-	public function indexAction($args){
+	public function indexAction(){
 		
 		$v = new View();
-		$v->setView("error/error");
-		$v->assign('title','Pas non trouvée');
+		$v->setView("error/error")->assign('title','Pas non trouvée');
 	}
-	public function notFoundAction($args){
+	public function notFoundAction(){
 		
 		$v = new View();
-		$v->setView("error/error404");
-		$v->assign('title',"Erreur !");
+		$v->setView("error/error404")->assign('title',"Erreur !");
 
 	}
-	public function forbiddenAction($args){
+	public function forbiddenAction(){
 		
 		$v = new View();
-		$v->setView("error/error403");
-		$v->assign('title','Attention !');
+		$v->setView("error/error403")->assign('title','Attention !');
 
 	}
 }

@@ -1,16 +1,18 @@
 <?php
 
-class Singleton {
-
+class Singleton
+{
 	private static $_instanceDB = null;
 	private static $_instanceUser = null;
+    private static $_request = null;
 
-	public static function getDB(){
-		if(Singleton::$_instanceDB == null){
+	public static function getDB()
+	{
+		if (Singleton::$_instanceDB == null) {
 			$dsn = 'mysql:host='.DBHOST.';dbname='.DBNAME.';charset=utf8';
-			try{
-				Singleton::$_instanceDB = new PDO($dsn,DBUSER,DBPWD);
-			}catch(Exception $e){
+			try {
+				Singleton::$_instanceDB = new PDO($dsn, DBUSER, DBPWD);
+			} catch (Exception $e) {
 				die("Erreur lors de la conneion à la base de données : ".$e->getMessage());
 			}
 		}
@@ -18,31 +20,44 @@ class Singleton {
 		return Singleton::$_instanceDB;
 	}
 
-	public static function getUser(){
-		if(Singleton::$_instanceUser == null && isset($_SESSION['token'])){
-			
+	public static function getUser()
+	{
+		if (Singleton::$_instanceUser == null && isset($_SESSION['token'])) {
 			$_instanceUser = new User();
 
 			$qb = new QueryBuilder();
 
-			$result = 
+			$result =
 			$qb->findAll('user')
-			->addWhere('token = :token')
-			->setParameter('token',$_SESSION['token'])
-			->fetchOne();
+			->where('token', $_SESSION['token'])
+			->fetchOrFail();
 			
-				$_instanceUser->setId($result['id']);
-				$_instanceUser->setLogin($result['login']);
-				$_instanceUser->setFirstname($result['firstname']);
-				$_instanceUser->setLastname($result['lastname']);
-				$_instanceUser->setRole($result['role']);
-				$_instanceUser->setEmail($result['email']);
-				$_instanceUser->setStatus($result['status']);
-				$_instanceUser->setToken($result['token']);
+			$_instanceUser->setId($result['id']);
+			$_instanceUser->setLogin($result['login']);
+			$_instanceUser->setFirstname($result['firstname']);
+			$_instanceUser->setLastname($result['lastname']);
+			$_instanceUser->setRole($result['role']);
+			$_instanceUser->setEmail($result['email']);
+			$_instanceUser->setStatus($result['status']);
+			$_instanceUser->setToken($result['token']);
 		}
-		/*$_instanceUser->setToken();
-			$_instanceUser->save();*/
-		return $_instanceUser;
-	}
+		if(isset($_SESSION['token'])){
+			return $_instanceUser;
+		}
+		return null;   
+    }
 
+
+    public static function request()
+    {
+    	if(Singleton::$_request == null){
+
+    		$params = Route::checkParameters(array_values(Route::getUri()[1]));
+	        $routeInfo = Route::getRouteInfo(Route::getRoute());
+
+			Singleton::$_request = new Request($_REQUEST,$_POST,$_GET,$params,$routeInfo);
+
+    	}
+    	return Singleton::$_request;
+    }
 }

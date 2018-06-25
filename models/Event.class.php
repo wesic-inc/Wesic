@@ -1,16 +1,21 @@
 <?php
 
-class Event extends Basesql{
-	
-	protected $id;
-	protected $name;
-	protected $place;
-	protected $externalurl;
+class Event extends EventRepository
+{
+    protected $id;
+    protected $name;
+    protected $place;
+    protected $externalurl;
     protected $description;
-	protected $date;
+    protected $date;
     protected $image;
     protected $body;
-	protected $user_id;
+    protected $user_id;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * @return mixed

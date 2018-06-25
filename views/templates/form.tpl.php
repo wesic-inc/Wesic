@@ -12,7 +12,7 @@
 	}
 ?>
 
-<?php if($form["options"]["groups"] == true): ?>
+<?php if(isset($form["options"]["groups"]) && $form["options"]["groups"] == true): ?>
 
 <?php Form::render($form, $data, 'group'); ?>
 

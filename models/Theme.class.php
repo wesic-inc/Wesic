@@ -1,11 +1,11 @@
 <?php
 
-class Theme extends Basesql{
-	
-	protected $id;
-	protected $title;
-	protected $version;
-	protected $author;
+class Theme extends ThemeRepository
+{
+    protected $id;
+    protected $title;
+    protected $version;
+    protected $author;
 
 
     public function getId()
@@ -28,8 +28,6 @@ class Theme extends Basesql{
     public function setTitle($title)
     {
         $this->title = ucfirst(strtolower(trim($title)));
-
-
     }
 
 
@@ -42,7 +40,6 @@ class Theme extends Basesql{
     public function setVersion($version)
     {
         $this->version = $version;
-
     }
 
 

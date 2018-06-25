@@ -18,7 +18,12 @@ routing:
     Error403:
         restricted: all
         controller: error:forbidden
-        path: 403
+        path: 403    
+
+    Error500:
+        restricted: all
+        controller: error:notFound
+        path: 500
 
     Admin:
         restricted: admin
@@ -87,7 +92,7 @@ routing:
                 optional: true
             perPage:
                 type: int
-                optional: false    
+                optional: false
 
     AllArticlesAjax:
         restricted: admin
@@ -140,7 +145,11 @@ routing:
     Categories:
         restricted: admin
         controller: category:allCategories
-        path: admin/categories    
+        path: admin/categories
+        params: 
+            p: 
+                type: int
+                optional: true 
 
     DeleteCategory:
         restricted: admin

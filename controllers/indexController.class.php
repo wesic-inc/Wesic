@@ -1,6 +1,5 @@
 <?php
 
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 
 class indexController{
@@ -12,13 +11,9 @@ class indexController{
 
 		$v = new View();
 
-		$v->setView("index/index");
-		$v->assign("articles", $articlesFound);
+		$v->setView("index/index")->assign("articles", $articlesFound);
 
 		Stat::add(1,"page d'accueuil",3);
-
-
-
 	}
 
 	public function testAction($args){

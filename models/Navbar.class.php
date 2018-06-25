@@ -1,6 +1,6 @@
 <?php
 
-class Navbar extends Basesql{
+class Navbar extends NavbarRepository{
 
 	protected $id;
 	protected $name;

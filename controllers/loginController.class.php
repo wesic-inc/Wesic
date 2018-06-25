@@ -5,7 +5,10 @@ if(!isset($_SESSION))
 
 class loginController{
 
-	public function indexAction($args){
+	public function indexAction(Request $request){
+
+		$param = $request->getParams();
+		$post = $request->getPost();
 
 		$user = new User();
 		$form = $user->getFormLogin();
@@ -13,27 +16,39 @@ class loginController{
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-			$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"], $post);
 
 			if(empty($errors)){
-				!Validator::process($form["struct"], $args['post'], 'signin')?$errors=["login404"]:Route::redirect('Admin');
+
+				if(!Validator::process($form["struct"], $post, 'signin')){
+					$errors = ["login404"];
+				}else{
+					Route::redirect('Admin');
+				}
+
 			}
 		}
 
 		$v = new View();
 		$v->setView("login/login","templateadmin-modal");
-		$v->assign("title", "Connexion");
-		$v->assign("description", "Connexion");
-		$v->assign("config", $form);
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"title" => "Connexion",
+			"description" => "Connexion",
+			"config" => $form,
+			"errors" => $errors
+		]);
+		
 
 	}
-	public function logoutAction($args){
+	public function logoutAction(){
 		Auth::logoutUser();
-		header("location: /connexion");
+		Route::redirect('Login');
 	}
 
-	public function signupAction($args){
+	public function signupAction(Request $request){
+
+		$param = $request->getParams();
+		$post = $request->getPost();
 
 		if( Setting::getParam('signup') == '0'){
 			Route::redirect('Error404');
@@ -44,43 +59,59 @@ class loginController{
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"], $post);
 
 			if(!$errors){
-				!Validator::process($form["struct"], $args['post'], 'signup')?$errors=["userexists"]:Route::redirect('Login');
-				
+				if(!Validator::process($form["struct"], $post, 'signup')){
+					$errors=["userexists"];
+				}else{
+					Route::redirect('Login');
+				}
 			}
 		}
 
 		$v = new View();
 		$v->setView("login/signup");
-		$v->assign("title", "Inscription");
-		$v->assign("description", "Inscription");
-		$v->assign("config", $form);
-		$v->assign("errors", $errors); 
+		$v->massAssign([
+			"title" => "Inscription",
+			"description" => "Inscription",
+			"config" => $form,
+			"errors" => $errors
+		]);
 	}
 
-	public static function getNewPasswordAction($args){
+	public static function getNewPasswordAction(Request $request){
 		
+		$post = $request->getPost();
+
 		$recovery = new Passwordrecovery();
 		$form = $recovery->getFormNewPassword();
 		$errors = [];
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-		$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"], $post);
 
 			if(empty($errors)){
-				!Validator::process($form["struct"], $args['post'], 'newpassword')?$errors=["login404"]:Route::redirect('Login');
+				if(!Validator::process($form["struct"], $post, 'newpassword')){
+					$errors=["login404"];
+				}else{
+					Route::redirect('Login');
+				}
 			}
 		}
 
 		$v = new View();
 		$v->setView("login/newpassword","templateadmin-modal");
-		$v->assign("title", "Nouveau mot de passe");
-		$v->assign("description", "Connexion");
-		$v->assign("config", $form);
-		$v->assign("errors", $errors);
+		$v->massAssign([
+			"title" => "Nouveau mot de passe",
+			"description" => "Connexion",
+			"config" => $form,
+			"errors" => $errors
+		]);
+		
+		
+		
 	}
 
 
