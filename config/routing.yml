@@ -329,13 +329,13 @@ routing:
 
     Events:
         restricted: admin
-        controller: event:index
+        controller: event:allEvents
         path: admin/evenements
 
     AddEvent:
         restricted: admin
         controller: event:addEvent
-        path: admin/ajouter-evenements
+        path: admin/ajouter-evenement
 
     getNewPassword:
         restricted: connected

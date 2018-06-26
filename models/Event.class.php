@@ -9,7 +9,6 @@ class Event extends EventRepository
     protected $description;
     protected $date;
     protected $image;
-    protected $body;
     protected $user_id;
 
     public function updateOnKey(){
@@ -167,26 +166,6 @@ class Event extends EventRepository
     /**
      * @return mixed
      */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @param mixed $body
-     *
-     * @return self
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getUserId()
     {
         return $this->user_id;
@@ -203,4 +182,27 @@ class Event extends EventRepository
 
         return $this;
     }
+
+    public static function getFormNewEvent()
+    {
+        return [
+          "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+          "struct" => [
+
+             "title"=>[ "label"=>"Titre de l'évenement", "type"=>"text", "id"=>"title", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"titleevent","helper"=>"Le titre de l'évenement qui sera afiché aux utilisateurs" ],
+
+             "description"=>[ "label"=>"Description de l'évenement", "type"=>"textarea", "id"=>"email", "placeholder"=>"Description", "required"=>1, "msgerror"=>"email" ],
+
+             "externalurl"=>[ "label"=>"Lien pour réserver", "type"=>"url", "id"=>"password1", "placeholder"=>"Lien de réservation", "required"=>1, "msgerror"=>"password1","helper"=>"Lien sur lequel les utilisateurs peuvent acheter un billet" ],
+
+             "place"=>[ "label"=>"Lieu de l'évenement", "type"=>"text", "id"=>"password2", "placeholder"=>"Lieu de l'évenement", "required"=>1, "msgerror"=>"placeevent" ], 
+
+            "datepicker-custom"=>[ "label"=>"Date de l'évenement", "type"=>"custom-datepicker", "id"=>"datepublied", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
+
+
+             "save"=>[ "label"=>"Ajouter l'évenement", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+
+         ]
+     ];
+ }
 }

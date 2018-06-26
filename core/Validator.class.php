@@ -51,6 +51,9 @@ class validator{
 		}			
 		if($options["type"]=="email" && !self::emailCorrect($data[$name])) {
 			$listErrors[]= $email;
+		}		
+		if($options["type"]=="url" && !self::urlCorrect($data[$name])) {
+			$listErrors[]= $url;
 		}
 		if($options["type"]=="captcha" && !self::captchaCorrect($data[$name])) {
 			$listErrors[]= $options["msgerror"];

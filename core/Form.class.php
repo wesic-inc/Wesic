@@ -26,7 +26,7 @@ class Form
             $fieldType = $option["type"];
             $params = [$name, $option, isset($data[$name])?$data[$name]:""];
 
-            if ($fieldType == "text"|| $fieldType == "password" || $fieldType =="email") {
+            if ($fieldType == "text"|| $fieldType == "password" || $fieldType =="email" || $fieldType =="url") {
                 $output .= self::input($params);
             } elseif ($fieldType =="textarea") {
                 $output .= self::text($params);
