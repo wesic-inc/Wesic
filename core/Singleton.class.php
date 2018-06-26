@@ -5,6 +5,7 @@ class Singleton
 	private static $_instanceDB = null;
 	private static $_instanceUser = null;
     private static $_request = null;
+    private static $_settings = null;
 
 	public static function getDB()
 	{
@@ -58,5 +59,15 @@ class Singleton
 
     	}
     	return Singleton::$_request;
+    }    
+
+    public static function settings()
+    {
+    	if(Singleton::$_settings == null){
+
+			Singleton::$_settings = Setting::getSettings();
+
+    	}
+    	return Singleton::$_settings;
     }
 }

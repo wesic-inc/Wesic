@@ -9,7 +9,7 @@ class User extends UserRepository
     protected $role;
     protected $email;
     protected $password;
-    protected $creationDate;
+    protected $created_at;
     protected $status = 1;
     protected $token;
 
@@ -67,7 +67,20 @@ class User extends UserRepository
     {
         return $this->lastname;
     }
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
 
+    public function setCreatedAt($created_at)
+    {
+               if ($created_at) {
+            $this->created_at = $created_at;
+        } else {
+            $this->created_at = date("Y-m-d H:i:s");
+        }
+        return $this;
+    }
 
     public function setLastname($lastname)
     {
@@ -109,20 +122,7 @@ class User extends UserRepository
         return $this;
     }
 
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
 
-    public function setCreationDate($creationDate = null)
-    {
-        if ($creationDate) {
-            $this->creationDate = $creationDate;
-        } else {
-            $this->creationDate = date("Y-m-d H:i:s");
-        }
-        return $this;
-    }
 
     public function getStatus()
     {
@@ -287,4 +287,6 @@ class User extends UserRepository
     ]
 ];
     }
+
+
 }

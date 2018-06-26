@@ -4,10 +4,16 @@ class View{
 	protected $view;
 	protected $template;
 
-	public function setView($view, $layout="template"){
+	public function setView($view, $layout="template",$scope="back"){
 
-		$path_view = "views/".$view.".view.php";
-		$path_template = "views/templates/".$layout.".tpl.php";
+		if($scope == "back"){
+			$path_view = "views/".$view.".view.php";
+			$path_template = "views/templates/".$layout.".tpl.php";		
+		}
+		if($scope == "front"){
+			$path_view = "themes/".setting('theme')."/views/".$view.".view.php";
+			$path_template = "themes/".setting('theme')."/views/templates/".$layout.".tpl.php";
+		}
 
 		if( file_exists($path_view) ){
 			$this->view=$path_view;

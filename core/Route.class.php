@@ -331,46 +331,37 @@ class Route
         if ($c == null && $a == null) {
             $qb = new QueryBuilder();
             $slugFound = $qb->findAll('slug')->where('slug', $uri)->fetchOne();
-            if (empty($slugFound)){
-                $c = 'error';
-                $a = 'notFound';
-                $r = 'all';
-            } else{
+
+            if (!empty($slugFound)){
                 switch ($slugFound['type']) {
                     case 1:
                     $c = 'article';
                     $a = 'single';
-                    $args['slug'] = $slugFound['slug'];
                     $request->setParam('slug', $slugFound['slug']);
                     break;
                     case 2:
                     $c = 'page';
                     $a = 'single';
-                    $args['slug'] = $slugFound['slug'];
                     $request->setParam('slug', $slugFound['slug']);
                     break;
                     case 3:
                     $c = 'category';
                     $a = 'archive';
-                    $args['slug'] = $slugFound['slug'];
                     $request->setParam('slug', $slugFound['slug']);
                     break;
                     case 4:
                     $c = 'user';
                     $a = 'newPasswordConfirmation';
-                    $args['token'] = $slugFound['slug'];
                     $request->setParam('token', $slugFound['slug']);
                     break;
                     case 5:
                     $c = 'user';
                     $a = 'newAccountConfirmation';
-                    $args['token'] = $slugFound['slug'];
                     $request->setParam('token', $slugFound['slug']);
                     break;
                     case 6:
                     $c = 'user';
                     $a = 'newsletterConfirmation';
-                    $args['token'] = $slugFound['slug'];
                     $request->setParam('token', $slugFound['slug']);
                     break;
                     default:
@@ -380,6 +371,10 @@ class Route
                     break;
                 }
                 $r = 'all';
+            } else{
+                    $c = 'error';
+                    $a = 'notFound';
+                    $r = 'all';
             }
         }
 
@@ -388,6 +383,6 @@ class Route
             $a = 'notFound';
             $r = 'all';
         }
-        return ['a' => $a, 'c' => $c, 'r' => $r, 'redirect'=>$redirect, 'args' => $args, 'request'=>$request  ];
+        return ['a' => $a, 'c' => $c, 'r' => $r, 'redirect'=>$redirect, 'request'=>$request  ];
     }
 }

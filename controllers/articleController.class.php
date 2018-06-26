@@ -9,12 +9,22 @@ class articleController{
 		$param = $request->getParams();
 
 		$qb = new QueryBuilder();
-		$article = $qb->all('post')->where('slug',$param['slug'])->and()->where('status',1)->fetchOrFail();
+
+		$results = $qb
+		->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.image as featured, co.*,u.login as username')
+		->from('post AS p')
+		->leftJoin('comment AS co','co.post_id = p.id')
+		->leftJoin('user AS u','co.user_id = u.id')
+		->where('p.slug',$param['slug'])
+		->and()
+		->where('co.status',1)
+		->orderBy('co.created_at','DESC')
+		->paginate(10);
 
 		$v = new View();
-		$v->setView("article/single")->assign("article", $article);
+		$v->setView("article","template","front")->assign("data",$results);
 
-		Stat::add(1,"lecture article",1,$article['id']);
+		Stat::add(1,"lecture article",1,$results[0]['id']);
 
 	}
 
@@ -168,11 +178,11 @@ class articleController{
 		$_POST['title'] = $data['title'];
 		$_POST['wesic-wysiwyg'] = html_entity_decode($data['content']);
 		$_POST['slug'] = $data['slug'];
-		$_POST['aa'] = substr($data['datePublied'],0,4);
-		$_POST['mm'] = substr($data['datePublied'],5,2);
-		$_POST['jj'] = substr($data['datePublied'],8,2);
-		$_POST['hh'] = substr($data['datePublied'],11,2);
-		$_POST['mn'] = substr($data['datePublied'],14,2);
+		$_POST['aa'] = substr($data['published_at'],0,4);
+		$_POST['mm'] = substr($data['published_at'],5,2);
+		$_POST['jj'] = substr($data['published_at'],8,2);
+		$_POST['hh'] = substr($data['published_at'],11,2);
+		$_POST['mn'] = substr($data['published_at'],14,2);
 		$_POST['visibility'] = $data['visibility'];
 		$_POST['excerpt'] = $data['excerpt'];
 		$_POST['description'] = $data['description'];

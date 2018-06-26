@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le :  jeu. 17 mai 2018 à 10:02
--- Version du serveur :  10.2.13-MariaDB-10.2.13+maria~jessie
+-- Généré le :  mar. 26 juin 2018 à 08:35
+-- Version du serveur :  10.2.15-MariaDB-10.2.15+maria~jessie
 -- Version de PHP :  7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `setting` (`id`, `type`, `value`) VALUES
+('comments', 1, '1'),
 ('datetype', 1, '1'),
 ('default-cat', 2, '1'),
 ('default-format', 2, '1'),
@@ -48,6 +49,7 @@ INSERT INTO `setting` (`id`, `type`, `value`) VALUES
 ('title', 1, 'Wesic Dev.'),
 ('url', 1, 'http://docker.local'),
 ('welcome-bloc', 4, '1');
+('theme', 5, 'theme1');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

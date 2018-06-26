@@ -50,7 +50,7 @@ class loginController{
 		$param = $request->getParams();
 		$post = $request->getPost();
 
-		if( Setting::getParam('signup') == '0'){
+		if( setting('signup') == '0'){
 			Route::redirect('Error404');
 		}
 

@@ -35,14 +35,11 @@ class StatRepository extends Basesql
    
         $results['year'] = $qb->select('COUNT(id)')
         ->from('stat')
-        ->addWhere('date > :dateStart')
-        ->setParameter('dateStart', $lastYear)
+        ->where('date','>',$lastYear)
         ->and()
-        ->addWhere('type = :type')
-        ->setParameter('type', 1)
+        ->where('type',1)
         ->and()
-        ->addWhere('date < :dateEnd')
-        ->setParameter('dateEnd', date('Y-m-d'))
+        ->where('date','<',date('Y-m-d'))
         ->groupBy('YEAR(date), MONTH(date)')
         ->orderBy('date', 'ASC')
         ->execute();

@@ -4,7 +4,7 @@ class Comment extends CommentRepository
 {
     protected $id;
     protected $body;
-    protected $creationDate;
+    protected $created_at;
     protected $status;
     protected $post_id;
 
@@ -40,18 +40,6 @@ class Comment extends CommentRepository
     public function setBody($body)
     {
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
-
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
 
         return $this;
     }
@@ -92,6 +80,26 @@ class Comment extends CommentRepository
     public function setPostId($post_id)
     {
         $this->post_id = $post_id;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     *
+     * @return self
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

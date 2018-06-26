@@ -108,14 +108,14 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<ul>
-											<li><span class="icon-newspaper stat-number"></span> 6 articles</li>
-											<li><span class="icon-file-empty stat-number"></span> 6 pages</li>
+											<li><span class="icon-newspaper stat-number"></span> <?php echo $articles; ?> articles</li>
+											<li><span class="icon-file-empty stat-number"></span> <?php echo $pages; ?>  pages</li>
 										</ul>
 									</div>
 									<div class="col-sm-6">
 										<ul>
-											<li><span class="icon-bubbles stat-number"></span> 12 commentaires</li>
-											<li><span class="icon-sphere stat-number"></span> 5 événements</li>
+											<li><span class="icon-bubbles stat-number"></span> <?php echo $comments; ?> commentaires</li>
+											<li><span class="icon-sphere stat-number"></span> <?php echo $events; ?> événements</li>
 										</ul>
 									</div>
 								</div>

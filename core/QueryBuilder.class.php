@@ -65,7 +65,9 @@ class QueryBuilder extends Basesql
         return $this;
     }
     public function count($table)
-    {
+    {   
+
+        $this->reset();
         $this->selector = "SELECT COUNT(*)";
         $this->table = $table." ";
 
@@ -189,6 +191,26 @@ class QueryBuilder extends Basesql
     public function debug()
     {
         return $this;
+    }
+
+    public function dump()
+    {
+
+                if (!isset($this->selector) || !isset($this->table)) {
+            return false;
+        } else {
+            $this->query =
+            $this->selector
+            ." FROM ".$this->table
+            .(!empty($this->join)?$this->join:"")
+            .(!empty($this->where)?"WHERE".$this->where:"")
+            .(!empty($this->groupBy)?"GROUP BY".$this->groupBy:"")
+            .(!empty($this->order)?"ORDER BY".$this->order:"")
+            .(!empty($this->limit)?"LIMIT".$this->limit:"");
+
+            return $this->query;
+        }
+
     }
 
     public function groupBy($group)

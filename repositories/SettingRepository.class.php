@@ -10,6 +10,7 @@ class SettingRepository extends Basesql
   ->setParam('slogan', $data['slogan'])
   ->setParam('url', $data['url'])
   ->setParam('email', $data['email'])
+  ->setParam('comments', $data['comments'])
   ->setParam('timezone', $data['timezone'])
   ->setParam('datetype', $data['datetype'])
   ->setParam('timetype', $data['timetype']);
@@ -52,7 +53,7 @@ class SettingRepository extends Basesql
     {
         $qb = new QueryBuilder();
 
-        $params = $qb->findAll('setting')->execute();
+        $params = $qb->all('setting')->get();
 
         $output = [];
 
@@ -66,12 +67,7 @@ class SettingRepository extends Basesql
     public static function getParam($id)
     {
         $qb = new QueryBuilder();
-        $param =
-    $qb->select('value')
-    ->from('setting')
-    ->addWhere('id = :id')
-    ->setParameter('id', $id)
-    ->fetchOne();
+        $param = $qb->select('value')->from('setting')->where('id',$id)->fetchOne();
 
         return $param['value'];
     }

@@ -6,8 +6,8 @@ class Newsletter extends NewsletterRepository
     protected $title;
     protected $body;
     protected $description;
-    protected $dateCreation;
-    protected $datePublied;
+    protected $created_at;
+    protected $published_at;
     protected $status;
     protected $user_id;
 

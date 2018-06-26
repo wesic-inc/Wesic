@@ -1,4 +1,5 @@
 .docker/database/*
+.docker/logs/*
 !.docker/database/.gitkeep
 public/.sass-cache
 public/storage/*

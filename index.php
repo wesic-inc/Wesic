@@ -2,8 +2,6 @@
 
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
 
-
-
 if($debug==true){
 	
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
@@ -18,6 +16,10 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 	}
 	function Req(){
 		return Singleton::request();
+	}
+
+	function setting($key){
+		return Singleton::settings()[$key][2];
 	}
 
 }else{
@@ -37,10 +39,6 @@ function autoloader($class) {
 }
 
 spl_autoload_register('autoloader');
-
-// Seeder::FakeNews();
-
-
 
 
 

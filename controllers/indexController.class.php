@@ -11,7 +11,7 @@ class indexController{
 
 		$v = new View();
 
-		$v->setView("index/index")->assign("articles", $articlesFound);
+		$v->setView("home","template","front")->assign("articles", $articlesFound);
 
 		Stat::add(1,"page d'accueuil",3);
 	}

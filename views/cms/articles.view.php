@@ -57,7 +57,7 @@
 													<td data-label="Auteur"><a href="#"><?php echo Format::getAuthorName($article['user_id']); ?></a></td>
 													<td data-label="Catégorie"><a href="#"><?php echo Format::translateCategory(Category::getCategory($article['id'])); ?></a></td>
 													<td data-label="Tags"><a href="#">Article</a>, <a href="#">musique</a>, <a href="#">2018</a></td>
-													<td data-label="Date"><?php echo Format::dateDisplay($article['datePublied'],4); ?></td>
+													<td data-label="Date"><?php echo Format::dateDisplay($article['published_at'],4); ?></td>
 												</tr>
 											<?php endforeach;?>
 										</tbody>

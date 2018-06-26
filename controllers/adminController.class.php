@@ -3,12 +3,23 @@ class adminController{
 
 	public function indexAction(Request $request){
 		
+		$qb = new QueryBuilder();
+
+		$articles = $qb->count('post')->where('type',1)->getCol();
+		$pages = $qb->count('post')->where('type',2)->getCol();
+		$comments = $qb->count('comment')->getCol();
+		$events = $qb->count('event')->getCol();
+
 		$v = new View();
 		$v->setView("admin/index","templateadmin");
 		$v->massAssign([
 			"page" =>"adduser",
 			"title" => "Dashboard",
 			"icon" => "icon-home",
+			"articles" => $articles,
+			"pages" => $pages,
+			"comments" => $comments,
+			"events" => $events,
 		]);
 	}
 

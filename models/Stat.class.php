@@ -22,19 +22,11 @@ class Stat extends StatRepository
         parent::__construct();
     }
 
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     *
-     * @return self
-     */
     public function setId($id)
     {
         $this->id = $id;
@@ -42,19 +34,11 @@ class Stat extends StatRepository
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     *
-     * @return self
-     */
     public function setType($type)
     {
         $this->type = $type;
@@ -62,19 +46,11 @@ class Stat extends StatRepository
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getDate()
     {
         return $this->date;
     }
 
-    /**
-     * @param mixed $date
-     *
-     * @return self
-     */
     public function setDate($date="")
     {
         if (empty($date)) {
@@ -85,20 +61,12 @@ class Stat extends StatRepository
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getIp()
     {
         return $this->ip;
     }
 
-    /**
-     * @param mixed $ip
-     *
-     * @return self
-     */
-    public function setIp($ip)
+    public function setIp($ip = "")
     {
         if (empty($ip)) {
             $this->ip = $_SERVER['REMOTE_ADDR'];
@@ -109,9 +77,6 @@ class Stat extends StatRepository
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getUseragent()
     {
         return $this->useragent;

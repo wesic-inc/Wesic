@@ -31,8 +31,8 @@ public static function newArticle($data){
     $article->setContent(htmlentities($data['wesic-wysiwyg']));
     $article->setExcerpt($data['excerpt']);
     $article->setDescription($data['description']);
-    $article->setDatePublied($datePublied);
-    $article->setDateCreation();
+    $article->setPublishedAt($datePublied);
+    $article->setCreatedAt();
     $article->setStatus($status);
     $article->setVisibility($data['visibility']);
     $article->setUserId(Singleton::getUser()->getId());
@@ -63,8 +63,8 @@ public static function newPage($data){
     $page->setTitle($data['title']);
     $page->setSlug($data['slug']);
     $page->setContent(htmlentities($data['wesic-wysiwyg']));
-    $page->setDatePublied($datePublied);
-    $page->setDateCreation();
+    $page->setPublishedAt($datePublied);
+    $page->setCreatedAt();
     $page->setStatus(1);
     $page->setVisibility(1);
     $page->setUserId(Singleton::getUser()->getId());
@@ -121,7 +121,7 @@ public static function editArticle($data){
     $article->setContent(htmlentities($data['wesic-wysiwyg']));
     $article->setExcerpt($data['excerpt']);
     $article->setDescription($data['description']);
-    $article->setDatePublied($datePublied);
+    $article->setPublishedAt($datePublied);
     $article->setStatus($status);
     $article->setVisibility($data['visibility']);
     $article->setUserId(Singleton::getUser()->getId());
@@ -178,8 +178,8 @@ public static function editPage($data){
     $page->setTitle($data['title']);
     $page->setSlug($data['slug']);
     $page->setContent(htmlentities($data['wesic-wysiwyg']));
-    $page->setDatePublied($datePublied);
-    $page->setDateCreation();
+    $page->setPublishedAt($datePublied);
+    $page->setCreatedAt();
     $page->setStatus(1);
     $page->setVisibility(1);
     $page->setUserId(Singleton::getUser()->getId());
@@ -225,9 +225,7 @@ public static function deleteArticle($id){
     ->execute();
 
 
-
     $qb->reset();
-
 
     $qb->delete()
     ->from('slug')

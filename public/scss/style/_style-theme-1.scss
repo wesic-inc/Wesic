@@ -212,7 +212,7 @@ section.news{
 	line-height: 80px;
 	background: #FFF;
 	transition: all 0,3s linear;
-	z-index: 2;
+	z-index: 10000;
 	&.initial{
 		background: none;
 		box-shadow: none;

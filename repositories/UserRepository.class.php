@@ -19,7 +19,7 @@ class UserRepository extends Basesql
             $user->setRole($data['role']);
             $user->setEmail($data['email']);
             $user->setPassword($data['password2']);
-            $user->setCreationDate(date('Y-m-d H:i:s'));
+            $user->setCreatedAt(date('Y-m-d H:i:s'));
             $user->setStatus(2);
             $user->setToken();
             $user->save();
@@ -44,7 +44,7 @@ class UserRepository extends Basesql
             $user->setRole($data['role']);
             $user->setEmail($data['email']);
             $user->setPassword($data['password2']);
-            $user->setCreationDate(date('Y-m-d H:i:s'));
+            $user->setCreatedAt(date('Y-m-d H:i:s'));
             $user->setStatus(1);
             $user->setToken();
             $user->save();
@@ -66,7 +66,7 @@ class UserRepository extends Basesql
             $user->setRole($data['role']);
             $user->setEmail($data['email']);
             $user->setPassword($data['password2']);
-            $user->setCreationDate(date('Y-m-d H:i:s'));
+            $user->setCreatedAt(date('Y-m-d H:i:s'));
             $user->setStatus(1);
             $user->setToken();
 
@@ -163,7 +163,7 @@ class UserRepository extends Basesql
             $user->setEmail($data['email']);
             $user->setLogin($data['email']);
             $user->setRole(5);
-            $user->setCreationDate();
+            $user->setCreatedAt();
             $user->setStatus('2');
             $user->save();
 

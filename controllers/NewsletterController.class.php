@@ -25,7 +25,7 @@ class newsletterController{
 		}
 
 		$v = new View();
-		$v->setView("newsletter/signup","website-modal");
+		$v->setView("newsletter/signup","single-modal","front");
 		$v->massAssign([
 			"title" => "Insrivez vous à la newsletter",
 			"icon" => "icon-user-plus",
@@ -37,7 +37,7 @@ class newsletterController{
 	public function signUpSuccessAction($args){
 
 		$v = new View();
-		$v->setView("dev/template","website-modal")->assign("title", "Insrivez vous à la newsletter");
+		$v->setView("dev/template","single-modal")->assign("title", "Insrivez vous à la newsletter");
 
 	}
 
