@@ -292,4 +292,26 @@ class Basesql
         }
         return $this;
     }
+
+        public function commentDisplayFilters($filter)
+    {
+        switch ($filter) {
+            case 1:
+            $this->where('comment.status', 2);
+            break;
+            case 2:
+            $this->where('comment.status', 1);
+            break;
+            case 3:
+            $this->where('comment.status', 3);
+            break;
+            case 4:
+            $this->where('comment.status', 4);
+            break;
+            case 5:
+            $this->where('comment.status',5);
+            break;
+        }
+        return $this;
+    }
 }

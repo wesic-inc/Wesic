@@ -32,6 +32,7 @@ class settingController{
 		$_POST['timezone'] = $data['timezone']['value']; 
 		$_POST['datetype'] = $data['datetype']['value']; 
 		$_POST['timetype'] = $data['timetype']['value']; 
+		$_POST['reset-block'] = 'reset-dashboard/redirect/generalSettings'; 
 
 		$v = new View();
 		$v->setView("admin/settings","templateadmin");

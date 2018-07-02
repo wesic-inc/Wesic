@@ -128,6 +128,9 @@ public static function process($struct, $data, $form){
 		break;
 		case 'edit-category':
 		return Category::editCategory($data);
+		break;		
+		case 'new-comment':
+		return Comment::newComment($data);
 		break;
 		case 'newpassword':
 		return Passwordrecovery::sendResetPassword($data['login']);

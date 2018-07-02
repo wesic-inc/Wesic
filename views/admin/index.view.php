@@ -3,9 +3,9 @@
 	<div class="row">
 		<div class="col-md-6">
 			<?php if( Setting::getParam('welcome-bloc') == '1'): ?>
-				<div class="col-md-12 bloc welcome-bloc">
+				<div class="col-md-12 bloc welcome-bloc" id="welcome-bloc">
 					<div class="inner-bloc">
-						<span class="icon-cross bloc-close"></span>
+						<span class="icon-cross bloc-close" onclick="dismissWelcome()"></span>
 						<header>
 							<h2 class="bloc-title"> Bienvenue sur Wesic ! </h2>
 							<span class="bloc-subtitle"> Nous vous avons préparé de quoi partir du bon pied </span>
@@ -25,9 +25,9 @@
 				</div>
 			<?php endif; ?>
 			<?php if( Setting::getParam('links-bloc') == '1'): ?>
-				<div class="col-md-12 bloc links-bloc">
+				<div class="col-md-12 bloc links-bloc" id="links-bloc">
 					<div class="inner-bloc">
-						<span class="icon-cross bloc-close">
+						<span class="icon-cross bloc-close" onclick="dismissLinks()">
 						</span>
 						<header>
 							<h2 class="bloc-title">
@@ -133,11 +133,9 @@
 							<article>
 								<header>Publiés récemment</header>
 								<ul>
-									<li><small> Le 26/01/2018 à 9:17 : </small> <a href="#"> “Lorem Ipsum”</a> par Admin </li>
-									<li><small> Le 26/01/2018 à 9:17 : </small> <a href="#"> “Lorem Ipsum”</a> par Admin </li>
-									<li><small> Le 26/01/2018 à 9:17 : </small> <a href="#"> “Lorem Ipsum”</a> par Admin </li>
-									<li><small> Le 26/01/2018 à 9:17 : </small> <a href="#"> “Lorem Ipsum”</a> par Admin </li>
-									<li><small> Le 26/01/2018 à 9:17 : </small> <a href="#"> “Lorem Ipsum”</a> par Admin </li>
+									<?php foreach($lastPosts as $lastPost): ?>
+									<li><small>Publié le <?php echo Format::dateDisplay($lastPost['published_at'],1);?> : </small> <a target="_blank" href="/<?php echo $lastPost['slug'] ?>"> “<?php echo $lastPost['title']; ?>”</a> par <?php echo ucfirst($lastPost['login']); ?> </li>
+									<?php endforeach ?>
 								</ul>
 							</article>
 						</div>
@@ -150,46 +148,24 @@
 								<h2 class="bloc-title"><span class="icon-bubbles"></span> Derniers commentaires</h2>
 							</header>
 							<article>
+								<?php foreach($lastComments as $comment): ?>
 								<div class="comment">
-									<header><b> Patrick Ipsum</b> sur<a href="#"> "Tournée mondiale 2018" </a></header>
-									<content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tempus tincidunt. Etiam sit amet posuere lectus, venenatis dignissim libero. Vivamus id efficitur urna. Etiam hendrerit lobortis suscipit... </content>
-									<footer> <small>Le 01/01/2018 à 9:17</small></footer>
+									<header>
+										<?php if(isset($comment['login'])): ?>
+										<b> <?php echo ucfirst($comment['login']) ?></b>
+										<?php else: ?>
+										<b> <?php echo $comment['email'] ?></b>
+										<?php endif ?>
+										 sur<a href="#"> "<?php echo $comment['title']; ?>" </a></header>
+									<content> <?php echo $comment['body']; ?> </content>
+									<footer> <small>Le <?php echo Format::dateDisplay($comment['created_at'],1);?></small></footer>
 									<div class="admin-actions">
 										<a href="#"> Afficher  </a>
 										<a href="#"> Modérer  </a>
 										<a href="#"> Supprimer </a>
 									</div>
 								</div>
-								<div class="comment">
-									<header><b> Patrick Ipsum</b> sur<a href="#"> "Tournée mondiale 2018" </a></header>
-									<content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tempus tincidunt. Etiam sit amet posuere lectus, venenatis dignissim libero. Vivamus id efficitur urna. Etiam hendrerit lobortis suscipit... </content>
-									<footer> <small>Le 01/01/2018 à 9:17</small></footer>
-									<div class="admin-actions">
-										<a href="#"> Afficher  </a>
-										<a href="#"> Modérer  </a>
-										<a href="#"> Supprimer </a>
-									</div>
-								</div>
-								<div class="comment">
-									<header><b> Patrick Ipsum</b> sur<a href="#"> "Tournée mondiale 2018" </a></header>
-									<content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tempus tincidunt. Etiam sit amet posuere lectus, venenatis dignissim libero. Vivamus id efficitur urna. Etiam hendrerit lobortis suscipit... </content>
-									<footer> <small>Le 01/01/2018 à 9:17</small></footer>
-									<div class="admin-actions">
-										<a href="#"> Afficher  </a>
-										<a href="#"> Modérer  </a>
-										<a href="#"> Supprimer </a>
-									</div>
-								</div>
-								<div class="comment">
-									<header><b> Patrick Ipsum</b> sur<a href="#"> "Tournée mondiale 2018" </a></header>
-									<content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tempus tincidunt. Etiam sit amet posuere lectus, venenatis dignissim libero. Vivamus id efficitur urna. Etiam hendrerit lobortis suscipit... </content>
-									<footer> <small>Le 01/01/2018 à 9:17</small></footer>
-									<div class="admin-actions">
-										<a href="#"> Afficher  </a>
-										<a href="#"> Modérer  </a>
-										<a href="#"> Supprimer </a>
-									</div>
-								</div>
+								<?php endforeach ?>
 							</article>
 						</div>
 					</div>

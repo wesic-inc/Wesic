@@ -1,4 +1,11 @@
-<?php echo $data[0]['title']; ?>
 
-
-<?php $this->addModal("comments",$data); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3><?php echo $article['title']; ?></h3>
+			<p><?php echo $article['content']; ?></p>
+			<p>Posté <?php echo Format::humanTime($article['date']); ?></p>
+			<?php $this->addModal("comments", ['comments'=>$data,'form'=>$form,'errors'=>$errors]); ?>
+		</div>
+	</div>
+</div>

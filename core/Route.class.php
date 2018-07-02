@@ -48,6 +48,15 @@ class Route
             $redirect .= "/".$parameter;
         }
         header($redirect);
+    }    
+    public static function toUrl($path)
+    {
+        $redirect = 'location: '.$path;
+        header($redirect);
+    }
+
+    public static function refresh(){
+        header("Refresh:0");
     }
 
     public static function allRouteSlug()
@@ -131,17 +140,21 @@ class Route
         }
     }
 
-    public static function makeParams($params, $key, $value)
+    // Allow to add another url param to your url without overwriting existing ones
+    public static function makeParams($key, $value)
     {
-        $generatedParams = "";
         
-        if ($value == 0) {
-            unset($params[$key]);
-        } else {
-            $params[$key] = $value;
+        $paramsArray = Singleton::request()->getParams();
+
+        if($paramsArray == 'true'){
+            $paramsArray = [];
         }
 
-        foreach ($params as $param => $val) {
+        $generatedParams = "";
+
+        $paramsArray[$key] = $value;            
+        
+        foreach ($paramsArray as $param => $val) {
             $generatedParams .= "/".$param."/".$val;
         }
         return $generatedParams;

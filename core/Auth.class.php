@@ -133,5 +133,8 @@ class Auth extends Basesql {
 	public static function id(){
 		return Singleton::getUser()->getId();
 	}
+	public static function role(){
+		return Singleton::getUser()->getRole();
+	}
 
 }

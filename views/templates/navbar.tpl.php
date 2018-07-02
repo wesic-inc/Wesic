@@ -47,7 +47,6 @@
     </li>
     <li class="pull-right">
       <a href="<?php echo ROOT_URL ?>profile">
-        <?php echo $pseudo ?>
       </a>
     </li>
   </ul>

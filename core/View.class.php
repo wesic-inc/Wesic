@@ -1,84 +1,81 @@
 <?php
-class View{
-	protected $data = [];
-	protected $view;
-	protected $template;
+class View
+{
+    protected $data = [];
+    protected $view;
+    protected $template;
 
-	public function setView($view, $layout="template",$scope="back"){
+    public function setView($view, $layout="template", $scope="back")
+    {
+        if ($scope == "back") {
+            $path_view = "views/".$view.".view.php";
+            $path_template = "views/templates/".$layout.".tpl.php";
+        }
+        if ($scope == "front") {
+            $path_view = "themes/".setting('theme')."/views/".$view.".view.php";
+            $path_template = "themes/".setting('theme')."/views/templates/".$layout.".tpl.php";
+        }
 
-		if($scope == "back"){
-			$path_view = "views/".$view.".view.php";
-			$path_template = "views/templates/".$layout.".tpl.php";		
-		}
-		if($scope == "front"){
-			$path_view = "themes/".setting('theme')."/views/".$view.".view.php";
-			$path_template = "themes/".setting('theme')."/views/templates/".$layout.".tpl.php";
-		}
+        if (file_exists($path_view)) {
+            $this->view=$path_view;
 
-		if( file_exists($path_view) ){
-			$this->view=$path_view;
+            if (file_exists($path_template)) {
+                $this->template=$path_template;
+            } else {
+                Route::redirect('Error404');
+            }
+        } else {
+            Route::redirect('Error404');
+        }
 
-			if(file_exists($path_template)){
-				$this->template=$path_template;
-			}else{
-				header('location: '.ROOT_URL.$rof['routing_dev']['Error404']['path']);
-			}
+        return $this;
+    }
 
-		}else{
-			header('location: '.ROOT_URL.$rof['routing_dev']['Error404']['path']);
-		}
+    public function createForm($form, $errors)
+    {
+        global $errors_msg;
+        include "views/templates/form.tpl.php";
+    }
 
-		return $this;
-	}
+    public function addModal($modal, $config=[], $errors=[])
+    {
+        global $errors_msg;
+        include "views/modals/".$modal.".mdl.php";
+    }
 
-	public function createForm($form, $errors){
-		global $errors_msg;
-		include "views/templates/form.tpl.php";
-	}
+    public static function setFlash($title, $body, $type)
+    {
+        $_SESSION['flash-type'] = $type;
+        $_SESSION['flash-title'] = $title;
+        $_SESSION['flash-body'] = $body;
+        $_SESSION['flash-id'] = uniqid();
+    }
 
-	public function addModal($modal, $config=[], $errors=[]){
+    public static function destroyFlash()
+    {
+        unset($_SESSION['flash-type']);
+        unset($_SESSION['flash-title']);
+        unset($_SESSION['flash-body']);
+        unset($_SESSION['flash-id']);
+    }
 
-		global $errors_msg;
-		include "views/modals/".$modal.".mdl.php";
+    public function assign($key, $value)
+    {
+        $this->data[$key]=$value;
+    }
 
-	}
+    public function massAssign($vars)
+    {
+        foreach ($vars as $key => $value) {
+            $this->data[$key]=$value;
+        }
+    }
 
-	public static function setFlash($title,$body,$type){
-		$_SESSION['flash-type'] = $type;
-		$_SESSION['flash-title'] = $title;
-		$_SESSION['flash-body'] = $body;
-		$_SESSION['flash-id'] = uniqid();
-
-	}
-
-	public static function destroyFlash(){
-
-		unset($_SESSION['flash-type']);
-		unset($_SESSION['flash-title']);
-		unset($_SESSION['flash-body']);
-		unset($_SESSION['flash-id']);
-	}
-
-	public function assign($key, $value){
-		$this->data[$key]=$value;
-	}	
-
-	public function massAssign($vars){
-		foreach ($vars as $key => $value) {
-			$this->data[$key]=$value;
-		}
-	}
-
-	public function __destruct(){
-
-		global $a, $c, $sitename, $args;
-		extract($this->data);
-		
-		include $this->template;
-	}
-
-
+    public function __destruct()
+    {
+        global $a, $c, $sitename, $args;
+        extract($this->data);
+        
+        include $this->template;
+    }
 }
-
-
-

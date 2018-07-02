@@ -67,7 +67,7 @@ class SettingRepository extends Basesql
     public static function getParam($id)
     {
         $qb = new QueryBuilder();
-        $param = $qb->select('value')->from('setting')->where('id',$id)->fetchOne();
+        $param = $qb->select('value')->from('setting')->where('id', $id)->fetchOne();
 
         return $param['value'];
     }
@@ -80,6 +80,7 @@ class SettingRepository extends Basesql
             $this->value = $value;
         }
         $this->id = $id;
+        
         $this->save();
 
   

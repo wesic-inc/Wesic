@@ -48,7 +48,7 @@ INSERT INTO `setting` (`id`, `type`, `value`) VALUES
 ('timezone', 2, '1'),
 ('title', 1, 'Wesic Dev.'),
 ('url', 1, 'http://docker.local'),
-('welcome-bloc', 4, '1');
+('welcome-bloc', 4, '1'),
 ('theme', 5, 'theme1');
 COMMIT;
 

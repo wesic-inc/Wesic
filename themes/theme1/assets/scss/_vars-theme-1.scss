@@ -1,0 +1,19 @@
+$sm-max: 768px;
+$sm-min: 767px;
+$md-max: 991px;
+$md-min: 992px;
+$lg-max: 1199px;
+$lg-min: 1200px;
+$nb-columns: 12;
+$container-sm: 750px;
+$container-md: 970px;
+$container-lg: 1170px;
+$gutter: 20px;
+
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700|Raleway:100,400');
+
+// Google Fonts
+$lato: 'Lato', sans-serif;
+$raleway: 'Raleway', sans-serif;
+$roboto: 'Roboto', sans-serif;

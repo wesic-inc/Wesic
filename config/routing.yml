@@ -308,9 +308,79 @@ routing:
                 optional: false
 
     Comments:
-        restricted: admin
+        restricted: moderator
         controller: comment:index
         path: admin/commentaires
+        params:
+            filter:
+                type: int
+                optional: true
+            p:
+                type: int
+                optional: true
+            sort:
+                type: int
+                optional: true    
+
+    ViewComment:
+        restricted: moderator
+        controller: comment:singleComment
+        path: admin/afficher-commentaire
+        params:
+            id:
+                type: int
+                optional: false
+
+    DisapproveComment:
+        restricted: moderator
+        controller: comment:disapproveComment
+        path: comment/disapprove
+        redirect: Login
+        params:
+            id:
+                type: int
+                optional: false
+            redirect:
+                type: string
+                optional: false
+
+    ApproveComment:
+        restricted: moderator
+        controller: comment:approveComment
+        path: comment/approve
+        redirect: Login
+        params:
+            id:
+                type: int
+                optional: false
+            redirect:
+                type: string
+                optional: false 
+
+    DeleteComment:
+        restricted: user
+        controller: comment:deleteComment
+        path: comment/delete
+        params:
+            id:
+                type: int
+                optional: false
+            redirect:
+                type: string
+                optional: false 
+
+    ReportComment:
+        restricted: all
+        controller: comment:reportComment
+        path: comment/report
+        params:
+            id:
+                type: int
+                optional: false
+            redirect:
+                type: string
+                optional: false
+
 
     generalSettings:
         restricted: admin
@@ -404,4 +474,22 @@ routing:
         restricted: all
         controller: article:getRss
         path: rss
+
+    DismissBlcok:
+        restricted: webmaster
+        controller: framework:dismissBlock
+        path: admin/block-dismiss
+        params:
+            type:
+                type: string
+                optional: false
+
+    ResetDashboard:
+        restricted: webmaster
+        controller: framework:resetDashboard
+        path: admin/reset-dashboard
+        params:
+            redirect:
+                type: string
+                optional: false
 

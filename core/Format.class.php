@@ -110,13 +110,13 @@ class Format {
 		$diff->d -= $diff->w * 7;
 
 		$string = array(
-			'y' => 'year',
-			'm' => 'month',
-			'w' => 'week',
-			'd' => 'day',
-			'h' => 'hour',
+			'y' => 'an',
+			'm' => 'mois',
+			'w' => 'semaine',
+			'd' => 'jour',
+			'h' => 'heure',
 			'i' => 'minute',
-			's' => 'second',
+			's' => 'seconde',
 		);
 		foreach ($string as $k => &$v) {
 			if ($diff->$k) {
@@ -127,7 +127,7 @@ class Format {
 		}
 
 		if (!$full) $string = array_slice($string, 0, 1);
-		return $string ? implode(', ', $string) . ' ago' : 'just now';
+		return $string ? 'il y a '.implode(', ', $string) : "à l'instant";
 
 	}
 
@@ -156,10 +156,9 @@ class Format {
 		if($date==0){
 			$date = date("Y-m-d");
 		}
-
 		switch ($type) {
 			case 1:
-			return date("j F Y", strtotime($date));
+			return date("d/m/Y à H:i", strtotime($date));
 			break;
 			case 2:
 			return date("Y-m-d", strtotime($date));

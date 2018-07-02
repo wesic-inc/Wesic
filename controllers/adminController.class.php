@@ -10,6 +10,30 @@ class adminController{
 		$comments = $qb->count('comment')->getCol();
 		$events = $qb->count('event')->getCol();
 
+		$qb->reset();
+		
+		$lastPosts = 
+		$qb->select('post.*,user.login')
+		->from('post')
+		->join('user','user.id = post.user_id')
+		->where('type',1)
+		->orderBy('published_at','DESC')
+		->limit(0,5)
+		->get();		
+
+		$qb->reset();
+
+		$lastComments = 
+		$qb->select('comment.*,user.login,post.slug,post.title')
+		->from('comment')
+		->leftJoin('user','user.id = comment.user_id')
+		->leftJoin('post','post.id = comment.post_id')
+		->where('comment.type','!=',5)
+		->orderBy('comment.created_at','DESC')
+		->limit(0,5)
+		->get();
+
+
 		$v = new View();
 		$v->setView("admin/index","templateadmin");
 		$v->massAssign([
@@ -20,6 +44,8 @@ class adminController{
 			"pages" => $pages,
 			"comments" => $comments,
 			"events" => $events,
+			"lastPosts" => $lastPosts,
+			"lastComments" => $lastComments,
 		]);
 	}
 

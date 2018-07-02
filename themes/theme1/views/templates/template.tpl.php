@@ -16,11 +16,11 @@
 	<?php if(Auth::isConnected()){ $this->addModal("admin-navbar",""); } ?>	
 	<div class="layout">
 		
-		<?php require('themes/'.setting('theme').'/views/templates/navbar.tpl.php'); ?>
+		<!-- <?php require('themes/'.setting('theme').'/views/templates/navbar.tpl.php'); ?> -->
 		<?php include $this->view;?>
 		
 	</div>
 	<script type="text/javascript" src="/public/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/themes/<?php echo setting('theme'); ?>/assets/js/code.js"></script>
 </body>
-</html>s
+</html>

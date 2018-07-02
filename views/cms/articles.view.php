@@ -46,7 +46,7 @@
 															<span class="checkmark"></span>
 														</label>
 													</td>
-													<td><a href="#"><?php echo $article['title']?></a>
+													<td><a href="<?php echo Setting::getParam('url')."/".$article['slug']; ?>"><?php echo $article['title']?></a>
 														<ul class="grid-actions">
 															<a href="<?php echo Setting::getParam('url')."/".$article['slug']; ?>"><li>Afficher</li></a>
 															<a href="<?php Route::echo('EditArticle','/id/'.$article['id']); ?>"><li>Modifier</li></a>

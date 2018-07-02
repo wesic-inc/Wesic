@@ -10,21 +10,59 @@ class articleController{
 
 		$qb = new QueryBuilder();
 
-		$results = $qb
-		->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.image as featured, co.*,u.login as username')
-		->from('post AS p')
-		->leftJoin('comment AS co','co.post_id = p.id')
-		->leftJoin('user AS u','co.user_id = u.id')
-		->where('p.slug',$param['slug'])
-		->and()
-		->where('co.status',1)
-		->orderBy('co.created_at','DESC')
-		->paginate(10);
+			$article = $qb
+			->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.image as featured')
+			->from('post AS p')
+			->where('p.slug',$param['slug'])
+			->fetchOrFail();
+
+		if( setting('comments')!=3 ){
+
+			$qb->reset();
+			
+			$comments = $qb->select('c.*,u.login as username')
+			->from('comment AS c')
+			->leftJoin('user AS u','c.user_id = u.id')
+			->where('c.post_id',$article['articleid'])
+			->and()
+			->openBracket()
+			->where('c.status',1)
+			->or()
+			->where('c.status',4)
+			->closeBracket()
+			->orderBy('c.created_at','DESC')
+			->get();
+
+		}
+
+		$form = Comment::selectSuitableForm();
+		$errors = [];
+
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+			$request->setPost('idpost',$article['articleid']);
+
+			$errors = Validator::check($form["struct"], $request->getPost());
+
+			if(!$errors){
+				if(!Validator::process($form["struct"], $request->getPost(), 'new-comment')){
+					$errors=["newcomment"];
+				}else{
+					Route::refresh();	
+				}
+			}
+		}
 
 		$v = new View();
-		$v->setView("article","template","front")->assign("data",$results);
+		$v->setView("article","template","front")->massAssign([
+			"data"=>$comments,
+			"article"=>$article,
+			"description"=>$article['seodesc'],
+			"form"=>$form,
+			"errors"=>$errors,
+		]);
 
-		Stat::add(1,"lecture article",1,$results[0]['id']);
+		Stat::add(1,"lecture article",1,$article['articleid']);
 
 	}
 
@@ -39,21 +77,21 @@ class articleController{
 		$filter = $sort = null;
 
 		$qb = new QueryBuilder();
-        if (isset($param['filter'])) {
-            $filter = $param['filter'];
-            $qbArticles->articleDisplayFilters($filter);
-        }
-        if (isset($param['sort'])) {
-            $sort = $param['sort'];
-            $qbArticles->articleDisplaySorting($sort);
-        
-}
-        if (isset($get['s'])) {
-            $search = $get['s'];
-            $qbArticles->and()->search('title', $search);
-        }
+		if (isset($param['filter'])) {
+			$filter = $param['filter'];
+			$qbArticles->articleDisplayFilters($filter);
+		}
+		if (isset($param['sort'])) {
+			$sort = $param['sort'];
+			$qbArticles->articleDisplaySorting($sort);
 
-        $articles = $qbArticles->paginate(10);
+		}
+		if (isset($get['s'])) {
+			$search = $get['s'];
+			$qbArticles->and()->search('title', $search);
+		}
+
+		$articles = $qbArticles->paginate(10);
 
 		$v = new View();
 		
@@ -159,7 +197,7 @@ class articleController{
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-            $request->setPost(['id'], $param['id']);
+			$request->setPost(['id'], $param['id']);
 
 			$errors = Validator::check($form["struct"], $post);
 

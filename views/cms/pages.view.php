@@ -47,7 +47,7 @@
 												</ul>
 											</td>
 											<td data-label="Auteur"><a href="#"><?php echo Format::getAuthorName($page['user_id']); ?></a></td>
-											<td data-label="Date"><?php echo Format::dateDisplay($page['datePublied'],4); ?></td>
+											<td data-label="Date"><?php echo Format::dateDisplay($page['published_at'],4); ?></td>
 
 										</tr>
 									<?php endforeach;?>

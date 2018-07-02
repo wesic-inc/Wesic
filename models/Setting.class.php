@@ -59,7 +59,7 @@ class Setting extends SettingRepository
 
      "signup"=>["label"=> "Tout le monde peut s'inscrire", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"signup", "choices"=>['1'=>"Activé",'2'=>"Desactivé"] ],
 
-     "comments"=>["label"=> "Qui peut poster un commentaire", "type"=>"select", "id"=>"comments", "placeholder"=>"Commentaires", "required"=>1, "msgerror"=>"comments", "choices"=>['1'=>"Seul les utilisateurs connectés peuvent poser un commentaire",'2'=>"Tout le monde peut poster un commentaire"] ],
+     "comments"=>["label"=> "Qui peut poster un commentaire", "type"=>"select", "id"=>"comments", "placeholder"=>"Commentaires", "required"=>1, "msgerror"=>"comments", "choices"=>['1'=>"Seul les utilisateurs connectés peuvent poser un commentaire",'2'=>"Tout le monde peut poster un commentaire",'3'=>"Désactiver les commentaires"] ],
 
      "separator2"=>["type"=>"separator"],
 
@@ -72,6 +72,9 @@ class Setting extends SettingRepository
       "datetype"=>["label"=> "Affichage de la date", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login","choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
       "timetype"=>["label"=> "Affichage de l'heure", "type"=>"select", "id"=>"passwordco", "placeholder"=>"Mot de passe", "msgerror"=>"slogand","choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+     "separator2"=>["type"=>"separator"],
+
+     "reset-block"=>['type'=>'link', 'class'=>"btn btn-sm btn-alt", 'label'=>"Remettre à zéro l'affichage du dashboard"],
 
       "submit"=>[ "label"=>"Sauvegarder", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
 

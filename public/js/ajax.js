@@ -150,3 +150,35 @@ function append_flash_session(type,title,body){
 	};
 	xmlhttp.send(null);
 }
+
+
+function dismissWelcome(){
+	document.getElementById('welcome-bloc').remove();
+	
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('POST','/admin/block-dismiss/type/welcome', true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+
+			}
+		}
+	};
+	xmlhttp.send(null);
+
+}
+function dismissLinks(){
+	document.getElementById('links-bloc').remove();
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('POST','/admin/block-dismiss/type/links', true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+
+			}
+		}
+	};
+	xmlhttp.send(null);
+
+}

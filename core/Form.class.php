@@ -54,7 +54,7 @@ class Form
                 $output .= self::captcha($params);
             }
         }
-        if ($form['options']['submit-custom'] != true) {
+        if (isset($form['options']['submit-custom']) && $form['options']['submit-custom'] != true) {
             $output .= '<input type="submit"  value="'.$form["options"]["submit"].'">';
         }
         $output .= self::getCSRF();

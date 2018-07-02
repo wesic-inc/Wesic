@@ -104,11 +104,11 @@ class userController
             "errors"=> $errors
         ]);
     }
-    public function flagDeleteUserAction($args)
+    public function flagDeleteUserAction(Request $request)
     {
-        $param = $args['params'];
+        $id = $request->getParam('id');
 
-        User::setUserStatus($param['id'], 5);
+        User::setUserStatus($id, 5);
 
         Route::redirect('AllUsers');
     }
