@@ -146,4 +146,5 @@ function slugify(text)
 }
 
 
-dragula([document.querySelector('#left'), document.querySelector('#right')]);
+
+var drake = dragula([document.querySelector('#left'), document.querySelector('#right')]);
