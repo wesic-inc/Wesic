@@ -16,7 +16,6 @@ class adminController{
 		$qb->select('post.*,user.login')
 		->from('post')
 		->join('user','user.id = post.user_id')
-		->where('type',1)
 		->orderBy('published_at','DESC')
 		->limit(0,5)
 		->get();		
@@ -78,10 +77,8 @@ class adminController{
 
 
 	public function devTestAction($args){
-		echo "lol";
-		die();
 		$v = new View();
-		$v->setView('dev/template','templateadmin');
+		$v->setView('dev/template','templateadmin')->assign('title','lol');
 	}
 
 

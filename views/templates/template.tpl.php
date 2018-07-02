@@ -15,7 +15,7 @@
 	<?php if(Auth::isConnected()){ $this->addModal("admin-navbar",""); } ?>	
 	<div class="layout">
 		
-		<?php require('views/templates/navbar.tpl.php'); ?>
+
 		<?php include $this->view;?>
 		
 	</div>

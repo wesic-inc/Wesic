@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le :  lun. 02 juil. 2018 à 07:10
--- Version du serveur :  10.2.13-MariaDB-10.2.13+maria~jessie
+-- Généré le :  lun. 02 juil. 2018 à 09:18
+-- Version du serveur :  10.2.15-MariaDB-10.2.15+maria~jessie
 -- Version de PHP :  7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -34,6 +34,13 @@ CREATE TABLE `category` (
   `type` tinyint(4) NOT NULL,
   `slug` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `category`
+--
+
+INSERT INTO `category` (`id`, `label`, `type`, `slug`) VALUES
+(1, 'non classé', 3, 'non-classe');
 
 -- --------------------------------------------------------
 
@@ -224,6 +231,13 @@ CREATE TABLE `slug` (
   `type` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `slug`
+--
+
+INSERT INTO `slug` (`slug`, `type`) VALUES
+('non-classe', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -389,7 +403,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `comment`

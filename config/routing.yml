@@ -39,6 +39,7 @@ routing:
 
     Logout:
         restricted: all
+        redirect: Index
         controller: login:logout
         path: logout
 
@@ -56,11 +57,13 @@ routing:
     NewArticle:
         restricted: admin
         controller: article:newArticle
+        redirect: Login
         path: admin/ajouter-article
 
     AllUsers:
         restricted: admin
         controller: user:allUsers
+        redirect: Login
         path: admin/utilisateurs
         params: 
             p: 
@@ -310,6 +313,7 @@ routing:
     Comments:
         restricted: moderator
         controller: comment:index
+        redirect: Login
         path: admin/commentaires
         params:
             filter:
@@ -322,14 +326,20 @@ routing:
                 type: int
                 optional: true    
 
-    ViewComment:
+    ModerateComment:
         restricted: moderator
         controller: comment:singleComment
-        path: admin/afficher-commentaire
+        path: admin/moderer-commentaire
         params:
             id:
                 type: int
-                optional: false
+                optional: false    
+
+    Terminator:
+        restricted: moderator
+        redirect: Login
+        controller: comment:terminator
+        path: admin/commentaire-review
 
     DisapproveComment:
         restricted: moderator

@@ -40,6 +40,13 @@ function autoloader($class) {
 
 spl_autoload_register('autoloader');
 
+
+
+
+
+
+
+
 $route = Route::makeRouting();
 
 $name_controller = $route["c"]."Controller";

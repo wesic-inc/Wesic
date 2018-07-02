@@ -16,7 +16,7 @@
 	<body>
 		<?php include $this->view;?>
 		<script type="text/javascript" src="/public/js/jquery.min.js"></script>
-		<script src="/public/js/trumbowyg/trumbowyg.min.js"></script>
+		<script type="text/javascript" src="/public/js/trumbowyg/trumbowyg.min.js"></script>
 		<script type="text/javascript" src="/public/js/code.js"></script>
 	</body>
 </html>

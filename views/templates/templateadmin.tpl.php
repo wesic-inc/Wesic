@@ -19,9 +19,9 @@
 </head>
 <body>
 	<div id="loader-wrapper">
-    	<div id="loader" class="spinner icon-spinner2" aria-hidden="true"></div>
-</div>
- 
+		<div id="loader" class="spinner icon-spinner2" aria-hidden="true"></div>
+	</div>
+
 	<?php require('views/templates/navbar-admin-sidebar.tpl.php'); ?>
 	<?php if(isset($_COOKIE["toggled-sidebar"]) && $_COOKIE["toggled-sidebar"] == "true"): ?>
 		<div class="content-wrapper" id="main-container">
@@ -30,26 +30,27 @@
 				<?php endif; ?>
 
 				<?php if(isset($_SESSION['flash-body'])): ?>
-				<div class="alert alert-top alert-<?php echo $_SESSION['flash-type'];?>" id="<?php echo $_SESSION['flash-id']; ?>" role="alert">
-					<strong><?php echo $_SESSION['flash-title'];?></strong> <?php echo $_SESSION['flash-body'];?>
+					<div class="alert alert-top alert-<?php echo $_SESSION['flash-type'];?>" id="<?php echo $_SESSION['flash-id']; ?>" role="alert">
+						<strong><?php echo $_SESSION['flash-title'];?></strong> <?php echo $_SESSION['flash-body'];?>
 						<a type="btn" onclick="destroyFlash('<?php echo $_SESSION['flash-id']; ?>')" class="close push-right">
-						<span class="icon icon-cross"></span>
-					</a>
-					<hidden value="<?php echo $_SESSION['flash-id']; ?>">
+							<span class="icon icon-cross"></span>
+						</a>
+						<hidden value="<?php echo $_SESSION['flash-id']; ?>">
+						</div>
+					<?php endif; ?>
+
+					<?php include $this->view;?>		
 				</div>
-				<?php endif; ?>
+				<script type="text/javascript" src="/public/js/jquery.min.js"></script>
 
-				<?php include $this->view;?>		
-			</div>
-			<script type="text/javascript" src="/public/js/jquery.min.js"></script>
+				<script src="/public/js/trumbowyg/trumbowyg.min.js"></script>
+				<script src="/public/js/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.min.js"></script>
 
-			<script src="/public/js/trumbowyg/trumbowyg.min.js"></script>
-			<script src="/public/js/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.min.js"></script>
-			
-			<script type="text/javascript" src="/public/js/code.js"></script>
-			<script type="text/javascript" src="/public/js/ajax.js"></script>
-			<script type="text/javascript" src="/public/js/stats.js"></script>
-		
+				<script type="text/javascript" src="/public/js/dragula.min.js"></script>
+				<script type="text/javascript" src="/public/js/code.js"></script>
+				<script type="text/javascript" src="/public/js/ajax.js"></script>
+				<script type="text/javascript" src="/public/js/stats.js"></script>
 
-		</body>
-		</html>
+
+			</body>
+			</html>

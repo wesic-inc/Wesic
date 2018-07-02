@@ -6,9 +6,11 @@ class pageController{
 
 	public static function singleAction(Request $request){
 
+		$param = $request->getParams();
+
 		$qb = new QueryBuilder();
 		
-		$page = $qb->findAll('post')->addWhere('slug = :slug')->setParameter('slug',$args['slug'])->fetchOrFail();
+		$page = $qb->findAll('post')->addWhere('slug = :slug')->setParameter('slug',$param['slug'])->fetchOrFail();
 
 		Stat::add(1,"lecture page",2,$page['id']);
 
@@ -76,7 +78,7 @@ class pageController{
 		Route::redirect('Pages');
 
 	}
-	public function newPageAction($args){
+	public function newPageAction(Request $request){
 
 
 		$form = Post::getFormNewPage();
@@ -84,10 +86,10 @@ class pageController{
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-			$errors = Validator::check($form["struct"], $args['post']);
+			$errors = Validator::check($form["struct"],$request->getPost());
 
 			if(!$errors){
-				if(!Validator::process($form["struct"], $args['post'], 'pagenew')){
+				if(!Validator::process($form["struct"], $request->getPost(), 'pagenew')){
 					$errors=["pagenew"];
 				}
 				else{

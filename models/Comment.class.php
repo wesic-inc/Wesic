@@ -238,5 +238,33 @@ class Comment extends CommentRepository
                 "save"=>[ "label"=>"Poster", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
             ]
         ];
+    }    
+
+    public static function getFormModerateComment()
+    {
+        return [
+            "options" => [ "method"=>"POST", "action"=> "", "submit"=>"Ajouter un commentaire","submit-custom"=>true, "enctype"=>"multipart/form-data" ],
+            "struct" => [
+
+                "email"=>[ "label"=>"L'e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email" ],
+                "name"=>[ "label"=>"Le nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name" ],
+                "body"=>[ "label"=>"Contenu", "type"=>"textarea", "id"=>"body", "placeholder"=>"Commentaire", "required"=>1, "msgerror"=>"body" ],
+                "postid"=>[ "type"=>"hidden", "id"=>"postid","msgerror"=>"postid" ],
+                "save"=>[ "label"=>"Poster", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+            ]
+        ];
+    }    
+
+    public static function getFormModerateConnectedComment()
+    {
+        return [
+            "options" => [ "method"=>"POST", "action"=> "", "submit"=>"Ajouter un commentaire","submit-custom"=>true, "enctype"=>"multipart/form-data" ],
+            "struct" => [
+                "user"=>[ "label"=>"Utilisateur", "type"=>"select", "id"=>"name", "placeholder"=>"userid", "required"=>1, "msgerror"=>"name","choices"=>"users" ],
+                "body"=>[ "label"=>"Contenu", "type"=>"textarea", "id"=>"body", "placeholder"=>"Commentaire", "required"=>1, "msgerror"=>"body" ],
+                "postid"=>[ "type"=>"hidden", "id"=>"postid","msgerror"=>"postid" ],
+                "save"=>[ "label"=>"Poster", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+            ]
+        ];
     }
 }

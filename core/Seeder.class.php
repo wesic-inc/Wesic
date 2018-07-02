@@ -19,8 +19,8 @@ class Seeder{
 			$article->setContent(Faker::html());
 			$article->setExcerpt(Faker::title(rand(10,20)));
 			$article->setDescription(Faker::title(rand(10,20)));
-			$article->setDatePublied(date('Y-m-d H:i:s'));
-			$article->setDateCreation();
+			$article->setPublishedAt(date('Y-m-d H:i:s'));
+			$article->setCreatedAt(date('Y-m-d H:i:s'));
 			$article->setStatus(rand(1,2));
 			$article->setVisibility(1);
 			$article->setUserId(1);
@@ -50,7 +50,7 @@ class Seeder{
 		$user->setRole(4);
 		$user->setEmail('vundaboy@gmail.cil');
 		$user->setPassword('admin');
-		$user->setCreationDate(date('Y-m-d H:i:s'));
+		$user->setCreatedAt(date('Y-m-d H:i:s'));
 		$user->setStatus(1);
 		$user->setToken();
 		$user->save();

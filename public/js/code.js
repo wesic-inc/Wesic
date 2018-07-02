@@ -80,7 +80,7 @@ $(document).ready(function(){
 });
 
 
-var modal = document.getElementById('myModal');
+/*var modal = document.getElementById('myModal');
 
 document.getElementById('close-modal').onclick = function() {
   modal.style.display = "none";
@@ -90,7 +90,7 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
+}*/
 
 
 
@@ -144,3 +144,6 @@ function slugify(text)
     .replace(/^-+/, '')             // Trim - from start of text
     .replace(/-+$/, '');            // Trim - from end of text
 }
+
+
+dragula([document.querySelector('#left'), document.querySelector('#right')]);

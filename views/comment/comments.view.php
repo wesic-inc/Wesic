@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12 bloc article-bloc">
 			<div class="inner-bloc">
-				<a href="<?php Route::echo('AddUser') ?>" class="btn btn-sm btn-add">Faire une review des commentaires</a>
+				<a href="<?php Route::echo('Terminator') ?>" class="btn btn-sm btn-add">Faire une review des commentaires</a>
 				<header>
 					<form action="<?php Route::echo('Comments') ?>" method="get">
 						<input name="s" type="text" class="search-input sm-input hidden-xs" >
@@ -45,11 +45,16 @@
 								<td class="entity-key"><a href="#"><?php echo $comment['email']; ?></a>
 								<?php endif ?>
 								<ul class="grid-actions">
-									<a href="/admin/afficher-commentaire/id/<?php echo $comment['id']; ?>" ><li>Afficher</li></a>
-									<a href="/admin/modifier-utilisateur/id/<?php echo $comment['id']; ?>"><li>Modifier</li></a>
+									<a href="/admin/moderer-commentaire/id/<?php echo $comment['id']; ?>"><li>Modérer</li></a>
+									<?php if($comment['status'] != '5'):?>
 									<a onclick="deleteModalUser(<?php echo $user['id'] ?>)"><li>Supprimer</li></a>
-									<a onclick="deleteModalUser(<?php echo $user['id'] ?>)"><li>Approuver</li></a>
-									<a onclick="deleteModalUser(<?php echo $user['id'] ?>)"><li>Désapprouver</li></a>
+									<?php endif ?>
+									<?php if($comment['status'] == '2' || $comment['status'] == '3'):?>
+									<a href="<?php Route::echo('ApproveComment','/id/'.$comment['id'].'/redirect/1'); ?>"><li>Approuver</li></a>
+									<?php endif ?>
+									<?php if($comment['status'] != '5' && $comment['status'] != '3'): ?>
+									<a href="<?php Route::echo('DisapproveComment','/id/'.$comment['id'].'/redirect/1'); ?>"><li>Désapprouver</li></a>
+									<?php endif ?>
 								</ul>
 							</td>
 							<td data-label="Nom"><?php echo $comment['body']; ?></td>

@@ -1,7 +1,6 @@
-
 <div class="container-fluid" >
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-6" id="left">
 			<?php if( Setting::getParam('welcome-bloc') == '1'): ?>
 				<div class="col-md-12 bloc welcome-bloc" id="welcome-bloc">
 					<div class="inner-bloc">
@@ -72,7 +71,7 @@
 					<div class="col-lg-12 bloc gutter-bloc stats">
 						<div class="inner-bloc">
 
-							<span class="icon-menu bloc-close"> </span>
+							<span class="icon-menu bloc-close handle"> </span>
 							<header>
 								<h2 class="bloc-title"><span class="icon-stats-dots"></span> Statistiques</h2>
 							</header>
@@ -95,11 +94,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" id="right">
 					<div class="col-lg-12 bloc quick-view">
 						<div class="inner-bloc">
 
-							<span class="icon-menu bloc-close">
+							<span class="icon-menu bloc-close handle">
 							</span>
 							<header>
 								<h2 class="bloc-title"><span class="icon-eye"></span> Coup d’oeil</h2>
@@ -126,7 +125,7 @@
 					</div>
 						<div class="col-lg-12 bloc activity">
 							<div class="inner-bloc">
-							<span class="icon-menu bloc-close"> </span>
+							<span class="icon-menu bloc-close handle"> </span>
 							<header>
 								<h2 class="bloc-title"><span class="icon-earth"></span> Activité</h2>
 							</header>
@@ -134,7 +133,7 @@
 								<header>Publiés récemment</header>
 								<ul>
 									<?php foreach($lastPosts as $lastPost): ?>
-									<li><small>Publié le <?php echo Format::dateDisplay($lastPost['published_at'],1);?> : </small> <a target="_blank" href="/<?php echo $lastPost['slug'] ?>"> “<?php echo $lastPost['title']; ?>”</a> par <?php echo ucfirst($lastPost['login']); ?> </li>
+									<li><small><?php echo $lastPost['type']=='1'?'Publié':'Nouvelle page' ?> le <?php echo Format::dateDisplay($lastPost['published_at'],1);?> : </small> <a target="_blank" href="/<?php echo $lastPost['slug'] ?>"> “<?php echo $lastPost['title']; ?>”</a> par <?php echo ucfirst($lastPost['login']); ?> </li>
 									<?php endforeach ?>
 								</ul>
 							</article>
@@ -143,7 +142,7 @@
 					<div class="col-md-12 bloc last-comments">
 						<div class="inner-bloc">
 							
-							<span class="icon-menu bloc-close"> </span>
+							<span class="icon-menu bloc-close handle"> </span>
 							<header>
 								<h2 class="bloc-title"><span class="icon-bubbles"></span> Derniers commentaires</h2>
 							</header>

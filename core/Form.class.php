@@ -227,6 +227,9 @@ class Form
             switch ($option["choices"]) {
                 case 'category':
                     $output .= self::categoryChoices($data);
+                break;                
+                case 'users':
+                    $output .= self::userChoices($data);
                 break;
                 case 'tag':
                     $output .= self::tagChoices();
@@ -262,6 +265,25 @@ class Form
             }
             $output = $output.'<option '.(($current==$value['id'])?'selected="selected"':"").' value="'.$value['id'].'">'
                 .ucfirst($value['label']).'</option>';
+        }
+
+        return $output;
+    }    
+    public static function userChoices($data)
+    {
+        $qb = new QueryBuilder();
+        $users = $qb->all('user')
+        ->get();
+
+        $output = "";
+        foreach ($users as $value) {
+            if (isset($data['id'])) {
+                $current = $data['id'];
+            } else {
+                $current = Setting::getParam('default-cat');
+            }
+            $output = $output.'<option '.(($current==$value['id'])?'selected="selected"':"").' value="'.$value['id'].'">'
+                .ucfirst($value['login']).'</option>';
         }
 
         return $output;

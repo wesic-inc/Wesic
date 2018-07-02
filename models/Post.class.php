@@ -166,9 +166,9 @@ class Post extends PostRepository
      *
      * @return self
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($created_at = "")
     {
-        if ($created_at) {
+        if (!empty($created_at)) {
             $this->created_at = $created_at;
         } else {
             $this->created_at = date("Y-m-d H:i:s");
@@ -365,7 +365,7 @@ public static function getFormEditArticle()
 
        "visibility"=>[ "label"=>"Visibilité", "type"=>"select", "id"=>"visibility", "placeholder"=>"visibility", "required"=>1, "msgerror"=>"visibility", "choices"=>['1'=>'Public','2'=>'Privé','3'=>'Auteur uniquement']],
 
-       "category"=>[ "label"=>"La catégorie de votre article", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>"category"],
+       "category"=>[ "label"=>"La catégorie de votre article", "type"=>"select", "id"=>"category", "placeholder"=>"Catégorie", "required"=>0, "msgerror"=>"category", "choices"=>"category"],
 
        "tags"=>[ "label"=>"", "type"=>"text", "id"=>"tags", "placeholder"=>"Tags de l'article", "msgerror"=>"tags","helper"=>"Séparez les tags par des virgules"],
 
