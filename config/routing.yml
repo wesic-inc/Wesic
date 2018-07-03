@@ -501,5 +501,17 @@ routing:
         params:
             redirect:
                 type: string
+                optional: false    
+
+    SaveOrderDashboard:
+        restricted: webmaster
+        controller: framework:dashboardOrder
+        path: admin/dashboard-order
+        params:
+            left:
+                type: string
+                optional: false
+            right:
+                type: string
                 optional: false
 

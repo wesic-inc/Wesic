@@ -182,3 +182,43 @@ function dismissLinks(){
 	xmlhttp.send(null);
 
 }
+
+function saveDashboardOrder(list,leftCount,rightCount){
+
+	console.log(list[0].getAttribute('id'));
+	console.log(list[1].getAttribute('id'));
+	console.log(list[2].getAttribute('id'));
+	console.log(list[3].getAttribute('id'));
+
+	var leftParams = "";
+	var rightParams = "";
+
+	for(i=0;i<leftCount;i++){
+		leftParams += list[i].getAttribute('id');
+		if(i!=leftCount-1){
+		leftParams += ",";
+		}
+	}
+
+	for(i=0+leftCount;i<rightCount+leftCount;i++){
+		rightParams += list[i].getAttribute('id');
+		if(i!=rightCount+leftCount-1){
+		rightParams += ",";
+		}
+	}
+
+
+	console.log(leftParams,rightParams);
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('POST','/admin/dashboard-order/left/'+leftParams+'/right/'+rightParams, true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+
+			}
+		}
+	};
+	xmlhttp.send(null);
+
+}

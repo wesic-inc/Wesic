@@ -15,14 +15,10 @@ class validator{
 		}
 
 		$listErrors = [];
-		if(isset($data['jj']) 
-			&& isset($data['mm']) 
-			&& isset($data['aa'])
-			&& isset($data['hh'])
-			&& isset($data['mn'])){
+		if(isset($data['jj'])  && isset($data['mm'])  && isset($data['aa']) && isset($data['hh']) && isset($data['mn'])){
 			$data['datepicker-custom'] = 
-		$data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
-	}
+			$data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
+		}
 
 	foreach ($struct as $name => $options) {
 		if(isset($options["required"]) && $options["required"] == true && self::isEmpty($data[$name])){
@@ -57,6 +53,9 @@ class validator{
 		}
 		if($options["type"]=="captcha" && !self::captchaCorrect($data[$name])) {
 			$listErrors[]= $options["msgerror"];
+		}		
+		if($name=="tags" && !self::tagsCorrect($data[$name])) {
+			$listErrors[]= $options["msgerror"];
 		}
 		if($options["type"]=="email" && isset($options['checkexist']) && $options['checkexist'] == true && User::emailExists($data[$name]) ){
 			$listErrors[]=$options["msgerror"];
@@ -88,11 +87,6 @@ class validator{
 		unset($listErrors[array_keys($listErrors, 'password2')[0]]);
 	}
 
-		// echo "<pre>";
-		// var_dump($listErrors);
-		// var_dump($data);
-		// var_dump($struct);
-		// die();
 	return $listErrors;
 }
 
@@ -214,5 +208,14 @@ public static function slugCorrect($var,$id){
 		return Basesql::slugExists($var);
 	}
 }
-
+public static function tagsCorrect($tags){
+	$tags = json_decode($tags);
+	foreach ($tags as $tag) {
+		$count = strlen($tag);
+		if( $count <= 2 || $count >= 30 || preg_match('/[^a-zA-ZÀ-ÿ_\-0-9]/i', $tag) ){
+			return false;
+		}
+	}
+	return true;
+}
 }

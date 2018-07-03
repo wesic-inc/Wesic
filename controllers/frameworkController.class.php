@@ -33,5 +33,29 @@ class frameworkController
         View::setFlash('Génial !', "L'affichage dashboard a bien été remis à zéro !", 'success');
 
         Route::redirect($request->getParam('redirect'));
+    }    
+    public function dashboardOrderAction(Request $request)
+    {
+        $param = new Setting;
+
+        $left = explode(',',$request->getParam('left'));
+        $right = explode(',',$request->getParam('right'));
+
+        for($i=0;$i<5;$i++){
+
+
+            if(!isset($left[$i])){
+                $param->setParam('left-'.($i+1),"NULL");
+            }else{
+                $param->setParam('left-'.($i+1),$left[$i]);
+            }            
+
+            if(!isset($right[$i])){
+                $param->setParam('right-'.($i+1),"NULL");
+            }else{
+                $param->setParam('right-'.($i+1),$right[$i]);
+            }
+        }
+
     }
 }

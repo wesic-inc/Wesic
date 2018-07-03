@@ -35,8 +35,6 @@ class CategoryRepository extends Basesql
         }
     }
 
-
-
     public static function editCategory($data)
     {
         $qb = new QueryBuilder();
@@ -155,5 +153,29 @@ class CategoryRepository extends Basesql
         ->closeBracket()
         ->fetchOne();
         return $cat['category_id'];
+    }
+
+    public static function addTags($tags){
+
+        dump($tags);
+
+        function format($item2,$key){
+            strtolower(trim($key));
+        }
+
+        array_walk($tags,'format');
+
+        $qb = new QueryBuilder();
+        $dbTags = $qb->all('category')->where('type',2)->get();
+        $newTags = [];
+
+        foreach ($dbTags as $tag) {
+            if(!in_array(strtolower($tag['label']),$tags)){
+                array_push($newTags,$tag);
+            }
+        }
+
+        dump($dbTags);
+        dd($newTags);
     }
 }

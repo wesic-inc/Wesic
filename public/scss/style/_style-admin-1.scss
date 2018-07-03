@@ -149,6 +149,19 @@ body{
 	cursor:pointer;
 	color: $primary-color;
 }
+.tag-close{
+	font-size: 12px;
+	color: #000;
+	transition: all 0.3s ease-in;
+	position: relative;
+	right: 0px;
+	float: right;
+
+}
+.tag-close:hover {
+	cursor:pointer;
+	color: $primary-color;
+}
 .menu-dashboard{
 	position: absolute;
 	right: 10px;

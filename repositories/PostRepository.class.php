@@ -4,6 +4,10 @@ class PostRepository extends Basesql{
 
 public static function newArticle($data){
 
+    Category::addTags(json_decode($data['tags']));
+
+    die();
+
     if(isset($data['draft'])){
         $status = 2;
         $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été engistré comme brouillon";

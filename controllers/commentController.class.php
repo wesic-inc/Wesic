@@ -55,14 +55,14 @@ class commentController
 
         if(isset($comment['user_id'])){
 
-        $form = Comment::getFormModerateConnectedComment();
-        $_POST['user'] = $comment['user_id'];
+            $form = Comment::getFormModerateConnectedComment();
+            $_POST['user'] = $comment['user_id'];
 
         }else{
 
-        $form = Comment::getFormModerateComment();
-        $_POST['email'] = $comment['email'];
-        $_POST['name'] = $comment['name'];
+            $form = Comment::getFormModerateComment();
+            $_POST['email'] = $comment['email'];
+            $_POST['name'] = $comment['name'];
             
         }
 
@@ -85,7 +85,7 @@ class commentController
         
         $v->setView("comment/view", "templateadmin");
         $v->massAssign([
-            "title" => "Voir un commentaire",
+            "title" => "Modérer un commentaire",
             "icon" => "icon-bubbles2",
             "comment" => $comment,
             "form" => $form,
@@ -111,17 +111,25 @@ class commentController
     public static function disapproveCommentAction(Request $request)
     {
         Comment::setCommentStatus($request->getParam('id'), 3);
+        
+
         if($request->getParam('redirect') == '1'){
+            View::setFlash("Succès !",'Lecommentaire a bien été desaprouvé',"success");
             Route::redirect('Comments');
         }else{
 
             Route::toUrl('/'.$request->getParam('redirect'));
         }
+
     }
 
     public static function approveCommentAction(Request $request){
         Comment::setCommentStatus($request->getParam('id'), 1);
+        
+
+
         if($request->getParam('redirect') == '1'){
+            View::setFlash("Succès !",'Le commentaire a bien été aprouvé',"success");
             Route::redirect('Comments');
         }else{
 
@@ -131,7 +139,10 @@ class commentController
 
     public static function deleteCommentAction(Request $request){
         Comment::setCommentStatus($request->getParam('id'), 5);
+
+
         if($request->getParam('redirect') == '1'){
+            View::setFlash("Succès !",'Le commentaire a bien été supprimé',"success");
             Route::redirect('Comments');
         }else{
 

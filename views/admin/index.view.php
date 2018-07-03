@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-6" id="left">
 			<?php if( Setting::getParam('welcome-bloc') == '1'): ?>
-				<div class="col-md-12 bloc welcome-bloc" id="welcome-bloc">
+				<div class="col-md-12 bloc welcome-bloc draggable handle" id="welcome-bloc">
 					<div class="inner-bloc">
 						<span class="icon-cross bloc-close" onclick="dismissWelcome()"></span>
 						<header>
@@ -24,10 +24,9 @@
 				</div>
 			<?php endif; ?>
 			<?php if( Setting::getParam('links-bloc') == '1'): ?>
-				<div class="col-md-12 bloc links-bloc" id="links-bloc">
+				<div class="col-md-12 bloc links-bloc draggable handle" id="links-bloc">
 					<div class="inner-bloc">
-						<span class="icon-cross bloc-close" onclick="dismissLinks()">
-						</span>
+						<span class="icon-cross bloc-close" onclick="dismissLinks()"></span>
 						<header>
 							<h2 class="bloc-title">
 								<span class="icon-link"></span> Liens rapides </h2>
@@ -68,7 +67,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<div class="col-lg-12 bloc gutter-bloc stats">
+					<div class="col-lg-12 bloc draggable gutter-bloc stats" id="stats">
 						<div class="inner-bloc">
 
 							<span class="icon-menu bloc-close handle"> </span>
@@ -95,7 +94,7 @@
 					</div>
 				</div>
 				<div class="col-md-6" id="right">
-					<div class="col-lg-12 bloc quick-view">
+					<div class="col-lg-12 bloc draggable quick-view" id="quickview">
 						<div class="inner-bloc">
 
 							<span class="icon-menu bloc-close handle">
@@ -123,7 +122,7 @@
 							</article>
 						</div>
 					</div>
-						<div class="col-lg-12 bloc activity">
+						<div class="col-lg-12 bloc draggable activity" id="activity">
 							<div class="inner-bloc">
 							<span class="icon-menu bloc-close handle"> </span>
 							<header>
@@ -139,7 +138,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="col-md-12 bloc last-comments">
+					<div class="col-md-12 bloc draggable last-comments" id="comments">
 						<div class="inner-bloc">
 							
 							<span class="icon-menu bloc-close handle"> </span>

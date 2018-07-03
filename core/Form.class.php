@@ -42,6 +42,8 @@ class Form
                 $output .= self::link($params);
             } elseif ($fieldType  == "radio") {
                 $output .= self::radio($params);
+            } elseif ($fieldType  == "tag") {
+                $output .= self::tag($params);
             } elseif ($fieldType == "info") {
                 $output .= self::info($params);
             } elseif ($fieldType == "title") {
@@ -106,6 +108,8 @@ class Form
                     $step .= self::captcha($params);
                 } elseif ($fieldType == "radio") {
                     $step .= self::radio($params);
+                } elseif ($fieldType == "tag") {
+                    $step .= self::tag($params);
                 }
                 $step .= "</li>";
             }
@@ -152,12 +156,22 @@ class Form
             $helper =  '<p class="form-helper">'.$option['helper'].'</p>';
         }
         return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<textarea name="'.$name.'"
-		id="'.$option["id"].'" "'
+        <textarea name="'.$name.'"
+        id="'.$option["id"].'" "'
         .((isset($option["required"]))?"required='required'":"").' ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled'":"") . '>'
         .((isset($data))?$data:"").'</textarea>'.(isset($helper)?$helper:"").'</div>';
+    }    
+    public static function tag($params)
+    {
+        $name = $params[0];
+        $option = $params[1];
+        $data = $params[2];
+
+        if (isset($option['helper'])) {
+            $helper =  '<p class="form-helper">'.$option['helper'].'</p>';
+        }
+        return '<div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>        <input type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . ((isset($option["required"]))?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . (isset($option["disabled"])&&$option["disabled"]?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div><ul class="tag-list"></ul><input type="hidden" name="'.$name.'" value="'.(isset($data)?$data:"").'">';
     }
-    
 
     public static function texteditor($params)
     {
@@ -167,7 +181,7 @@ class Form
         $data = $params[2];
 
         return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<a href="#" class="btn btn-sm add-media"> Ajouter un mÃ©dia </a>
+		<a href="#" class="btn btn-sm add-media"> Ajouter un média </a>
 		<div id="wesic-wysiwyg" ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled":"") . '>'.((isset($data))?$data:"").'</div></div>';
     }
 

@@ -26,8 +26,6 @@ class Comment extends CommentRepository
     }
 
 
-
-
     /**
      * @return mixed
      */
@@ -246,7 +244,7 @@ class Comment extends CommentRepository
             "options" => [ "method"=>"POST", "action"=> "", "submit"=>"Ajouter un commentaire","submit-custom"=>true, "enctype"=>"multipart/form-data" ],
             "struct" => [
 
-                "email"=>[ "label"=>"L'e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email" ],
+                "email"=>[ "label"=>"L'e-mail", "type"=>"text", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email",'disabled'=>true],
                 "name"=>[ "label"=>"Le nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name" ],
                 "body"=>[ "label"=>"Contenu", "type"=>"textarea", "id"=>"body", "placeholder"=>"Commentaire", "required"=>1, "msgerror"=>"body" ],
                 "postid"=>[ "type"=>"hidden", "id"=>"postid","msgerror"=>"postid" ],

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le :  lun. 02 juil. 2018 à 09:18
+-- Généré le :  mar. 03 juil. 2018 à 14:43
 -- Version du serveur :  10.2.15-MariaDB-10.2.15+maria~jessie
 -- Version de PHP :  7.1.9
 
@@ -32,7 +32,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `label` varchar(45) NOT NULL,
   `type` tinyint(4) NOT NULL,
-  `slug` varchar(200) NOT NULL
+  `slug` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -204,13 +204,23 @@ INSERT INTO `setting` (`id`, `type`, `value`) VALUES
 ('email', 1, 'lharang.pro@gmail.com'),
 ('favicon', 1, 'public/storage/favicon.png'),
 ('homepage', 3, '2'),
-('links-bloc', 4, '1'),
+('left-1', 4, 'quickview'),
+('left-2', 4, 'comments'),
+('left-3', 4, 'activity'),
+('left-4', 4, 'NULL'),
+('left-5', 4, 'NULL'),
+('links-bloc', 4, '2'),
 ('mail-login', 2, 'wesic.corporate@gmail.com'),
 ('mail-password', 2, 'wesic2018'),
 ('mail-port', 2, '587'),
 ('mail-server', 2, 'smtp.gmail.com'),
 ('pagination-posts', 3, '1'),
 ('pagination-rss', 3, '1'),
+('right-1', 4, 'stats'),
+('right-2', 4, 'NULL'),
+('right-3', 4, 'NULL'),
+('right-4', 4, 'NULL'),
+('right-5', 4, 'NULL'),
 ('signup', 2, '1'),
 ('slogan', 1, 'TROP BIEN LE SLOGAN LOLILOL'),
 ('theme', 5, 'theme1'),
@@ -218,7 +228,7 @@ INSERT INTO `setting` (`id`, `type`, `value`) VALUES
 ('timezone', 2, '1'),
 ('title', 1, 'Wesic Dev.'),
 ('url', 1, 'http://docker.local'),
-('welcome-bloc', 4, '1');
+('welcome-bloc', 4, '2');
 
 -- --------------------------------------------------------
 
@@ -236,6 +246,8 @@ CREATE TABLE `slug` (
 --
 
 INSERT INTO `slug` (`slug`, `type`) VALUES
+('dqzdzdzqdzqdzqdzqddqzdzdzqdzqdzqdzqd', 1),
+('hello-world', 2),
 ('non-classe', 3);
 
 -- --------------------------------------------------------
@@ -409,7 +421,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT pour la table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `event`
@@ -421,7 +433,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT pour la table `join_article_category`
 --
 ALTER TABLE `join_article_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT pour la table `media`
@@ -451,13 +463,13 @@ ALTER TABLE `passwordrecovery`
 -- AUTO_INCREMENT pour la table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT pour la table `stat`
 --
 ALTER TABLE `stat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60224;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60262;
 
 --
 -- AUTO_INCREMENT pour la table `theme`
@@ -469,7 +481,7 @@ ALTER TABLE `theme`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Contraintes pour les tables déchargées

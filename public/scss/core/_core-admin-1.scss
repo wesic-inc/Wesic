@@ -77,12 +77,12 @@ textarea {
 	border: 1px solid #e4eaec;
 	font-size: 14px;
     font-family: 'Roboto';
-
 	width:auto;
 	min-height: 60px;
 	overflow:hidden;
 	width:100%;
 	max-width:100%;
+	padding: 10px 10px;
 
 }
 
@@ -549,4 +549,27 @@ ul.grid-actions{
 
 .row-no-margin{
 	margin:0 !important;
+}
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
 }
