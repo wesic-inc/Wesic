@@ -1,7 +1,7 @@
 <?php
-
+// Classe du core permettant la gestion de l'authentification
 class Auth extends Basesql {
-
+	//Renvoie un boolean selon si l'utilisateur est connecté ou non
 	static function isConnected(){
 
 		if(isset($_SESSION["token"])){

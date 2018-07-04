@@ -210,6 +210,10 @@ public static function slugCorrect($var,$id){
 }
 public static function tagsCorrect($tags){
 	$tags = json_decode($tags);
+	
+	if(empty($tags)){
+		return true;
+	}
 	foreach ($tags as $tag) {
 		$count = strlen($tag);
 		if( $count <= 2 || $count >= 30 || preg_match('/[^a-zA-ZÀ-ÿ_\-0-9]/i', $tag) ){

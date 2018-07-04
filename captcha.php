@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Générateur de captcha
+if(!isset($_SESSION)){
+	session_start();
+}
 header("Content-Type: image/png");
 
 $image = imagecreatetruecolor(350, 200);
@@ -22,7 +25,7 @@ $backgroundColor = imagecolorallocate($image, rand($bgPalette['min'],$bgPalette[
 imagefill($image,0,0, $backgroundColor);
 
 for($i = 0;$i<10;$i++){
-$color[$i] = imagecolorallocate($image, rand($mainPalette['min'],$mainPalette['max']), rand($mainPalette['min'],$mainPalette['max']), rand($mainPalette['min'],$mainPalette['max']));	
+	$color[$i] = imagecolorallocate($image, rand($mainPalette['min'],$mainPalette['max']), rand($mainPalette['min'],$mainPalette['max']), rand($mainPalette['min'],$mainPalette['max']));	
 }
 
 $white = imagecolorallocate($image, 255,255,255); 

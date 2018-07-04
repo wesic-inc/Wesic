@@ -7,7 +7,6 @@ class CategoryRepository extends Basesql
         parent::__construct();
     }
 
-
     public static function newCategory($data)
     {
         $category = new Category();
@@ -86,7 +85,7 @@ class CategoryRepository extends Basesql
 
         $qb->reset();
         $current =
-         $qb->delete()->from('category')->where('id',$category)->and()->where('type',1)->fetchOne();
+        $qb->delete()->from('category')->where('id',$category)->and()->where('type',1)->fetchOne();
 
         $qb->reset();
 
@@ -154,28 +153,52 @@ class CategoryRepository extends Basesql
         ->fetchOne();
         return $cat['category_id'];
     }
-
+// Recupère les tags choisis par l'utilisateur puis renvoie les ids correspondant
     public static function addTags($tags){
-
-        dump($tags);
 
         function format($item2,$key){
             strtolower(trim($key));
         }
-
         array_walk($tags,'format');
 
         $qb = new QueryBuilder();
         $dbTags = $qb->all('category')->where('type',2)->get();
-        $newTags = [];
-
+        $existingTags = [];
+        $tagIds = [];
+        //On recupere les tags existants en base, et leurs ids dans 2 tableaux différents
         foreach ($dbTags as $tag) {
-            if(!in_array(strtolower($tag['label']),$tags)){
-                array_push($newTags,$tag);
+            if(in_array(strtolower($tag['label']),$tags)){
+                array_push($existingTags,$tag['label']);
+                array_push($tagIds, $tag['id']);
             }
         }
+        //On supprime les tags existants 
+        foreach ($existingTags as $tag) {
+            unset($tags[array_search($tag,$tags)]);
+        }
+        //On ajoute les nouveaux tags en base tout en récupérant leurs ids
+        foreach ($tags as $label) {
 
-        dump($dbTags);
-        dd($newTags);
+            $tag = new Category;
+            
+            $tag->setType(2);
+            $tag->setLabel($label);
+            $tag->save();
+
+            array_push($tagIds, $tag->getId());
+        }
+        // On retourne la listes des ids des tags 
+        return $tagIds;
+    }
+
+    public static function attachTagsToPost($tags,$idPost){
+        
+        foreach ($tags as $id) {
+            $join = new Join_article_category;
+            $join->category_id($id);
+            $join->post_id($idPost);
+            $join->save();
+        }
+
     }
 }

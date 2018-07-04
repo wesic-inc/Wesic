@@ -22,7 +22,7 @@ class categoryController
                 }
             }
         }
-  
+
 
         $qb = new QueryBuilder();
         $qb->findAll('category')->where('type', 1)->or()->where('type', 3);
@@ -178,4 +178,6 @@ class categoryController
             "errors"=>$errors
         ]);
     }
+
+
 }

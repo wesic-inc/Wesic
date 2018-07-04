@@ -4,7 +4,10 @@ class PostRepository extends Basesql{
 
 public static function newArticle($data){
 
-    Category::addTags(json_decode($data['tags']));
+    $tags = Category::addTags(json_decode($data['tags']));
+    
+    Category::attachTagsToPost($tags,60);
+
 
     die();
 
