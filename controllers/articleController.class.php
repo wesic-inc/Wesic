@@ -69,7 +69,14 @@ class articleController{
 	public function allArticlesAction(Request $request){
 
 		$qbArticles = new QueryBuilder();
-		$qbArticles->all('post')->where('type',1);
+		$qbArticles
+		->select('post.*,user.login as author')
+		->from('post')
+		->join('user','user.id = post.user_id')
+		->where('post.type',1);
+
+
+
 
 		$param = $request->getParams();
 		$get = $request->getGet();

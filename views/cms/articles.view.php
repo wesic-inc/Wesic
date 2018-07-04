@@ -54,9 +54,14 @@
 														</ul>
 													</td>
 													<td data-label="Status"><?php echo Format::getStatusArticle($article['status']);?></td>
-													<td data-label="Auteur"><a href="#"><?php echo Format::getAuthorName($article['user_id']); ?></a></td>
-													<td data-label="Catégorie"><a href="#"><?php echo Format::translateCategory(Category::getCategory($article['id'])); ?></a></td>
-													<td data-label="Tags"><a href="#">Article</a>, <a href="#">musique</a>, <a href="#">2018</a></td>
+													<td data-label="Auteur"><a href="#"><?php echo ucfirst($article['author']); ?></a></td>
+													<?php $cat = Category::getCategory($article['id']); ?>
+													<td data-label="Catégorie"><a href="<?php echo $cat['slug'] ?>"><?php echo $cat['label']; ?></a></td>
+													<td data-label="Tags">
+													<?php foreach( Category::getTags($article['id']) as $tag): ?>
+														<a href="#"><?php echo $tag ?></a>
+													<?php endforeach ?>
+													</td>
 													<td data-label="Date"><?php echo Format::dateDisplay($article['published_at'],4); ?></td>
 												</tr>
 											<?php endforeach;?>

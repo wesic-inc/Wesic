@@ -4,12 +4,7 @@ class PostRepository extends Basesql{
 
 public static function newArticle($data){
 
-    $tags = Category::addTags(json_decode($data['tags']));
-    
-    Category::attachTagsToPost($tags,60);
 
-
-    die();
 
     if(isset($data['draft'])){
         $status = 2;
@@ -50,7 +45,10 @@ public static function newArticle($data){
     $qb = new QueryBuilder();
 
     $newArticle = $qb->findAll('post')->where('slug',$data['slug'])->fetchOne();
+
     Category::createCategoryJoin($data['category'],$article->getId());
+    $tags = Category::addTags(json_decode($data['tags']));
+    Category::attachTagsToPost($tags,59);
 
     return true;
 

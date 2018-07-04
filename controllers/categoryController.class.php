@@ -124,7 +124,7 @@ class categoryController
         }
 
         $qb = new QueryBuilder();
-        $tags = $qb->findAll('category')->where('type',2)->get();
+        $tags = $qb->all('category')->where('type',2)->paginate(10);
 
         $v = new View();
         $v->setView("category/tag", "templateadmin");

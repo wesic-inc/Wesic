@@ -137,22 +137,40 @@ class CategoryRepository extends Basesql
         $catRelation->setPostId($article);
         $catRelation->save();
     }
+
     public static function getCategory($article)
     {   
         $qb = new QueryBuilder();
-        $cat = $qb->select('join_article_category.category_id')
+        $cat = $qb->select('category.label,category.slug')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
         ->where('join_article_category.post_id',$article)
         ->and()
         ->openBracket()
-        ->addWhere('category.type',1)
+        ->where('category.type',1)
         ->or()
-        ->addWhere('category.type',3)
+        ->where('category.type',3)
         ->closeBracket()
         ->fetchOne();
-        return $cat['category_id'];
+        return ['label'=>$cat['label'],'slug'=>$cat['slug']];
+    }    
+    public static function getTags($article)
+    {   
+        $output = [];
+        $qb = new QueryBuilder();
+        $tags = $qb->select('category.label')
+        ->from('join_article_category')
+        ->innerJoin('category', 'category.id = join_article_category.category_id')
+        ->where('join_article_category.post_id',$article)
+        ->and()
+        ->where('category.type',2)
+        ->get();
+        foreach ($tags as $tag) {
+            array_push($output,$tag['label']);
+        }
+        return $output;
     }
+
 // Recupère les tags choisis par l'utilisateur puis renvoie les ids correspondant
     public static function addTags($tags){
 
@@ -192,11 +210,35 @@ class CategoryRepository extends Basesql
     }
 
     public static function attachTagsToPost($tags,$idPost){
-        
+
+        // dd($tags);
+
+        $qb = new QueryBuilder();
+
+        $relation = $qb->select('join_article_category.category_id')
+        ->from('join_article_category')
+        ->innerJoin('category', 'category.id = join_article_category.category_id')
+        ->where('join_article_category.post_id',$idPost)
+        ->and()
+        ->where('category.type',2)
+        ->execute();
+
+        if (!empty($relation)) {
+
+            $qb->reset();
+            $qb->delete('join_article_category')
+            ->from('join_article_category')
+            ->innerJoin('category', 'category.id = join_article_category.category_id')
+            ->where('join_article_category.post_id',$idPost)
+            ->and()
+            ->addWhere('category.type',2)
+            ->execute();
+        }
+
         foreach ($tags as $id) {
             $join = new Join_article_category;
-            $join->category_id($id);
-            $join->post_id($idPost);
+            $join->setCategoryId($id);
+            $join->setPostId($idPost);
             $join->save();
         }
 
