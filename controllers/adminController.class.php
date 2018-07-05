@@ -1,6 +1,10 @@
 <?php
 class adminController{
-
+/**
+ * [indexAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function indexAction(Request $request){
 		
 		$qb = new QueryBuilder();
@@ -47,7 +51,10 @@ class adminController{
 			"lastComments" => $lastComments,
 		]);
 	}
-
+/**
+ * [addUserAction description]
+ * @param Request $request [description]
+ */
 	public function addUserAction(Request $request){
 
 		$post = $request->getPost();
@@ -75,7 +82,11 @@ class adminController{
 
 	}
 
-
+/**
+ * [devTestAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 	public function devTestAction($args){
 		$v = new View();
 		$v->setView('dev/template','templateadmin')->assign('title','lol');

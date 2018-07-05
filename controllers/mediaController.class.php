@@ -1,7 +1,11 @@
 <?php
 
 class mediaController{
-
+/**
+ * [indexAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 		public function indexAction($args){
 
 		$v = new View();

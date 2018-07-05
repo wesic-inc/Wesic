@@ -6,6 +6,13 @@ class StatRepository extends Basesql
         parent::__construct();
     }
 
+    /**
+     * [add description]
+     * @param [type]  $type        [description]
+     * @param string  $body        [description]
+     * @param integer $contentType [description]
+     * @param integer $contentId   [description]
+     */
     public static function add($type, $body="", $contentType=0, $contentId=0)
     {
         $stat = new Stat();
@@ -23,6 +30,10 @@ class StatRepository extends Basesql
         $stat->save();
     }
 
+    /**
+     * [numberOfViewsAnon description]
+     * @return [type] [description]
+     */
     public static function numberOfViewsAnon()
     {
         $lastYear = date('Y-m-d', strtotime("-365 days", time()));
@@ -35,11 +46,11 @@ class StatRepository extends Basesql
    
         $results['year'] = $qb->select('COUNT(id)')
         ->from('stat')
-        ->where('date','>',$lastYear)
+        ->where('date', '>', $lastYear)
         ->and()
-        ->where('type',1)
+        ->where('type', 1)
         ->and()
-        ->where('date','<',date('Y-m-d'))
+        ->where('date', '<', date('Y-m-d'))
         ->groupBy('YEAR(date), MONTH(date)')
         ->orderBy('date', 'ASC')
         ->execute();
@@ -112,6 +123,10 @@ class StatRepository extends Basesql
         return $results;
     }
 
+    /**
+     * [numberOfViewsKnown description]
+     * @return [type] [description]
+     */
     public static function numberOfViewsKnown()
     {
         $lastYear = date('Y-m-d', strtotime("-365 days", time()));
@@ -204,6 +219,10 @@ class StatRepository extends Basesql
         return $results;
     }
 
+    /**
+     * [recreateScale description]
+     * @return [type] [description]
+     */
     public static function recreateScale()
     {
         $scale = [];
@@ -253,6 +272,11 @@ class StatRepository extends Basesql
     {
     }
 
+    /**
+     * [fakeStats description]
+     * @param  [type] $number [description]
+     * @return [type]         [description]
+     */
     public static function fakeStats($number)
     {
         $stat = new Stat();

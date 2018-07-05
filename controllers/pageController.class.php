@@ -1,9 +1,18 @@
 <?php
 class pageController{
+	/**
+	 * [indexAction description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public static function indexAction(Request $request){
 		echo "pages";
 	}
-
+/**
+ * [singleAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public static function singleAction(Request $request){
 
 		$param = $request->getParams();
@@ -18,7 +27,11 @@ class pageController{
 		$v->setView("page/single")->massAssign(["title"=>$page['title'],"page"=>$page]);
 
 	}
-
+/**
+ * [allPagesAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function allPagesAction(Request $request){
 		
 
@@ -67,7 +80,12 @@ class pageController{
 		
 
 
-	}	
+	}
+/**
+ * [deletePageAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 	public function deletePageAction($args){
 		
 
@@ -78,6 +96,11 @@ class pageController{
 		Route::redirect('Pages');
 
 	}
+	/**
+	 * [deletePageAction description]
+	 * @param  [type] $args [description]
+	 * @return [type]       [description]
+	 */
 	public function newPageAction(Request $request){
 
 
@@ -108,7 +131,11 @@ class pageController{
 			"errors" => $errors
 		]);
 	}
-
+/**
+ * [editPageAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 	public function editPageAction($args){
 
 

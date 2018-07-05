@@ -7,6 +7,11 @@ class UserRepository extends Basesql
         parent::__construct();
     }
 
+    /**
+     * [signUp description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function signUp($data)
     {
         if (self::emailExists($data['email']) || self::loginExists($data['login'])) {
@@ -32,6 +37,11 @@ class UserRepository extends Basesql
         }
     }
 
+    /**
+     * [newUser description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function newUser($data)
     {
         if (self::emailExists($data['email']) || self::loginExists($data['login'])) {
@@ -54,6 +64,10 @@ class UserRepository extends Basesql
         }
     }
 
+    /**
+     * [addUser description]
+     * @param [type] $data [description]
+     */
     public static function addUser($data)
     {
         if (self::emailExists($data['email']) || self::loginExists($data['login'])) {
@@ -80,8 +94,11 @@ class UserRepository extends Basesql
         }
     }
 
-
-
+    /**
+     * [editUser description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function editUser($data)
     {
         $user = new User();
@@ -105,7 +122,11 @@ class UserRepository extends Basesql
         return true;
     }
 
-
+    /**
+     * [emailExists description]
+     * @param  [type] $email [description]
+     * @return [type]        [description]
+     */
     public static function emailExists($email)
     {
         $user = new User();
@@ -114,6 +135,11 @@ class UserRepository extends Basesql
         return !empty($users);
     }
 
+    /**
+     * [loginExists description]
+     * @param  [type] $login [description]
+     * @return [type]        [description]
+     */
     public static function loginExists($login)
     {
         $user = new User();
@@ -123,6 +149,11 @@ class UserRepository extends Basesql
         return !empty($users);
     }
 
+    /**
+     * [modifyPassword description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function modifyPassword($data)
     {
         $passwordrecovery = new Passwordrecovery();
@@ -139,6 +170,11 @@ class UserRepository extends Basesql
         return true;
     }
 
+    /**
+     * [setUserStatus description]
+     * @param [type] $id     [description]
+     * @param [type] $status [description]
+     */
     public static function setUserStatus($id, $status)
     {
         if ($status == 1 || $status == 2 || $status == 3 || $status == 4 || $status == 5) {
@@ -152,6 +188,11 @@ class UserRepository extends Basesql
         }
     }
 
+    /**
+     * [signUpNewsletter description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function signUpNewsletter($data)
     {
         if (self::emailExists($data['email']) || self::loginExists($data['email'])) {

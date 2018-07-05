@@ -1,7 +1,10 @@
 <?php
 // Classe du core permettant la gestion de l'authentification
 class Auth extends Basesql {
-	//Renvoie un boolean selon si l'utilisateur est connecté ou non
+	/**
+	 * [isConnected description]
+	 * @return boolean [description]
+	 */
 	static function isConnected(){
 
 		if(isset($_SESSION["token"])){
@@ -21,7 +24,10 @@ class Auth extends Basesql {
 		return FALSE;
 
 	}
-
+	/**
+	 * [isAdmin description]
+	 * @return boolean [description]
+	 */
 	static function isAdmin(){
 
 		if(!isset($_SESSION["token"])){
@@ -42,7 +48,10 @@ class Auth extends Basesql {
 
 		}
 	}
-
+	/**
+	 * [getRights description]
+	 * @return [type] [description]
+	 */
 	static function getRights(){
 		if(!isset($_SESSION["token"])){
 			return false;
@@ -60,7 +69,10 @@ class Auth extends Basesql {
 			}
 		}
 	}
-
+	/**
+	 * [logoutUser description]
+	 * @return [type] [description]
+	 */
 	static public function logoutUser(){
 
 		$_SESSION = array();	
@@ -77,7 +89,11 @@ class Auth extends Basesql {
 		session_unset();
 		session_destroy();
 	}
-
+	/**
+	 * [signIn description]
+	 * @param  [type] $data [description]
+	 * @return [type]       [description]
+	 */
 	static public function signIn($data){
 
 		$user = new User();
@@ -113,7 +129,11 @@ class Auth extends Basesql {
 		self::logoutUser();
 		return false;
 	}
-
+	/**
+	 * [tokenRenew description]
+	 * @param  [type] $userFound [description]
+	 * @return [type]            [description]
+	 */
 	public static function tokenRenew($userFound){
 
 		$user = new User();
@@ -126,16 +146,27 @@ class Auth extends Basesql {
 
 		$_SESSION['token'] = $user->getToken();
 	}
-
+	/**
+	 * [user description]
+	 * @return [type] [description]
+	 */
 	public static function user(){
 		return Singleton::getUser();
 	}	
+	/**
+	 * [id description]
+	 * @return [type] [description]
+	 */
 	public static function id(){
 		if(!is_null(Singleton::getUser())){
 		return Singleton::getUser()->getId();
 		}
 		return 0;
 	}
+	/**
+	 * [role description]
+	 * @return [type] [description]
+	 */
 	public static function role(){
 		return Singleton::getUser()->getRole();
 	}

@@ -1,288 +1,303 @@
 <?php
-class articleController{
-	public static function indexAction($args){
+class articleController
+{
+    /**
+     * [singleAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public static function singleAction(Request $request)
+    {
+        $param = $request->getParams();
 
-	}
+        $qb = new QueryBuilder();
 
-	public static function singleAction(Request $request){
+        $article = $qb
+            ->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.image as featured')
+            ->from('post AS p')
+            ->where('p.slug', $param['slug'])
+            ->fetchOrFail();
 
-		$param = $request->getParams();
+        if (setting('comments')!=3) {
+            $qb->reset();
+            
+            $comments = $qb->select('c.*,u.login as username')
+            ->from('comment AS c')
+            ->leftJoin('user AS u', 'c.user_id = u.id')
+            ->where('c.post_id', $article['articleid'])
+            ->and()
+            ->openBracket()
+            ->where('c.status', 1)
+            ->or()
+            ->where('c.status', 4)
+            ->closeBracket()
+            ->orderBy('c.created_at', 'DESC')
+            ->get();
+        }
 
-		$qb = new QueryBuilder();
+        $form = Comment::selectSuitableForm();
+        $errors = [];
 
-			$article = $qb
-			->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.image as featured')
-			->from('post AS p')
-			->where('p.slug',$param['slug'])
-			->fetchOrFail();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $request->setPost('idpost', $article['articleid']);
 
-		if( setting('comments')!=3 ){
+            $errors = Validator::check($form["struct"], $request->getPost());
 
-			$qb->reset();
-			
-			$comments = $qb->select('c.*,u.login as username')
-			->from('comment AS c')
-			->leftJoin('user AS u','c.user_id = u.id')
-			->where('c.post_id',$article['articleid'])
-			->and()
-			->openBracket()
-			->where('c.status',1)
-			->or()
-			->where('c.status',4)
-			->closeBracket()
-			->orderBy('c.created_at','DESC')
-			->get();
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $request->getPost(), 'new-comment')) {
+                    $errors=["newcomment"];
+                } else {
+                    Route::refresh();
+                }
+            }
+        }
 
-		}
+        $v = new View();
+        $v->setView("article", "template", "front")->massAssign([
+            "data"=>$comments,
+            "article"=>$article,
+            "description"=>$article['seodesc'],
+            "form"=>$form,
+            "errors"=>$errors,
+        ]);
 
-		$form = Comment::selectSuitableForm();
-		$errors = [];
+        Stat::add(1, "lecture article", 1, $article['articleid']);
+    }
+    /**
+     * [allArticlesAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function allArticlesAction(Request $request)
+    {
+        $qbArticles = new QueryBuilder();
+        $qbArticles
+        ->select('post.*,user.login as author')
+        ->from('post')
+        ->join('user', 'user.id = post.user_id')
+        ->where('post.type', 1);
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $param = $request->getParams();
+        $get = $request->getGet();
 
-			$request->setPost('idpost',$article['articleid']);
+        $filter = $sort = null;
 
-			$errors = Validator::check($form["struct"], $request->getPost());
+        $qb = new QueryBuilder();
+        if (isset($param['filter'])) {
+            $filter = $param['filter'];
+            $qbArticles->articleDisplayFilters($filter);
+        }
+        if (isset($param['sort'])) {
+            $sort = $param['sort'];
+            $qbArticles->articleDisplaySorting($sort);
+        }
+        if (isset($get['s'])) {
+            $search = $get['s'];
+            $qbArticles->and()->search('title', $search);
+        }
 
-			if(!$errors){
-				if(!Validator::process($form["struct"], $request->getPost(), 'new-comment')){
-					$errors=["newcomment"];
-				}else{
-					Route::refresh();	
-				}
-			}
-		}
+        $articles = $qbArticles->paginate(10);
 
-		$v = new View();
-		$v->setView("article","template","front")->massAssign([
-			"data"=>$comments,
-			"article"=>$article,
-			"description"=>$article['seodesc'],
-			"form"=>$form,
-			"errors"=>$errors,
-		]);
+        $v = new View();
+        
+        $v->setView("cms/articles", "templateadmin");
+        $v->massAssign([
+            "title"=>"Articles",
+            "icon"=>"icon-newspaper",
+            "articles"=>$articles,
+            "elementNumber"=>Singleton::request()->getPaginate()['total'],
+            "filter"=>$filter,
+            "sort"=>$sort
+        ]);
+    }
+    /**
+     * [allArticlesAjaxAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
+    public function allArticlesAjaxAction($args)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $qbArticles = new QueryBuilder();
+            $qbArticles
+            ->select('*')
+            ->from('post')
+            ->addWHere('type = :type')
+            ->setParameter('type', 1);
 
-		Stat::add(1,"lecture article",1,$article['articleid']);
+            $param = $args['params'];
 
-	}
+            switch ($param['sort']) {
+                case 1:
+                $qbArticles->OrderBy('title', 'DESC');
+                break;
+                case -1:
+                $qbArticles->OrderBy('title', 'ASC');
+                break;
+                case 2:
+                $qbArticles->OrderBy('status', 'DESC');
+                break;
+                case -2:
+                $qbArticles->OrderBy('status', 'ASC');
+                break;
+                case 3:
+                $qbArticles->OrderBy('user_id', 'DESC');
+                break;
+                case -3:
+                $qbArticles->OrderBy('user_id', 'ASC');
+                break;
+                case 4:
+                $qbArticles->OrderBy('datePublied', 'DESC');
+                break;
+                case -4:
+                $qbArticles->OrderBy('datePublied', 'ASC');
+                break;
+                default:
+                return false;
+                break;
+            }
 
-	public function allArticlesAction(Request $request){
+            $articles = $qbArticles->execute();
+            
+            $v = new View();
+            $v->setView("ajax/allArticles", "templateajax")->assign("articles", $articles);
+        }
+    }
 
-		$qbArticles = new QueryBuilder();
-		$qbArticles
-		->select('post.*,user.login as author')
-		->from('post')
-		->join('user','user.id = post.user_id')
-		->where('post.type',1);
+    /**
+     * [newArticleAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function newArticleAction(Request $request)
+    {
+        $post = $request->getPost();
 
+        $form = Post::getFormNewArticle();
+        $errors = [];
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            dd($post);
+            $errors = Validator::check($form["struct"], $post);
 
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $post, 'articlenew')) {
+                    $errors=["articlenew"];
+                } else {
+                    Route::redirect('AllArticles');
+                }
+            }
+        }
 
-		$param = $request->getParams();
-		$get = $request->getGet();
+        $v = new View();
+        $v->setView("cms/newarticle", "templateadmin");
+        $v->massAssign([
+            "form" => $form,
+            "title" => "Nouvel article",
+            "icon" => "icon-pen",
+            "errors" => $errors
+        ]);
+    }
+/**
+ * [editArticleAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
+    public function editArticleAction(Request $request)
+    {
+        $post = $request->getPost();
+        $param = $request->getParams();
 
-		$filter = $sort = null;
-
-		$qb = new QueryBuilder();
-		if (isset($param['filter'])) {
-			$filter = $param['filter'];
-			$qbArticles->articleDisplayFilters($filter);
-		}
-		if (isset($param['sort'])) {
-			$sort = $param['sort'];
-			$qbArticles->articleDisplaySorting($sort);
-
-		}
-		if (isset($get['s'])) {
-			$search = $get['s'];
-			$qbArticles->and()->search('title', $search);
-		}
-
-		$articles = $qbArticles->paginate(10);
-
-		$v = new View();
-		
-		$v->setView("cms/articles","templateadmin");
-		$v->massAssign([
-			"title"=>"Articles",
-			"icon"=>"icon-newspaper",
-			"articles"=>$articles,
-			"elementNumber"=>Singleton::request()->getPaginate()['total'],
-			"filter"=>$filter,
-			"sort"=>$sort
-		]);
-	}
-
-	public function allArticlesAjaxAction($args){
-
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-			$qbArticles = new QueryBuilder();
-			$qbArticles
-			->select('*')
-			->from('post')
-			->addWHere('type = :type')
-			->setParameter('type',1);
-
-			$param = $args['params'];
-
-			switch ($param['sort']) {
-				case 1:
-				$qbArticles->OrderBy('title','DESC');
-				break;
-				case -1:
-				$qbArticles->OrderBy('title','ASC');
-				break;
-				case 2:
-				$qbArticles->OrderBy('status','DESC');
-				break;
-				case -2:
-				$qbArticles->OrderBy('status','ASC');
-				break;
-				case 3:
-				$qbArticles->OrderBy('user_id','DESC');
-				break;
-				case -3:
-				$qbArticles->OrderBy('user_id','ASC');
-				break;
-				case 4:
-				$qbArticles->OrderBy('datePublied','DESC');
-				break;
-				case -4:
-				$qbArticles->OrderBy('datePublied','ASC');
-				break;
-				default:
-				return false;
-				break;
-			}			
-
-			$articles = $qbArticles->execute();
-			
-			$v = new View();
-			$v->setView("ajax/allArticles","templateajax")->assign("articles",$articles);
-		}
-		
-	}
-	public function newArticleAction(Request $request){
-
-		$post = $request->getPost();
-
-		$form = Post::getFormNewArticle();
-		$errors = [];
-
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-			$errors = Validator::check($form["struct"], $post);
-
-			if(!$errors){
-				if(!Validator::process($form["struct"], $post, 'articlenew')){
-					$errors=["articlenew"];
-				}else{
-					Route::redirect('AllArticles');	
-				}
-			}
-		}
-
-		$v = new View();
-		$v->setView("cms/newarticle","templateadmin");
-		$v->massAssign([
-			"form" => $form,
-			"title" => "Nouvel article",
-			"icon" => "icon-pen",
-			"errors" => $errors
-		]);
-	}
-
-	public function editArticleAction(Request $request){
-
-		$post = $request->getPost();
-		$param = $request->getParams();
-
-		$form = Post::getFormEditArticle();
-		$errors = [];
+        $form = Post::getFormEditArticle();
+        $errors = [];
 
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $request->setPost(['id'], $param['id']);
 
-			$request->setPost(['id'], $param['id']);
+            $errors = Validator::check($form["struct"], $post);
 
-			$errors = Validator::check($form["struct"], $post);
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $post, 'edit-article')) {
+                    $errors=["articlenew"];
+                } else {
+                    Route::redirect('AllArticles');
+                }
+            }
+        }
 
-			if(!$errors){
-				if(!Validator::process($form["struct"], $post, 'edit-article')){
-					$errors=["articlenew"];
-				}else{
-					Route::redirect('AllArticles');
-				}
-			}
-		}
+        $qb = new QueryBuilder();
+        $data = $qb->all('post')->where('id', $param['id'])->and()->where('type', 1)->fetchOrFail();
 
-		$qb = new QueryBuilder();
-		$data = $qb->all('post')->where('id',$param['id'])->and()->where('type',1)->fetchOrFail();
+        $_POST['title'] = $data['title'];
+        $_POST['wesic-wysiwyg'] = html_entity_decode($data['content']);
+        $_POST['slug'] = $data['slug'];
+        $_POST['aa'] = substr($data['published_at'], 0, 4);
+        $_POST['mm'] = substr($data['published_at'], 5, 2);
+        $_POST['jj'] = substr($data['published_at'], 8, 2);
+        $_POST['hh'] = substr($data['published_at'], 11, 2);
+        $_POST['mn'] = substr($data['published_at'], 14, 2);
+        $_POST['visibility'] = $data['visibility'];
+        $_POST['excerpt'] = $data['excerpt'];
+        $_POST['description'] = $data['description'];
+        $_POST['category'] = Category::getCategory($data['id']);
+        
+        $v = new View();
+        $v->setView("cms/newarticle", "templateadmin");
+        $v->massAssign([
+            "form"=>$form,
+            "title" => "Nouvel article",
+            "icon" => "icon-pen",
+            "errors" => $errors
+        ]);
+    }
+/**
+ * [deleteArticleAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
+    public static function deleteArticleAction(Request $request)
+    {
+        $param = $request->getParams();
 
-		$_POST['title'] = $data['title'];
-		$_POST['wesic-wysiwyg'] = html_entity_decode($data['content']);
-		$_POST['slug'] = $data['slug'];
-		$_POST['aa'] = substr($data['published_at'],0,4);
-		$_POST['mm'] = substr($data['published_at'],5,2);
-		$_POST['jj'] = substr($data['published_at'],8,2);
-		$_POST['hh'] = substr($data['published_at'],11,2);
-		$_POST['mn'] = substr($data['published_at'],14,2);
-		$_POST['visibility'] = $data['visibility'];
-		$_POST['excerpt'] = $data['excerpt'];
-		$_POST['description'] = $data['description'];
-		$_POST['category'] = Category::getCategory($data['id']);
-		
-		$v = new View();
-		$v->setView("cms/newarticle","templateadmin");
-		$v->massAssign([
-			"form"=>$form,
-			"title" => "Nouvel article",
-			"icon" => "icon-pen",
-			"errors" => $errors
-		]);
-	}
+        Post::deleteArticle($param['id']);
 
-	public static function deleteArticleAction(Request $request){
+        Route::redirect('AllArticles');
+    }
+/**
+ * [getRssAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
+    public function getRssAction(Request $request)
+    {
+        $get = $request->getGet();
 
-		$param = $request->getParams();
+        $qb = new QueryBuilder();
 
-		Post::deleteArticle($param['id']);
+        $pagination = Setting::getParam('pagination-rss');
+        
+        $qb->findAll('post')->where('status', 1)->and()->addWhere('datePublied', '<=', date("Y-m-d H:i:s"));
 
-		Route::redirect('AllArticles');
+        if (!isset($get['page'])) {
+            $qb->limit('0', $pagination);
+        } else {
+            $qb->limit($get['page']*$pagination-$pagination, $pagination);
+        }
 
-	} 
+        $articles = $qb->get();
 
-	public function getRssAction(Request $request){
-
-		$get = $request->getGet();
-
-		$qb = new QueryBuilder();
-
-		$pagination = Setting::getParam('pagination-rss');
-		
-		$qb->findAll('post')->where('status',1)->and()->addWhere('datePublied','<=',date("Y-m-d H:i:s"));
-
-		if(!isset($get['page'])){
-			$qb->limit('0',$pagination);
-
-		}else{
-			$qb->limit($get['page']*$pagination-$pagination,$pagination);
-		}
-
-		$articles = $qb->get();
-
-		$v = new View();
-		$v->setView("article/rss","templateajax");
-		$v->massAssign([
-			"title" => "Flux RSS",
-			"icon" => "icon-pen",
-			"url" => Setting::getParam('url'),
-			"sitename" => Setting::getParam('title'),
-			"pagination" => Setting::getParam('title'),
-			"pagination" => $pagination,
-			"page" => $_GET['page'],
-			"articles" => $articles
-		]);
-	}
+        $v = new View();
+        $v->setView("article/rss", "templateajax");
+        $v->massAssign([
+            "title" => "Flux RSS",
+            "icon" => "icon-pen",
+            "url" => Setting::getParam('url'),
+            "sitename" => Setting::getParam('title'),
+            "pagination" => Setting::getParam('title'),
+            "pagination" => $pagination,
+            "page" => $_GET['page'],
+            "articles" => $articles
+        ]);
+    }
 }

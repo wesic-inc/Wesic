@@ -3,11 +3,20 @@
 
 class userController
 {
+    /**
+     * [indexAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public static function indexAction($args)
     {
         echo "Profile";
     }
-
+/**
+ * [allUsersAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public function allUsersAction(Request $request)
     {
         $param = $request->getParams();
@@ -50,6 +59,11 @@ class userController
 
         ]);
     }
+    /**
+     * [allUsersAjaxAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public function allUsersAjaxAction($args)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -73,7 +87,10 @@ class userController
             Route::redirect('Error404');
         }
     }
-
+/**
+ * [addUserAction description]
+ * @param Request $request [description]
+ */
     public function addUserAction(Request $request)
     {
         $form = User::getFormNewUser();
@@ -104,6 +121,11 @@ class userController
             "errors"=> $errors
         ]);
     }
+    /**
+     * [flagDeleteUserAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function flagDeleteUserAction(Request $request)
     {
         $id = $request->getParam('id');
@@ -112,7 +134,11 @@ class userController
 
         Route::redirect('AllUsers');
     }
-
+    /**
+     * [editUserAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function editUserAction(Request $request)
     {
         $param = $request->getParams();
@@ -159,7 +185,11 @@ class userController
         ]);
     }
 
-
+    /**
+     * [viewUserAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function viewUserAction(Request $request)
     {
         $param = $request->getParams();
@@ -230,7 +260,11 @@ class userController
     //         ]);
     //     }
     // }
-
+    /**
+     * [newAccountConfirmationAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function newAccountConfirmationAction(Request $request)
     {
         $param = $request->getParams();
@@ -251,7 +285,11 @@ class userController
         $v->setView("login/emailconfirmed", "templateadmin-modal");
         $v->massAssign(["title"=>"Merci !","description"=>"Connexion"]);
     }
-
+    /**
+     * [newsletterConfirmationAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function newsletterConfirmationAction(Request $request)
     {
         $param = $request->getParams();
@@ -274,6 +312,11 @@ class userController
         $v->setView("login/emailconfirmed", "templateadmin-modal");
         $v->massAssign(["title"=>"Merci !","description"=>"Connexion"]);
     }
+    /**
+     * [forceNewPasswordAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function forceNewPasswordAction(Request $request)
     {
         $user = new User();
@@ -282,6 +325,11 @@ class userController
             Passwordrecovery::sendResetPassword($userFound['login']);
         }
     }
+    /**
+     * [disableUserAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function disableUserAction(Request $request)
     {
         $param = $request->getParams();
@@ -294,6 +342,11 @@ class userController
             Route::redirect('EditUser', $userFound['id']);
         }
     }
+    /**
+     * [banUserAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public function banUserAction($args)
     {
         $param = $request->getParams();
@@ -305,6 +358,11 @@ class userController
             Route::redirect('EditUser', $userFound['id']);
         }
     }
+    /**
+     * [deleteUserAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public function deleteUserAction($args)
     {
         $param = $request->getParams();
@@ -316,6 +374,11 @@ class userController
             Route::redirect('EditUser', $userFound['id']);
         }
     }
+    /**
+     * [destroyUserAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public function destroyUserAction($args)
     {
         echo "user boom boom";

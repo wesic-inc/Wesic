@@ -1,7 +1,11 @@
 <?php
 class eventController{
 
-
+/**
+ * [indexAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function indexAction(Request $request){
 
 		$params = $request->getParams();
@@ -10,7 +14,11 @@ class eventController{
 		$v->setView("event/index","templateadmin")->massAssign(["title"=>"Evenements","icon"=>"icon-alarm"]);
 
 	}
-
+/**
+ * [allEventsAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function allEventsAction(Request $request){
 
 		$param = $request->getParams();
@@ -36,7 +44,10 @@ class eventController{
 		]);
 
 	}
-
+/**
+ * [addEventAction description]
+ * @param Request $request [description]
+ */
 	public function addEventAction(Request $request)
 	{
 		$form = Event::getFormNewEvent();

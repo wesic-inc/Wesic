@@ -5,6 +5,12 @@ class View
     protected $view;
     protected $template;
 
+    /**
+     * [setView description]
+     * @param [type] $view   [description]
+     * @param string $layout [description]
+     * @param string $scope  [description]
+     */
     public function setView($view, $layout="template", $scope="back")
     {
         if ($scope == "back") {
@@ -31,18 +37,36 @@ class View
         return $this;
     }
 
+    /**
+     * [createForm description]
+     * @param  [type] $form   [description]
+     * @param  [type] $errors [description]
+     * @return [type]         [description]
+     */
     public function createForm($form, $errors)
     {
         global $errors_msg;
         include "views/templates/form.tpl.php";
     }
 
+    /**
+     * [addModal description]
+     * @param [type] $modal  [description]
+     * @param array  $config [description]
+     * @param array  $errors [description]
+     */
     public function addModal($modal, $config=[], $errors=[])
     {
         global $errors_msg;
         include "views/modals/".$modal.".mdl.php";
     }
 
+    /**
+     * [setFlash description]
+     * @param [type] $title [description]
+     * @param [type] $body  [description]
+     * @param [type] $type  [description]
+     */
     public static function setFlash($title, $body, $type)
     {
         $_SESSION['flash-type'] = $type;
@@ -51,6 +75,10 @@ class View
         $_SESSION['flash-id'] = uniqid();
     }
 
+    /**
+     * [destroyFlash description]
+     * @return [type] [description]
+     */
     public static function destroyFlash()
     {
         unset($_SESSION['flash-type']);
@@ -59,11 +87,22 @@ class View
         unset($_SESSION['flash-id']);
     }
 
+    /**
+     * [assign description]
+     * @param  [type] $key   [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
     public function assign($key, $value)
     {
         $this->data[$key]=$value;
     }
 
+    /**
+     * [massAssign description]
+     * @param  [type] $vars [description]
+     * @return [type]       [description]
+     */
     public function massAssign($vars)
     {
         foreach ($vars as $key => $value) {
@@ -71,6 +110,9 @@ class View
         }
     }
 
+    /**
+     * [__destruct description]
+     */
     public function __destruct()
     {
         global $a, $c, $sitename, $args;

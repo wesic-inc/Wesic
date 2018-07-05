@@ -1,10 +1,15 @@
 <?php
 
-// Inclusion du fichier qui gère toute la config
+/**
+ * Inclusion du fichier qui gère toute la config
+ */
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/core/_aliases.php";
 
-// Si le CMS est en debug, affichage des erreurs et alias des fonctions de debug
+/**
+ * [$debug description]
+ * @var [type]
+ */
 if ($debug==true) {
     error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
@@ -32,6 +37,11 @@ if ($debug==true) {
     ini_set('display_errors', 0);
 }
 
+/**
+ * [autoloader description]
+ * @param  [type] $class [description]
+ * @return [type]        [description]
+ */
 function autoloader($class)
 {
     if (file_exists("core/".$class.".class.php")) {
@@ -47,9 +57,12 @@ spl_autoload_register('autoloader');
 
 
 
-
-// Appelle la fonction qui permet de gérer tout le routing du site
+/**
+ * [$route description]
+ * @var [type]
+ */
 $route = Route::makeRouting();
+
 
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";

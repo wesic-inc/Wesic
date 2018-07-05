@@ -1,6 +1,10 @@
 <?php
 class settingController{
-
+/**
+ * [indexAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function indexAction(Request $request){
 
 		$post = $request->getPost();
@@ -43,7 +47,11 @@ class settingController{
 			"errors" =>  $errors
 		]);
 	}
-
+/**
+ * [postAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function postAction(Request $request){
 
 		$post = $request->getPost();
@@ -83,7 +91,11 @@ class settingController{
 		]);
 		
 	}
-
+/**
+ * [viewAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function viewAction(Request $request){
 
 		$post = $request->getPost();

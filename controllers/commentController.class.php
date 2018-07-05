@@ -1,6 +1,11 @@
 <?php
 class commentController
 {
+    /**
+     * [indexAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function indexAction(Request $request)
     {
         $post = $request->getPost();
@@ -36,7 +41,11 @@ class commentController
             "elementNumber" => 0,
         ]);
     }
-
+/**
+ * [singleCommentAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function singleCommentAction(Request $request)
     {
 
@@ -92,7 +101,11 @@ class commentController
             "errors" => $errors,
         ]);
     }
-
+/**
+ * [terminatorAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function terminatorAction(Request $request){
         dd($request);
 
@@ -107,7 +120,11 @@ class commentController
             "errors" => $errors,
         ]);
     }
-
+/**
+ * [disapproveCommentAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function disapproveCommentAction(Request $request)
     {
         Comment::setCommentStatus($request->getParam('id'), 3);
@@ -122,7 +139,11 @@ class commentController
         }
 
     }
-
+/**
+ * [disapproveCommentAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function approveCommentAction(Request $request){
         Comment::setCommentStatus($request->getParam('id'), 1);
         
@@ -136,7 +157,11 @@ class commentController
             Route::toUrl('/'.$request->getParam('redirect'));
         }
     }    
-
+/**
+ * [deleteCommentAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function deleteCommentAction(Request $request){
         Comment::setCommentStatus($request->getParam('id'), 5);
 
@@ -150,7 +175,11 @@ class commentController
         }
 
     }    
-
+/**
+ * [deleteCommentAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function reportCommentAction(Request $request){
         Comment::setCommentStatus($request->getParam('id'), 4);
         if($request->getParam('redirect') == '1'){

@@ -6,11 +6,20 @@ if (!isset($_SESSION)) {
 
 class Route
 {
+    /**
+     * [getRoot description]
+     * @return [type] [description]
+     */
     public static function getRoot()
     {
         return getenv('HTTP_HOST')."/";
     }
 
+    /**
+     * [get description]
+     * @param  [type] $route [description]
+     * @return [type]        [description]
+     */
     public static function get($route)
     {
         global $route_access;
@@ -21,6 +30,11 @@ class Route
         }
     }
 
+    /**
+     * [getAll description]
+     * @param  [type] $route [description]
+     * @return [type]        [description]
+     */
     public static function getAll($route)
     {
         global $route_access;
@@ -31,16 +45,33 @@ class Route
         }
     }
 
+    /**
+     * [assets description]
+     * @param  [type] $uri [description]
+     * @return [type]      [description]
+     */
     public static function assets($uri)
     {
         echo ROOT_URL.'public/'.$object;
     }
 
+    /**
+     * [echo description]
+     * @param  [type] $route     [description]
+     * @param  string $parameter [description]
+     * @return [type]            [description]
+     */
     public static function echo($route, $parameter = "")
     {
         echo self::getAll($route).$parameter;
     }
 
+    /**
+     * [redirect description]
+     * @param  [type] $route     [description]
+     * @param  string $parameter [description]
+     * @return [type]            [description]
+     */
     public static function redirect($route, $parameter = "")
     {
         $redirect = 'location: '.self::getAll($route);
@@ -48,17 +79,31 @@ class Route
             $redirect .= "/".$parameter;
         }
         header($redirect);
-    }    
+    } 
+
+    /**
+     * [toUrl description]
+     * @param  [type] $path [description]
+     * @return [type]       [description]
+     */
     public static function toUrl($path)
     {
         $redirect = 'location: '.$path;
         header($redirect);
     }
 
+    /**
+     * [refresh description]
+     * @return [type] [description]
+     */
     public static function refresh(){
         header("Refresh:0");
     }
 
+    /**
+     * [allRouteSlug description]
+     * @return [type] [description]
+     */
     public static function allRouteSlug()
     {
         global $route_access;
@@ -69,6 +114,11 @@ class Route
         return $slugPartial;
     }
 
+    /**
+     * [getRouteInfo description]
+     * @param  string $route [description]
+     * @return [type]        [description]
+     */
     public static function getRouteInfo($route = "")
     {
         global $route_access;
@@ -83,6 +133,11 @@ class Route
         }
     }
 
+    /**
+     * [checkParameters description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public static function checkParameters($args)
     {
         $routeInfo = Route::getRouteInfo(Route::getRoute());
@@ -140,7 +195,12 @@ class Route
         }
     }
 
-    // Allow to add another url param to your url without overwriting existing ones
+    /**
+     * [makeParams description]
+     * @param  [type] $key   [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
     public static function makeParams($key, $value)
     {
         
@@ -160,6 +220,12 @@ class Route
         return $generatedParams;
     }
 
+    /**
+     * [validateParameterType description]
+     * @param  [type] $type  [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
     public static function validateParameterType($type, $value)
     {
         $parameterFlag = false;
@@ -189,6 +255,11 @@ class Route
         return $parameterFlag;
     }
 
+    /**
+     * [getPermissions description]
+     * @param  [type] $route [description]
+     * @return [type]        [description]
+     */
     public static function getPermissions($route)
     {
         $connected = Auth::isConnected();
@@ -223,6 +294,11 @@ class Route
         return false;
     }
 
+    /**
+     * [getPermissionsDev description]
+     * @param  [type] $route [description]
+     * @return [type]        [description]
+     */
     public static function getPermissionsDev($route)
     {
         $connected = Auth::isConnected();
@@ -267,6 +343,10 @@ class Route
         return $route['redirect'];
     }
 
+    /**
+     * [getUri description]
+     * @return [type] [description]
+     */
     public static function getUri()
     {
         $uri = $_SERVER['REQUEST_URI'];
@@ -292,6 +372,10 @@ class Route
         return [$uri,$params];
     }
 
+    /**
+     * [getRoute description]
+     * @return [type] [description]
+     */
     public static function getRoute()
     {
         global $route_access;
@@ -307,6 +391,10 @@ class Route
         self::getUri()[0];
     }
 
+    /**
+     * [makeRouting description]
+     * @return [type] [description]
+     */
     public static function makeRouting()
     {
         global $rof;

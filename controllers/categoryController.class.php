@@ -1,6 +1,11 @@
 <?php
 class categoryController
 {
+    /**
+     * [allCategoriesAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function allCategoriesAction(Request $request)
     {
         $post = $request->getPost();
@@ -14,7 +19,7 @@ class categoryController
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-                $request->setPost('type',1);
+                $request->setPost('type', 1);
                 if (!Validator::process($form["struct"], $post, 'new-category')) {
                     $errors = ["categorynew"];
                 } else {
@@ -28,8 +33,8 @@ class categoryController
         $qb->findAll('category')->where('type', 1)->or()->where('type', 3);
 
         // if (isset($get['s'])) {
-        // 	$search = $get['s'];
-        // 	$qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
+        //  $search = $get['s'];
+        //  $qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
         // }
 
         $categories = $qb->get();
@@ -44,7 +49,11 @@ class categoryController
             "errors" => $errors
         ]);
     }
-
+/**
+ * [editCategoryAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function editCategoryAction(Request $request)
     {
         $post = $request->getPost();
@@ -59,7 +68,6 @@ class categoryController
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-
                 $request->setPost(['type'], 1);
 
                 if (!Validator::process($form["struct"], $post, 'edit-category')) {
@@ -71,7 +79,7 @@ class categoryController
         }
 
         $qb = new QueryBuilder();
-        $category = $qb->findAll('category')->where('id',$param['id'])->fetchOrFail();
+        $category = $qb->findAll('category')->where('id', $param['id'])->fetchOrFail();
 
         $_POST['label'] = $category['label'];
         $_POST['slug'] = $category['slug'];
@@ -86,7 +94,11 @@ class categoryController
             "errors" => $errors
         ]);
     }
-
+/**
+ * [deleteCategoryAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
     public static function deleteCategoryAction($args)
     {
         $param = $args['params'];
@@ -95,12 +107,20 @@ class categoryController
 
         Route::redirect('Categories');
     }
-
+/**
+ * [archiveAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
     public static function archiveAction($args)
     {
         echo "oljkhhkhkm";
     }
-
+/**
+ * [allTagsAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
     public static function allTagsAction(Request $request)
     {
         $form = Category::getFormNewTag();
@@ -114,7 +134,7 @@ class categoryController
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-                $request->setPost('type',2);
+                $request->setPost('type', 2);
                 if (!Validator::process($form["struct"], $post, 'new-category')) {
                     $errors=["categorynew"];
                 } else {
@@ -124,7 +144,7 @@ class categoryController
         }
 
         $qb = new QueryBuilder();
-        $tags = $qb->all('category')->where('type',2)->paginate(10);
+        $tags = $qb->all('category')->where('type', 2)->paginate(10);
 
         $v = new View();
         $v->setView("category/tag", "templateadmin");
@@ -136,7 +156,11 @@ class categoryController
             "errors" => $errors
         ]);
     }
-
+/**
+ * [editTagAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
     public static function editTagAction($args)
     {
         $form = Category::getFormEditCategory();
@@ -178,6 +202,4 @@ class categoryController
             "errors"=>$errors
         ]);
     }
-
-
 }

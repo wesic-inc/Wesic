@@ -1,6 +1,11 @@
 <?php
 
 class statController{
+	/**
+	 * [indexAction description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function indexAction(Request $request){
 		
 		$statsK = stat::numberOfViewsKnown();
@@ -64,7 +69,11 @@ class statController{
 		]);
 	
 	}
-
+/**
+ * [exportAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function exportAction(Request $request){
 		
 		$v = new View();

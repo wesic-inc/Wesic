@@ -1,9 +1,11 @@
 <?php
 
-
-
 class indexController{
-
+/**
+ * [indexAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 	public function indexAction($args){
 
 		$article = new Post();
@@ -15,7 +17,11 @@ class indexController{
 
 		Stat::add(1,"page d'accueuil",3);
 	}
-
+/**
+ * [indexAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 	public function testAction($args){
 		echo "Bonjour2";
 	}

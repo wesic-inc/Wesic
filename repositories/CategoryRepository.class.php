@@ -7,6 +7,11 @@ class CategoryRepository extends Basesql
         parent::__construct();
     }
 
+    /**
+     * [newCategory description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function newCategory($data)
     {
         $category = new Category();
@@ -34,11 +39,16 @@ class CategoryRepository extends Basesql
         }
     }
 
+    /**
+     * [editCategory description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function editCategory($data)
     {
         $qb = new QueryBuilder();
 
-        $currentCat = $qb->all('category')->where('id',$data['id'])->fetchOne();
+        $currentCat = $qb->all('category')->where('id', $data['id'])->fetchOne();
 
 
         if ($currentCat['slug'] === $data['slug']) {
@@ -64,12 +74,18 @@ class CategoryRepository extends Basesql
 
         if ($slugUpdate == true) {
             $qb->reset();
-            $qb->delete()->from('slug')->where('slug',$currentPost['slug'])->get();
+            $qb->delete()->from('slug')->where('slug', $currentPost['slug'])->get();
         }
 
         return true;
     }
 
+    /**
+     * [categoryExists description]
+     * @param  [type] $label [description]
+     * @param  [type] $slug  [description]
+     * @return [type]        [description]
+     */
     public static function categoryExists($label, $slug)
     {
         $category = new Category();
@@ -77,20 +93,25 @@ class CategoryRepository extends Basesql
         $categories = $category->getData('category', ['label'=>$label,'slug'=>$slug], ['AND']);
     }
 
+    /**
+     * [deleteCategory description]
+     * @param  [type] $category [description]
+     * @return [type]           [description]
+     */
     public static function deleteCategory($category)
     {
         $qb = new QueryBuilder();
 
-        $qb->update('join_article_category')->set('category_id = :default')->setParameter('default', Setting::getParam('default-cat'))->where('category_id',$category)->save();
+        $qb->update('join_article_category')->set('category_id = :default')->setParameter('default', Setting::getParam('default-cat'))->where('category_id', $category)->save();
 
         $qb->reset();
         $current =
-        $qb->delete()->from('category')->where('id',$category)->and()->where('type',1)->fetchOne();
+        $qb->delete()->from('category')->where('id', $category)->and()->where('type', 1)->fetchOne();
 
         $qb->reset();
 
 
-        $protectedCat = $qb->findAll('category')->where('type',3)->fetchOne();
+        $protectedCat = $qb->findAll('category')->where('type', 3)->fetchOne();
 
         if (Setting::getParam('default-cat')==$category) {
             $setting = new Setting();
@@ -99,7 +120,12 @@ class CategoryRepository extends Basesql
         }
     }
 
-
+    /**
+     * [createCategoryJoin description]
+     * @param  [type] $category [description]
+     * @param  [type] $article  [description]
+     * @return [type]           [description]
+     */
     public static function createCategoryJoin($category, $article)
     {
         $qb = new QueryBuilder();
@@ -107,12 +133,12 @@ class CategoryRepository extends Basesql
         $relation = $qb->select('join_article_category.category_id')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
-        ->where('join_article_category.post_id',$article)
+        ->where('join_article_category.post_id', $article)
         ->and()
         ->openBracket()
-        ->where('category.type',1)
+        ->where('category.type', 1)
         ->or()
-        ->addWhere('category.type',3)
+        ->addWhere('category.type', 3)
         ->closeBracket()
         ->execute();
 
@@ -122,12 +148,12 @@ class CategoryRepository extends Basesql
             $qb->delete('join_article_category')
             ->from('join_article_category')
             ->innerJoin('category', 'category.id = join_article_category.category_id')
-            ->where('join_article_category.post_id',$article)
+            ->where('join_article_category.post_id', $article)
             ->and()
             ->openBracket()
-            ->addWhere('category.type',1)
+            ->addWhere('category.type', 1)
             ->or()
-            ->addWhere('category.type',3)
+            ->addWhere('category.type', 3)
             ->closeBracket()
             ->execute();
         }
@@ -138,65 +164,79 @@ class CategoryRepository extends Basesql
         $catRelation->save();
     }
 
+    /**
+     * [getCategory description]
+     * @param  [type] $article [description]
+     * @return [type]          [description]
+     */
     public static function getCategory($article)
-    {   
+    {
         $qb = new QueryBuilder();
         $cat = $qb->select('category.label,category.slug')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
-        ->where('join_article_category.post_id',$article)
+        ->where('join_article_category.post_id', $article)
         ->and()
         ->openBracket()
-        ->where('category.type',1)
+        ->where('category.type', 1)
         ->or()
-        ->where('category.type',3)
+        ->where('category.type', 3)
         ->closeBracket()
         ->fetchOne();
         return ['label'=>$cat['label'],'slug'=>$cat['slug']];
-    }    
+    }
+
+    /**
+     * [getTags description]
+     * @param  [type] $article [description]
+     * @return [type]          [description]
+     */
     public static function getTags($article)
-    {   
+    {
         $output = [];
         $qb = new QueryBuilder();
         $tags = $qb->select('category.label')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
-        ->where('join_article_category.post_id',$article)
+        ->where('join_article_category.post_id', $article)
         ->and()
-        ->where('category.type',2)
+        ->where('category.type', 2)
         ->get();
         foreach ($tags as $tag) {
-            array_push($output,$tag['label']);
+            array_push($output, $tag['label']);
         }
         return $output;
     }
 
-// Recupère les tags choisis par l'utilisateur puis renvoie les ids correspondant
-    public static function addTags($tags){
-
-        function format($item2,$key){
+    /**
+     * [addTags description]
+     * @param [type] $tags [description]
+     */
+    public static function addTags($tags)
+    {
+        function format($item2, $key)
+        {
             strtolower(trim($key));
         }
-        array_walk($tags,'format');
+        array_walk($tags, 'format');
 
         $qb = new QueryBuilder();
-        $dbTags = $qb->all('category')->where('type',2)->get();
+        $dbTags = $qb->all('category')->where('type', 2)->get();
         $existingTags = [];
         $tagIds = [];
-        //On recupere les tags existants en base, et leurs ids dans 2 tableaux différents
+
         foreach ($dbTags as $tag) {
-            if(in_array(strtolower($tag['label']),$tags)){
-                array_push($existingTags,$tag['label']);
+            if (in_array(strtolower($tag['label']), $tags)) {
+                array_push($existingTags, $tag['label']);
                 array_push($tagIds, $tag['id']);
             }
         }
-        //On supprime les tags existants 
-        foreach ($existingTags as $tag) {
-            unset($tags[array_search($tag,$tags)]);
-        }
-        //On ajoute les nouveaux tags en base tout en récupérant leurs ids
-        foreach ($tags as $label) {
 
+        foreach ($existingTags as $tag) {
+            unset($tags[array_search($tag, $tags)]);
+        }
+
+        foreach ($tags as $label) {
             $tag = new Category;
             
             $tag->setType(2);
@@ -205,11 +245,19 @@ class CategoryRepository extends Basesql
 
             array_push($tagIds, $tag->getId());
         }
-        // On retourne la listes des ids des tags 
+
         return $tagIds;
     }
 
-    public static function attachTagsToPost($tags,$idPost){
+
+/**
+ * [attachTagsToPost description]
+ * @param  [type] $tags   [description]
+ * @param  [type] $idPost [description]
+ * @return [type]         [description]
+ */
+    public static function attachTagsToPost($tags, $idPost)
+    {
 
         // dd($tags);
 
@@ -218,20 +266,19 @@ class CategoryRepository extends Basesql
         $relation = $qb->select('join_article_category.category_id')
         ->from('join_article_category')
         ->innerJoin('category', 'category.id = join_article_category.category_id')
-        ->where('join_article_category.post_id',$idPost)
+        ->where('join_article_category.post_id', $idPost)
         ->and()
-        ->where('category.type',2)
+        ->where('category.type', 2)
         ->execute();
 
         if (!empty($relation)) {
-
             $qb->reset();
             $qb->delete('join_article_category')
             ->from('join_article_category')
             ->innerJoin('category', 'category.id = join_article_category.category_id')
-            ->where('join_article_category.post_id',$idPost)
+            ->where('join_article_category.post_id', $idPost)
             ->and()
-            ->addWhere('category.type',2)
+            ->addWhere('category.type', 2)
             ->execute();
         }
 
@@ -241,6 +288,5 @@ class CategoryRepository extends Basesql
             $join->setPostId($idPost);
             $join->save();
         }
-
     }
 }

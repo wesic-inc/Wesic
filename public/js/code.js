@@ -201,7 +201,6 @@ $('#tags-input').keydown(function(e){
   var tags = [];
   var x = document.getElementsByName("tags");
 
-
   for (i = 0; i < tagsHtml.length; i++) {
     tags.push(tagsHtml[i].innerText);
   }

@@ -326,7 +326,7 @@ class Post extends PostRepository
 
            "category"=>[ "label"=>"La catégorie de votre article", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>'category'],
 
-           "tags"=>[ "label"=>"", "type"=>"tag", "id"=>"tags-input", "placeholder"=>"Tags de l'article","msgerror"=>"tags","helper"=>"Tapez votre tag, et appuyer sur entrée pour l'ajouter à la liste"],
+           "tags"=>[ "label"=>"", "type"=>"tag", "id"=>"tags-input", "placeholder"=>"Tags de l'article","msgerror"=>"tags","helper"=>"Tapez votre tag, et appuyer sur entrée pour l'ajouter à la liste."],
 
            "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
 

@@ -10,6 +10,15 @@ class Request
     private $attributes;
     private $paginate;
 
+    /**
+     * [__construct description]
+     * @param [type] $request  [description]
+     * @param [type] $post     [description]
+     * @param [type] $get      [description]
+     * @param [type] $params   [description]
+     * @param [type] $route    [description]
+     * @param [type] $paginate [description]
+     */
     public function __construct($request,$post,$get,$params,$route,$paginate = null)
     {
     	$this->server = $request; 
@@ -21,18 +30,15 @@ class Request
     }
 
     /**
-     * @return mixed
+     * [getServer description]
+     * @return [type] [description]
      */
     public function getServer()
     {
         return $this->server;
     }
 
-    /**
-     * @param mixed $server
-     *
-     * @return self
-     */
+    
     public function setServer($server)
     {
         $this->server = $server;
@@ -162,9 +168,11 @@ class Request
     }
 
     /**
-     * @param mixed $paginate
-     *
-     * @return self
+     * [setPaginate description]
+     * @param [type] $count   [description]
+     * @param [type] $nbPage  [description]
+     * @param [type] $perPage [description]
+     * @param [type] $current [description]
      */
     public function setPaginate($count,$nbPage,$perPage,$current)
     {

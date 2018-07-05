@@ -4,7 +4,11 @@ if(!isset($_SESSION))
 	session_start();
 
 class loginController{
-
+/**
+ * [indexAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public function indexAction(Request $request){
 
 		$param = $request->getParams();
@@ -40,11 +44,19 @@ class loginController{
 		
 
 	}
+	/**
+	 * [logoutAction description]
+	 * @return [type] [description]
+	 */
 	public function logoutAction(){
 		Auth::logoutUser();
 		Route::redirect('Login');
 	}
-
+	/**
+	 * [signupAction description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function signupAction(Request $request){
 
 		$param = $request->getParams();
@@ -79,7 +91,11 @@ class loginController{
 			"errors" => $errors
 		]);
 	}
-
+/**
+ * [getNewPasswordAction description]
+ * @param  Request $request [description]
+ * @return [type]           [description]
+ */
 	public static function getNewPasswordAction(Request $request){
 		
 		$post = $request->getPost();

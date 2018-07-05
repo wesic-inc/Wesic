@@ -1,6 +1,10 @@
 <?php
 class newsletterController{
-
+/**
+ * [signUpAction description]
+ * @param  [type] $args [description]
+ * @return [type]       [description]
+ */
 	public function signUpAction($args){
 
 
@@ -34,6 +38,11 @@ class newsletterController{
 		]);
 
 	}
+	/**
+	 * [signUpAction description]
+	 * @param  [type] $args [description]
+	 * @return [type]       [description]
+	 */
 	public function signUpSuccessAction($args){
 
 		$v = new View();

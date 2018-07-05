@@ -1,7 +1,11 @@
 <?php
 
 class Format {
-
+/**
+ * [getRole description]
+ * @param  [type] $code [description]
+ * @return [type]       [description]
+ */
 	static function getRole($code){
 		
 		switch ($code) {
@@ -25,7 +29,11 @@ class Format {
 			break;
 		}
 	}
-
+/**
+ * [getStatusUser description]
+ * @param  [type] $code [description]
+ * @return [type]       [description]
+ */
 	static function getStatusUser($code){
 		
 		switch ($code) {
@@ -50,7 +58,11 @@ class Format {
 		}
 	}
 
-
+/**
+ * [translateCategory description]
+ * @param  [type] $code [description]
+ * @return [type]       [description]
+ */
 	static function translateCategory($code){
 		$qb = new QueryBuilder();
 		return $qb->findAll('category')
@@ -58,7 +70,11 @@ class Format {
 		->setParameter('id',$code)
 		->fetchOne()['label'];
 	}
-
+/**
+ * [getStatusArticle description]
+ * @param  [type] $code [description]
+ * @return [type]       [description]
+ */
 	static function getStatusArticle($code){
 		
 		switch ($code) {
@@ -76,7 +92,11 @@ class Format {
 			break;
 		}
 	}
-
+/**
+ * [getAuthorName description]
+ * @param  [type] $id [description]
+ * @return [type]     [description]
+ */
 	static function getAuthorName($id){
 
 		$qb = new QueryBuilder();
@@ -86,7 +106,13 @@ class Format {
 		return ucfirst($author['login']);
 	}
 
-
+/**
+ * [dump description]
+ * @param  [type]  $var  [description]
+ * @param  boolean $die  [description]
+ * @param  integer $type [description]
+ * @return [type]        [description]
+ */
 	static function dump($var,$die = false,$type = 1){
 
 		if($type == 1){
@@ -99,6 +125,12 @@ class Format {
 			die();
 		}
 	}
+/**
+ * [humanTime description]
+ * @param  [type]  $datetime [description]
+ * @param  boolean $full     [description]
+ * @return [type]            [description]
+ */
 	static function humanTime($datetime, $full = false)
 	{
 
@@ -130,7 +162,12 @@ class Format {
 		return $string ? 'il y a '.implode(', ', $string) : "à l'instant";
 
 	}
-
+/**
+ * [pageCalc description]
+ * @param  [type] $count          [description]
+ * @param  [type] $elementPerPage [description]
+ * @return [type]                 [description]
+ */
 	static function pageCalc($count,$elementPerPage){
 
 		$nbPage = $count/$elementPerPage;
@@ -146,11 +183,20 @@ class Format {
 		return intval($nbPage);
 
 	}
-
+/**
+ * [img description]
+ * @param  [type] $name [description]
+ * @return [type]       [description]
+ */
 	static function img($name){
 		echo ROOT_URL.'public/img/'.$name;
 	}
-
+/**
+ * [dateDisplay description]
+ * @param  [type] $date [description]
+ * @param  [type] $type [description]
+ * @return [type]       [description]
+ */
 	static function dateDisplay($date,$type){
 
 		if($date==0){
@@ -174,6 +220,12 @@ class Format {
 			break;
 		}
 	}
+	/**
+	 * [timeDisplay description]
+	 * @param  [type] $time [description]
+	 * @param  [type] $type [description]
+	 * @return [type]       [description]
+	 */
 	static function timeDisplay($time,$type){
 		
 		if($time==0){

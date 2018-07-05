@@ -2,6 +2,12 @@
 
 class SettingRepository extends Basesql
 {
+
+    /**
+     * [editSettings description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function editSettings($data)
     {
         $setting = new Setting();
@@ -20,6 +26,11 @@ class SettingRepository extends Basesql
         return true;
     }
 
+    /**
+     * [editSettingsPost description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function editSettingsPost($data)
     {
         $setting = new Setting();
@@ -35,6 +46,12 @@ class SettingRepository extends Basesql
 
         return true;
     }
+
+    /**
+     * [editSettingsView description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function editSettingsView($data)
     {
         $setting = new Setting();
@@ -49,6 +66,10 @@ class SettingRepository extends Basesql
         return true;
     }
 
+    /**
+     * [getSettings description]
+     * @return [type] [description]
+     */
     public static function getSettings()
     {
         $qb = new QueryBuilder();
@@ -64,6 +85,11 @@ class SettingRepository extends Basesql
         return $output;
     }
 
+    /**
+     * [getParam description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public static function getParam($id)
     {
         $qb = new QueryBuilder();
@@ -72,6 +98,11 @@ class SettingRepository extends Basesql
         return $param['value'];
     }
 
+    /**
+     * [setParam description]
+     * @param [type] $id    [description]
+     * @param [type] $value [description]
+     */
     public function setParam($id, $value)
     {
         if (empty($value)) {

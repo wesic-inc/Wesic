@@ -4,7 +4,9 @@ class Basesql
     private $table;
     protected $pdo;
     private $columns = [];
-
+    /**
+     * [__construct description]
+     */
     public function __construct()
     {
         $this->table = strtolower(get_called_class());
@@ -15,7 +17,9 @@ class Basesql
         $class_vars = get_class_vars(get_class());
         $this->columns = array_keys(array_diff_key($all_vars, $class_vars));
     }
-
+    /**
+     * [setColumns description]
+     */
     public function setColumns()
     {
         $this->columns = array_diff_key(
@@ -24,7 +28,10 @@ class Basesql
         );
     }
 
-
+    /**
+     * [save description]
+     * @return [type] [description]
+     */
     public function save()
     {
 
@@ -58,7 +65,10 @@ class Basesql
             $this->id = $this->pdo->lastInsertId(); 
         }
     }
-
+/**
+ * [delete description]
+ * @return [type] [description]
+ */
     public function delete()
     {
         $this->setColumns();
@@ -66,14 +76,20 @@ class Basesql
         $query = $this->pdo->prepare("DELETE FROM ".$this->table." WHERE id=:id ");
         $query->execute(array("id" => $this->columns["id"]));
     }
-
+/**
+ * [delete description]
+ * @return [type] [description]
+ */
     public function flagDelete()
     {
         $this->setColumns();
         $query = $this->pdo->prepare("UPDATE ".$this->table." SET status= 5 WHERE id=:id");
         $query->execute(array("id" => $this->columns["id"]));
     }
-
+/**
+ * [delete description]
+ * @return [type] [description]
+ */
     public function cleanUserSlugPasswordRecovery()
     {
         $this->setColumns();
@@ -86,7 +102,12 @@ class Basesql
 
         $query->execute(array("id" => $this->columns["id"]));
     }
-
+/**
+ * [deleteSlugReference description]
+ * @param  [type] $table  [description]
+ * @param  [type] $target [description]
+ * @return [type]         [description]
+ */
     public function deleteSlugReference($table, $target)
     {
         $query = $this->pdo->prepare("DELETE " . $table . ", slug  
@@ -98,7 +119,12 @@ class Basesql
         $query->execute(array("slug" => " . $target . "));
     }
 
-
+/**
+ * [deleteSlugReference description]
+ * @param  [type] $table  [description]
+ * @param  [type] $target [description]
+ * @return [type]         [description]
+ */
     public function getData($table, $condition = [], $operator = [], $orderby = "", $groupby = "", $limit = [], $columns = "*")
     {
         $sql = 'SELECT '. $columns .' FROM '.$table.' ';
@@ -179,15 +205,20 @@ class Basesql
         return $query->fetchAll();
     }
 
-    public function fetchObject($dataFound)
-    {
-    }
-
+/**
+ * [slugExists description]
+ * @param  [type] $slug [description]
+ * @return [type]       [description]
+ */
     public static function slugExists($slug)
     {
         return in_array($slug, Slug::getSlugTable());
     }
-
+/**
+ * [userDisplayFilters description]
+ * @param  [type] $filter [description]
+ * @return [type]         [description]
+ */
     public function userDisplayFilters($filter)
     {
         switch ($filter) {
@@ -236,7 +267,11 @@ class Basesql
         }
         return $this;
     }
-
+/**
+ * [userDisplaySorting description]
+ * @param  [type] $sort [description]
+ * @return [type]       [description]
+ */
     public function userDisplaySorting($sort)
     {
         switch ($sort) {
@@ -270,6 +305,11 @@ class Basesql
         }
         return $this;
     }
+    /**
+     * [articleDisplayFilters description]
+     * @param  [type] $filter [description]
+     * @return [type]         [description]
+     */
     public function articleDisplayFilters($filter)
     {
         switch ($filter) {
@@ -282,7 +322,11 @@ class Basesql
         }
         return $this;
     }
-
+/**
+ * [pageDisplayFilters description]
+ * @param  [type] $filter [description]
+ * @return [type]         [description]
+ */
     public function pageDisplayFilters($filter)
     {
         switch ($filter) {
@@ -292,7 +336,11 @@ class Basesql
         }
         return $this;
     }
-
+/**
+ * [commentDisplayFilters description]
+ * @param  [type] $filter [description]
+ * @return [type]         [description]
+ */
         public function commentDisplayFilters($filter)
     {
         switch ($filter) {
