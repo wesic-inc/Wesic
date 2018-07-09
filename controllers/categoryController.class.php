@@ -16,11 +16,11 @@ class categoryController
 
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $errors = Validator::check($form["struct"], $post);
+            $errors = Validator::check($form["struct"], $request->getPost());
 
             if (!$errors) {
                 $request->setPost('type', 1);
-                if (!Validator::process($form["struct"], $post, 'new-category')) {
+                if (!Validator::process($form["struct"], $request->getPost(), 'new-category')) {
                     $errors = ["categorynew"];
                 } else {
                     Route::redirect('Categories');
@@ -65,12 +65,12 @@ class categoryController
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $request->setPost(['id'], $param['id']);
-            $errors = Validator::check($form["struct"], $post);
+            $errors = Validator::check($form["struct"], $request->getPost());
 
             if (!$errors) {
                 $request->setPost(['type'], 1);
 
-                if (!Validator::process($form["struct"], $post, 'edit-category')) {
+                if (!Validator::process($form["struct"], $request->getPost(), 'edit-category')) {
                     $errors=["categorynew"];
                 } else {
                     Route::redirect('Categories');

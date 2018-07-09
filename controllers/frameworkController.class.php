@@ -44,6 +44,12 @@ class frameworkController
 
         $param->setParam('links-bloc', 1);
         $param->setParam('welcome-bloc', 1);
+        $param->setParam('left-1', 'welcome-bloc');
+        $param->setParam('left-2', 'links-bloc');
+        $param->setParam('left-3', 'stats');
+        $param->setParam('right-1', 'quickview');
+        $param->setParam('right-2', 'activity');
+        $param->setParam('right-3', 'comments');
 
         View::setFlash('Génial !', "L'affichage dashboard a bien été remis à zéro !", 'success');
 
