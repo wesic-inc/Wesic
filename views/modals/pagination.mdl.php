@@ -5,7 +5,7 @@
 		<li class="page-item">
 			<a href="
 			<?php echo
-				ROOT_URL.Route::getUri()[0].Route::makeParams('p', Singleton::request()->getPaginate()['currentPage']-1);
+				Route::makeParams('p', Singleton::request()->getPaginate()['currentPage']-1);
 				?>"
 			tabindex="-1">Précédent</a>
 		</li>
@@ -21,7 +21,7 @@
 		<?php for ($i = 0; $i < Singleton::request()->getPaginate()['totalPage']; $i++): ?>
 		
 		<li class="page-item <?php echo ($i+1 == Singleton::request()->getPaginate()['currentPage'])?"active":"";?>">
-			<a href="<?php echo ROOT_URL.Route::getUri()[0].Route::makeParams('p', $i+1); ?>"><?php echo $i+1; ?></a>
+			<a href="<?php echo Route::makeParams('p', $i+1); ?>"><?php echo $i+1; ?></a>
 		</li>
 		
 		<?php endfor; ?>
@@ -36,7 +36,7 @@
 		
 		<li class="page-item"
 			><a href="<?php
-				echo ROOT_URL.Route::getUri()[0].Route::makeParams('p', Singleton::request()->getPaginate()['currentPage']+1);?>">
+				echo Route::makeParams('p', Singleton::request()->getPaginate()['currentPage']+1);?>">
 			Suivant</a>
 		</li>
 		

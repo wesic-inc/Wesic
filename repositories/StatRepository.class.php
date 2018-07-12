@@ -44,7 +44,8 @@ class StatRepository extends Basesql
    
         $qb = new QueryBuilder();
    
-        $results['year'] = $qb->select('COUNT(id)')
+        $results['year'] = 
+        $qb->select('COUNT(id)')
         ->from('stat')
         ->where('date', '>', $lastYear)
         ->and()

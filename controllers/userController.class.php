@@ -44,7 +44,7 @@ class userController
             $qbUsers->all('user')->search('login', $search)->or()->search('email', $search)->or()->search('firstname', $search)->or()->search('lastname', $search);
         }
 
-        $users = $qbUsers->paginate(10);
+        $users = $qbUsers->paginate(1);
 
         $v = new View();
         

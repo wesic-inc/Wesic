@@ -201,7 +201,7 @@ class Route
      * @param  [type] $value [description]
      * @return [type]        [description]
      */
-    public static function makeParams($key, $value)
+    public static function makeParams($key, $value, $exclude = [])
     {
         
         $paramsArray = Singleton::request()->getParams();
@@ -212,12 +212,18 @@ class Route
 
         $generatedParams = "";
 
+        if(!empty($exclude)){
+            foreach ($exclude as $key) {
+                unset($paramsArray[$key]);
+            }
+        }
+
         $paramsArray[$key] = $value;            
         
         foreach ($paramsArray as $param => $val) {
             $generatedParams .= "/".$param."/".$val;
         }
-        return $generatedParams;
+        return ROOT_URL.Route::getUri()[0].$generatedParams;
     }
 
     /**

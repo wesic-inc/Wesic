@@ -177,7 +177,6 @@ class articleController
         $errors = [];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            dd($post);
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
@@ -213,12 +212,13 @@ class articleController
 
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $request->setPost(['id'], $param['id']);
+            $request->setPost('id', $param['id']);
+            $request->setPost('type', 1);
 
-            $errors = Validator::check($form["struct"], $post);
+            $errors = Validator::check($form["struct"], $request->getPost());
 
             if (!$errors) {
-                if (!Validator::process($form["struct"], $post, 'edit-article')) {
+                if (!Validator::process($form["struct"], $request->getPost(), 'edit-article')) {
                     $errors=["articlenew"];
                 } else {
                     Route::redirect('AllArticles');
@@ -227,7 +227,9 @@ class articleController
         }
 
         $qb = new QueryBuilder();
+        
         $data = $qb->all('post')->where('id', $param['id'])->and()->where('type', 1)->fetchOrFail();
+
 
         $_POST['title'] = $data['title'];
         $_POST['wesic-wysiwyg'] = html_entity_decode($data['content']);
@@ -240,7 +242,7 @@ class articleController
         $_POST['visibility'] = $data['visibility'];
         $_POST['excerpt'] = $data['excerpt'];
         $_POST['description'] = $data['description'];
-        $_POST['category'] = Category::getCategory($data['id']);
+        $_POST['category'] = Category::getCategory($data['category']);
         
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");
