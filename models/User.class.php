@@ -13,10 +13,12 @@ class User extends UserRepository
     protected $status = 1;
     protected $token;
 
-    public function updateOnKey(){
+    public function updateOnKey()
+    {
         return $this->id;
     }
-    public function getPkStr(){
+    public function getPkStr()
+    {
         return "id";
     }
     public function __construct()
@@ -74,7 +76,7 @@ class User extends UserRepository
 
     public function setCreatedAt($created_at)
     {
-               if ($created_at) {
+        if ($created_at) {
             $this->created_at = $created_at;
         } else {
             $this->created_at = date("Y-m-d H:i:s");
@@ -158,62 +160,86 @@ class User extends UserRepository
         return [
           "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Se connecter", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
           "struct" => [
-           "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
+             "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
 
-           "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+             "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-           "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+             "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
 
-       ]
-   ];
-    }
+         ]
+     ];
+ }
 
-    public static function getFormModifyPassword()
-    {
-        return [
+ public static function getFormModifyPassword()
+ {
+    return [
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier mon mot de passe", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-       "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+         "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-       "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
+         "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
 
-       "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
-   ]
+         "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+     ]
 
-];
-    }
+ ];
+}
 
-    public static function getFormNewUser()
-    {
-        return [
+public static function getFormNewUser()
+{
+    return [
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
+         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
 
-       "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+         "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
 
-       "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+         "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
 
-       "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-       "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+         "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-       "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
+         "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
 
-       "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+         "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
-       "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+         "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
 
-   ]
-];
-    }
+     ]
+ ];
+}
+public static function getFormSignUp()
+{
+    return [
+      "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+      "struct" => [
 
-    public static function getFormEditUser()
-    {
-        return [
+         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
+
+         "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+
+         "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+
+         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+
+         "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+
+         "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
+
+         "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+
+
+     ]
+ ];
+}
+
+public static function getFormEditUser()
+{
+    return [
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true", "groups"=>"true" ],
         
         "groups" => [   "edit-user-main" => ["login","firstname","lastname","email","role","status", "cancel","save"],
@@ -250,10 +276,10 @@ class User extends UserRepository
 
     ]
 ];
-    }
-    public static function getFormViewUser()
-    {
-        return [
+}
+public static function getFormViewUser()
+{
+    return [
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true"],
         "struct" => [
 
@@ -273,20 +299,18 @@ class User extends UserRepository
 
         ]
     ];
-    }
+}
 
-    public static function getNewsletterSignUpForm()
-    {
-        return [
-    "options" => [ "method"=>"POST", "action"=>"", "submit"=>"S'inscrire", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true"],
-    "struct" => [
-        "name"=> [ "label"=> "Votre nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name"],
-        "email"=>[ "label"=>"Votre e-mail", "type"=>"email", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email-newsletter", "checkexist"=>true],
-        "captcha"=>[ "label"=>"Captcha", "type"=>"captcha", "id"=>"captcha", "placeholder"=>"Captcha", "required"=>1, "msgerror"=>"captcha"],
-        "signup"=>[ "label"=>"S'inscrire", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
-    ]
-];
-    }
-
-
+public static function getNewsletterSignUpForm()
+{
+    return [
+        "options" => [ "method"=>"POST", "action"=>"", "submit"=>"S'inscrire", "enctype"=>"multipart/form-data", "submit-custom"=>"true", "refill" => "true"],
+        "struct" => [
+            "name"=> [ "label"=> "Votre nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"name"],
+            "email"=>[ "label"=>"Votre e-mail", "type"=>"email", "id"=>"email", "placeholder"=>"Email", "required"=>1, "msgerror"=>"email-newsletter", "checkexist"=>true],
+            "captcha"=>[ "label"=>"Captcha", "type"=>"captcha", "id"=>"captcha", "placeholder"=>"Captcha", "required"=>1, "msgerror"=>"captcha"],
+            "signup"=>[ "label"=>"S'inscrire", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
+        ]
+    ];
+}
 }

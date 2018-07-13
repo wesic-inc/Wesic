@@ -66,7 +66,7 @@ class loginController{
 			Route::redirect('Error404');
 		}
 
-		$form = User::getFormNewUser();
+		$form = User::getFormSignUp();
 
 		$errors = [];
 
