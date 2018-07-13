@@ -80,7 +80,7 @@ $(document).ready(function(){
 });
 
 
-/*var modal = document.getElementById('myModal');
+var modal = document.getElementById('myModal');
 
 document.getElementById('close-modal').onclick = function() {
   modal.style.display = "none";
@@ -90,8 +90,11 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}*/
+}
 
+function insertMedia(){
+  modal.style.display = "block";
+}
 
 
 function deleteModalCategory(id){
@@ -152,8 +155,6 @@ function slugify(text)
       return handle.classList.contains('handle');
     }
   });
-
-
 
 
   drake.on('drop', drop);

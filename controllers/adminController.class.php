@@ -99,6 +99,15 @@ class adminController
     public function devTestAction($args)
     {
         $v = new View();
-        $v->setView('dev/template', 'templateadmin')->assign('title', 'lol');
+
+        $qb = new QueryBuilder();
+
+        $medias = $qb->all('medias')->get();
+
+        $v->setView('dev/template', 'templateadmin')
+        ->massAssign([
+            'title'=>'Test',
+            'medias'=>$medias
+        ]);
     }
 }

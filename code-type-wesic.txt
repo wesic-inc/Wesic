@@ -46,9 +46,10 @@ Stats :
 
 Content type :
 
-1 : Article
-2 : Page
-3 : Accueil
-4 : ajout commentaire
-5 : inscription newsletter
-6 : confirmation16:37 20/05/2018
+1 : Visiste
+2 : Article
+3 : Page
+4 : Accueil
+5 : ajout commentaire
+6 : inscription newsletter
+7 : confirmation16:37 20/05/2018

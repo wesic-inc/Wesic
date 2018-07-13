@@ -135,6 +135,21 @@ textarea {
 }
 
 /* Modal Content/Box */
+.modal-media-content {
+	background-color: #FFF;
+	position: relative;
+	margin: 0 auto;
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	box-shadow: $bloc-shadow;
+	animation-name: animatebottom;
+	animation-duration: 0.4s;
+	bottom: 0;
+    position: absolute;
+}
+
+/* Modal Content/Box */
 .modal-content {
 	background-color: #FFF;
 	position: relative;
@@ -150,6 +165,11 @@ textarea {
 @keyframes animatetop {
 	from {top:-200px;opacity:0}
 	to {top:0;opacity:1}
+}
+
+@keyframes animatebottom {
+	from {bottom:-200px;opacity:0}
+	to {bottom:0;opacity:1}
 }
 
 .close:hover,

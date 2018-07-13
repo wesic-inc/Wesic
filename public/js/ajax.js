@@ -185,11 +185,6 @@ function dismissLinks(){
 
 function saveDashboardOrder(list,leftCount,rightCount){
 
-	console.log(list[0].getAttribute('id'));
-	console.log(list[1].getAttribute('id'));
-	console.log(list[2].getAttribute('id'));
-	console.log(list[3].getAttribute('id'));
-
 	var leftParams = "";
 	var rightParams = "";
 
@@ -206,9 +201,6 @@ function saveDashboardOrder(list,leftCount,rightCount){
 		rightParams += ",";
 		}
 	}
-
-
-	console.log(leftParams,rightParams);
 
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open('POST','/admin/dashboard-order/left/'+leftParams+'/right/'+rightParams, true);

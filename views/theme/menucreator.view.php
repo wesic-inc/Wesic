@@ -6,7 +6,7 @@
 
 <ul>
     <li class="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"> 
-    <div class="dragdrop" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">PUTE</div>
+    <div class="dragdrop" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">NAVBAR</div>
     </li>
     <li class="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"> </li>
     <li class="dragdrop" ondrop="drop(event)" ondragover="allowDrop(event)"> </li>
