@@ -19,9 +19,7 @@ class UserRepository extends Basesql
         } else {
             $user = new User();
             $user->setLogin($data['login']);
-            $user->setFirstname($data['firstname']);
-            $user->setLastname($data['lastname']);
-            $user->setRole($data['role']);
+            $user->setRole(1);
             $user->setEmail($data['email']);
             $user->setPassword($data['password2']);
             $user->setCreatedAt(date('Y-m-d H:i:s'));
@@ -29,10 +27,8 @@ class UserRepository extends Basesql
             $user->setToken();
             $user->save();
 
-
             Passwordrecovery::confirmEmailNewUser($data['login']);
-
-
+            
             return true;
         }
     }
