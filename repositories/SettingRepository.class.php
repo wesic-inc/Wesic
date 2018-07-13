@@ -12,14 +12,14 @@ class SettingRepository extends Basesql
     {
         $setting = new Setting();
         $setting
-  ->setParam('title', $data['title'])
-  ->setParam('slogan', $data['slogan'])
-  ->setParam('url', $data['url'])
-  ->setParam('email', $data['email'])
-  ->setParam('comments', $data['comments'])
-  ->setParam('timezone', $data['timezone'])
-  ->setParam('datetype', $data['datetype'])
-  ->setParam('timetype', $data['timetype']);
+        ->setParam('title', $data['title'])
+        ->setParam('slogan', $data['slogan'])
+        ->setParam('url', $data['url'])
+        ->setParam('email', $data['email'])
+        ->setParam('comments', $data['comments'])
+        ->setParam('timezone', $data['timezone'])
+        ->setParam('datetype', $data['datetype'])
+        ->setParam('timetype', $data['timetype']);
 
         View::setFlash('Génial !', 'Les paramètres ont bien été enregistrés !', 'success');
 
@@ -35,12 +35,12 @@ class SettingRepository extends Basesql
     {
         $setting = new Setting();
         $setting
-  ->setParam('mail-server', $data['mail-server'])
-  ->setParam('mail-port', $data['mail-port'])
-  ->setParam('mail-login', $data['mail-login'])
-  ->setParam('mail-password', $data['mail-password'])
-  ->setParam('default-cat', $data['default-cat'])
-  ->setParam('default-format', $data['default-format']);
+        ->setParam('mail-server', $data['mail-server'])
+        ->setParam('mail-port', $data['mail-port'])
+        ->setParam('mail-login', $data['mail-login'])
+        ->setParam('mail-password', $data['mail-password'])
+        ->setParam('default-cat', $data['default-cat'])
+        ->setParam('default-format', $data['default-format']);
 
         View::setFlash('Génial !', 'Les paramètres ont bien été enregistrés !', 'success');
 
@@ -56,10 +56,10 @@ class SettingRepository extends Basesql
     {
         $setting = new Setting();
         $setting
-  ->setParam('homepage', $data['homepage'])
-  ->setParam('pagination-posts', $data['pagination-posts'])
-  ->setParam('pagination-rss', $data['pagination-rss'])
-  ->setParam('display-post', $data['display-post']);
+        ->setParam('homepage', $data['homepage'])
+        ->setParam('pagination-posts', $data['pagination-posts'])
+        ->setParam('pagination-rss', $data['pagination-rss'])
+        ->setParam('display-post', $data['display-post']);
 
         View::setFlash('Génial !', 'Les paramètres ont bien été enregistrés !', 'success');
 
@@ -114,7 +114,7 @@ class SettingRepository extends Basesql
         
         $this->save();
 
-  
+        
         return $this;
     }
 }

@@ -755,6 +755,16 @@ p.title-form {
 	background-size:cover;
 }
 
+.install-bg{
+	background: url('../img/install-bg.jpg') center no-repeat;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top:0;
+	left:0;
+	background-size:cover;
+}
+
 @media (min-width: $sm-max) and (max-width: $md-max){
 
 

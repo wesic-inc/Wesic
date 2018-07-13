@@ -246,9 +246,7 @@ CREATE TABLE `slug` (
 --
 
 INSERT INTO `slug` (`slug`, `type`) VALUES
-('dqzdzdzqdzqdzqdzqddqzdzdzqdzqdzqdzqd', 1),
-('hello-world', 2),
-('non-classe', 3);
+('non-classe', 1);
 
 -- --------------------------------------------------------
 

@@ -26,10 +26,11 @@
 									<input type="checkbox" id="checkAll">
 									<span class="checkmark checkmark-header"></span>
 								</label></th>
-								<th><a class="<?php echo $params['sort']==1?'active-sort':''; ?>" id="filter1" sort="" onclick="test(this.id)" > Identifiant <span class="icon icon-sort-alpha-asc"></span></a></th>
-								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2" sort="" onclick="test(this.id)" > Nom <span class="icon icon-sort-alpha-asc"></span> </a></th>
-								<th><a class="<?php echo $params['sort']==3?'active-sort':''; ?>" id="filter3" sort="" onclick="test(this.id)" > E-mail <span class="icon icon-sort-alpha-asc"></span> </a></th>
-								<th><a class="<?php echo $params['sort']==4?'active-sort':''; ?>" id="filter4" sort="" onclick="test(this.id)" > Rôle <span class="icon icon-sort-alpha-asc"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==1?'active-sort':''; ?>" id="filter1"href="<?php echo Route::makeParams('sort',$params['sort']==1?-1:1,['p']) ?>" > Identifiant <span class="icon <?php echo $params['sort']==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
+								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2"href="<?php echo Route::makeParams('sort',$params['sort']==2?-2:2,['p']) ?>" > Nom <span class="icon <?php echo $params['sort']==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==3?'active-sort':''; ?>" id="filter3" 
+								href="<?php echo Route::makeParams('sort',$params['sort']==3?-3:3,['p']) ?>" > E-mail <span class="icon <?php echo $params['sort']==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==4?'active-sort':''; ?>" id="filter4" sort="" href="<?php echo Route::makeParams('sort',$params['sort']==4?-4:4,['p']) ?>" > Rôle <span class="icon <?php echo $params['sort']==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 								<th>Posts</th>
 							</tr>
 						</thead>

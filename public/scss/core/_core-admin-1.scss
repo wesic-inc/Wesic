@@ -515,6 +515,21 @@ ul.grid-actions{
 	}
 }
 
+.install-modal{
+	background:$darker1;
+	border-radius: 2px;
+	box-shadow: $bloc-shadow;
+	margin-top:25px;
+	margin-bottom:50px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	padding: 30px;
+	input{
+		width: 100%;
+	}
+}
+
 .mb-10{
 	margin-bottom:10px;
 }
