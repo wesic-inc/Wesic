@@ -80,25 +80,23 @@ $(document).ready(function(){
 });
 
 
-var modal = document.getElementById('myModal');
-
-document.getElementById('close-modal').onclick = function() {
-  modal.style.display = "none";
+$('#close-modal').onclick = function() {
+  document.getElementById('myModal').style.display = "none";
 }
 
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == document.getElementById('myModal')) {
+    document.getElementById('myModal').style.display = "none";
   }
 }
 
 function insertMedia(){
-  modal.style.display = "block";
+  document.getElementById('myModal').style.display = "block";
 }
 
 
 function deleteModalCategory(id){
-
+  var modal = document.getElementById('myModal');
   elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
   document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
   document.getElementById('modal-helper').innerHTML = "Cette action supprimera la catégorie de tous vos articles";
@@ -109,6 +107,7 @@ function deleteModalCategory(id){
 
 function deleteModalArticle(id){
 
+  var modal = document.getElementById('myModal');
   elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
   document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
   document.getElementById('modal-helper').innerHTML = "Cette action supprime définitivement cet article";
@@ -119,6 +118,7 @@ function deleteModalArticle(id){
 
 function deleteModalPage(id){
 
+  var modal = document.getElementById('myModal');
   elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
   document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
   document.getElementById('modal-helper').innerHTML = "Cette action supprime définitivement cette page";
@@ -129,6 +129,7 @@ function deleteModalPage(id){
 
 function deleteModalUser(id){
 
+  var modal = document.getElementById('myModal');
   elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
   document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
   document.getElementById('modal-helper').innerHTML = "Cette action deplace l'utilisateur à la corbeille";
@@ -216,4 +217,48 @@ $('#tags-input').keydown(function(e){
 
 function deleteTag(e){
   $(e).parent().remove();
+}
+
+function selectMedia(id,type){
+
+  $('#'+id).toggleClass('selected-media-item');
+
+  var insertedMediaCount = document.getElementsByClassName('selected-media-item').length;
+  var insertedMedia = document.getElementsByClassName('selected-media-item');
+
+  var mediasId = new Array();
+
+  for (i = 0; i < insertedMediaCount; i++) {
+    mediasId.push(insertedMedia[i].id); 
+  }
+
+  $('#media-count').html(insertedMediaCount);
+
+  $('#toInsert').attr('value',JSON.stringify(mediasId));
+
+}
+
+function insertSelection(){
+  var mediasIdRaw = $('#toInsert').attr('value');
+  var mediasId = JSON.parse(mediasIdRaw);
+
+  mediasId.forEach(function(element) {
+    var current = $('#'+element);
+    current.toggleClass('selected-media-item');
+
+    if(current.attr('type')=='1'){
+      $('#wesic-wysiwyg').append('<img src="/'+current.attr('path')+'">');
+    }    
+    if(current.attr('type')=='2'){
+      $('#wesic-wysiwyg').append('<iframe width="420" height="315" src="https://www.youtube.com/embed/'+current.attr('path')+'"></iframe');
+
+    }    
+    if(current.attr('type')=='3'){
+      $('#wesic-wysiwyg').append('<audio controls><source src="/'+current.attr('path')+'" type="audio/mpeg"></audio>');
+    }
+  });
+
+  $('#toInsert').attr('value',0);
+  document.getElementById('myModal').style.display = "none";
+
 }

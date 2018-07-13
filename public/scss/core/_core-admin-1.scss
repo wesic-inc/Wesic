@@ -146,7 +146,19 @@ textarea {
 	animation-name: animatebottom;
 	animation-duration: 0.4s;
 	bottom: 0;
-    position: absolute;
+	position: absolute;
+}
+
+.media-item-modal{
+	border:2px solid transparent;
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 2px;
+}
+
+.selected-media-item{
+	border:2px solid red;
 }
 
 /* Modal Content/Box */
@@ -195,6 +207,14 @@ textarea {
 	color: white;
 }
 
+.modal-footer-media{
+	padding: 20px;
+	text-align: right;
+	color: white;
+	bottom: 0;
+	position: relative;
+	right: 0;
+}
 
 
 .trumbowyg-box{
@@ -208,6 +228,7 @@ label.label-input {
 
 .trumbowyg-editor{
 	background: $input-bg;
+	min-height: 600px !important;
 }
 
 .full{

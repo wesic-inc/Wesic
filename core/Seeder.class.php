@@ -50,6 +50,35 @@ class Seeder
     {
     }
 
+
+    public static function FakeMedias(){
+
+        for($i=0;$i<50;$i++){
+            
+            $media = new Media;
+            $type = rand(1,3);
+            
+            $media->setType($type);
+
+            switch ($type) {
+                case 1:
+                    $media->setPath('public/storage/img/2018/7/test.jpg');
+                break;                
+                case 2:
+                    $media->setUrl('fKFbnhcNnjE');
+                break;               
+                case 3:
+                    $media->setPath('public/storage/music/2018/7/test.mp3');
+                break;
+                default:
+                break;
+               
+            }
+                $media->setName(Faker::title());
+                $media->setUserId(21);
+                $media->save();
+        }
+    }
     /**
      * [FakeAdmin description]
      */

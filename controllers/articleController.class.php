@@ -188,13 +188,17 @@ class articleController
             }
         }
 
+        $qb = new QueryBuilder();
+        $medias = $qb->all('media')->get();
+
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");
         $v->massAssign([
             "form" => $form,
             "title" => "Nouvel article",
             "icon" => "icon-pen",
-            "errors" => $errors
+            "errors" => $errors,
+            "medias" => $medias
         ]);
     }
 /**

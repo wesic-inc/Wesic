@@ -250,4 +250,8 @@ class Format {
 			break;
 		}
 	}
+
+	static function videoImg($id){
+		return "https://img.youtube.com/vi/".$id."/0.jpg";
+	}
 }

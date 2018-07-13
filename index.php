@@ -57,6 +57,8 @@ spl_autoload_register('autoloader');
 
 
 
+// Seeder::FakeMedias();
+
 /**
  * [$route description]
  * @var [type]

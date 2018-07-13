@@ -118,14 +118,14 @@ class Basesql
       $this->pdo->exec("CREATE TABLE `media` (
         `id` int(11) NOT NULL,
         `name` varchar(125) NOT NULL,
-        `path` varchar(500) NOT NULL,
+        `path` varchar(500) DEFAULT NULL,
         `type` tinyint(4) NOT NULL,
-        `caption` varchar(255) NOT NULL,
-        `alttext` varchar(255) NOT NULL,
-        `description` varchar(255) NOT NULL,
-        `url` varchar(500) NOT NULL,
+        `caption` varchar(255) DEFAULT NULL,
+        `alttext` varchar(255) DEFAULT NULL,
+        `description` varchar(255) DEFAULT NULL,
+        `url` varchar(500) DEFAULT NULL,
         `user_id` int(11) NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=latin1");
+      ) ENGINE=InnoDB DEFAULT CHARSET=latin1)");
       $this->pdo->exec("CREATE TABLE `navbar` (
         `id` int(11) NOT NULL,
         `name` varchar(45) DEFAULT NULL,

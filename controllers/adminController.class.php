@@ -102,7 +102,7 @@ class adminController
 
         $qb = new QueryBuilder();
 
-        $medias = $qb->all('medias')->get();
+        $medias = $qb->all('media')->paginate(24);
 
         $v->setView('dev/template', 'templateadmin')
         ->massAssign([
