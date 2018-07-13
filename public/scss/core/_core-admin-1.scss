@@ -76,7 +76,7 @@ textarea {
 	color: $link-color-dark;
 	border: 1px solid #e4eaec;
 	font-size: 14px;
-    font-family: 'Roboto';
+	font-family: 'Roboto';
 	width:auto;
 	min-height: 60px;
 	overflow:hidden;
@@ -87,82 +87,82 @@ textarea {
 }
 
 .alert-warning {
-    color: darken($warning,20);
-    background-color: lighten($warning,30);
-    border-color: lighten($warning,20)
+	color: darken($warning,20);
+	background-color: lighten($warning,30);
+	border-color: lighten($warning,20)
 }
 .alert-danger {
-    color: darken($danger,20);
-    background-color: lighten($danger,30);
-    border-color: lighten($danger,20);
+	color: darken($danger,20);
+	background-color: lighten($danger,30);
+	border-color: lighten($danger,20);
 }
 .alert-success {
-    color: darken($success,20);
-    background-color: lighten($success,30);
-    border-color: lighten($success,20)
+	color: darken($success,20);
+	background-color: lighten($success,30);
+	border-color: lighten($success,20)
 }
 .alert-info {
-    color: darken($info,20);
-    background-color: lighten($info,30);
-    border-color: lighten($info,20);
+	color: darken($info,20);
+	background-color: lighten($info,30);
+	border-color: lighten($info,20);
 }
 .alert {
-    position: relative;
-    padding:14px 30px;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    margin-top: 70px;
-    box-shadow: $bloc-shadow;
+	position: relative;
+	padding:14px 30px;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	margin-top: 70px;
+	box-shadow: $bloc-shadow;
 }
 .fade {
-    opacity: 0;
-    transition: display .15s linear;
+	opacity: 0;
+	transition: display .15s linear;
 }
 
 
 
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto;
-    z-index: 100000;
-    background-color: rgba(0,0,0,0.4);
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%; 
+	height: 100%; 
+	overflow: auto;
+	z-index: 100000;
+	background-color: rgba(0,0,0,0.4);
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #FFF;
-    position: relative;
-    margin: 0 auto;
-    width: 27%;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    box-shadow: $bloc-shadow;
-    animation-name: animatetop;
-    animation-duration: 0.4s
+	background-color: #FFF;
+	position: relative;
+	margin: 0 auto;
+	width: 27%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	box-shadow: $bloc-shadow;
+	animation-name: animatetop;
+	animation-duration: 0.4s
 }
 
 @keyframes animatetop {
-    from {top:-200px;opacity:0}
-    to {top:0;opacity:1}
+	from {top:-200px;opacity:0}
+	to {top:0;opacity:1}
 }
 
 .close:hover,
 .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .modal-header {
-    padding: 15px;
-    background-color: $darker3;
-    color: white;
+	padding: 15px;
+	background-color: $darker3;
+	color: white;
 }
 
 
@@ -170,9 +170,9 @@ textarea {
 
 
 .modal-footer {
-    padding: 20px;
-    text-align: right;
-    color: white;
+	padding: 20px;
+	text-align: right;
+	color: white;
 }
 
 
@@ -264,7 +264,7 @@ li.page-item:hover
 		}
 		th{
 			padding-top: 20px;
-    		padding-bottom: 20px;
+			padding-bottom: 20px;
 		}
 	}
 	thead {
@@ -530,6 +530,21 @@ ul.grid-actions{
 	}
 }
 
+.signup-modal{
+	background:$darker1;
+	border-radius: 2px;
+	box-shadow: $bloc-shadow;
+	top:20px;
+	margin-bottom: 20px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	padding: 30px;
+	input{
+		width: 100%;
+	}
+}
+
 .mb-10{
 	margin-bottom:10px;
 }
@@ -567,26 +582,26 @@ ul.grid-actions{
 }
 
 .gu-mirror {
-  position: fixed !important;
-  margin: 0 !important;
-  z-index: 9999 !important;
-  opacity: 0.8;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  filter: alpha(opacity=80);
+	position: fixed !important;
+	margin: 0 !important;
+	z-index: 9999 !important;
+	opacity: 0.8;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity=80);
 }
 .gu-hide {
-  display: none !important;
+	display: none !important;
 }
 .gu-unselectable {
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
 }
 .gu-transit {
-  opacity: 0.2;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-  filter: alpha(opacity=20);
+	opacity: 0.2;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+	filter: alpha(opacity=20);
 }
 
 .error-msg{
