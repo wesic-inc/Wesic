@@ -37,6 +37,14 @@ function loadForm(){
 			$url = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://'.$_SERVER['SERVER_NAME'];
 
 			$setting->setParam('url', $url);
+			$setting->setParam('links-bloc', 1);
+			$setting->setParam('welcome-bloc', 1);
+			$setting->setParam('left-1', 'welcome-bloc');
+			$setting->setParam('left-2', 'links-bloc');
+			$setting->setParam('left-3', 'stats');
+			$setting->setParam('right-1', 'quickview');
+			$setting->setParam('right-2', 'activity');
+			$setting->setParam('right-3', 'comments');
 
 			$user = new User();
 			$user->setLogin($post['username']);
