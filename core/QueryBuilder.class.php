@@ -404,7 +404,7 @@ class QueryBuilder extends Basesql
     {
         $total = count($this->get());
 
-        $nbPage = Format::pageCalc($total, $perPage);
+        $totalPage = Format::pageCalc($total, $perPage);
 
         if (empty($getPage)) {
             $current = Singleton::request()->getParam('p');
@@ -412,8 +412,8 @@ class QueryBuilder extends Basesql
             $current = $getPage;
         }
 
-        if ($current == null && $nbPage > 0) {
-            $current = '1';
+        if ($current == null && $totalPage > 0) {
+            $current = 1;
         }
 
         if ($current == 1) {
@@ -421,9 +421,13 @@ class QueryBuilder extends Basesql
         } else {
             $this->limit($current*$perPage-$perPage, $perPage);
         }
+        $elementNb = $perPage;
+        $currentPage = $current;
 
-        Singleton::request()->setPaginate($total, $nbPage, $perPage, $current);
-        
+
+        // Singleton::request()->setPaginate($total, $nbPage, $perPage, $current);
+        // compact('total', 'nbPage', 'perPage', 'current');
+
         if (!isset($this->selector) || !isset($this->table)) {
             return false;
         } else {
@@ -438,7 +442,7 @@ class QueryBuilder extends Basesql
 
             $query = $this->pdo->prepare($this->query);
             $query->execute($this->parameters);
-            return $query->fetchAll();
+            return ['pagination'=>compact('total', 'totalPage', 'elementNb','perPage', 'currentPage'),'data'=>$query->fetchAll()];
         }
     }
 

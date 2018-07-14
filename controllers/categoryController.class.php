@@ -37,7 +37,7 @@ class categoryController
         //  $qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
         // }
 
-        $categories = $qb->get();
+        $categories = $qb->paginate(10);
 
         $v = new View();
         $v->setView("category/category", "templateadmin");
@@ -46,6 +46,7 @@ class categoryController
             "icon" => "icon-bookmarks",
             "form" => $form,
             "categories" => $categories,
+            "elementNumber"=>$categorie['pagination']['total'],
             "errors" => $errors
         ]);
     }

@@ -74,7 +74,7 @@ class pageController{
 			"icon" =>"icon-files-empty",
 			"pages" => $pages,
 			"sort"=>$sort,
-			"elementNumber" => Singleton::request()->getPaginate()['total'],
+			"elementNumber"=>$pages['pagination']['total'],
 			"filter" => $param['filter'],
 		]);
 		

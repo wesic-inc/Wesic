@@ -218,7 +218,7 @@ function saveDashboardOrder(list,leftCount,rightCount){
 function getPageModalMedia(page){
 	
 
-	var paginationInfos = $('#pagination-infos').attr('value');
+	var paginationInfos = $('#getPageModalImage').attr('value');
 	var selectedElements = $('#toInsert').attr('value');
 	
 	var current = JSON.parse(paginationInfos);
@@ -236,6 +236,28 @@ function getPageModalMedia(page){
         success: function(response)
         {
             $('#media-modal-elements').html(response);
+            $('#page'+page).toggleClass('active');
+        }
+    });
+}
+function getPageModalImage(page){
+	
+	var paginationInfos = $('#getPageModalImage').attr('value');
+	
+	var current = JSON.parse(paginationInfos);
+
+	$('.page-item').removeClass('active');
+
+	$.ajax({
+        url: '/admin/image-modal-page-ajax/p/'+page,
+        cache: false,
+        data: {
+		    pagination: paginationInfos,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            $('#images-modal-elements').html(response);
             $('#page'+page).toggleClass('active');
         }
     });

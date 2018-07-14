@@ -189,7 +189,7 @@ class Format {
  * @return [type]       [description]
  */
 	static function img($name){
-		echo ROOT_URL.'public/img/'.$name;
+		return ROOT_URL.'public/img/'.$name;
 	}
 /**
  * [dateDisplay description]

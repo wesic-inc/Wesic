@@ -176,11 +176,12 @@ class Request
      */
     public function setPaginate($count,$nbPage,$perPage,$current)
     {
-        $this->paginate['total'] = $count;
-        $this->paginate['totalPage'] = $nbPage;
-        $this->paginate['perPage'] = $perPage;
-        $this->paginate['elementNb'] = $perPage;
-        $this->paginate['currentPage'] = $current;
+        $this->paginate[$model] = [];
+        $this->paginate[$model]['total'] = $count;
+        $this->paginate[$model]['totalPage'] = $nbPage;
+        $this->paginate[$model]['perPage'] = $perPage;
+        $this->paginate[$model]['elementNb'] = $perPage;
+        $this->paginate[$model]['currentPage'] = $current;
 
         return $this;
     }

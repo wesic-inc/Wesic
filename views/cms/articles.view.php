@@ -38,7 +38,7 @@
 											</tr>
 										</thead>
 										<tbody id="body-ajax">
-											<?php foreach($articles as $article): ?>
+											<?php foreach($articles['data'] as $article): ?>
 												<tr id="<?php echo $article['id'] ?>" >
 													<td class="hidden-xs hidden-sm">
 														<label class="checkbox-container">
@@ -72,7 +72,7 @@
 								</article>
 								<footer>
 
-									<?php $this->addModal("pagination"); ?>
+									<?php $this->addModal("pagination",$articles['pagination']); ?>
 
 									<ul class="inline">
 										<li>Actions groupées :  </li>

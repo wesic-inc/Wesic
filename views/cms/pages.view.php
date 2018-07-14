@@ -30,7 +30,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($pages as $page): ?>
+									<?php foreach ($pages['data'] as $page): ?>
 
 										<tr id="<?php echo $page['id'] ?>">
 											<td class="hidden-xs hidden-sm">
@@ -57,7 +57,7 @@
 
 						</article>
 						<footer>
-							<?php $this->addModal("pagination"); ?>
+							<?php $this->addModal("pagination",$pages['pagination']); ?>
 								<ul class="inline">
 									<li>Actions groupées :  </li>
 									<li><a href="#"> Place dans la corbeille</a></li>

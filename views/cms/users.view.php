@@ -35,7 +35,7 @@
 							</tr>
 						</thead>
 						<tbody id="body-ajax">
-							<?php foreach($users as $user): ?>
+							<?php foreach($users['data'] as $user): ?>
 							<tr id="<?php echo $user['id'] ?>" >
 								<td class="hidden-xs"><label class="checkbox-container">
 									<input type="checkbox">
@@ -72,12 +72,12 @@
 				<input type="hidden" id="params">
 			</article>
 			<footer>
-				<?php $this->addModal("pagination"); ?>
+				<?php $this->addModal("pagination",$users['pagination']); ?>
 				<ul class="inline hidden-xs">
 					<li>Actions groupées :  </li>
 					<li><a href="#"> Supprimer</a></li>
 				</ul>
-				<span class="push-right"> <?php echo count($users); ?> élément(s) </span>
+				<span class="push-right"> <?php echo count($users['pagination']['total']); ?> élément(s) </span>
 			</footer>
 		</div>
 	</div>

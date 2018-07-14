@@ -1,4 +1,4 @@
-<?php foreach ($medias as $media): ?>
+<?php foreach ($medias['data'] as $media): ?>
 <div class="col-sm-2" > 
 <?php $class = in_array($media['id'],$selected)?'selected-media-item':''; ?>
 <?php if($media['type'] == 1): ?>

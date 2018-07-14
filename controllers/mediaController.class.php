@@ -16,8 +16,10 @@ class mediaController
     public function modalPaginationAjaxAction(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            
             $paginationInfos = json_decode($request->getPost()['pagination']);
-            if (isset($request->getPost()['selected'])) {
+            
+            if (!empty($request->getPost()['selected'])) {
                 $selected = json_decode($request->getPost()['selected']);
             } else {
                 $selected = [];
@@ -31,6 +33,21 @@ class mediaController
             ->massAssign([
                 "medias"=>$medias,
                 "selected"=>$selected
+            ]);
+        }
+    }    
+    public function modalImagePaginationAjaxAction(Request $request)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $paginationInfos = json_decode($request->getPost()['pagination']);
+
+            $qb = new QueryBuilder();
+            $images = $qb->all('media')->where('type',1)->paginate(12, $request->getParam('p'));
+
+            $v = new View();
+            $v->setView("ajax/images-modal", "templateajax")
+            ->massAssign([
+                "images"=>$images,
             ]);
         }
     }

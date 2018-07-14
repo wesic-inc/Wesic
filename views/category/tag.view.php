@@ -29,7 +29,7 @@
 									</tr>
 								</thead>
 								<tbody id="body-ajax">
-									<?php foreach($tags as $tag): ?>
+									<?php foreach($tags['data'] as $tag): ?>
 									<tr>
 										<td class="hidden-xs hidden-sm">
 											<label class="checkbox-container">
@@ -53,7 +53,7 @@
 							</table>
 							<footer>
 
-								<?php $this->addModal("pagination"); ?>
+								<?php $this->addModal("pagination",$tags['pagination']); ?>
 
 								<ul class="inline">
 									<li>Actions groupées :  </li>

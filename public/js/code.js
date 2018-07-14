@@ -87,11 +87,21 @@ $('#close-modal').onclick = function() {
 window.onclick = function(event) {
   if (event.target == document.getElementById('myModal')) {
     document.getElementById('myModal').style.display = "none";
+  }  
+  if (event.target == document.getElementById('featuredModal')) {
+    document.getElementById('featuredModal').style.display = "none";
+  }  
+  if (event.target == document.getElementById('allMediasModal')) {
+    document.getElementById('allMediasModal').style.display = "none";
   }
 }
 
 function insertMedia(){
-  document.getElementById('myModal').style.display = "block";
+  document.getElementById('allMediasModal').style.display = "block";
+}
+
+function chooseFeatured(){
+  document.getElementById('featuredModal').style.display = "block";
 }
 
 
@@ -266,7 +276,17 @@ function insertSelection(){
     }
   });
 
-  $('#toInsert').attr('value',0);
-  document.getElementById('myModal').style.display = "none";
+  $('#toInsert').attr('value','');
+  $('#media-count').html('0');
+  
+  document.getElementById('allMediasModal').style.display = "none";
 
+
+
+}
+
+function selectImage(id){
+  $('#feature-image').attr('value',id);
+  $('#feature-image').attr('src',$('#'+id).attr('src') );
+  $('#featuredModal').css('display','none');
 }

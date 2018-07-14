@@ -30,6 +30,12 @@ forms:
         label: Tags
         container: col-md-12 form-group form-group-alt-color
         class: form-group
+        aside: true    
+
+    featured:
+        label: Image mise en avant
+        container: col-md-12 form-group form-group-alt-color
+        class: form-group
         aside: true
 
     category:

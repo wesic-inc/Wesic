@@ -58,6 +58,8 @@ class Form
                 $output .= self::tag($params);
             } elseif ($fieldType == "info") {
                 $output .= self::info($params);
+            } elseif ($fieldType == "featuredimg") {
+                $output .= self::featuredImg($params);
             } elseif ($fieldType == "title") {
                 $output .= self::title($params);
             } elseif ($fieldType == "custom-datepicker") {
@@ -112,6 +114,8 @@ class Form
                     $step .= self::date($params);
                 } elseif ($fieldType == "submit") {
                     $step .= self::submit($params);
+                } elseif ($fieldType == "featuredimg") {
+                    $step .= self::featuredImg($params);
                 } elseif ($fieldType == "separator") {
                     $step .= '<div class="separator"></div>';
                 } elseif ($fieldType == "link") {
@@ -212,13 +216,17 @@ class Form
     public static function texteditor($params)
     {
 
-               $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
 
+        $qb = new QueryBuilder();
+
         return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<a href="#" class="btn btn-sm add-media"> Ajouter un média </a>
+		<a class="btn btn-sm add-media" onclick="insertMedia()"> Ajouter un média </a>
 		<div id="wesic-wysiwyg" ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled":"") . '>'.((isset($data))?$data:"").'</div></div>';
+
+
     }
 /**
  * [datepicker description]
@@ -422,6 +430,15 @@ class Form
         $option = $params[1];
         $data = $params[2];
         return '<div class="input-group"><p class="title-form">'.$option['text'].'</p></div>';
+    }    
+
+    public static function featuredImg($params)
+    {
+        $name = $params[0];
+        $option = $params[1];
+        $data = $params[2];
+
+        return '<img id="feature-image" value="0" onclick="chooseFeatured()" class="image-featured-placeholder" src="'.Format::img("placeholder-image.jpg").'" >';
     }
     /**
      * [link description]

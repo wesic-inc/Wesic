@@ -105,7 +105,7 @@ class articleController
             "title"=>"Articles",
             "icon"=>"icon-newspaper",
             "articles"=>$articles,
-            "elementNumber"=>Singleton::request()->getPaginate()['total'],
+            "elementNumber"=>$articles['pagination']['total'],
             "filter"=>$filter,
             "sort"=>$sort
         ]);
@@ -174,6 +174,13 @@ class articleController
         $post = $request->getPost();
 
         $form = Post::getFormNewArticle();
+
+        $qbMedias = new QueryBuilder();
+
+        $medias = $qbMedias->all('media')->paginate(24);
+        $qbMedias->reset();
+        $images = $qbMedias->all('media')->where('type',1)->paginate(12);
+
         $errors = [];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -188,9 +195,6 @@ class articleController
             }
         }
 
-        $qb = new QueryBuilder();
-        $medias = $qb->all('media')->get();
-
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");
         $v->massAssign([
@@ -198,7 +202,8 @@ class articleController
             "title" => "Nouvel article",
             "icon" => "icon-pen",
             "errors" => $errors,
-            "medias" => $medias
+            "medias" => $medias,
+            "images" => $images
         ]);
     }
 /**

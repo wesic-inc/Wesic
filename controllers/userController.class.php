@@ -47,14 +47,14 @@ class userController
         $users = $qbUsers->paginate(1);
 
         $v = new View();
-        
+
         $v->setView("cms/users", "templateadmin");
         $v->massAssign([
             "title"=>"Tous les utilisateurs",
             "icon"=>"icon-users",
             "filter"=>$filter,
             "sort"=>$sort,
-            "elementNumber"=>Singleton::request()->getPaginate()['total'],
+            "elementNumber"=>$users['pagination']['total'],
             "users"=>$users
 
         ]);

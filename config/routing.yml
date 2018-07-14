@@ -250,8 +250,16 @@ routing:
         params:
             p:
                 type: int
-                optional: false
+                optional: false    
 
+    ImageAjaxPagination:
+        restricted: moderator
+        controller: media:modalImagePaginationAjax
+        path: admin/image-modal-page-ajax
+        params:
+            p:
+                type: int
+                optional: false
 
     EditTheme:
         restricted: admin
