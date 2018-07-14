@@ -17,11 +17,21 @@ class mediaController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $paginationInfos = json_decode($request->getPost()['pagination']);
+            if (isset($request->getPost()['selected'])) {
+                $selected = json_decode($request->getPost()['selected']);
+            } else {
+                $selected = [];
+            }
+
             $qb = new QueryBuilder();
-            $medias = $qb->all('media')->paginate(24,$request->getParam('p'));
+            $medias = $qb->all('media')->paginate(24, $request->getParam('p'));
 
             $v = new View();
-            $v->setView("ajax/medias-modal", "templateajax")->assign("medias", $medias);
+            $v->setView("ajax/medias-modal", "templateajax")
+            ->massAssign([
+                "medias"=>$medias,
+                "selected"=>$selected
+            ]);
         }
     }
 }

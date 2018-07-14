@@ -223,16 +223,24 @@ function selectMedia(id,type){
 
   $('#'+id).toggleClass('selected-media-item');
 
-  var insertedMediaCount = document.getElementsByClassName('selected-media-item').length;
-  var insertedMedia = document.getElementsByClassName('selected-media-item');
+  var insertedMedia = $('#toInsert').attr('value');
+  
+  if(insertedMedia != undefined){
+    insertedMedia = JSON.parse(insertedMedia);
+    insertedMediaCount = insertedMedia.length;
+  }else{
+    insertedMediaCount = 0;
+  }
 
   var mediasId = new Array();
 
   for (i = 0; i < insertedMediaCount; i++) {
-    mediasId.push(insertedMedia[i].id); 
+    mediasId.push(insertedMedia[i]); 
   }
 
-  $('#media-count').html(insertedMediaCount);
+  mediasId.push(id);
+
+  $('#media-count').html(mediasId.length);
 
   $('#toInsert').attr('value',JSON.stringify(mediasId));
 

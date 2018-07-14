@@ -218,7 +218,9 @@ function saveDashboardOrder(list,leftCount,rightCount){
 function getPageModalMedia(page){
 	
 
-	var paginationInfos = $('#pagination-infos').attr('value'); 
+	var paginationInfos = $('#pagination-infos').attr('value');
+	var selectedElements = $('#toInsert').attr('value');
+	
 	var current = JSON.parse(paginationInfos);
 
 	$('.page-item').removeClass('active');
@@ -227,7 +229,8 @@ function getPageModalMedia(page){
         url: '/admin/media-modal-page-ajax/p/'+page,
         cache: false,
         data: {
-		    pagination: paginationInfos
+		    pagination: paginationInfos,
+		    selected: selectedElements
 		},
         type: 'POST',
         success: function(response)
