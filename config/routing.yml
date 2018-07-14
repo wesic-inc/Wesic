@@ -243,6 +243,16 @@ routing:
         controller: media:index
         path: admin/medias
 
+    MediaAjaxPagination:
+        restricted: moderator
+        controller: media:modalPaginationAjax
+        path: admin/media-modal-page-ajax
+        params:
+            p:
+                type: int
+                optional: false
+
+
     EditTheme:
         restricted: admin
         controller: theme:editTheme

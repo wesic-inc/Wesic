@@ -400,13 +400,17 @@ class QueryBuilder extends Basesql
      * @param  [type] $perPage [description]
      * @return [type]          [description]
      */
-    public function paginate($perPage)
+    public function paginate($perPage, $getPage = "")
     {
         $total = count($this->get());
 
         $nbPage = Format::pageCalc($total, $perPage);
 
-        $current = Singleton::request()->getParam('p');
+        if (empty($getPage)) {
+            $current = Singleton::request()->getParam('p');
+        } else {
+            $current = $getPage;
+        }
 
         if ($current == null && $nbPage > 0) {
             $current = '1';

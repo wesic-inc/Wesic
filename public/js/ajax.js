@@ -214,3 +214,26 @@ function saveDashboardOrder(list,leftCount,rightCount){
 	xmlhttp.send(null);
 
 }
+
+function getPageModalMedia(page){
+	
+
+	var paginationInfos = $('#pagination-infos').attr('value'); 
+	var current = JSON.parse(paginationInfos);
+
+	$('.page-item').removeClass('active');
+
+	$.ajax({
+        url: '/admin/media-modal-page-ajax/p/'+page,
+        cache: false,
+        data: {
+		    pagination: paginationInfos
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            $('#media-modal-elements').html(response);
+            $('#page'+page).toggleClass('active');
+        }
+    });
+}

@@ -47,6 +47,7 @@
 				<script src="/public/js/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.min.js"></script>
 				<script src="https://rawgit.com/RickStrahl/jquery-resizable/master/dist/jquery-resizable.min.js"></script>
 				<script src="/public/js/trumbowyg/plugins/resizimg/trumbowyg.resizimg.js"></script>
+				<script src="/public/js/trumbowyg/plugins/insertaudio/trumbowyg.insertaudio.js"></script>
 
 
 				<script type="text/javascript" src="/public/js/dragula.min.js"></script>

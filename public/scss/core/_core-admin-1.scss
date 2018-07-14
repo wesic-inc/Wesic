@@ -198,8 +198,13 @@ textarea {
 }
 
 
-.modal-body {padding: 2px 16px;}
-
+.modal-body {
+	padding: 2px 16px;
+}
+.modal-media-body {
+	padding: 2px 20px;
+	text-align: center;
+}
 
 .modal-footer {
 	padding: 20px;

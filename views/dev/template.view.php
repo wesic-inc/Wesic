@@ -16,10 +16,10 @@
 	<div class="modal-header">
 		<h3>Insérer une image</h3><span id="media-count">0</span><span> média selectionné</span>
 	</div>
-	<div class="modal-body">
-		<div class="row">
+	<div class="modal-media-body">
+		<div class="row" id="media-modal-elements">
 		<?php foreach ($medias as $media): ?>
-			<div class="col-sm-1" > 
+			<div class="col-sm-2" > 
 			<?php if($media['type'] == 1): ?>
 				<img class="media-item-modal" id="<?php echo $media['id'] ?>" onclick="selectMedia(<?php echo $media['id'] ?>,<?php echo $media['type'] ?>)" path="<?php echo $media['path'] ?>" type="<?php echo $media['type'] ?>" src="<?php echo '/'.$media['path']; ?>">
 			<?php elseif($media['type'] == 2): ?>
@@ -30,6 +30,7 @@
 			</div>
 		<?php endforeach ?>
 		</div>
+		<?php $this->addModal('pagination-ajax') ?>
 	</div>
 	<div class="modal-footer-media">
 		<a class="btn btn-primary btn-sm" id="valid-action" onclick="insertSelection()">Insérer</a>
