@@ -13,10 +13,12 @@ class articleController
         $qb = new QueryBuilder();
 
         $article = $qb
-            ->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.image as featured')
+            ->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,media.path,media.caption as mcaption,media.description as mdesc,media.alttext as malt')
             ->from('post AS p')
+            ->leftJoin('media','p.featured = media.id')
             ->where('p.slug', $param['slug'])
             ->fetchOrFail();
+
 
         if (setting('comments')!=3) {
             $qb->reset();

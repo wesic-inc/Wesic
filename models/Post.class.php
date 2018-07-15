@@ -7,13 +7,12 @@ class Post extends PostRepository
     protected $slug;
     protected $content;
     protected $excerpt;
-    protected $image;
+    protected $featured;
     protected $description;
     protected $created_at;
     protected $published_at;
     protected $status;
     protected $visibility;
-    protected $parent;
     protected $user_id;
 
     public function updateOnKey(){
@@ -258,9 +257,9 @@ class Post extends PostRepository
     /**
      * @return mixed
      */
-    public function getImage()
+    public function getFeatured()
     {
-        return $this->image;
+        return $this->featured;
     }
 
     /**
@@ -268,9 +267,9 @@ class Post extends PostRepository
      *
      * @return self
      */
-    public function setImage($image)
+    public function setFeatured($featured)
     {
-        $this->image = $image;
+        $this->featured = $featured;
 
         return $this;
     }

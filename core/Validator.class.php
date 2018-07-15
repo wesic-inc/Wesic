@@ -49,6 +49,9 @@ class validator
             if ($options["type"]=="email" && !self::emailCorrect($data[$name])) {
                 $listErrors[]= $email;
             }
+            if ($options["type"]=="featuredimg" && !self::featuredCorrect($data[$name])) {
+                $listErrors[]= $email;
+            }
             if ($options["type"]=="url" && !self::urlCorrect($data[$name])) {
                 $listErrors[]= $url;
             }
@@ -292,6 +295,25 @@ class validator
             return Slug::slugExistsWithId($var, $id);
         } else {
             return Basesql::slugExists($var);
+        }
+    }
+
+    /**
+     * [slugCorrect description]
+     * @param  [type] $var [description]
+     * @param  [type] $id  [description]
+     * @return [type]      [description]
+     */
+    public static function featuredCorrect($id)
+    {
+        if($id == 0){
+            return true;
+        }
+
+        if (isset($id)) {
+            return Media::mediaExist($id);
+        } else{
+            return false;
         }
     }
 

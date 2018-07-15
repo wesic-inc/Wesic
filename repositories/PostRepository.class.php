@@ -38,6 +38,10 @@ class PostRepository extends Basesql
         $article->setPublishedAt($datePublied);
         $article->setCreatedAt();
         $article->setStatus($status);
+
+        if($data['featured'] != 0){
+            $article->setFeatured($data['featured']);
+        }
         $article->setVisibility($data['visibility']);
         $article->setUserId(Singleton::getUser()->getId());
         $article->save();
@@ -49,8 +53,11 @@ class PostRepository extends Basesql
         $newArticle = $qb->findAll('post')->where('slug', $data['slug'])->fetchOne();
 
         Category::createCategoryJoin($data['category'], $article->getId());
-        $tags = Category::addTags(json_decode($data['tags']));
-        Category::attachTagsToPost($tags, 59);
+        
+        if(!empty($data['tags'])){            
+            $tags = Category::addTags(json_decode($data['tags']));
+            Category::attachTagsToPost($tags, 59);
+        }
 
         return true;
     }

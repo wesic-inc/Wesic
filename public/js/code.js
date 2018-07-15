@@ -286,7 +286,7 @@ function insertSelection(){
 }
 
 function selectImage(id){
-  $('#feature-image').attr('value',id);
+  $('#feature-image-input').attr('value',id);
   $('#feature-image').attr('src',$('#'+id).attr('src') );
   $('#featuredModal').css('display','none');
 }

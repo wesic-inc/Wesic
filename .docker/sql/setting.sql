@@ -27,29 +27,39 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `setting` (`id`, `type`, `value`) VALUES
-('comments', 1, '1'),
+('comments', 1, '2'),
 ('datetype', 1, '1'),
 ('default-cat', 2, '1'),
 ('default-format', 2, '1'),
 ('display-post', 3, '1'),
 ('email', 1, 'lharang.pro@gmail.com'),
 ('favicon', 1, 'public/storage/favicon.png'),
-('homepage', 3, '0'),
-('links-bloc', 4, '1'),
+('homepage', 3, '2'),
+('left-1', 4, 'quickview'),
+('left-2', 4, 'comments'),
+('left-3', 4, 'activity'),
+('left-4', 4, 'NULL'),
+('left-5', 4, 'NULL'),
+('links-bloc', 4, '2'),
 ('mail-login', 2, 'wesic.corporate@gmail.com'),
 ('mail-password', 2, 'wesic2018'),
 ('mail-port', 2, '587'),
 ('mail-server', 2, 'smtp.gmail.com'),
 ('pagination-posts', 3, '1'),
 ('pagination-rss', 3, '1'),
+('right-1', 4, 'stats'),
+('right-2', 4, 'NULL'),
+('right-3', 4, 'NULL'),
+('right-4', 4, 'NULL'),
+('right-5', 4, 'NULL'),
 ('signup', 2, '1'),
 ('slogan', 1, 'TROP BIEN LE SLOGAN LOLILOL'),
+('theme', 5, 'theme1'),
 ('timetype', 1, '1'),
 ('timezone', 2, '1'),
 ('title', 1, 'Wesic Dev.'),
 ('url', 1, 'http://docker.local'),
-('welcome-bloc', 4, '1'),
-('theme', 5, 'theme1');
+('welcome-bloc', 4, '2');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
