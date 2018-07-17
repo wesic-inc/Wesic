@@ -1,8 +1,5 @@
 <?php
 
-if(!isset($_SESSION)) 
-	session_start();
-
 class loginController{
 /**
  * [indexAction description]
@@ -21,15 +18,12 @@ class loginController{
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 			$errors = Validator::check($form["struct"], $post);
-
 			if(empty($errors)){
-
 				if(!Validator::process($form["struct"], $post, 'signin')){
 					$errors = ["login404"];
 				}else{
 					Route::redirect('Admin');
 				}
-
 			}
 		}
 

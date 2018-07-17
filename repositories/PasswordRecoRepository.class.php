@@ -1,5 +1,6 @@
 <?php
 
+require 'core/phpmailer/src/Exception.php';
 require 'core/phpmailer/src/PHPMailer.php';
 require 'core/phpmailer/src/SMTP.php';
 
@@ -162,11 +163,11 @@ class PasswordRecoRepository extends Basesql
             $qb = new QueryBuilder();
 
             $userFound = $qb
-        ->select('*')
-        ->from('user')
-        ->addWhere('email = :email')
-        ->setParameter('email', $email)
-        ->fetchOne();
+            ->select('*')
+            ->from('user')
+            ->addWhere('email = :email')
+            ->setParameter('email', $email)
+            ->fetchOne();
 
         
             $user->setId($userFound['id']);

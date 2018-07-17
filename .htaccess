@@ -1,11 +1,27 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	
+	<files init.sql>
+	order allow,deny
+	deny from all
+	</files>	
+
+	<files install>
+	order allow,deny
+	deny from all
+	</files>	
+
+	<files index.new>
+	order allow,deny
+	deny from all
+	</files>
+	
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 
 
 	RewriteRule . index.php [L]
+
 
 	ErrorDocument 403 /403
 	ErrorDocument 404 /404

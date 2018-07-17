@@ -219,47 +219,48 @@ class userController
         ]);
     }
 
-    // public function newPasswordConfirmationAction(Request $request)
-    // {
+    public function newPasswordConfirmationAction(Request $request)
+    {
 
-    //     dd($request->getParams());
+        $token = $request->getParam('token');
 
-    //     $passwordrecovery = new Passwordrecovery();
+        $passwordrecovery = new Passwordrecovery();
 
-    //     $result = $passwordrecovery->getData('passwordrecovery', ["token"=>$args['token']]);
+        $qb = new QueryBuilder();
+        $result = $qb->all('passwordrecovery')->where('token',$token)->fetchOrFail();
 
-    //     $token_generated  = new DateTime($result['date']);
+        $token_generated  = new DateTime($result['date']);
 
-    //     if ($token_generated->format('U') > $token_generated->format('U') + 86400) {
-    //         Route::redirect('Error404');
-    //     } else {
-    //         $form = User::getFormModifyPassword();
-    //         $errors = [];
+        if ($token_generated->format('U') > $token_generated->format('U') + 86400) {
+            Route::redirect('Error404');
+        } else {
+            $form = User::getFormModifyPassword();
+            $errors = [];
 
-    //         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //             $errors = Validator::check($form["struct"], $args['post']);
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $errors = Validator::check($form["struct"], $request->getPost());
 
-    //             if (!$errors) {
-    //                 $args['post']['token'] = $args['token'];
+                if (!$errors) {
 
-    //                 if (!Validator::process($form["struct"], $args['post'], 'modifypassword')) {
-    //                     $errors=["password"];
-    //                 } else {
-    //                     Route::redirect('Login');
-    //                 }
-    //             }
-    //         }
+                    $request->setPost('token',$token);
+                    if (!Validator::process($form["struct"], $request->getPost(), 'modifypassword')) {
+                        $errors=["password"];
+                    } else {
+                        Route::redirect('Login');
+                    }
+                }
+            }
 
-    //         $v = new View();
-    //         $v->setView("login/modifypassword", "templateadmin-modal")
-    //         ->massAssign([
-    //             "title"=>"Connexion",
-    //             "description"=>"Connexion",
-    //             "form"=>$form,
-    //             "errors"=>$errors
-    //         ]);
-    //     }
-    // }
+            $v = new View();
+            $v->setView("login/modifypassword", "templateadmin-modal")
+            ->massAssign([
+                "title"=>"Connexion",
+                "description"=>"Connexion",
+                "form"=>$form,
+                "errors"=>$errors
+            ]);
+        }
+    }
     /**
      * [newAccountConfirmationAction description]
      * @param  Request $request [description]

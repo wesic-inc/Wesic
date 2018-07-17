@@ -78,7 +78,7 @@ if (file_exists($path_controller)) {
 
 
 // Permet la gestion des permissions (voir config/routing.yml)
-    $permission = Route::getPermissionsDev($route);
+    $permission = Route::getPermissions($route);
 
     if ($permission != 1) {
         if ($permission == 0 || is_null($permission)) {

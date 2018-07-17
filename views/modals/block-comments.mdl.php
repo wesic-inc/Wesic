@@ -24,6 +24,11 @@
 									</div>
 								</div>
 								<?php endforeach ?>
+								<?php if(empty($config['data'])): ?>
+									<div class="comment">
+										<span> Aucun commentaire pour le moment. </span>
+									</div>
+								<?php endif ?>
 							</article>
 						</div>
 					</div>

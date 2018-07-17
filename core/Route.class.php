@@ -262,50 +262,11 @@ class Route
     }
 
     /**
-     * [getPermissions description]
-     * @param  [type] $route [description]
-     * @return [type]        [description]
-     */
-    public static function getPermissions($route)
-    {
-        $connected = Auth::isConnected();
-        $rights = Auth::isAdmin();
-
-        global $route_access;
-
-        if ($route['c'] !== "" && $route['a'] === "") {
-            $route['a'] = "index";
-        }
-
-        $matched_route = in_array($route['c'].'/'.$route['a'], array_keys($route_access));
-
-        switch ($route_access[$route['c'].'/'.$route['a']]) {
-            case 'admin':
-            if ($connected == true && $rights == true) {
-                return true;
-            }
-                // no break
-            case 'user':
-            if ($connected == true) {
-                return true;
-            }
-            break;
-            case 'all':
-            return true;
-            break;
-            default:
-            return true;
-            break;
-        }
-        return false;
-    }
-
-    /**
      * [getPermissionsDev description]
      * @param  [type] $route [description]
      * @return [type]        [description]
      */
-    public static function getPermissionsDev($route)
+    public static function getPermissions($route)
     {
         $connected = Auth::isConnected();
         $rights = Auth::getRights();
