@@ -8,5 +8,5 @@ config:
       root: ""
       files: ""
     sitename: Wesic Inc.
-    domain: "www.docker.local"
+    domain: www.docker.local
     debug: true

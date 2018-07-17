@@ -134,15 +134,15 @@ public static function getInstallForm(){
     "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Sauvegarder", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
     "struct" => [
 
-     "name"=>["label"=> "Le nom de votre site", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Nom du site", "msgerror"=>"slogand" ],
+     "title"=>["label"=> "Le nom de votre site", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Nom du site", "msgerror"=>"slogand" ],
 
      "email"=>["label"=> "L'adresse mail de récupération", "type"=>"email", "id"=>"pagination-rss", "placeholder"=>"E-mail", "msgerror"=>"slogand" ],
 
-     "username"=>["label"=> "Votre nom d'utilisateur", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Nom du site", "msgerror"=>"slogand" ],
+     "username"=>["label"=> "Votre nom d'utilisateur", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Nom d'utilisateur", "msgerror"=>"slogand" ],
 
      "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-     "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2" ],
+     "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2", "confirm"=>"password1" ],
 
 
      "submit"=>[ "label"=>"Sauvegarder", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]

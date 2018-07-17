@@ -500,11 +500,11 @@ class Form
      */
     public static function getCSRF()
     {
-
+        
         $token = md5(uniqid(rand(), true));
-        if (!isset($_SESSION)){
-            session_start();
-        }
+        // if (!isset($_SESSION)){
+        //     session_start();
+        // }
         $_SESSION['csrf'] = $token;
         return '<input type="hidden" name="csrf" id="csrf" value="'.$token.'">';
     }

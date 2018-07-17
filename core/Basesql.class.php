@@ -78,7 +78,7 @@ class Basesql
 
     public function initDb()
     {
-        $sqlRaw = file_get_contents('init.sql');
+        $sqlRaw = file_get_contents('config/utils/init.sql');
         $sql = str_replace('%database%', DBNAME, $sqlRaw);
         $qr = $this->pdo->exec($sql);
     }
