@@ -100,9 +100,10 @@ class categoryController
  * @param  [type] $args [description]
  * @return [type]       [description]
  */
-    public static function deleteCategoryAction($args)
+    public static function deleteCategoryAction(Request $request)
     {
-        $param = $args['params'];
+
+        $param = $request->getParams();
         
         Category::deleteCategory($param['id']);
 
