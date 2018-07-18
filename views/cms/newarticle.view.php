@@ -18,6 +18,9 @@
 	</div>
 	<div class="modal-media-body">
 		<div class="row" id="media-modal-elements">
+		<?php if(empty($medias['data'])): ?>
+			<div class="col-sm-12 text-center"><h4> Aucun média pour le moment </h4></div>
+		<?php endif ?>
 		<?php foreach ($medias['data'] as $media): ?>
 			<div class="col-sm-2" > 
 			<?php if($media['type'] == 1): ?>
@@ -47,6 +50,7 @@
 	</div>
 	<div class="modal-media-body">
 		<div class="row" id="images-modal-elements">
+
 		<?php foreach ($images['data'] as $media): ?>
 			<div class="col-sm-2" > 
 				<img class="media-item-modal" id="<?php echo $media['id'] ?>" onclick="selectImage(<?php echo $media['id'] ?>,<?php echo $media['type'] ?>)" path="<?php echo $media['path'] ?>" type="<?php echo $media['type'] ?>" src="<?php echo '/'.$media['path']; ?>">

@@ -107,7 +107,7 @@
           <div class="user-menu">
 
               <span> <?php echo Singleton::getUser()->getLogin(); ?> </span>
-              <img class="avatar" src="<?php Format::img('user.jpg'); ?>">
+              <img class="avatar" src="<?php echo Format::gravatar(Singleton::getUser()->getEmail()); ?>">
             </a>
           <div class="dropdown">
             <ul> 

@@ -33,8 +33,8 @@
 							</tr>
 						</thead>
 						<tbody id="body-ajax">
-							<?php foreach($comments as $comment): ?>
-							<tr id="<?php echo $user['id'] ?>" >
+							<?php foreach($comments['data'] as $comment): ?>
+							<tr id="<?php echo $comment['id'] ?>" >
 								<td class="hidden-xs"><label class="checkbox-container">
 									<input type="checkbox">
 									<span class="checkmark"></span>
@@ -47,7 +47,7 @@
 								<ul class="grid-actions">
 									<a href="/admin/moderer-commentaire/id/<?php echo $comment['id']; ?>"><li>Modérer</li></a>
 									<?php if($comment['status'] != '5'):?>
-									<a onclick="deleteModalUser(<?php echo $user['id'] ?>)"><li>Supprimer</li></a>
+									<a onclick="deleteModalUser(<?php echo $comment['id'] ?>)"><li>Supprimer</li></a>
 									<?php endif ?>
 									<?php if($comment['status'] == '2' || $comment['status'] == '3'):?>
 									<a href="<?php Route::echo('ApproveComment','/id/'.$comment['id'].'/redirect/1'); ?>"><li>Approuver</li></a>
@@ -62,7 +62,7 @@
 							<td data-label="Rôle"><?php echo $comment['created_at']; ?></td>
 						</tr>
 						<?php endforeach; ?>
-						<?php if(empty($comments)): ?>
+						<?php if(empty($comments['data'])): ?>
 						<tr>
 							<td> Aucun commentaire trouvé </td>
 							<td></td>
@@ -77,15 +77,14 @@
 				<input type="hidden" id="params">
 			</article>
 			<footer>
-				<?php $this->addModal("pagination"); ?>
+				<?php $this->addModal("pagination",$comments['pagination']); ?>
 				<ul class="inline hidden-xs">
 					<li>Actions groupées :  </li>
-					<li><a href="#"> Supprimer</a></li>
-					<li><a href="#"> Désapprouver</a></li>
-					<li><a href="#"> Approuver</a></li>
-					<li><a href="#"> Spam</a></li>
+					<li><a onclick="deleteCommentsAction()" > Supprimer</a></li>
+					<li><a onclick="disapproveCommentsAction()" > Désapprouver</a></li>
+					<li><a onclick="approveCommentsAction()" > Approuver</a></li>
 				</ul>
-				<span class="push-right"> <?php echo count($comments); ?> élément(s) </span>
+				<span class="push-right"> <?php echo $comments['pagination']['total']; ?> élément(s) </span>
 			</footer>
 		</div>
 	</div>

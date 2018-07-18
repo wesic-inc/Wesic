@@ -38,7 +38,7 @@ function loadForm(){
 
             $setting->setParam('url', $url);
             $setting->setParam('links-bloc', 1);
-            $setting->setParam('title', $data['title']);
+            $setting->setParam('title', $post['title']);
             $setting->setParam('welcome-bloc', 1);
             $setting->setParam('left-1', 'welcome-bloc');
             $setting->setParam('left-2', 'links-bloc');
@@ -46,6 +46,7 @@ function loadForm(){
             $setting->setParam('right-1', 'quickview');
             $setting->setParam('right-2', 'activity');
             $setting->setParam('right-3', 'comments');
+            $setting->setParam('theme', 'default');
 
             $user = new User();
             $user->setLogin($post['username']);
@@ -60,7 +61,7 @@ function loadForm(){
             $user->save();
 
             unlink('index.php');
-            copy('index.new','index.php');
+            copy('config/utils/index.new.php','index.php');
             $finished = true;
         }
     }

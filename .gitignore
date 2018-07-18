@@ -4,3 +4,4 @@
 !.docker/database/.gitkeep
 public/.sass-cache
 public/storage/*
+linecounter.sh

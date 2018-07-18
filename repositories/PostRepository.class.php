@@ -17,7 +17,7 @@ class PostRepository extends Basesql
             $status = 1;
             $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été publié";
         }
-    
+
         $slug = new Slug();
         $slug->setSlug($data['slug']);
         $slug->setType(1);
@@ -37,7 +37,7 @@ class PostRepository extends Basesql
         $article->setDescription($data['description']);
         $article->setPublishedAt($datePublied);
         $article->setCreatedAt();
-        $article->setStatus($status);
+        $article->f($status);
 
         if($data['featured'] != 0){
             $article->setFeatured($data['featured']);
@@ -47,7 +47,7 @@ class PostRepository extends Basesql
         $article->save();
 
         View::setFlash("Succès !", $flashmessage, "success");
-    
+
         $qb = new QueryBuilder();
 
         $newArticle = $qb->findAll('post')->where('slug', $data['slug'])->fetchOne();
@@ -230,34 +230,34 @@ class PostRepository extends Basesql
         $qb = new QueryBuilder();
 
         $toDelete = $qb->findAll('post')
-    ->addWhere('id = :id')
-    ->setParameter('id', $id)
-    ->fetchOne();
+        ->addWhere('id = :id')
+        ->setParameter('id', $id)
+        ->fetchOne();
 
         $qb->reset();
 
         $qb->delete()
-    ->from('join_article_category')
-    ->addWhere('post_id = :post_id')
-    ->setParameter('post_id', $id)
-    ->execute();
+        ->from('join_article_category')
+        ->addWhere('post_id = :post_id')
+        ->setParameter('post_id', $id)
+        ->execute();
 
         $qb->reset();
 
         $qb->delete()
-    ->from('post')
-    ->addWhere('id = :id')
-    ->setParameter('id', $id)
-    ->execute();
+        ->from('post')
+        ->addWhere('id = :id')
+        ->setParameter('id', $id)
+        ->execute();
 
 
         $qb->reset();
 
         $qb->delete()
-    ->from('slug')
-    ->addWhere('slug = :slug')
-    ->setParameter('slug', $toDelete['slug'])
-    ->execute();
+        ->from('slug')
+        ->addWhere('slug = :slug')
+        ->setParameter('slug', $toDelete['slug'])
+        ->execute();
 
         View::setFlash("Succès !", "L'article <i>".$toDelete['title']."</i> a bien été supprimé", "danger");
     }
@@ -272,27 +272,46 @@ class PostRepository extends Basesql
         $qb = new QueryBuilder();
 
         $toDelete = $qb->findAll('post')
-    ->addWhere('id = :id')
-    ->setParameter('id', $id)
-    ->fetchOne();
+        ->addWhere('id = :id')
+        ->setParameter('id', $id)
+        ->fetchOne();
 
         $qb->reset();
 
         $qb->delete()
-    ->from('post')
-    ->addWhere('id = :id')
-    ->setParameter('id', $id)
-    ->execute();
+        ->from('post')
+        ->addWhere('id = :id')
+        ->setParameter('id', $id)
+        ->execute();
 
         $qb->reset();
 
 
         $qb->delete()
-    ->from('slug')
-    ->addWhere('slug = :slug')
-    ->setParameter('slug', $toDelete['slug'])
-    ->execute();
+        ->from('slug')
+        ->addWhere('slug = :slug')
+        ->setParameter('slug', $toDelete['slug'])
+        ->execute();
 
         View::setFlash("Succès !", "La page <i>".$toDelete['title']."</i> a bien été supprimée", "danger");
+    }
+
+    /**
+     * [setPostStatus description]
+     * @param int $id     [description]
+     * @param int $status [description]
+     * @return  bool
+     */
+    public static function setPostStatus($id, $status)
+    {
+        if ($status == 1 || $status == 2 || $status == 3) {
+            $post = new Post();
+            $post->setStatus($status);
+            $post->setId($id);
+            $post->save();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -17,13 +17,15 @@ class articleController
             ->from('post AS p')
             ->leftJoin('media','p.featured = media.id')
             ->where('p.slug', $param['slug'])
+            ->and()
+            ->where('p.status', 1)
             ->fetchOrFail();
 
 
         if (setting('comments')!=3) {
             $qb->reset();
             
-            $comments = $qb->select('c.*,u.login as username')
+            $comments = $qb->select('c.*,u.login as username,u.email as uemail')
             ->from('comment AS c')
             ->leftJoin('user AS u', 'c.user_id = u.id')
             ->where('c.post_id', $article['articleid'])
@@ -65,10 +67,10 @@ class articleController
 
         Stat::add(1, "lecture article", 1, $article['articleid']);
     }
+
     /**
-     * [allArticlesAction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * Display all articles in Wesic Backoffice
+     * @param  Request $request 
      */
     public function allArticlesAction(Request $request)
     {
@@ -98,7 +100,7 @@ class articleController
             $qbArticles->and()->search('title', $search);
         }
 
-        $articles = $qbArticles->paginate(10);
+        $articles = $qbArticles->orderBy('published_at','ASC')->paginate(10);
 
         $v = new View();
         
@@ -117,52 +119,29 @@ class articleController
      * @param  [type] $args [description]
      * @return [type]       [description]
      */
-    public function allArticlesAjaxAction($args)
+    public function articleActionsAction(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $qbArticles = new QueryBuilder();
-            $qbArticles
-            ->select('*')
-            ->from('post')
-            ->addWHere('type = :type')
-            ->setParameter('type', 1);
 
-            $param = $args['params'];
+            $selectIds = json_decode($request->getPost()['ids']);
 
-            switch ($param['sort']) {
-                case 1:
-                $qbArticles->OrderBy('title', 'DESC');
-                break;
-                case -1:
-                $qbArticles->OrderBy('title', 'ASC');
-                break;
-                case 2:
-                $qbArticles->OrderBy('status', 'DESC');
-                break;
-                case -2:
-                $qbArticles->OrderBy('status', 'ASC');
-                break;
-                case 3:
-                $qbArticles->OrderBy('user_id', 'DESC');
-                break;
-                case -3:
-                $qbArticles->OrderBy('user_id', 'ASC');
-                break;
-                case 4:
-                $qbArticles->OrderBy('datePublied', 'DESC');
-                break;
-                case -4:
-                $qbArticles->OrderBy('datePublied', 'ASC');
-                break;
+            switch ($request->getParam('action')) {
+                case 'unpublish':
+                    foreach ($selectIds as $val) {
+                        Post::setPostStatus($val,2);
+                    }
+                    break;                
+                case 'delete':
+                    foreach ($selectIds as $val) {
+                        Post::setPostStatus($val,3);
+                    }
+                    break;
                 default:
-                return false;
-                break;
+                    break;
             }
 
-            $articles = $qbArticles->execute();
-            
-            $v = new View();
-            $v->setView("ajax/allArticles", "templateajax")->assign("articles", $articles);
+        } else {
+            Route::redirect('Error404');
         }
     }
 
@@ -186,6 +165,7 @@ class articleController
         $errors = [];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            dd($post);
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
@@ -253,7 +233,7 @@ class articleController
         $_POST['visibility'] = $data['visibility'];
         $_POST['excerpt'] = $data['excerpt'];
         $_POST['description'] = $data['description'];
-        $_POST['category'] = Category::getCategory($data['category']);
+        // $_POST['category'] = Category::getCategory($data['category']);
         
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");

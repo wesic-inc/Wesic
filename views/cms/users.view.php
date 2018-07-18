@@ -75,7 +75,8 @@
 				<?php $this->addModal("pagination",$users['pagination']); ?>
 				<ul class="inline hidden-xs">
 					<li>Actions groupées :  </li>
-					<li><a href="#"> Supprimer</a></li>
+					<li><a href="#" onclick="deleteUsersAction()"> Supprimer</a></li>
+					<li><a href="#" onclick="banUsersAction()"> Bannir</a></li>
 				</ul>
 				<span class="push-right"> <?php echo count($users['pagination']['total']); ?> élément(s) </span>
 			</footer>

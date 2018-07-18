@@ -34,6 +34,8 @@ class adminController
         ->leftJoin('user', 'user.id = comment.user_id')
         ->leftJoin('post', 'post.id = comment.post_id')
         ->where('comment.type', '!=', 5)
+        ->and()
+        ->where('post.status',1)
         ->orderBy('comment.created_at', 'DESC')
         ->limit(0, 5)
         ->get();

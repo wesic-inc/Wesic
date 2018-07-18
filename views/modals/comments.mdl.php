@@ -6,8 +6,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<?php if($comment['type'] == 1): ?>
+					<img src="<?php echo Format::gravatar($comment['uemail']) ?>">
 					<h5><?php echo $comment['username']; ?></h5>
 					<?php else: ?>
+						<img src="<?php echo Format::gravatar($comment['email']) ?>">
 						<h5><?php echo $comment['name']; ?></h5>
 					<?php endif ?>
 					<p class="small-text">Posté <?php echo Format::humanTime($comment['created_at']) ?></p>

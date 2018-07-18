@@ -3,10 +3,10 @@
 class CommentRepository extends Basesql
 {
 
-	/**
-	 * [selectSuitableForm description]
-	 * @return [type] [description]
-	 */
+    /**
+     * Choose the correct form based on the settings
+     * @return mixed
+     */
     public static function selectSuitableForm()
     {
         if (setting('comments') == 1) {
@@ -22,9 +22,9 @@ class CommentRepository extends Basesql
     }
 
     /**
-     * [newComment description]
-     * @param  [type] $data [description]
-     * @return [type]       [description]
+     * Create comment from data
+     * @param  array $data
+     * @return bool
      */
     public static function newComment($data)
     {
@@ -48,9 +48,10 @@ class CommentRepository extends Basesql
     }
 
     /**
-     * [setCommentStatus description]
-     * @param [type] $id     [description]
-     * @param [type] $status [description]
+     * Switch the status of one comment based on id
+     * @param integer $id     the comment id
+     * @param integer $status the status code
+     * @return  bool
      */
     public static function setCommentStatus($id, $status)
     {

@@ -262,3 +262,131 @@ function getPageModalImage(page){
         }
     });
 }
+
+
+function deleteUsersAction(){
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/users-ajax/action/delete',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
+function banUsersAction(){
+
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/users-ajax/action/ban',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
+function unPublishPostAction(){
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/articles-ajax/action/unpublish',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
+function deletePostAction() {
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/articles-ajax/action/delete',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
+function deleteCommentsAction() {
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/comments-ajax/action/delete',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
+function disapproveCommentsAction() {
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/comments-ajax/action/disapprove',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
+function approveCommentsAction() {
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/comments-ajax/action/approve',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}

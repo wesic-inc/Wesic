@@ -1,0 +1,21 @@
+<?php
+
+
+include "config/conf-cli.inc.php";
+
+$args = $_SERVER['argv'][1];
+print($args);
+
+switch ($args) {
+	case 'seeder':
+		echo "seeder";
+		Seeder::fakeNews();
+		break;	
+	case 'routes':
+		echo "routes";
+		break;
+	default:
+		break;
+}
+
+?>

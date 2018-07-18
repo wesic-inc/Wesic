@@ -11,15 +11,11 @@
 				</header>
 				<article >
 					<ul class="inline group-action">
-						<li><a
-							href="<?php Route::echo('AllArticles'); ?>"
-							class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==1?'active':''; ?>"
-								href="<?php Route::echo('AllArticles'); ?>/filter/1"> Publiés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
-								<li><a class="<?php echo $filter==2?'active':''; ?>"
-									href="<?php Route::echo('AllArticles'); ?>/filter/2"> Brouillons <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
-									<li>
-									</ul>
+						<li><a href="<?php Route::echo('AllArticles'); ?>" class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/1"> Publiés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/2"> Brouillons <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/2"> Corbeille <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
+					</ul>
 									<table class="table table-stripped">
 										<thead>
 											<tr>
@@ -76,8 +72,8 @@
 
 									<ul class="inline">
 										<li>Actions groupées :  </li>
-										<li><a href="#"> Place dans la corbeille</a></li>
-										<li><a href="#">Dépublier</a></li>
+										<li><a href="#" onclick="deletePostAction()"> Place dans la corbeille</a></li>
+										<li><a href="#" onclick="unPublishPostAction()">Dépublier</a></li>
 									</ul>
 									<span class="push-right"> <?php echo count($articles); ?> éléments </span>
 								</footer>

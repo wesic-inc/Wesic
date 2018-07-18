@@ -373,7 +373,6 @@ class Route
         $uri = self::getUri()[0];
         $params = self::getUri()[1];
 
-
         foreach ($rof['routing'] as $rules) {
             if ($uri == $rules['path']) {
                 $c = explode(":", $rules['controller'])[0];

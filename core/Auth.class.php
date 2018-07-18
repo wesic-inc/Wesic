@@ -6,8 +6,7 @@ class Auth extends Basesql {
 	 * @return boolean [description]
 	 */
 	static function isConnected(){
-
-		if(isset($_SESSION["token"])){
+		if(isset($_SESSION["token"]) && Singleton::getUser() !== null){
 			$qb = new QueryBuilder();
 			$user = $qb->all('user')->where("token",$_SESSION["token"])->fetchOrFail();
 			if(empty($user)){

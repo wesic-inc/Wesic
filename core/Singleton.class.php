@@ -31,24 +31,28 @@ class Singleton
      */
     public static function getUser()
     {
-        if (Singleton::$_instanceUser == null && isset($_SESSION['token'])) {
+        if (Singleton::$_instanceUser === null && isset($_SESSION['token'])) {
+            
             $_instanceUser = new User();
 
             $qb = new QueryBuilder();
-
-            $result =
-            $qb->findAll('user')->where('token', $_SESSION['token'])->fetchOrFail();
+            $result = $qb->all('user')->where('token', $_SESSION['token'])->fetchOne();
             
-            $_instanceUser->setId($result['id']);
-            $_instanceUser->setLogin($result['login']);
-            $_instanceUser->setFirstname($result['firstname']);
-            $_instanceUser->setLastname($result['lastname']);
-            $_instanceUser->setRole($result['role']);
-            $_instanceUser->setEmail($result['email']);
-            $_instanceUser->setStatus($result['status']);
-            $_instanceUser->setToken($result['token']);
+
+            if(!empty($result)){                
+                $_instanceUser->setId($result['id']);
+                $_instanceUser->setLogin($result['login']);
+                $_instanceUser->setFirstname($result['firstname']);
+                $_instanceUser->setLastname($result['lastname']);
+                $_instanceUser->setRole($result['role']);
+                $_instanceUser->setEmail($result['email']);
+                $_instanceUser->setStatus($result['status']);
+                $_instanceUser->setToken($result['token']);
+            }else{
+                unset($_instanceUser);
+            }
         }
-        if (isset($_SESSION['token'])) {
+        if (isset($_SESSION['token']) && isset($_instanceUser)) {
             return $_instanceUser;
         }
         return null;

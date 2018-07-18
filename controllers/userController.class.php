@@ -44,7 +44,7 @@ class userController
             $qbUsers->all('user')->search('login', $search)->or()->search('email', $search)->or()->search('firstname', $search)->or()->search('lastname', $search);
         }
 
-        $users = $qbUsers->paginate(1);
+        $users = $qbUsers->paginate(10);
 
         $v = new View();
 
@@ -59,30 +59,32 @@ class userController
 
         ]);
     }
+
     /**
-     * [allUsersAjaxAction description]
-     * @param  [type] $args [description]
-     * @return [type]       [description]
+     * [userActionsAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
-    public function allUsersAjaxAction($args)
+    public function userActionsAction(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $qbUsers = new QueryBuilder();
 
-            $qbUsers->findAll('user')->where('status', '!=', 5);
-            
-            $param = $args['params'];
-
-            $qbUsers = Basesql::userDisplaySorting($qbUsers, $param['sort']);
-
-            if (isset($param['p'])) {
+            $selectIds = json_decode($request->getPost()['ids']);
+            switch ($request->getParam('action')) {
+                case 'delete':
+                    foreach ($selectIds as $val) {
+                        User::setUserStatus($val,5);
+                    }
+                    break;                
+                case 'ban':
+                    foreach ($selectIds as $val) {
+                        User::setUserStatus($val,4);
+                    }
+                    break;
+                default:
+                    break;
             }
-            
-            $users = $qbUsers->limit(0, $param['perPage'])->execute();
-            
-            $v = new View();
 
-            $v->setView("ajax/allUsers", "templateajax")->assign("users", $users);
         } else {
             Route::redirect('Error404');
         }

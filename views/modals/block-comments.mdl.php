@@ -14,7 +14,7 @@
 										<?php else: ?>
 										<b> <?php echo $comment['email'] ?></b>
 										<?php endif ?>
-										 sur<a href="#"> "<?php echo $comment['title']; ?>" </a></header>
+										 sur<a target="_blank" href="<?php echo $comment['slug'] ?>"> "<?php echo $comment['title']; ?>" </a></header>
 									<content> <?php echo $comment['body']; ?> </content>
 									<footer> <small>Le <?php echo Format::dateDisplay($comment['created_at'],1);?></small></footer>
 									<div class="admin-actions">

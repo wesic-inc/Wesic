@@ -139,7 +139,8 @@ class User extends UserRepository
     }
 
     public function setToken($token = null)
-    {
+    {   
+        
         if ($token) {
             $this->token = $token;
         } elseif (!empty($this->email)) {

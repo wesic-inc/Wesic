@@ -53,3 +53,12 @@ Content type :
 5 : ajout commentaire
 6 : inscription newsletter
 7 : confirmation16:37 20/05/2018
+
+
+Comment : status
+
+1: Approuvé
+2: En attente
+3: Désaprouvé
+4: Signalé
+5: Supprimé

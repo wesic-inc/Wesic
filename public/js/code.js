@@ -48,29 +48,24 @@ var countChecked = function() {
   var n = $( "input:checked" ).length;
   var inputs = $(this).parent().find('input[value=""]');
   $('input:checkbox').not(this).prop('checked', this.checked);
+  
 
-  if (!inputs.length) {
-        // you have empty fields if this section is reached
-      }
-  // alert(n);
-};
+
+}
+
 countChecked();
-
 $( "#checkAll" ).on( "click", countChecked );
 
-// $("#checkAll").on( "click", function(){
-//     $('input:checkbox').not(this).prop('checked', this.checked);
-// } );
 
+function getSelectedRows(){
+  var selectIds = [];
 
+  $('input:checkbox:checked').not('#checkAll').closest('tr').each(function( index ) {
+    selectIds.push($(this).attr('id'));
+  });
 
-var selected = [];
-$('#checkboxes input:checked').each(function() {
-  selected.push($(this).attr('name'));
-});
-
-
-
+  return selectIds;
+}
 
 
 $(document).ready(function(){

@@ -1,5 +1,4 @@
 routing:
-    
     Index:
         restricted: all
         controller: index:index
@@ -79,38 +78,14 @@ routing:
                 type: string
                 optional: true
 
-    AllUsersAjax:
+    AllUsersActions:
         restricted: admin
-        controller: user:allUsersAjax
-        path: admin/utilisateurs-ajax
+        controller: user:userActions
+        path: admin/users-ajax
         params:
-            sort: 
-                type: int
+            action: 
+                type: string
                 optional: false
-            filter:
-                type: int
-                optional: true
-            p:
-                type: int
-                optional: true
-            perPage:
-                type: int
-                optional: false
-
-    AllArticlesAjax:
-        restricted: admin
-        controller: article:allArticlesAjax
-        path: admin/articles-ajax
-        params:
-            sort: 
-                type: int
-                optional: false
-            filter:
-                type: int
-                optional: true
-            sort:
-                type: int
-                optional: true
 
     AddUser:
         restricted: admin
@@ -209,6 +184,15 @@ routing:
             sort:
                 type: int
                 optional: true
+
+    AllArticlesActions:
+        restricted: admin
+        controller: article:articleActions
+        path: admin/articles-ajax
+        params:
+            action: 
+                type: string
+                optional: false
 
     EditArticle:
         restricted: admin
@@ -330,7 +314,7 @@ routing:
 
     Comments:
         restricted: moderator
-        controller: comment:index
+        controller: comment:allComments
         redirect: Login
         path: admin/commentaires
         params:
@@ -342,7 +326,17 @@ routing:
                 optional: true
             sort:
                 type: int
-                optional: true    
+                optional: true 
+
+    AllCommentsActions:
+        restricted: moderator
+        controller: comment:commentActions
+        redirect: Login
+        path: admin/comments-ajax
+        params:
+            action:
+                type: string
+                optional: false
 
     ModerateComment:
         restricted: moderator

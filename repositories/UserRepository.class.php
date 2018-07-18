@@ -177,6 +177,9 @@ class UserRepository extends Basesql
             $user = new User();
             $user->setStatus($status);
             $user->setId($id);
+            if ($status !== 1) {
+                $user->setToken('undefined');
+            }
             $user->save();
             return true;
         } else {

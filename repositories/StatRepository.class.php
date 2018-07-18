@@ -273,30 +273,4 @@ class StatRepository extends Basesql
     {
     }
 
-    /**
-     * [fakeStats description]
-     * @param  [type] $number [description]
-     * @return [type]         [description]
-     */
-    public static function fakeStats($number)
-    {
-        $stat = new Stat();
-
-
-        for ($i=0;$i<$number;$i++) {
-            $stat->setType(rand(1, 2));
-            $stat->setBody("testPurpoe");
-
-            $int= rand(1495317983, 1526853983);
-
-            $stat->setDate(date("Y-m-d H:i:s", $int));
-            $stat->setContentType(rand(1, 7));
-            $stat->setContentId(rand(1, 50));
-
-            $stat->setIp(long2ip(rand(0, "4294967295")));
-            $stat->setUseragent();
-            $stat->setReferer();
-            $stat->save();
-        }
-    }
 }

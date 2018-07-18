@@ -17,6 +17,7 @@ class Basesql
         $class_vars = get_class_vars(get_class());
         $this->columns = array_keys(array_diff_key($all_vars, $class_vars));
     }
+
     /**
      * [setColumns description]
      */
@@ -64,6 +65,7 @@ class Basesql
             $this->id = $this->pdo->lastInsertId();
         }
     }
+    
     /**
      * [delete description]
      * @return [type] [description]
