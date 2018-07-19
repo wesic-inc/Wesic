@@ -35,12 +35,12 @@
 							</div>
 							<div class="col-md-6 text-left">
 								<div class="timeline-item magic-margin">
-								<img class="img-responsive img-timeline-right" src="">
+								<img class="img-responsive img-timeline-right" src="public/img/placeholder-image.jpg">
 							</div>
 							</div>
 							<div class="col-md-6 text-right border-timeline">
 								<div class="timeline-item magic-margin">
-								<img class="img-responsive img-timeline" src="">
+								<img class="img-responsive img-timeline" src="public/img/placeholder-image.jpg">
 								</div>
 							</div>
 							<div class="col-md-6 text-left ">
@@ -89,7 +89,7 @@
 								'excerpt'=>'p',
 								'category'=>'p'
 							],
-							"col-md-6"
+							"col-md-4"
 						); ?>
 
 						</div>
@@ -109,49 +109,7 @@
 							<div class="col-md-12">
 								<h3 class="text-left ">Pictures</h3>
 								<div class="row magic-margin">
-									<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>
+									<?php get_medias(1,6,false); ?>
 								</div>
 							<div class="text-right wd100"> <h5 ><a href="#"> More Pictures </a></h5> </div>
 							</div>
@@ -163,49 +121,7 @@
 							<div class="col-md-12">
 								<h3 class="text-left">Videos</h3>
 								<div class="row magic-margin">
-									<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>					<div class="col-md-4 no-gutter media-container">
-										<a href="#">
-											<img src="" class="image img-responsive">
-											<div class="middle">
-												<div class="text">Concert du 01/01/2018</div>
-											</div>
-										</a>
-									</div>
+									<?php get_medias(2,6,false); ?>
 								</div>
 							<div class="text-right wd100"> <h5 ><a href="#"> More Videos </a></h5> </div>
 
@@ -220,7 +136,7 @@
 		<nav class="footer" id="footer">
 
 				<ul class="nav sitename push-left">
-					<li> <a href="#"><?php echo strtoupper(setting('title')); ?></a></li>
+					<li> <a href="#"><?php the_sitename(); ?></a></li>
 				</ul>
 				<ul class="nav mentions push-right">
 					<li> All rights reserved. </li>

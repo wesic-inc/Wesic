@@ -1,4 +1,5 @@
 <?php
+
 class View
 {
     protected $data = [];
@@ -18,8 +19,9 @@ class View
             $path_template = "views/templates/".$layout.".tpl.php";
         }
         if ($scope == "front") {
-            $path_view = "themes/".setting('theme')."/views/".$view.".php";
-            $path_template = "themes/".setting('theme')."/views/templates/".$layout.".php";
+            $theme_dir = "themes/".setting('theme')."/views/";
+            $path_view = $theme_dir.$view.".php";
+            $path_template = $theme_dir.$layout.".php";
         }
 
         if (file_exists($path_view)) {

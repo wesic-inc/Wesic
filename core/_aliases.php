@@ -88,9 +88,18 @@ function the_favicon()
  * @param  [type] $title [description]
  * @return [type]        [description]
  */
-function the_sitename($title = null)
+function the_sitename_meta($title = null)
 {
     echo '<title>'.isset($title)?$title:setting('title').'</title>';
+}
+
+/**
+ * [the_sitename description]
+ * @return [type] [description]
+ */
+function the_sitename()
+{
+    echo strtoupper(setting('title'));
 }
 
 /**
@@ -120,7 +129,7 @@ function admin_bar()
  */
 function the_navbar()
 {
-    include('themes/'.setting('theme').'/views/templates/navbar.php');
+    include('themes/'.setting('theme').'/views/navbar.php');
 }
 
 /**
@@ -133,6 +142,11 @@ function article_featured($class = null)
     if (isset(Singleton::bridge()['article']['path'])) {
         echo '<img src="'.Singleton::bridge()['article']['path'].'">';
     }
+}
+
+function article_featured_raw()
+{
+    echo Singleton::bridge()['article']['path'];
 }
 
 /**
@@ -268,22 +282,86 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
 function get_articles_array($limit = 10, $content = false)
 {
     $qb = new QueryBuilder();
-        
+
     return $qb->select('p.title,p.excerptp.slug,p.published_at as date,media.path as img')
-        ->from('post as p')
-        ->leftJoin('media', 'media.id = p.featured')
-        ->where('p.type', 1)
-        ->and()
-        ->where('p.published_at', '<=', date('Y-m-d H:i:s'))
-        ->and()
-        ->where('p.status', 1)
-        ->orderBy('p.published_at', 'DESC')
-        ->limit(0, $limit)
-        ->get();
+    ->from('post as p')
+    ->leftJoin('media', 'media.id = p.featured')
+    ->where('p.type', 1)
+    ->and()
+    ->where('p.published_at', '<=', date('Y-m-d H:i:s'))
+    ->and()
+    ->where('p.status', 1)
+    ->orderBy('p.published_at', 'DESC')
+    ->limit(0, $limit)
+    ->get();
 }
 
-function get_medias($type = 1, $limit= 10, $paginated = false, $perPage = 10, $wrapper ="col-md-4")
+function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $perPage = 10, $wrapper ="col-md-4 no-gutter media-container")
 {
-    
+    $qb = new QueryBuilder();
 
+    $medias = $qb->select('*')
+    ->from('media as m')
+    ->where('m.type', $type)
+    ->orderBy('m.id', 'ASC')
+    ->limit(0, $limit)
+    ->get();
+
+    foreach ($medias as $media) {
+        if ($title) {
+            echo '<p class="media-title">'.$media['name'].'</p>';
+        }
+        echo '<div class="'.$wrapper.'">';
+        if ($type == 1) {
+            echo '<a href="#">
+                    <img src="'.$media['path'].'" class="image img-responsive">
+                    <div class="text">'.$media['name'].'</div>
+                </a>';
+        }
+        if ($type == 2) {
+            echo '<iframe width="100%" height="auto"
+                    src="https://www.youtube.com/embed/'.$media['url'].'">
+                </iframe>';
+        }        
+        if ($type == 3) {
+            echo '<img
+                    src="'.Format::videoImg($media['url']).'">';
+        }
+        if ($type == 4) {
+            echo '<audio controls><source src="'.$media['path'].'" type="audio/mpeg"></audio>';
+        }
+        echo '</div>';
+    }
+}
+
+function get_medias_array($limit = 6)
+{
+    $qb = new QueryBuilder();
+
+    return $qb->select('*')
+    ->from('media as m')
+    ->where('m.type', $type)
+    ->orderBy('m.id', 'ASC')
+    ->limit(0, $limit)
+    ->get();
+}
+
+
+function page_featured($class = null)
+{
+    if (isset(Singleton::bridge()['page']['path'])) {
+        echo '<img src="'.Singleton::bridge()['page']['path'].'">';
+    }
+}
+function page_title()
+{
+    echo Singleton::bridge()['page']['title'];
+}
+function page_date()
+{
+    echo Format::humanTime(Singleton::bridge()['page']['date']);
+}
+function page_content()
+{
+    echo Singleton::bridge()['page']['content'];
 }

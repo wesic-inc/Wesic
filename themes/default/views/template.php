@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<?php the_sitename(); ?>
+	<?php the_sitename_meta(); ?>
 	<?php seo_description(); ?>
 	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, user-scalable=no">
 	<?php the_favicon(); ?>

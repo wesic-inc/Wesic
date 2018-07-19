@@ -155,6 +155,11 @@ function slugify(text)
   }
 
 
+  var navbar = dragula([].slice.apply(document.querySelectorAll('.nested'),{
+    moves: function (el, container, handle) {
+      return handle.classList.contains('handle');
+    }
+  }));
 
   var drake = dragula([document.querySelector('#left'), document.querySelector('#right')],{
     moves: function (el, container, handle) {
@@ -285,3 +290,4 @@ function selectImage(id){
   $('#feature-image').attr('src',$('#'+id).attr('src') );
   $('#featuredModal').css('display','none');
 }
+

@@ -386,7 +386,7 @@ public static function getFormNewPage()
         "groups" => [   "title" => ["title"],
         "content" => ["wesic-wysiwyg"],
         "publish" => ["slug","datepicker-custom","draft","save"],
-        "attribute"=>["parent","model"],
+        "attribute"=>["parent"],
     ],
     "struct" => [
 
@@ -398,9 +398,7 @@ public static function getFormNewPage()
 
        "datepicker-custom"=>[ "label"=>"Date de publication", "type"=>"custom-datepicker", "id"=>"datepublied", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
 
-       "parent"=>[ "label"=>"Parent", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>['1'=>'Aucune catégorie','2'=>'Privés','3'=>'Auteur uniquement']],
-
-       "model"=>[ "label"=>"Modèle", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>['1'=>'Par défaut','2'=>'Privés','3'=>'Auteur uniquement']],
+       "parent"=>[ "label"=>"Modèle de page", "type"=>"select", "id"=>"category", "placeholder"=>"Catégoroe", "required"=>0, "msgerror"=>"category", "choices"=>Post::getParentPageList()],
 
 
        "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],

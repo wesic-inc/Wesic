@@ -83,6 +83,9 @@ class PostRepository extends Basesql
         $page->setContent(htmlentities($data['wesic-wysiwyg']));
         $page->setPublishedAt($datePublied);
         $page->setCreatedAt();
+        if($data['parent'] != 'none'){
+            $page->setParent($data['parent']);
+        }
         $page->setStatus(1);
         $page->setVisibility(1);
         $page->setUserId(Singleton::getUser()->getId());
@@ -313,5 +316,24 @@ class PostRepository extends Basesql
         } else {
             return false;
         }
+    }
+
+
+    public static function getParentPageList(){
+
+            $pages = glob('themes/'.setting('theme').'/views/*.php');
+
+            $parentCandidate = [];
+            $parentCandidate['none'] = 'Aucune';
+
+            foreach ($pages as $key=>$value) {
+
+                    $name =  explode('/',$value)[3];
+                    if($name != 'archive.php' && $name != 'article.php' && $name != 'home.php'){
+                        $parentCandidate[$name] = $name;
+                    }
+            }
+
+            return $parentCandidate;
     }
 }

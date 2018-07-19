@@ -38,6 +38,9 @@ function autoloader($class)
 
 spl_autoload_register('autoloader');
 
+Post::getParentPageList();
+
+
 // Seeder::fakeUsers();
 // Seeder::fakeCategories();
 // Seeder::fakeNews();

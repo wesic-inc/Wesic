@@ -1,4 +1,5 @@
 <?php
+
 class articleController
 {
     /**
@@ -57,14 +58,19 @@ class articleController
         }
 
         $v = new View();
-        $v->setView("article", "template", "front")->massAssign([
+        $v->setView("article", "template", "front");
+        $v->massAssign([
             "data"=>$comments,
             "article"=>$article,
             "description"=>$article['seodesc'],
             "form"=>$form,
             "errors"=>$errors,
         ]);
-        Singleton::bridge(['article'=>$article,'view'=>$v]);
+        
+        Singleton::bridge([
+            'article'=>$article,
+            'view'=>$v->getViewInfos()
+        ]);
         
         Stat::add(1, "article read", 1, $article['articleid']);
     }

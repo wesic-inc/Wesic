@@ -1,4 +1,3 @@
-
 document.getElementById('scale1').addEventListener('click', function() {
 		myLine.data.labels = dataScales['year'];
 		myLine.data.datasets[0].data = dataStatsA['year'];
