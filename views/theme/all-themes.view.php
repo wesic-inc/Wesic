@@ -2,6 +2,8 @@
 	<div class="row">
 		<div class="col-md-12 bloc">
 			<div class="inner-bloc">
+				<?php dd(themeEnv()); ?>
+				
 				<h4> Theme actuel : <?php echo themeEnv()['name']; ?></h4>
 				<p> Version : <?php echo themeEnv()['version']; ?></p>
 				<?php dd(themeEnv()); ?>

@@ -37,7 +37,7 @@ class PostRepository extends Basesql
         $article->setDescription($data['description']);
         $article->setPublishedAt($datePublied);
         $article->setCreatedAt();
-        $article->f($status);
+        $article->setStatus($status);
 
         if($data['featured'] != 0){
             $article->setFeatured($data['featured']);

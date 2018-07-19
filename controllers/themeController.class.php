@@ -31,6 +31,8 @@ class themeController
      */
     public static function editThemeAction($args)
     {
+        
+        dd(themeEnv());
 
         $v = new View();
         $v->setView("theme/all-themes", "templateadmin");

@@ -1,4 +1,4 @@
-	<header class="bg">
+<header class="bg">
 </header>
 	<main>
 		<div class="container">
@@ -81,72 +81,17 @@
 					<div class="col-md-12">
 						<h2 class="uppercase magic-margin"> News </h2>
 						<div class="row">
-							<div class="col-md-4">
-								<article>
-									<a href="#">
-										<div class="media-container">
-										<img class="img-responsive" src="">
-										</div>
-										<h4 class="uppercase push-left">Lorem Ipsum</h4>
-										<small class="push-right">01/01/2018</small>
-									</a>
-								</article>
-							</div>
-							<div class="col-md-4">
-								<article>
-									<a href="#">
-										<div class="media-container">
-										<img class="img-responsive" src="">
-										</div>
-										<h4 class="uppercase push-left">Lorem Ipsum</h4>
-										<small class="push-right">01/01/2018</small>
-									</a>
-								</article>
-							</div>
-							<div class="col-md-4">
-								<article>
-									<a href="#">
-										<div class="media-container">
-										<img class="img-responsive" src="">
-										</div>
-										<h4 class="uppercase push-left">Lorem Ipsum</h4>
-										<small class="push-right">01/01/2018</small>
-									</a>
-								</article>
-							</div>
-							<div class="col-md-4">
-								<article>
-									<a href="#">
-										<div class="media-container">
-										<img class="img-responsive" src="">
-										</div>
-										<h4 class="uppercase push-left">Lorem Ipsum</h4>
-										<small class="push-right">01/01/2018</small>
-									</a>
-								</article>
-							</div>
-							<div class="col-md-4">
-								<article>
-									<a href="#">
-										<div class="media-container">
-										<img class="img-responsive" src="">
-										</div>
-										<h4 class="uppercase push-left">Lorem Ipsum</h4>
-										<small class="push-right">01/01/2018</small>
-									</a>
-								</article>
-							</div>
-							<div class="col-md-4">
-								<article>
-									<a href="#">
-										<div class="media-container">
-										<img class="img-responsive" src="">
-										</div>
-										<h4 class="uppercase push-left">Lorem Ipsum</h4>
-										<small class="push-right">01/01/2018</small>
-									</a>
-								</article>
-							</div>
+
+						<?php get_articles(6,
+							[
+								'title'=>'h1',
+								'date'=>'p',
+								'excerpt'=>'p',
+								'category'=>'p'
+							],
+							"col-md-6"
+						); ?>
+
 						</div>
 					</div>
 				</div>

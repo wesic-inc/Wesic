@@ -64,7 +64,7 @@ class articleController
             "form"=>$form,
             "errors"=>$errors,
         ]);
-        Singleton::bridge(['article'=>$article]);
+        Singleton::bridge(['article'=>$article,'view'=>$v]);
         
         Stat::add(1, "article read", 1, $article['articleid']);
     }
@@ -168,7 +168,6 @@ class articleController
         $errors = [];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            dd($post);
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
@@ -277,6 +276,7 @@ class articleController
 
         if (!isset($get['page'])) {
             $qb->limit('0', $pagination);
+            $get['page'] = "";
         } else {
             $qb->limit($get['page']*$pagination-$pagination, $pagination);
         }
@@ -292,7 +292,7 @@ class articleController
             "sitename" => Setting::getParam('title'),
             "pagination" => Setting::getParam('title'),
             "pagination" => $pagination,
-            "page" => $_GET['page'],
+            "page" => $get['page'],
             "articles" => $articles
         ]);
     }

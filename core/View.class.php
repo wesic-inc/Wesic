@@ -50,6 +50,15 @@ class View
     }
 
     /**
+     * Allow to get the view
+     * @return [type] [description]
+     */
+    public function getViewInfos()
+    {
+        return $this->view;
+    }
+
+    /**
      * [addModal description]
      * @param [type] $modal  [description]
      * @param array  $config [description]
