@@ -6,10 +6,50 @@ class Seeder
      * [FakeNews description]
      * @param integer $nb [description]
      */
-    public static function FakeNews($nb = 50)
+    public static function fakeNews($nb = 50)
     {
+
+
+        $qb = new QueryBuilder();
+
+        $res = 
+        $qb->select('id')
+        ->from('user')
+        ->where('role', 2)
+        ->or()
+        ->where('role', 3)
+        ->or()
+        ->where('role', 3)
+        ->get();
+        
+        $userIds = [];        
+
+        foreach ($res as $value) {
+            $userIds[] = $value['id'];
+        }
+
+
+        $qb->reset();
+
+        $res = 
+        $qb->select('id')
+        ->from('category')
+        ->where('type', 1)
+        ->or()
+        ->where('type', 3)
+        ->get();
+        
+        $catIds = [];
+
+        foreach ($res as $value) {
+            $catIds[] = $value['id'];
+        }        
+
         for ($i=0;$i<$nb;$i++) {
+            
             $slugStr = Faker::slug();
+            $rand = array_rand($catIds);
+            $randUser = array_rand($userIds);
 
             $article = new Post();
             $slug = new Slug();
@@ -27,10 +67,28 @@ class Seeder
             $article->setCreatedAt(date('Y-m-d H:i:s'));
             $article->setStatus(rand(1, 2));
             $article->setVisibility(1);
-            $article->setUserId(1);
+            $article->setUserId($userIds[$randUser]);
             $article->save();
 
-            Category::createCategoryJoin(1, $article->getId());
+            Category::createCategoryJoin($catIds[$rand], $article->getId());
+        }
+    }
+
+    public static function fakeCategories($nb = 20)
+    {
+        for ($i=0;$i<$nb;$i++) {
+            $slugStr = Faker::slug();
+
+            $category = new Category();
+            $slug = new Slug();
+            $slug->setSlug($slugStr);
+            $slug->setType(3);
+            $slug->save();
+
+            $category->setLabel(Faker::title(rand(1, 3)));
+            $category->setSlug($slugStr);
+            $category->setType(1);
+            $category->save();
         }
     }
 
@@ -40,10 +98,19 @@ class Seeder
      */
     public static function fakePages($nb = 50)
     {
+
+        $qb = new QueryBuilder();
+        $res = $qb->select('id')->from('user')->where('role', 2)->or()->where('role', 3)->or()->where('role', 3)->get();
+        
+        $userIds = [];        
+
+        foreach ($res as $value) {
+            $userIds[] = $value['id'];
+        }
+
         for ($i=0;$i<$nb;$i++) {
-
-
             $slugStr = Faker::slug();
+            $randUser = array_rand($userIds);
 
             $article = new Post();
             
@@ -60,7 +127,7 @@ class Seeder
             $article->setCreatedAt(date('Y-m-d H:i:s'));
             $article->setStatus(rand(1, 2));
             $article->setVisibility(1);
-            $article->setUserId(1);
+            $article->setUserId($userIds[$randUser]);
             $article->save();
         }
     }
@@ -69,7 +136,7 @@ class Seeder
      * [FakeComments description]
      * @param integer $nb [description]
      */
-    public static function FakeComments($nb = 10)
+    public static function fakeComments($nb = 10)
     {
         $qb = new QueryBuilder();
 
@@ -98,7 +165,7 @@ class Seeder
 
             $comment->setBody(Faker::title(10));
             $comment->setCreatedAt();
-            $comment->setStatus(rand(10, 20));
+            $comment->setStatus(rand(1,5));
             $rand = array_rand($postIds);
             $comment->setPostId($postIds[$rand]);
 
@@ -107,7 +174,7 @@ class Seeder
     }
 
 
-    public static function FakeMedias()
+    public static function fakeMedias()
     {
         for ($i=0;$i<50;$i++) {
             $media = new Media;
@@ -137,7 +204,7 @@ class Seeder
     /**
      * [FakeAdmin description]
      */
-    public static function FakeAdmin()
+    public static function fakeAdmin()
     {
         $user = new User();
         $user->setLogin('admin');
@@ -153,13 +220,37 @@ class Seeder
     }
 
     /**
+     * [fakeUsers description]
+     * @param  integer $nb [description]
+     * @return [type]      [description]
+     */
+    public static function fakeUsers($nb = 100)
+    {
+        for ($i=0;$i<$nb;$i++) {
+
+            $user = new User();
+            $user->setLogin(Faker::username());
+            $user->setFirstname(Faker::firstname());
+            $user->setLastname(Faker::lastname());
+            $user->setRole(rand(1, 5));
+            $user->setEmail(Faker::email());
+            $user->setPassword('password');
+            $user->setCreatedAt(date('Y-m-d H:i:s'));
+            $user->setStatus(rand(1, 5));
+            $user->setToken();
+
+            $user->save();
+
+        }
+    }
+
+    /**
      * [fakeStats description]
      * @param  [type] $number [description]
      * @return [type]         [description]
      */
     public static function fakeStats($nb = 50000)
     {
-
         $qb = new QueryBuilder();
         $res = $qb->select('id')->from('post')->where('type', 1)->get();
         
@@ -167,10 +258,10 @@ class Seeder
 
         foreach ($res as $value) {
             $articleIds[] = $value['id'];
-        }        
+        }
 
         $qb->reset();
-        $res = $qb->select('id')->from('post')->where('type', 1)->get();
+        $res = $qb->select('id')->from('post')->where('type', 2)->get();
         
         $pageIds = [];
 
@@ -178,30 +269,46 @@ class Seeder
             $pageIds[] = $value['id'];
         }
 
+        $qb->reset();
+        $res = $qb->select('id')->from('category')->where('type', 1)->get();
+        
+        $catIds = [];
+
+        foreach ($res as $value) {
+            $catIds[] = $value['id'];
+        }
 
         $now = time();
         $before = strtotime('-1 year');
 
-
-        dd($now);
-
-        for ($i=0;$i<$number;$i++) {
-
+        for ($i=0;$i<$nb;$i++) {
             $stat = new Stat();
-            
-            $min = strtotime($start_date);
-            $max = strtotime($end_date);
 
-            $val = rand($min, $max);
 
-            $stat->setType(rand(1, 2));
-            $stat->setBody("testPurpoe");
+            $type = rand(1, 7);
+            $date= rand($before, $now);
 
-            $int= rand($before, $now);
+            $stat->setType($type);
+            $stat->setBody("test purpose");
+            $stat->setDate(date("Y-m-d H:i:s", $date));
 
-            $stat->setDate(date("Y-m-d H:i:s", $int));
-            $stat->setContentType(rand(1, 7));
-            $stat->setContentId(rand(1, 50));
+
+            switch ($type) {
+                case 2:
+                $stat->setContentType(1);
+                $stat->setContentId($articleIds[array_rand($articleIds)]);
+                break;
+                case 3:
+                $stat->setContentType(2);
+                $stat->setContentId($pageIds[array_rand($pageIds)]);
+                break;
+                case 4:
+                $stat->setContentType(3);
+                $stat->setContentId($catIds[array_rand($catIds)]);
+                // no break
+                default:
+                break;
+            }
 
             $stat->setIp(long2ip(rand(0, "4294967295")));
             $stat->setUseragent();

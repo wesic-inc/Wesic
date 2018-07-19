@@ -64,8 +64,9 @@ class articleController
             "form"=>$form,
             "errors"=>$errors,
         ]);
-
-        Stat::add(1, "lecture article", 1, $article['articleid']);
+        Singleton::bridge(['article'=>$article]);
+        
+        Stat::add(1, "article read", 1, $article['articleid']);
     }
 
     /**
@@ -87,6 +88,7 @@ class articleController
         $filter = $sort = null;
 
         $qb = new QueryBuilder();
+
         if (isset($param['filter'])) {
             $filter = $param['filter'];
             $qbArticles->articleDisplayFilters($filter);
@@ -99,6 +101,7 @@ class articleController
             $search = $get['s'];
             $qbArticles->and()->search('title', $search);
         }
+        
 
         $articles = $qbArticles->orderBy('published_at','ASC')->paginate(10);
 

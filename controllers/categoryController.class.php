@@ -30,14 +30,14 @@ class categoryController
 
 
         $qb = new QueryBuilder();
-        $qb->findAll('category')->where('type', 1)->or()->where('type', 3);
+        $qb->findAll('category')->openBracket()->where('type', 1)->or()->where('type', 3)->closeBracket();
 
         // if (isset($get['s'])) {
-        //  $search = $get['s'];
-        //  $qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
+        //     $search = $get['s'];
+        //     $qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
         // }
 
-        $categories = $qb->paginate(10);
+        $categories = $qb->paginate(6);
 
         $v = new View();
         $v->setView("category/category", "templateadmin");
@@ -46,15 +46,16 @@ class categoryController
             "icon" => "icon-bookmarks",
             "form" => $form,
             "categories" => $categories,
-            "elementNumber"=>$categorie['pagination']['total'],
+            "elementNumber"=>$categories['pagination']['total'],
             "errors" => $errors
         ]);
     }
-/**
- * [editCategoryAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+    
+    /**
+     * [editCategoryAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function editCategoryAction(Request $request)
     {
         $post = $request->getPost();
@@ -95,34 +96,37 @@ class categoryController
             "errors" => $errors
         ]);
     }
-/**
- * [deleteCategoryAction description]
- * @param  [type] $args [description]
- * @return [type]       [description]
- */
+
+    /**
+     * [deleteCategoryAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public static function deleteCategoryAction(Request $request)
     {
-
         $param = $request->getParams();
         
         Category::deleteCategory($param['id']);
 
         Route::redirect('Categories');
     }
-/**
- * [archiveAction description]
- * @param  [type] $args [description]
- * @return [type]       [description]
- */
-    public static function archiveAction($args)
+
+    /**
+     * [archiveAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
+    public static function archiveAction(Request $request)
     {
         echo "oljkhhkhkm";
+        // Stat::add(4, "lecture article", 3, $request());
     }
-/**
- * [allTagsAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+
+    /**
+     * [allTagsAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function allTagsAction(Request $request)
     {
         $form = Category::getFormNewTag();
@@ -158,11 +162,11 @@ class categoryController
             "errors" => $errors
         ]);
     }
-/**
- * [editTagAction description]
- * @param  [type] $args [description]
- * @return [type]       [description]
- */
+    /**
+     * [editTagAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
     public static function editTagAction($args)
     {
         $form = Category::getFormEditCategory();

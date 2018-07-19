@@ -36,7 +36,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `%database%`.`media` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(125) NOT NULL,
-  `path` VARCHAR(500) NOT NULL,
+  `path` VARCHAR(500) NULL,
   `type` TINYINT NOT NULL,
   `caption` VARCHAR(255) NULL,
   `alttext` VARCHAR(255) NULL,
@@ -278,6 +278,7 @@ CREATE TABLE IF NOT EXISTS `%database%`.`stat` (
   `ip` VARCHAR(100) NULL,
   `useragent` TEXT NULL,
   `referer` TEXT NULL,
+  `url` VARCHAR(350) NULL,
   `content_type` INT NULL,
   `content_id` INT NULL,
   `body` VARCHAR(255) NOT NULL,

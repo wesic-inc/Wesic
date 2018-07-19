@@ -61,6 +61,15 @@ class Faker
     }
 
     /**
+     * [username description]
+     * @return [type] [description]
+     */
+    public static function username()
+    {
+        return self::firstname().self::lastname();
+    }
+
+    /**
      * Create fake slug
      * @return mixed
      */

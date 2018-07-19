@@ -26,7 +26,7 @@ class commentController
         } else {
             $qb->where('comment.status', '!=', 5);
         }
-
+        
         $comments = $qb->paginate(10);
         
         $v = new View();

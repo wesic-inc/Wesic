@@ -18,8 +18,8 @@ class View
             $path_template = "views/templates/".$layout.".tpl.php";
         }
         if ($scope == "front") {
-            $path_view = "themes/".setting('theme')."/views/".$view.".view.php";
-            $path_template = "themes/".setting('theme')."/views/templates/".$layout.".tpl.php";
+            $path_view = "themes/".setting('theme')."/views/".$view.".php";
+            $path_template = "themes/".setting('theme')."/views/templates/".$layout.".php";
         }
 
         if (file_exists($path_view)) {
@@ -115,9 +115,9 @@ class View
      */
     public function __destruct()
     {
-        global $a, $c, $sitename, $args;
+        global $a, $c, $sitename;
         extract($this->data);
-        
+
         include $this->template;
     }
 }

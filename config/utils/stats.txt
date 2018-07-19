@@ -1,0 +1,15 @@
+# Recupérer les 10 articles les plus vus:
+
+SELECT COUNT(id), content_id FROM `stat` WHERE `content_type` = 1 GROUP BY `content_id` ORDER BY COUNT(id) DESC LIMIT 10
+
+# Récupérer les 10 pages les plus vues :
+
+SELECT COUNT(id), content_id FROM `stat` WHERE `content_type` = 2 GROUP BY `content_id` ORDER BY COUNT(id) DESC LIMIT 10
+
+# Récupérer les 10 catégories les plus affichées :
+
+SELECT COUNT(id), content_id FROM `stat` WHERE `content_type` = 3 GROUP BY `content_id` ORDER BY COUNT(id) DESC LIMIT 10
+
+# Nombre de visist
+
+SELECT ip, COUNT(*) FROM `stat` WHERE type = 1 GROUP BY ip 

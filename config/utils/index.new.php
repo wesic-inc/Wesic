@@ -73,6 +73,7 @@ if (file_exists($path_controller)) {
     $name_action = $route["a"]."Action";
     if (method_exists($controller, $name_action)) {
         $controller->$name_action($route["request"]);
+        Stat::add(1,"view");
     } else {
         Route::redirect('Error404');
     }

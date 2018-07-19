@@ -19,14 +19,14 @@ class Request
      * @param [type] $route    [description]
      * @param [type] $paginate [description]
      */
-    public function __construct($request,$post,$get,$params,$route,$paginate = null)
+    public function __construct($request, $post, $get, $params, $route, $paginate = null)
     {
-    	$this->server = $request; 
-    	$this->post = $post; 
-    	$this->get = $get; 
-    	$this->params = $params;
-    	$this->route = $route;
-    	$this->paginate = $paginate; 
+        $this->server = $request;
+        $this->post = $post;
+        $this->get = $get;
+        $this->params = $params;
+        $this->route = $route;
+        $this->paginate = $paginate;
     }
 
     /**
@@ -59,7 +59,7 @@ class Request
      *
      * @return self
      */
-    public function setPost($key,$value)
+    public function setPost($key, $value)
     {
         $this->post[$key] = $value;
 
@@ -98,9 +98,10 @@ class Request
      * @return mixed
      */
     public function getParam($key)
-    {   if(isset($this->params[$key])){
-        return $this->params[$key];
-        }else{
+    {
+        if (isset($this->params[$key])) {
+            return $this->params[$key];
+        } else {
             return null;
         }
     }
@@ -110,9 +111,9 @@ class Request
      *
      * @return self
      */
-    public function setParam($key,$value)
+    public function setParam($key, $value)
     {
-        if($this->params){
+        if ($this->params) {
             $this->params = [];
             $this->params[$key] = $value;
         }
@@ -174,15 +175,8 @@ class Request
      * @param [type] $perPage [description]
      * @param [type] $current [description]
      */
-    public function setPaginate($count,$nbPage,$perPage,$current)
+    public function setPaginate($nbPage)
     {
-        $this->paginate[$model] = [];
-        $this->paginate[$model]['total'] = $count;
-        $this->paginate[$model]['totalPage'] = $nbPage;
-        $this->paginate[$model]['perPage'] = $perPage;
-        $this->paginate[$model]['elementNb'] = $perPage;
-        $this->paginate[$model]['currentPage'] = $current;
-
-        return $this;
+        $this->paginate['pages'] = intval($nbPage);
     }
 }

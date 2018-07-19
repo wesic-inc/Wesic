@@ -12,23 +12,25 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">
-							<div class="col-md-4 theme-one ">
+						<?php foreach($themes as $theme):?>
+							<?php if($theme == setting('theme')):?>
+															<div class="col-md-4 theme-one ">
 								<div class="theme-item reponsive-img active" 
 								style="background-image: url('<?php echo Format::img('template.jpg'); ?>'); background-size: cover;">
 								<div class="title-theme">
-									<p><span class="label-theme-active">Activé :</span> Mon Thème !</p>
+									<p><span class="label-theme-active">Activé : </span><?php echo ucfirst($theme); ?></p>
 								</div>
 								<div class="action-theme">
 									<a href="<?php Route::echo('EditTheme'); ?>" class="btn btn-sm"> Personnaliser </a>
 								</div>
 								</div>
 							</div>
-						<?php for($i= 0; $i<10;$i++):?>
+							<?php else: ?>
 							<div class="col-md-4 theme-one">
 								<div class="theme-item reponsive-img" 
 								style="background-image: url('<?php echo Format::img('template.jpg'); ?>'); background-size: cover;">
 								<div class="title-theme">
-									<p> Mon Thème !</p>
+									<p> <?php echo ucfirst($theme); ?>!</p>
 								</div>
 								<div class="action-theme">
 									<a href="<?php Route::echo('SetTheme') ?>/id/1" class="btn btn-sm"> Appliquer </a>
@@ -36,7 +38,8 @@
 								</div>
 								</div>
 							</div>
-						<?php endfor;?>
+							<?php endif ?>
+						<?php endforeach;?>
 					</div>
 				</div>
 			</div> 			

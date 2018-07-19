@@ -35,12 +35,12 @@
 							</div>
 							<div class="col-md-6 text-left">
 								<div class="timeline-item magic-margin">
-								<img class="img-responsive img-timeline-right" src="../public/img/theme-1/img2.jpg">
+								<img class="img-responsive img-timeline-right" src="">
 							</div>
 							</div>
 							<div class="col-md-6 text-right border-timeline">
 								<div class="timeline-item magic-margin">
-								<img class="img-responsive img-timeline" src="../public/img/theme-1/img3.jpg">
+								<img class="img-responsive img-timeline" src="">
 								</div>
 							</div>
 							<div class="col-md-6 text-left ">
@@ -85,7 +85,7 @@
 								<article>
 									<a href="#">
 										<div class="media-container">
-										<img class="img-responsive" src="../public/img/theme-1/img11.jpg">
+										<img class="img-responsive" src="">
 										</div>
 										<h4 class="uppercase push-left">Lorem Ipsum</h4>
 										<small class="push-right">01/01/2018</small>
@@ -96,7 +96,7 @@
 								<article>
 									<a href="#">
 										<div class="media-container">
-										<img class="img-responsive" src="../public/img/theme-1/img5.jpg">
+										<img class="img-responsive" src="">
 										</div>
 										<h4 class="uppercase push-left">Lorem Ipsum</h4>
 										<small class="push-right">01/01/2018</small>
@@ -107,7 +107,7 @@
 								<article>
 									<a href="#">
 										<div class="media-container">
-										<img class="img-responsive" src="../public/img/theme-1/img2.jpg">
+										<img class="img-responsive" src="">
 										</div>
 										<h4 class="uppercase push-left">Lorem Ipsum</h4>
 										<small class="push-right">01/01/2018</small>
@@ -118,7 +118,7 @@
 								<article>
 									<a href="#">
 										<div class="media-container">
-										<img class="img-responsive" src="../public/img/theme-1/img3.jpg">
+										<img class="img-responsive" src="">
 										</div>
 										<h4 class="uppercase push-left">Lorem Ipsum</h4>
 										<small class="push-right">01/01/2018</small>
@@ -129,7 +129,7 @@
 								<article>
 									<a href="#">
 										<div class="media-container">
-										<img class="img-responsive" src="../public/img/theme-1/img9.jpg">
+										<img class="img-responsive" src="">
 										</div>
 										<h4 class="uppercase push-left">Lorem Ipsum</h4>
 										<small class="push-right">01/01/2018</small>
@@ -140,7 +140,7 @@
 								<article>
 									<a href="#">
 										<div class="media-container">
-										<img class="img-responsive" src="../public/img/theme-1/img2.jpg">
+										<img class="img-responsive" src="">
 										</div>
 										<h4 class="uppercase push-left">Lorem Ipsum</h4>
 										<small class="push-right">01/01/2018</small>
@@ -166,42 +166,42 @@
 								<div class="row magic-margin">
 									<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img7.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img6.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img7.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img2.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img10.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img13.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
@@ -220,42 +220,42 @@
 								<div class="row magic-margin">
 									<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img8.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img7.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img9.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img13.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img11.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>
 										</a>
 									</div>					<div class="col-md-4 no-gutter media-container">
 										<a href="#">
-											<img src="../public/img/theme-1/img12.jpg" class="image img-responsive">
+											<img src="" class="image img-responsive">
 											<div class="middle">
 												<div class="text">Concert du 01/01/2018</div>
 											</div>

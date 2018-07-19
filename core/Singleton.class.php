@@ -6,6 +6,8 @@ class Singleton
     private static $_instanceUser = null;
     private static $_request = null;
     private static $_settings = null;
+    private static $_theme = null;
+    private static $_bridge = null;
 
     /**
      * [getDB description]
@@ -65,6 +67,7 @@ class Singleton
     public static function request()
     {
         if (Singleton::$_request == null) {
+            
             $params = Route::checkParameters(array_values(Route::getUri()[1]));
             $routeInfo = Route::getRouteInfo(Route::getRoute());
 
@@ -83,5 +86,25 @@ class Singleton
             Singleton::$_settings = Setting::getSettings();
         }
         return Singleton::$_settings;
+    }    
+
+    /**
+     * [settings description]
+     * @return [type] [description]
+     */
+    public static function theme()
+    {
+        if (Singleton::$_theme == null) {
+            Singleton::$_theme = Theme::getConf();
+        }
+        return Singleton::$_theme;
+    }    
+
+    public static function bridge($data = null)
+    {
+        if($data != null){
+            Singleton::$_bridge = $data;   
+        }
+        return Singleton::$_bridge;
     }
 }

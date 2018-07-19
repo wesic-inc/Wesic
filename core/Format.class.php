@@ -37,18 +37,47 @@ class Format
      */
     public static function getStatusUser($code)
     {
+        switch ($code) {
+            case 1:
+            return 'Actif';
+            break;
+            case 2:
+            return 'En attente de confirmation e-mail';
+            break;
+            case 3:
+            return 'Inactif';
+            break;
+            case 4:
+            return 'Banni';
+            break;
+            case 5:
+            return 'Supprimé';
+            break;
+            default:
+            return false;
+            break;
+        }
+    }    
+
+    /**
+     * [getStatusUser description]
+     * @param  [type] $code [description]
+     * @return [type]       [description]
+     */
+    public static function getStatusComment($code)
+    {
     	switch ($code) {
     		case 1:
-    		return 'Actif';
+    		return 'Approuvé';
     		break;
     		case 2:
-    		return 'En attente de confirmation e-mail';
+    		return 'En attente';
     		break;
     		case 3:
-    		return 'Inactif';
+    		return 'Désapprouvé';
     		break;
     		case 4:
-    		return 'Banni';
+    		return 'Signalé';
     		break;
     		case 5:
     		return 'Supprimé';

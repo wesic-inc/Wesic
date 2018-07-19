@@ -450,6 +450,7 @@ class Route
             $a = 'notFound';
             $r = 'all';
         }
+        
         return ['a' => $a, 'c' => $c, 'r' => $r, 'redirect'=>$redirect, 'request'=>$request  ];
     }
 }

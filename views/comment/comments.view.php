@@ -27,7 +27,8 @@
 									<span class="checkmark checkmark-header"></span>
 								</label></th>
 								<th><a class="<?php echo $params['sort']==1?'active-sort':''; ?>" id="filter1" sort="" onclick="test(this.id)" > Auteur <span class="icon icon-sort-alpha-asc"></span></a></th>
-								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2" sort="" onclick="test(this.id)" > Commentaire <span class="icon icon-sort-alpha-asc"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2" sort="" onclick="test(this.id)" > Status <span class="icon icon-sort-alpha-asc"></span> </a></th>
+								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2" sort="" onclick="test(this.id)" > Commentaire <span class="icon icon-sort-alpha-asc"></span> </a></th>								
 								<th><a class="<?php echo $params['sort']==3?'active-sort':''; ?>" id="filter3" sort="" onclick="test(this.id)" > Article <span class="icon icon-sort-alpha-asc"></span> </a></th>
 								<th><a class="<?php echo $params['sort']==4?'active-sort':''; ?>" id="filter4" sort="" onclick="test(this.id)" > Date <span class="icon icon-sort-alpha-asc"></span> </a></th>
 							</tr>
@@ -57,6 +58,7 @@
 									<?php endif ?>
 								</ul>
 							</td>
+								<td class="entity-key"><a href="#"><?php echo Format::getStatusComment($comment['status']); ?></a>
 							<td data-label="Nom"><?php echo $comment['body']; ?></td>
 							<td data-label="E-mail"><a target="_blank" href="/<?php echo $comment['slug']; ?>"><?php echo $comment['title']; ?></a></td>
 							<td data-label="Rôle"><?php echo $comment['created_at']; ?></td>

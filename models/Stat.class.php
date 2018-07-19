@@ -6,6 +6,7 @@ class Stat extends StatRepository
     protected $date;
     protected $body;
     protected $ip;
+    protected $url;
     protected $useragent;
     protected $referer;
     protected $content_type;
@@ -44,6 +45,20 @@ class Stat extends StatRepository
         $this->type = $type;
 
         return $this;
+    }    
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function setUrl($url = "")
+    {
+        if(!empty($url)){
+            $this->url = $url;
+        }else{
+            $this->url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        }
     }
 
     public function getDate()

@@ -8,12 +8,13 @@ class indexController{
  */
 	public function indexAction($args){
 
-		$article = new Post();
-		$articlesFound = $article->getData('post');
+		// $article = new Post();
+		// $articlesFound = $article->getData('post');
 
 		$v = new View();
 
-		$v->setView("home","template","front")->assign("articles", $articlesFound);
+		$v->setView("home","template","front");
+		// ->assign("articles", $articlesFound);
 
 		Stat::add(1,"page d'accueuil",3);
 	}

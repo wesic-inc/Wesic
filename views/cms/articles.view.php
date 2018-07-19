@@ -75,7 +75,7 @@
 										<li><a href="#" onclick="deletePostAction()"> Place dans la corbeille</a></li>
 										<li><a href="#" onclick="unPublishPostAction()">Dépublier</a></li>
 									</ul>
-									<span class="push-right"> <?php echo count($articles); ?> éléments </span>
+									<span class="push-right"> <?php echo $articles['pagination']['total']; ?> éléments </span>
 								</footer>
 							</div>
 						</div>

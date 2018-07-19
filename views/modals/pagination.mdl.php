@@ -17,14 +17,32 @@
 		</li>
 		
 		<?php endif; ?>
-		
+		<?php if($config['totalPage'] < 10):?>
 		<?php for ($i = 0; $i < $config['totalPage']; $i++): ?>
+		
+		<li class="page-item <?php echo ($i+1 == $config['currentPage'])?"active":"";?>">
+			<a href="<?php echo Route::makeParams('p', $i+1); ?>"><?php echo $i+1; ?></a>
+		</li>		
+		
+		<?php endfor; ?>		
+		<?php else: ?>
+
+		<li class="page-item">
+			<a href="<?php echo Route::makeParams('p', 1); ?>">Début</a>
+		</li>
+		<?php for ($i = $config['currentPage']-1; $i < $config['currentPage']+8; $i++): ?>
 		
 		<li class="page-item <?php echo ($i+1 == $config['currentPage'])?"active":"";?>">
 			<a href="<?php echo Route::makeParams('p', $i+1); ?>"><?php echo $i+1; ?></a>
 		</li>
 		
 		<?php endfor; ?>
+
+		<li class="page-item">
+			<a href="<?php echo Route::makeParams('p', $config['totalPage']); ?>">Fin</a>
+		</li>
+
+		<?php endif ?>
 		
 		<?php if ($config['currentPage'] == $config['totalPage']): ?>
 		

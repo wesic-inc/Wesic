@@ -421,12 +421,13 @@ class QueryBuilder extends Basesql
         } else {
             $this->limit($current*$perPage-$perPage, $perPage);
         }
+        
         $elementNb = $perPage;
         $currentPage = $current;
 
-
-        // Singleton::request()->setPaginate($total, $nbPage, $perPage, $current);
-        // compact('total', 'nbPage', 'perPage', 'current');
+        if ($current > $totalPage) {
+            Route::redirect('Error404');
+        }
 
         if (!isset($this->selector) || !isset($this->table)) {
             return false;
@@ -442,7 +443,7 @@ class QueryBuilder extends Basesql
 
             $query = $this->pdo->prepare($this->query);
             $query->execute($this->parameters);
-            return ['pagination'=>compact('total', 'totalPage', 'elementNb','perPage', 'currentPage'),'data'=>$query->fetchAll()];
+            return ['pagination'=>compact('total', 'totalPage', 'elementNb', 'perPage', 'currentPage'),'data'=>$query->fetchAll()];
         }
     }
 

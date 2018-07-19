@@ -22,9 +22,8 @@ class StatRepository extends Basesql
         $stat->setDate();
         $stat->setContentType($contentType);
         $stat->setContentId($contentId);
-
-
         $stat->setIp();
+        $stat->setUrl();
         $stat->setUseragent();
         $stat->setReferer();
         $stat->save();

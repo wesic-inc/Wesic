@@ -49,10 +49,11 @@ Content type :
 1 : Visiste
 2 : Article
 3 : Page
-4 : Accueil
-5 : ajout commentaire
-6 : inscription newsletter
-7 : confirmation16:37 20/05/2018
+4 : Page archive
+5 : Accueil
+6 : ajout commentaire
+7 : inscription newsletter
+8 : confirmation
 
 
 Comment : status
