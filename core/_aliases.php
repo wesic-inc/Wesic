@@ -298,24 +298,29 @@ function get_articles_array($limit = 10, $content = false)
 
 function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $perPage = 10, $wrapper ="col-md-4 no-gutter media-container")
 {
-    $qb = new QueryBuilder();
 
+    $media = $type;
+
+    if($type == 3){
+        $media = 2;
+    }
+
+    $qb = new QueryBuilder();
     $medias = $qb->select('*')
     ->from('media as m')
-    ->where('m.type', $type)
+    ->where('m.type', $media)
     ->orderBy('m.id', 'ASC')
     ->limit(0, $limit)
     ->get();
 
     foreach ($medias as $media) {
-        if ($title) {
-            echo '<p class="media-title">'.$media['name'].'</p>';
-        }
+        // if ($title) {
+        //     echo '<p class="media-title">'.$media['name'].'</p>';
+        // }
         echo '<div class="'.$wrapper.'">';
         if ($type == 1) {
             echo '<a href="#">
                     <img src="'.$media['path'].'" class="image img-responsive">
-                    <div class="text">'.$media['name'].'</div>
                 </a>';
         }
         if ($type == 2) {
@@ -324,8 +329,9 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
                 </iframe>';
         }        
         if ($type == 3) {
-            echo '<img
-                    src="'.Format::videoImg($media['url']).'">';
+            echo '<a href="" onclick="videoModa('.$media['url'].')">
+            <img class="image img-responsive" src="'.Format::videoImg($media['url']).'">
+            </a>';
         }
         if ($type == 4) {
             echo '<audio controls><source src="'.$media['path'].'" type="audio/mpeg"></audio>';

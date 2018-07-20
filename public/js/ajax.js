@@ -390,3 +390,4 @@ function approveCommentsAction() {
         }
     });
 }
+

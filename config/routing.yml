@@ -259,6 +259,13 @@ routing:
         restricted: admin
         controller: theme:themeCreator
         path: admin/theme-creator
+        params:
+            p:
+                type: int
+                optional: true
+            type:
+                type: int
+                optional: true
 
     MenuCreator:
         restricted: admin

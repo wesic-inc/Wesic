@@ -121,7 +121,7 @@
 							<div class="col-md-12">
 								<h3 class="text-left">Videos</h3>
 								<div class="row magic-margin">
-									<?php get_medias(2,6,false); ?>
+									<?php get_medias(3,6,false); ?>
 								</div>
 							<div class="text-right wd100"> <h5 ><a href="#"> More Videos </a></h5> </div>
 

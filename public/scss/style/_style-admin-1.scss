@@ -191,7 +191,10 @@ body{
 	font: $roboto;
 	cursor: pointer;
 }
-
+.btn-block{
+	display: block;
+	text-align: center;
+}
 .btn-back{
 	
 	display: inline-block;
@@ -411,7 +414,7 @@ body{
 
 .datepicker{
 	width: 100%;
-	text-align: center;
+	text-align: center !important; 
 	label{
 		text-align: left;
 	}

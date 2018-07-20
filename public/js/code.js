@@ -161,6 +161,17 @@ function slugify(text)
     }
   }));
 
+
+  function resetMenuCreator(){
+    navbar.destroy();
+    navbar = dragula([].slice.apply(document.querySelectorAll('.nested'),{
+      moves: function (el, container, handle) {
+        return handle.classList.contains('handle');
+      }
+    }));
+    navbar.on('drop', handleMenu);
+  }
+
   var drake = dragula([document.querySelector('#left'), document.querySelector('#right')],{
     moves: function (el, container, handle) {
       return handle.classList.contains('handle');
@@ -168,9 +179,18 @@ function slugify(text)
   });
 
 
-  drake.on('drop', drop);
+  navbar.on('drop', handleMenu);
+  
+  function handleMenu(el, to, from){
+    if(el.parentNode.id != 'top-menu' && el.parentNode.parentNode.id != 'top-menu' && el.parentNode.parentNode.parentNode.id != 'top-menu'){
+     navbar.cancel(true); 
+   }
 
-  function drop (el, to, from) {
+ }
+
+ drake.on('drop', drop);
+
+ function drop (el, to, from) {
 
    var leftCount = document.getElementById('left').childElementCount;
    var rightCount = document.getElementById('right').childElementCount;
@@ -178,6 +198,7 @@ function slugify(text)
    if(leftCount == 0 || rightCount == 0){
     drake.cancel(true);
   }
+
 
 
   var leftCount = document.getElementById('left').childElementCount;
@@ -291,3 +312,47 @@ function selectImage(id){
   $('#featuredModal').css('display','none');
 }
 
+function insertCatToMenu(id,label){
+  $('#top-menu').append('<div class="item" el="'+id+'" type="cat">Catégorie : '+label+'<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
+  resetMenuCreator();
+}
+
+function insertPageToMenu(id,label){
+  $('#top-menu').append('<div class="item" el="'+id+'" type="page">Page : '+label+'<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
+  resetMenuCreator();
+}
+
+function addCustomUrlToMenu(){
+  var url = document.getElementById('menu-custom-link').value;
+  var label = document.getElementById('menu-custom-label').value;
+
+  $('#top-menu').append('<div class="item" type="url">Lien : <span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span>'+label+' '+url+'<div class="nested"></div></div>');
+  resetMenuCreator();
+
+}
+function homeUrlToMenu(){
+  $('#top-menu').append('<div class="item" type="home">Accueil<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
+  resetMenuCreator();
+}
+
+function deleteItemMenu(elem){
+  elem.parentNode.remove();
+  resetMenuCreator();
+}
+
+function saveMenu(){
+
+  $('#top-menu')
+
+  var tags = [];
+
+  $('#top-menu').children().each( function( index, element ) {
+    tags.push({ 
+      'el' : $(element).attr('el'), 
+      'type' : $(element).attr('type')
+    });
+    
+  });
+  console.log(tags);
+
+}
