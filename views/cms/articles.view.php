@@ -6,7 +6,7 @@
 				<header>
 					<form action="<?php Route::echo('AllArticles') ?>" method="get">
 						<input name="s" type="text" class="search-input sm-input hidden-xs" >
-						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a>
+						<button type="submit" class="btn btn-sm btn-alt hidden-xs">Rechercher</button>
 					</form>
 				</header>
 				<article >
@@ -14,7 +14,7 @@
 						<li><a href="<?php Route::echo('AllArticles'); ?>" class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
 						<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/1"> Publiés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
 						<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/2"> Brouillons <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
-						<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/2"> Corbeille <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
+						<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllArticles'); ?>/filter/3"> Corbeille <?php echo $filter==3?'('.$elementNumber.')':''; ?> </a></li>
 					</ul>
 									<table class="table table-stripped">
 										<thead>

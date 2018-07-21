@@ -63,8 +63,11 @@ class pageController
         $filter = $sort = null;
 
         $qbPage = new QueryBuilder();
-
-        $qbPage->all('post')->where('type', 2);
+        $qbPage
+        ->select('post.*,user.login as author')
+        ->from('post')
+        ->join('user', 'user.id = post.user_id')
+        ->where('post.type', 2);
 
         if (isset($param['filter'])) {
             $filter = $param['filter'];
@@ -76,14 +79,7 @@ class pageController
         }
         if (isset($get['s'])) {
             $search = $get['s'];
-            $qbPage->all('post')
-            ->where('type', 2)
-            ->and()
-            ->openBracket()
-            ->search('login', $search)
-            ->or()
-            ->search('email', $search)
-            ->closeBracket();
+            $qbPage->and()->search('post.title', $search);
         }
 
         $pages = $qbPage->paginate(10);
@@ -106,9 +102,9 @@ class pageController
      * @param  [type] $args [description]
      * @return [type]       [description]
      */
-    public function deletePageAction($args)
+    public function deletePageAction(Request $request)
     {
-        $param = $args['params'];
+        $param = $request->getParams();
 
         Post::deletePage($param['id']);
 

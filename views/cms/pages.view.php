@@ -5,8 +5,10 @@
 				
 				<a href="<?php Route::echo('NewPage'); ?>" class="btn btn-sm btn-add">Ajouter une page</a></h1> 
 				<header>
-					<input type="text" class="search-input sm-input hidden-xs" >
-					<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
+					<form action="<?php Route::echo('Pages') ?>" method="get">
+						<input name="s" type="text" class="search-input sm-input hidden-xs" >
+						<button type="submit" class="btn btn-sm btn-alt hidden-xs">Rechercher</button>
+					</form>
 				</header>
 				<article >
 					<ul class="inline group-action">
@@ -24,9 +26,9 @@
 												<span class="checkmark checkmark-header"></span>
 											</label>
 										</th>
-										<th id="filter1" sort="" onclick="test3(this.id)">Titre</th>
-										<th id="filter2" sort="" onclick="test3(this.id)">Auteur</th>
-										<th id="filter3" sort="" onclick="test3(this.id)">Date</th>
+										<th><a class="<?php echo $sort==1?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Titre <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+										<th>Auteur</th>
+										<th><a class="<?php echo $sort==2?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Date <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -46,7 +48,7 @@
 													<a onclick="deleteModalPage(<?php echo $page['id'] ?>)"><li>Supprimer</li></a>
 												</ul>
 											</td>
-											<td data-label="Auteur"><a href="#"><?php echo Format::getAuthorName($page['user_id']); ?></a></td>
+											<td data-label="Auteur"><?php echo ucfirst($page['author']); ?></td>
 											<td data-label="Date"><?php echo Format::dateDisplay($page['published_at'],4); ?></td>
 
 										</tr>
@@ -58,32 +60,32 @@
 						</article>
 						<footer>
 							<?php $this->addModal("pagination",$pages['pagination']); ?>
-								<ul class="inline">
-									<li>Actions groupées :  </li>
-									<li><a href="#"> Place dans la corbeille</a></li>
-									<li><a href="#">Dépublier</a></li>
-								</ul>
-								<span class="push-right"> <?php echo count($pages); ?>  élément(s) </span>
-							</footer>
-						</div>
-
+							<ul class="inline">
+								<li>Actions groupées :  </li>
+								<li><a href="#"> Place dans la corbeille</a></li>
+								<li><a href="#">Dépublier</a></li>
+							</ul>
+							<span class="push-right"> <?php echo count($pages); ?>  élément(s) </span>
+						</footer>
 					</div>
+
 				</div>
 			</div>
-						<div id="myModal" class="modal">
+		</div>
+		<div id="myModal" class="modal">
 
-				<div class="modal-content">
-					<div class="modal-header">
-						<h3>Confirmation suppression</h3>
-					</div>
-					<div class="modal-body">
-						<p id="modal-body"></p>
-						<p id="modal-helper"></p>
-					</div>
-					<div class="modal-footer">
-						<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
-						<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
-					</div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Confirmation suppression</h3>
 				</div>
-
+				<div class="modal-body">
+					<p id="modal-body"></p>
+					<p id="modal-helper"></p>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
+					<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
+				</div>
 			</div>
+
+		</div>

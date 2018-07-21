@@ -6,7 +6,7 @@
 				<header>
 					<form action="<?php Route::echo('AllUsers') ?>" method="get">
 						<input name="s" type="text" class="search-input sm-input hidden-xs" >
-						<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a>
+						<button type="submit" class="btn btn-sm btn-alt hidden-xs">Rechercher</button>
 					</form>
 				</header>
 				<article>

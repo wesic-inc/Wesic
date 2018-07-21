@@ -11,6 +11,7 @@ class indexController
     public function indexAction(Request $request)
     {
         $v = new View();
+        
         $v->setView("home", "template", "front");
 
         Singleton::bridge(['view'=>$v->getViewInfos()]);
@@ -25,13 +26,16 @@ class indexController
     //  */
     // public function profilAction(Request $request)
     // {
-    //     $user = $request->getParam('u');
+    //     echo "mon profil";
+    //     // $user = $request->getParam('u');
 
     //     if (isset($user)) {
     //         dd($user);
-    //     } elseif (isset(Auth::user())) {
+    //     }
+    //     if(isset(Auth::user())) {
     //         dd(Auth::user());
-    //     } else {
+    //     } 
+    //     else {
     //         Route::redirect('Error404');
     //     }
     // }

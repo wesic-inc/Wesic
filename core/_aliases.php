@@ -118,7 +118,7 @@ function seo_description($description = null)
  */
 function admin_bar()
 {
-    if (Auth::isConnected()) {
+    if (Auth::user() && Auth::role() != 1){ 
         include "views/modals/admin-navbar.mdl.php";
     }
 }

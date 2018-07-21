@@ -313,6 +313,45 @@ class Basesql
       }
         return $this;
     }
+
+    /**
+     * [userDisplaySorting description]
+     * @param  [type] $sort [description]
+     * @return [type]       [description]
+     */
+    public function articleDisplaySorting($sort)
+    {
+        switch ($sort) {
+        case 1:
+        $this->OrderBy('post.title', 'DESC');
+        break;
+        case -1:
+        $this->OrderBy('post.title', 'ASC');
+        break;
+        case 2:
+        $this->OrderBy('post.status', 'DESC');
+        break;
+        case -2:
+        $this->OrderBy('post.status', 'ASC');
+        break;
+        case 3:
+        $this->OrderBy('post.user_id', 'ASC');
+        break;
+        case -3:
+        $this->OrderBy('post.user_id', 'DESC');
+        break;
+        case 4:
+        $this->OrderBy('post.published_at', 'DESC');
+        break;
+        case -4:
+        $this->OrderBy('post.published_at', 'ASC');
+        break;
+        default:
+        return $this;
+        break;
+      }
+        return $this;
+    }
     /**
      * [articleDisplayFilters description]
      * @param  [type] $filter [description]
@@ -322,10 +361,13 @@ class Basesql
     {
         switch ($filter) {
         case 1:
-        $this->and()->where('status', 1);
+        $this->and()->where('post.status', 1);
         break;
         case 2:
-        $this->and()->where('status', 2);
+        $this->and()->where('post.status', 2);
+        break;
+        case 3:
+        $this->and()->where('post.status', 3);
         break;
       }
         return $this;
@@ -339,7 +381,29 @@ class Basesql
     {
         switch ($filter) {
         case 1:
-        $this->and()->where('status', 1);
+        $this->and()->where('post.status', 1);
+        break;
+      }
+        return $this;
+    }
+
+    public function pageDisplaySorting($sort)
+    {
+        switch ($sort) {
+        case 1:
+        $this->OrderBy('post.title', 'DESC');
+        break;
+        case -1:
+        $this->OrderBy('post.title', 'ASC');
+        break;
+        case 2:
+        $this->OrderBy('post.date', 'DESC');
+        break;
+        case -2:
+        $this->OrderBy('post.date', 'ASC');
+        break;
+        default:
+        return $this;
         break;
       }
         return $this;

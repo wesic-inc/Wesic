@@ -102,14 +102,16 @@ class articleController
         if (isset($param['sort'])) {
             $sort = $param['sort'];
             $qbArticles->articleDisplaySorting($sort);
+        }else{
+            $qbArticles->orderBy('post.published_at','ASC');
         }
         if (isset($get['s'])) {
             $search = $get['s'];
-            $qbArticles->and()->search('title', $search);
+            $qbArticles->and()->search('post.title', $search);
         }
         
 
-        $articles = $qbArticles->orderBy('published_at','ASC')->paginate(10);
+        $articles = $qbArticles->paginate(10);
 
         $v = new View();
         

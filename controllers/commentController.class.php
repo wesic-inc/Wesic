@@ -12,7 +12,7 @@ class commentController
         $get = $request->getGet();
         $param = $request->getParams();
         
-        $filter = null;
+        $filter = $sort = null;
 
         $qb = new QueryBuilder();
         $qb->select('comment.*,user.login,post.title,post.slug')
@@ -37,7 +37,8 @@ class commentController
             "icon" => "icon-bubbles2",
             "comments" => $comments,
             "filter" => $filter,
-            "elementNumber" => $comments['pagination']['total'],
+            "sort" => $sort,
+            "elementNumber" => $comments['pagination']['total']
         ]);
     }
 
