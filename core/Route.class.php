@@ -212,10 +212,8 @@ class Route
 
         $generatedParams = "";
 
-        if(!empty($exclude)){
-            foreach ($exclude as $key) {
-                unset($paramsArray[$key]);
-            }
+        foreach ($exclude as $index => $unset) {
+                unset($paramsArray[$index]);
         }
 
         $paramsArray[$key] = $value;            
@@ -223,6 +221,7 @@ class Route
         foreach ($paramsArray as $param => $val) {
             $generatedParams .= "/".$param."/".$val;
         }
+
         return ROOT_URL.Route::getUri()[0].$generatedParams;
     }
 
@@ -270,7 +269,7 @@ class Route
     {
         $connected = Auth::isConnected();
         $rights = Auth::getRights();
-
+        $pass = false;
         switch ($route['r']) {
             case 'admin':
             if ($connected == 1 && $rights == 4) {
@@ -306,6 +305,12 @@ class Route
             default:
             return false;
             break;
+        }
+        if(isset($route['redirect']['guest']) && !$connected){
+            return $route['redirect']['guest'];
+        }        
+        if(isset($route['redirect']['permission']) && !$pass){
+            return $route['redirect']['permission'];
         }
         return $route['redirect'];
     }
@@ -380,7 +385,7 @@ class Route
                 $r = $rules['restricted'];
                 if (isset($rules['redirect'])) {
                     $redirect = $rules['redirect'];
-                }
+                }  
 
                 $args = [
                     'request'=>$_REQUEST,

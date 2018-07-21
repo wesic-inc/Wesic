@@ -25,12 +25,12 @@
 														<span class="checkmark checkmark-header"></span>
 													</label>
 												</th>
-												<th id="filter1" sort="" onclick="test2(this.id)" ><a href="#">Titre</a></th>
-												<th id="filter2" sort="" onclick="test2(this.id)" ><a href="#">Statut</a></th>
-												<th id="filter3" sort="" onclick="test2(this.id)" ><a href="#">Auteur</a></th>
-												<th " >Catégorie</th>
-												<th>Tags</th>
-												<th id="filter4" sort="" onclick="test2(this.id)" ><a href="#">Date</a></th>
+													<th><a class="<?php echo $sort==1?'active-sort':''; ?>" id="filter1" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Titre <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
+													<th><a class="<?php echo $sort==2?'active-sort':''; ?>" id="filter2" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Statut <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+													<th><a class="<?php echo $sort==3?'active-sort':''; ?>" id="filter3" href="<?php echo Route::makeParams('sort',$sort==3?-3:3,['p']) ?>" > Auteur <span class="icon <?php echo $sort==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+													<th>Catégorie</th>
+													<th>Tags</th>
+													<th><a class="<?php echo $sort==4?'active-sort':''; ?>" id="filter4" href="<?php echo Route::makeParams('sort',$sort==4?-4:4,['p']) ?>" > Date <span class="icon <?php echo $sort==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 											</tr>
 										</thead>
 										<tbody id="body-ajax">

@@ -3,12 +3,12 @@
 class indexController
 {
     
-	/**
-	 * [indexAction description]
-	 * @param  [type] $args [description]
-	 * @return [type]       [description]
-	 */
-    public function indexAction($args)
+    /**
+     * [indexAction description]
+     * @param  [type] $args [description]
+     * @return [type]       [description]
+     */
+    public function indexAction(Request $request)
     {
         $v = new View();
         $v->setView("home", "template", "front");
@@ -17,4 +17,22 @@ class indexController
         
         Stat::add(1, "page d'accueuil", 3);
     }
+
+    // /**
+    //  * [profil description]
+    //  * @param  Request $request [description]
+    //  * @return [type]           [description]
+    //  */
+    // public function profilAction(Request $request)
+    // {
+    //     $user = $request->getParam('u');
+
+    //     if (isset($user)) {
+    //         dd($user);
+    //     } elseif (isset(Auth::user())) {
+    //         dd(Auth::user());
+    //     } else {
+    //         Route::redirect('Error404');
+    //     }
+    // }
 }

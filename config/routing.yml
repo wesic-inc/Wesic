@@ -26,7 +26,9 @@ routing:
 
     Admin:
         restricted: admin
-        redirect: Login
+        redirect: 
+            guest: Login
+            permission: Profile
         controller: admin:index
         path: admin
 
@@ -49,9 +51,13 @@ routing:
         path: inscription
 
     Profile:
-        restricted: user
-        controller: user:index
-        path: profil
+        restricted: all
+        controller: index:profil
+        path: wesic/profil
+        params:
+            user:
+                type: string
+                optional: true
 
     NewArticle:
         restricted: admin

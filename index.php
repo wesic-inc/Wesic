@@ -39,13 +39,11 @@ function autoloader($class)
 spl_autoload_register('autoloader');
 
 
-
 /**
  * [$route description]
  * @var [type]
  */
 $route = Route::makeRouting();
-
 
 $name_controller = $route["c"]."Controller";
 $path_controller = "controllers/".$name_controller.".class.php";
@@ -60,13 +58,13 @@ if (file_exists($path_controller)) {
     $controller = new $name_controller;
 
 
-// Permet la gestion des permissions (voir config/routing.yml)
+    // Permet la gestion des permissions (voir config/routing.yml)
     $permission = Route::getPermissions($route);
-
     if ($permission != 1) {
         if ($permission == 0 || is_null($permission)) {
             Route::redirect('Error404');
         }
+
         Route::redirect($permission);
     }
 

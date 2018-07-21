@@ -26,12 +26,10 @@
 									<input type="checkbox" id="checkAll">
 									<span class="checkmark checkmark-header"></span>
 								</label></th>
-								<th><a class="<?php echo $params['sort']==1?'active-sort':''; ?>" id="filter1"href="<?php echo Route::makeParams('sort',$params['sort']==1?-1:1,['p']) ?>" > Identifiant <span class="icon <?php echo $params['sort']==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
-								<th><a class="<?php echo $params['sort']==2?'active-sort':''; ?>" id="filter2"href="<?php echo Route::makeParams('sort',$params['sort']==2?-2:2,['p']) ?>" > Nom <span class="icon <?php echo $params['sort']==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-								<th><a class="<?php echo $params['sort']==3?'active-sort':''; ?>" id="filter3" 
-								href="<?php echo Route::makeParams('sort',$params['sort']==3?-3:3,['p']) ?>" > E-mail <span class="icon <?php echo $params['sort']==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-								<th><a class="<?php echo $params['sort']==4?'active-sort':''; ?>" id="filter4" sort="" href="<?php echo Route::makeParams('sort',$params['sort']==4?-4:4,['p']) ?>" > Rôle <span class="icon <?php echo $params['sort']==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-								<th>Posts</th>
+								<th><a class="<?php echo $sort==1?'active-sort':''; ?>" id="filter1" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Identifiant <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
+								<th><a class="<?php echo $sort==2?'active-sort':''; ?>" id="filter2" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Nom <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $sort==3?'active-sort':''; ?>" id="filter3" href="<?php echo Route::makeParams('sort',$sort==3?-3:3,['p']) ?>" > E-mail <span class="icon <?php echo $sort==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $sort==4?'active-sort':''; ?>" id="filter4" href="<?php echo Route::makeParams('sort',$sort==4?-4:4,['p']) ?>" > Rôle <span class="icon <?php echo $sort==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 							</tr>
 						</thead>
 						<tbody id="body-ajax">
@@ -53,7 +51,6 @@
 							<td data-label="Nom"><?php echo $user['lastname']." ".$user['firstname']; ?></td>
 							<td data-label="E-mail"><a href="#"><?php echo $user['email']; ?></a></td>
 							<td data-label="Rôle"><?php echo Format::getRole($user['role']); ?></td>
-							<td data-label="Posts">0</td>
 						</tr>
 						<?php endforeach; ?>
 						<?php if(empty($users)): ?>

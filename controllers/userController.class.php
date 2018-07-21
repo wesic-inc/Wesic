@@ -20,6 +20,7 @@ class userController
     public function allUsersAction(Request $request)
     {
         $param = $request->getParams();
+
         $get = $request->getGet();
         $filter = null;
         $sort = null;
@@ -55,7 +56,8 @@ class userController
             "filter"=>$filter,
             "sort"=>$sort,
             "elementNumber"=>$users['pagination']['total'],
-            "users"=>$users
+            "users"=>$users,
+            "sort"=>$sort
 
         ]);
     }
