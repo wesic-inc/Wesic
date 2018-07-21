@@ -381,3 +381,7 @@ function page_content()
 {
     echo Singleton::bridge()['page']['content'];
 }
+
+function get_events(){
+    
+}

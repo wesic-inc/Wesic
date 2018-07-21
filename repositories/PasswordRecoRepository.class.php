@@ -66,7 +66,7 @@ class PasswordRecoRepository extends Basesql
                 $mail = self::initMailer();
 
                 $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
-                $mail->Subject = rand()." ".ucfirst($userFound['firstname']).', réinitialiser votre mot de passe';
+                $mail->Subject = ucfirst($userFound['firstname']).', réinitialiser votre mot de passe';
                 $message = file_get_contents('views/mail/passwordrecovery.tpl.php');
                 $message = str_replace('%username%', ucfirst($userFound['firstname']), $message);
                 $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
@@ -133,7 +133,7 @@ class PasswordRecoRepository extends Basesql
             $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
 
             $mail->isHTML(true);
-            $mail->Subject = rand()." ".ucfirst($userFound['firstname']).', veuillez confirmer votre e-mail';
+            $mail->Subject = ucfirst($userFound['firstname']).', veuillez confirmer votre e-mail';
             $message = file_get_contents('views/mail/confirmationemail.tpl.php');
             $message = str_replace('%username%', ucfirst($userFound['firstname']), $message);
             $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
@@ -205,7 +205,7 @@ class PasswordRecoRepository extends Basesql
             $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
 
             $mail->isHTML(true);
-            $mail->Subject = rand()." ".ucfirst($userFound['firstname']).', veuillez confirmer votre abonnement à la newsletter';
+            $mail->Subject = ucfirst($userFound['firstname']).', veuillez confirmer votre abonnement à la newsletter';
             $message = file_get_contents('views/mail/confirmationemailnewsletter.tpl.php');
             $message = str_replace('%username%', ucfirst($userFound['firstname']), $message);
             $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);

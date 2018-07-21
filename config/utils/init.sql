@@ -123,7 +123,6 @@ CREATE TABLE IF NOT EXISTS `%database%`.`event` (
   `externalurl` VARCHAR(500) NULL,
   `description` VARCHAR(500) NOT NULL,
   `date` DATETIME NOT NULL,
-  `body` TEXT NOT NULL,
   `featured` INT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),

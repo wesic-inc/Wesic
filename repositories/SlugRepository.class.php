@@ -31,11 +31,7 @@ class SlugRepository extends Basesql
     {
         if (Basesql::slugExists($slug)) {
             $qb = new QueryBuilder();
-            $slugDb =
-        $qb->findAll('slug')
-        ->addWhere('slug = :slug')
-        ->setParameter('slug', $slug)
-        ->fetchOne();
+            $slugDb = $qb->all('slug')->where('slug',$slug)->fetchOne();
 
             $qb->reset();
 
