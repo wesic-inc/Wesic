@@ -446,6 +446,10 @@ routing:
         restricted: admin
         controller: user:forceNewPassword
         path: admin/nouveau-mot-de-passe
+        params:
+            id:
+                type: int
+                optional: false
 
     disabledUser:
         restricted: admin
@@ -461,6 +465,10 @@ routing:
         restricted: admin
         controller: user:deleteUser
         path: admin/detruire-utilisateur
+        params:
+            id:
+                type: int
+                optional: false
 
     SignUpNewsletter:
         restricted: all

@@ -267,7 +267,6 @@ public static function getFormEditUser()
 
         "deleteuser2"=>[ "label"=>"Supprimer l'utilisateur définitivement", "type"=>"link", "id"=>"deleteuser2", "placeholder"=>"", "class"=>"btn btn-sm"],
 
-
         "cancel"=>[ "label"=>"Annuler", "type"=>"link", "id"=>"save", "placeholder"=>"","class"=>"btn btn-sm btn-alt", "link"=>"/admin/utilisateurs"],
 
         "save"=>[ "label"=>"Modifier l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>""],

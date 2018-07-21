@@ -170,9 +170,13 @@ class userController
         $_POST["lastname"] = $editedUser['lastname'];
         $_POST["email"] = $editedUser['email'];
         $_POST["role"] = $editedUser['role'];
-        $_POST["newpasswordlink"] = "/admin/nouveau-mot-de-passe/".$param['id'];
-        $_POST["deleteuser1"] = "/admin/supprimer-utilisateur/".$param['id'];
-        $_POST["deleteuser2"] = "/admin/detruire-utilisateur/".$param['id'];
+        $_POST["newpasswordlink"] = "/admin/nouveau-mot-de-passe/id/".$param['id'];
+        if($editedUser['status']!=5){
+            $_POST["deleteuser1"] = "/admin/supprimer-utilisateur/id/".$param['id'];
+        }else{
+            $_POST["deleteuser1"] = "#";
+        }
+        $_POST["deleteuser2"] = "/admin/detruire-utilisateur/id/".$param['id'];
         $_POST["status"] = $editedUser['status'];
 
 
@@ -322,11 +326,12 @@ class userController
      */
     public static function forceNewPasswordAction(Request $request)
     {
-        $user = new User();
-        $userFound = $user->getData("user", ['id' => $args['params'][0]])[0];
-        if (!empty($userFound)) {
-            Passwordrecovery::sendResetPassword($userFound['login']);
-        }
+        
+        $id = $request->getParam('id');
+        
+        $qb = new QueryBuilder();
+        $userFound = $qb->all("user")->where('id',$id)->fetchOrFail();
+        PasswordRecoRepository::sendResetPassword($userFound['login']);
     }
     /**
      * [disableUserAction description]

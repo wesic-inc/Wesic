@@ -35,12 +35,12 @@
 							</div>
 							<div class="col-md-6 text-left">
 								<div class="timeline-item magic-margin">
-								<img class="img-responsive img-timeline-right" src="public/img/placeholder-image.jpg">
+								<img class="img-responsive img-timeline-right" src="/public/img/placeholder-image.jpg">
 							</div>
 							</div>
 							<div class="col-md-6 text-right border-timeline">
 								<div class="timeline-item magic-margin">
-								<img class="img-responsive img-timeline" src="public/img/placeholder-image.jpg">
+								<img class="img-responsive img-timeline" src="/public/img/placeholder-image.jpg">
 								</div>
 							</div>
 							<div class="col-md-6 text-left ">

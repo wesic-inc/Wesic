@@ -195,7 +195,7 @@ function the_view()
 }
 
 
-function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>"li",'date'=>"p",'excerpt'=>"div",'featured'=>""], $wrapperClass = "col-md-4")
+function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>"li",'date'=>"p",'excerpt'=>"div",'featured'=>""], $wrapperClass = "col-md-4",$paginated = false, $perPage = "")
 {
     $select = [];
     $leftJoin = [];
@@ -238,17 +238,27 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
     foreach ($leftJoin as $key => $value) {
         $qb->leftJoin($key, $value);
     }
-    $articles =
+    
     $qb->where('p.type', 1)
     ->and()
     ->where('p.published_at', '<=', date('Y-m-d H:i:s'))
     ->and()
     ->where('p.status', 1)
     ->orderBy('p.published_at', 'DESC')
-    ->limit(0, $nb)
-    ->get();
+    ->limit(0, $nb);
 
-    foreach ($articles as $article) {
+    if($paginated == false){
+        $data = $qb->get();
+    }else{
+        $articles = $qb->paginate($perPage);
+        $data = $articles['data'];
+    }
+
+    if(empty($perPage)){
+        $perPage = setting('pagination-posts');
+    }
+
+    foreach ($data as $article) {
         echo '<div class="'.$wrapperClass.'">';
         foreach ($column as $key => $html) {
             if ($key == 'title' && isset($article['title'])) {

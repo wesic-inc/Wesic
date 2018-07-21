@@ -3,8 +3,8 @@
 /**
  * Inclusion du fichier qui gère toute la config
  */
-include $_SERVER['DOCUMENT_ROOT']."/core/_aliases.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/config/conf.inc.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/core/_aliases.php";
 
 /**
  * [$debug description]
@@ -38,16 +38,6 @@ function autoloader($class)
 
 spl_autoload_register('autoloader');
 
-Post::getParentPageList();
-
-
-// Seeder::fakeUsers();
-// Seeder::fakeCategories();
-// Seeder::fakeNews();
-// Seeder::fakePages();
-// Seeder::fakeComments(220);
-// Seeder::fakeMedias();
-// Seeder::fakeStats();
 
 
 /**
@@ -82,9 +72,7 @@ if (file_exists($path_controller)) {
 
     $name_action = $route["a"]."Action";
     if (method_exists($controller, $name_action)) {
-        
         $controller->$name_action($route["request"]);
-
         Stat::add(1,"view");
     } else {
         Route::redirect('Error404');
