@@ -45,8 +45,10 @@
 													<td><a href="<?php echo Setting::getParam('url')."/".$article['slug']; ?>"><?php echo $article['title']?></a>
 														<ul class="grid-actions">
 															<a href="<?php echo Setting::getParam('url')."/".$article['slug']; ?>"><li>Afficher</li></a>
+															<?php if(User::isAllow($article['user_id'])): ?>
 															<a href="<?php Route::echo('EditArticle','/id/'.$article['id']); ?>"><li>Modifier</li></a>
 															<a onclick="deleteModalArticle(<?php echo $article['id'] ?>)"><li>Supprimer</li></a>
+															<?php endif ?>
 														</ul>
 													</td>
 													<td data-label="Status"><?php echo Format::getStatusArticle($article['status']);?></td>

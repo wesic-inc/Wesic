@@ -25,7 +25,7 @@ routing:
         path: 500
 
     Admin:
-        restricted: admin
+        restricted: moderator
         redirect: 
             guest: Login
             permission: Profile
@@ -177,7 +177,7 @@ routing:
                 optional: false
 
     AllArticles:
-        restricted: admin
+        restricted: webmaster
         controller: article:allArticles
         path: admin/articles
         params:
@@ -192,7 +192,7 @@ routing:
                 optional: true
 
     AllArticlesActions:
-        restricted: admin
+        restricted: webmaster
         controller: article:articleActions
         path: admin/articles-ajax
         params:
@@ -201,7 +201,7 @@ routing:
                 optional: false
 
     EditArticle:
-        restricted: admin
+        restricted: webmaster
         controller: article:editArticle
         path: admin/modifier-article
         params:
@@ -210,7 +210,7 @@ routing:
                 optional: false
 
     DeleteArticle:
-        restricted: admin
+        restricted: webmaster
         controller: article:deleteArticle
         path: admin/supprimer-article
         params:
@@ -234,7 +234,7 @@ routing:
         path: admin/medias
 
     MediaAjaxPagination:
-        restricted: moderator
+        restricted: webmaster
         controller: media:modalPaginationAjax
         path: admin/media-modal-page-ajax
         params:
@@ -243,7 +243,7 @@ routing:
                 optional: false    
 
     ImageAjaxPagination:
-        restricted: moderator
+        restricted: webmaster
         controller: media:modalImagePaginationAjax
         path: admin/image-modal-page-ajax
         params:
@@ -288,7 +288,7 @@ routing:
                 optional: false
 
     Pages:
-        restricted: admin
+        restricted: webmaster
         controller: page:allPages
         path: admin/pages
         params:
@@ -303,12 +303,12 @@ routing:
                 optional: true
 
     NewPage:
-        restricted: admin
+        restricted: webmaster
         controller: page:newPage
         path: admin/ajouter-page
 
     EditPage:
-        restricted: admin
+        restricted: webmaster
         controller: page:editPage
         path: admin/modifier-page
         params:
@@ -317,7 +317,7 @@ routing:
                 optional: false
 
     DeletePage:
-        restricted: admin
+        restricted: webmaster
         controller: page:deletePage
         path: admin/supprimer-page
         params:
@@ -358,13 +358,7 @@ routing:
         params:
             id:
                 type: int
-                optional: false    
-
-    Terminator:
-        restricted: moderator
-        redirect: Login
-        controller: comment:terminator
-        path: admin/commentaire-review
+                optional: false
 
     DisapproveComment:
         restricted: moderator
@@ -438,7 +432,7 @@ routing:
         path: admin/evenements
 
     AddEvent:
-        restricted: admin
+        restricted: webmaster
         controller: event:addEvent
         path: admin/ajouter-evenement
 
@@ -477,7 +471,7 @@ routing:
                 optional: false
 
     SignUpNewsletter:
-        restricted: all
+        restricted: connected
         redirect: Admin
         controller: newsletter:signUp
         path: inscription-newsletter
@@ -489,17 +483,17 @@ routing:
         path: newsletter-merci 
 
     DevTest:
-        restricted: all
+        restricted: connected
         controller: admin:devTest
         path: admin/test
 
     DeleteFlashSessionAjax:
-        restricted: all
+        restricted: webmaster
         controller: framework:deleteFlashSessionAjax
         path: admin/delete-flash-session-ajax    
 
     AddFlashSessionAjaxAction:
-        restricted: all
+        restricted: webmaster
         controller: framework:addFlashSessionAjaxAction
         path: admin/add-flash-session-ajax
         params:
@@ -518,7 +512,7 @@ routing:
         controller: article:getRss
         path: rss
 
-    DismissBlcok:
+    DismissBlock:
         restricted: webmaster
         controller: framework:dismissBlock
         path: admin/block-dismiss

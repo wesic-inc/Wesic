@@ -182,7 +182,8 @@ function article_date()
  */
 function the_comments()
 {
-    return Singleton::bridge()['path'];
+    global $errors_msg;;
+    include 'views/modals/comments.mdl.php';
 }
 
 /**

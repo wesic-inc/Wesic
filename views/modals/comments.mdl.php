@@ -2,7 +2,7 @@
 <br>
 <h4> Commentaires :  </h4>
 <br>
-	<?php foreach($config['comments'] as $comment): ?>
+	<?php foreach(Singleton::bridge()['comments'] as $comment): ?>
 		<div class="row">
 			<div class="col-md-12">
 				<?php if($comment['type'] == 1): ?>
@@ -22,19 +22,19 @@
 			<li><a href="<?php Route::echo('ApproveComment','/id/'.$comment['id'].'/redirect/'.req()->getParam('slug')); ?>"> Approuver </a></li>
 			<li><a href="<?php Route::echo('DeleteComment','/id/'.$comment['id'].'/redirect/'.req()->getParam('slug')); ?>"> Supprimer </a></li>
 			<?php endif ?>
-			<?php if($comment['user_id'] == Auth::id()): ?>
+			<?php if($comment['user_id'] === Auth::id()): ?>
 			<li><a href="<?php Route::echo('DeleteComment','/id/'.$comment['id'].'/redirect/'.req()->getParam('slug')); ?>"> Supprimer </a></li>
 			<?php endif ?>
 			<li><a href="<?php Route::echo('ReportComment','/id/'.$comment['id'].'/redirect/'.req()->getParam('slug')); ?>"> Signaler </a></li>
 			</ul>
 		<?php endforeach ?>
-					<?php if (setting('comments')==1): ?>
+			<?php if (setting('comments')==1): ?>
 				<?php if (Auth::isConnected()):?>
-					<?php $this->createForm($config['form'], $config['errors']); ?>
+        			<?php include "views/modals/comments-connected-form.mdl.php"; ?>
 				<?php else: ?>
 						<p> Vous devez connecter pour poster un commentaire </p> 
 				<?php endif ?>
 			<?php elseif (setting('comments')==2): ?>
-					<?php $this->createForm($config['form'], $config['errors']); ?>
+        			<?php include "views/modals/comments-form.mdl.php"; ?>
 			<?php endif ?>
 <?php endif ?>

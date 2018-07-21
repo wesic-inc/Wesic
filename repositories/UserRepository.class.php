@@ -211,4 +211,38 @@ class UserRepository extends Basesql
             return true;
         }
     }
+
+    /**
+     * Determine if auth::user can perfom action on specific element
+     * @param  [type]  $table [description]
+     * @param  [type]  $id    [description]
+     * @param  string  $key   [description]
+     * @return boolean        [description]
+     */
+    public static function isAllowId($table,$id, $key= "user_id")
+    {
+
+        $qb = new QueryBuilder();
+        $el = $qb->all($table)->where('id',$id)->fetchOrFail(); 
+
+        if (Auth::id() == $el[$key]) {
+            return true;
+        } elseif (Auth::role()==4) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+    public static function isAllow($owner)
+    {
+        
+        if (Auth::id() == $owner) {
+            return true;
+        } elseif (Auth::role()==4) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

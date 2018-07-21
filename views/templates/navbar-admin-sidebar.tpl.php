@@ -47,13 +47,17 @@
 				</ul>
 			</div>
 		</li>
+		<?php if(Auth::role()==3 || Auth::role()==4): ?>
 		<li class="<?php echo ($c == "comment" && $a == "index" )?"active":"";?>">
 			<a href="<?php Route::echo('Comments'); ?>"><span class="icon icon-bubbles2"></span><span class="link-text">Commentaires</span></a>
 		</li>
+		<?php endif ?>
+		<?php if(Auth::role()==4): ?>
 		<li class="<?php echo ($c == "user" )?"active":"";?>">
 			<a href="<?php Route::echo('AllUsers'); ?>">
-				<span class="icon icon-users"></span><span class="link-text">Utilisateurs</span></a>
-			</li>
+				<span class="icon icon-users"></span><span class="link-text">Utilisateurs</span>
+			</a>
+		</li>
 		<li class="dropdown-link <?php echo ($c == "theme" && $a == "index" )?"active":"";?>"> 
 			<a href="#"><span class="icon icon-paint-format"></span><span class="link-text">Apparence<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
@@ -64,7 +68,8 @@
 					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Theme Creator</a> </li> 
 
 				</ul>
-			</div></li>
+			</div>
+		</li>
 		<li class="dropdown-link <?php echo ($c == "setting" )?"active":""; ?>"> 
 			<a href="#"><span class="icon icon-equalizer"></span><span class="link-text">Paramètres<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
@@ -73,11 +78,13 @@
 					<li><a href="<?php Route::echo('postSettings'); ?>">Ecriture</a> </li>  
 					<li><a href="<?php Route::echo('viewSettings'); ?>">Lecture</a> </li>  
 				</ul>
-			</div></li>
+			</div>
+		</li>
 			<li class="<?php echo ($c == "stat" && $a == "index" )?"active":"";?>">
 			<a href="<?php Route::echo('Stats'); ?>">
 				<span class="icon icon-stats-dots"></span><span class="link-text">Statistiques</span></a>
 			</li>
+		<?php endif ?>
 			<li class="<?php echo ($c == "admin" && $a == "devTest" )?"active":"";?>">
 			<a href="<?php Route::echo('DevTest'); ?>">
 				<span class="icon icon-embed2"></span><span class="link-text">Dev test</span></a>

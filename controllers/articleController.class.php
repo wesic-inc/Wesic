@@ -22,10 +22,9 @@ class articleController
             ->where('p.status', 1)
             ->fetchOrFail();
 
-
         if (setting('comments')!=3) {
             $qb->reset();
-            
+
             $comments = $qb->select('c.*,u.login as username,u.email as uemail')
             ->from('comment AS c')
             ->leftJoin('user AS u', 'c.user_id = u.id')
@@ -60,24 +59,23 @@ class articleController
         $v = new View();
         $v->setView("article", "template", "front");
         $v->massAssign([
-            "data"=>$comments,
-            "article"=>$article,
             "description"=>$article['seodesc'],
-            "form"=>$form,
-            "errors"=>$errors,
         ]);
-        
+
         Singleton::bridge([
             'article'=>$article,
-            'view'=>$v->getViewInfos()
+            'view'=>$v->getViewInfos(),
+            'comments'=>$comments,
+            'errors'=>$errors,
+            'form'=>$form,
         ]);
-        
+
         Stat::add(1, "article read", 1, $article['articleid']);
     }
 
     /**
      * Display all articles in Wesic Backoffice
-     * @param  Request $request 
+     * @param  Request $request
      */
     public function allArticlesAction(Request $request)
     {
@@ -109,12 +107,12 @@ class articleController
             $search = $get['s'];
             $qbArticles->and()->search('post.title', $search);
         }
-        
+
 
         $articles = $qbArticles->paginate(10);
 
         $v = new View();
-        
+
         $v->setView("cms/articles", "templateadmin");
         $v->massAssign([
             "title"=>"Articles",
@@ -141,7 +139,7 @@ class articleController
                     foreach ($selectIds as $val) {
                         Post::setPostStatus($val,2);
                     }
-                    break;                
+                    break;
                 case 'delete':
                     foreach ($selectIds as $val) {
                         Post::setPostStatus($val,3);
@@ -228,7 +226,7 @@ class articleController
         }
 
         $qb = new QueryBuilder();
-        
+
         $data = $qb->all('post')->where('id', $param['id'])->and()->where('type', 1)->fetchOrFail();
 
 
@@ -244,12 +242,12 @@ class articleController
         $_POST['excerpt'] = $data['excerpt'];
         $_POST['description'] = $data['description'];
         // $_POST['category'] = Category::getCategory($data['category']);
-        
+
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");
         $v->massAssign([
             "form"=>$form,
-            "title" => "Nouvel article",
+            "title" => "Modifier un article",
             "icon" => "icon-pen",
             "errors" => $errors
         ]);
@@ -261,9 +259,11 @@ class articleController
  */
     public static function deleteArticleAction(Request $request)
     {
-        $param = $request->getParams();
+        $id = $request->getParam('id');
 
-        Post::deleteArticle($param['id']);
+        if(User::isAllowId('post',$id)){
+            Post::deleteArticle($id);
+        }
 
         Route::redirect('AllArticles');
     }
@@ -279,7 +279,7 @@ class articleController
         $qb = new QueryBuilder();
 
         $pagination = Setting::getParam('pagination-rss');
-        
+
         $qb->findAll('post')->where('status', 1)->and()->addWhere('datePublied', '<=', date("Y-m-d H:i:s"));
 
         if (!isset($get['page'])) {

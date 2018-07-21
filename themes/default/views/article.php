@@ -6,8 +6,7 @@
 			<?php article_title(); ?>
 			<?php article_date(); ?>
 			<?php article_content(); ?>
-			<!-- 
-			<?php $this->addModal("comments", ['comments'=>$data,'form'=>$form,'errors'=>$errors]); ?> -->
+			<?php the_comments(); ?>
 		</div>
 	</div>
 </div>
