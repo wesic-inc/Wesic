@@ -53,6 +53,14 @@
 
 										</tr>
 									<?php endforeach;?>
+								<?php if(empty($pages['data'])): ?>
+								<tr>
+									<td> Aucune page trouvée </td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							<? endif; ?>
 								</tbody>
 							</table>
 							<input type="hidden" id="params" value='<?php echo $param_json; ?>'>

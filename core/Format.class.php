@@ -96,10 +96,7 @@ class Format
     public static function translateCategory($code)
     {
     	$qb = new QueryBuilder();
-    	return $qb->findAll('category')
-    	->addWhere('id = :id')
-    	->setParameter('id', $code)
-    	->fetchOne()['label'];
+    	return $qb->all('category')->where('id',$code)->fetchOne()['label'];
     }
     /**
      * [getStatusArticle description]
@@ -116,7 +113,7 @@ class Format
     		return 'Brouillon';
     		break;
     		case 3:
-    		return 'Programmé';
+    		return 'Supprimé';
     		break;
     		default:
     		return false;
@@ -132,7 +129,7 @@ class Format
     {
     	$qb = new QueryBuilder();
 
-    	$author = $qb->select('login')->from('user')->addWhere("id = :id")->setParameter("id", $id)->fetchOne();
+    	$author = $qb->select('login')->from('user')->where("id",$id)->fetchOne();
 
     	return ucfirst($author['login']);
     }
@@ -193,6 +190,7 @@ class Format
     	}
     	return $string ? 'il y a '.implode(', ', $string) : "à l'instant";
     }
+
     /**
      * [pageCalc description]
      * @param  [type] $count          [description]
@@ -213,6 +211,7 @@ class Format
 
     	return intval($nbPage);
     }
+
     /**
      * [img description]
      * @param  [type] $name [description]
@@ -222,6 +221,7 @@ class Format
     {
     	return ROOT_URL.'public/img/'.$name;
     }
+
     /**
      * [dateDisplay description]
      * @param  [type] $date [description]
@@ -230,52 +230,46 @@ class Format
      */
     public static function dateDisplay($date, $type)
     {
-    	if ($date==0) {
-    		$date = date("Y-m-d");
-    	}
-    	switch ($type) {
-    		case 1:
-    		return date("d/m/Y à H:i", strtotime($date));
-    		break;
-    		case 2:
-    		return date("Y-m-d", strtotime($date));
-    		break;
-    		case 3:
-    		return date("m/d/Y", strtotime($date));
-    		break;
-    		case 4:
-    		return date("d/m/Y", strtotime($date));
-    		break;
-    		default:
-    		return false;
-    		break;
-    	}
-    }
-    /**
-     * [timeDisplay description]
-     * @param  [type] $time [description]
-     * @param  [type] $type [description]
-     * @return [type]       [description]
-     */
+        if ($date==0) {
+            $date = date("Y-m-d");
+        }
+        switch ($type) {
+            case 1:
+            return date("F j, Y", strtotime($date));
+            break;
+            case 2:
+            return date("Y-m-d", strtotime($date));
+            break;
+            case 3:
+            return date("m/d/Y", strtotime($date));
+            break;
+            case 4:
+            return date("d/m/Y", strtotime($date));
+            break;
+            case 5:
+            return self::humanTime($date);
+            break;
+            default:
+            return false;
+            break;
+        }
+    }    
+
     public static function timeDisplay($time, $type)
     {
     	if ($time==0) {
-    		$time = date("Y-m-d");
+    		$time = date("H:i");
     	}
-
     	switch ($type) {
     		case 1:
-    		return date("j F Y", strtotime($time));
+    		return date("g:i a", strtotime($time));
     		break;
     		case 2:
-    		return date("Y-m-d", strtotime($time));
+    		return date("g:i A", strtotime($time));
     		break;
-    		case 3:
-    		return date("m/d/Y", strtotime($time));
-    		break;
-    		case 4:
-    		return date("d/m/Y", strtotime($time));
-    		break;
+            case 3:
+            return date("H:i", strtotime($time));
+            break;    		
     		default:
     		return false;
     		break;
@@ -291,4 +285,22 @@ class Format
 
 			return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "&s=" . $size;
 	}
+
+    public static function getDateType(){
+        return [
+            "1" => self::dateDisplay(0,1),
+            "2" => self::dateDisplay(0,2),
+            "3" => self::dateDisplay(0,3),
+            "4" => self::dateDisplay(0,4),
+            "5" => self::dateDisplay(0,5),
+        ];
+    }
+    public static function getTimeType(){
+        return [
+            "1" => self::timeDisplay(0,1),
+            "2" => self::timeDisplay(0,2),
+            "3" => self::timeDisplay(0,3),
+        ];
+    }
+
 }

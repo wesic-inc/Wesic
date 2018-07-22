@@ -99,8 +99,6 @@ class Category extends CategoryRepository
 
        "label"=>[ "label"=>"Label", "type"=>"text", "id"=>"label", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"label" ],
 
-       "slug"=>[ "label"=>"Permalien", "type"=>"text", "id"=>"slug", "placeholder"=>"Lien", "required"=>1, "msgerror"=>"slug","checkexist"=>"true", "helper"=>"Page des archives sur le site"],
-
        "save"=>[ "label"=>"Sauvegarder", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
 
    ]
@@ -114,8 +112,6 @@ class Category extends CategoryRepository
         "struct" => [
 
             "label"=>[ "label"=>"Label", "type"=>"text", "id"=>"label", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"label" ],
-
-            "slug"=>[ "label"=>"Permalien", "type"=>"text", "id"=>"slug", "placeholder"=>"Lien", "required"=>1, "msgerror"=>"slug","checkexist"=>"true", "helper"=>"Page des archives sur le site", "checkexist"=>"true"],
 
             "save"=>[ "label"=>"Sauvegarder", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
 

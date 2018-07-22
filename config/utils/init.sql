@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `%database%`.`category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `label` VARCHAR(45) NOT NULL,
   `type` TINYINT NOT NULL,
-  `slug` VARCHAR(200) NOT NULL,
+  `slug` VARCHAR(200) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_category_slug1_idx` (`slug` ASC),
   CONSTRAINT `fk_category_slug1`
@@ -343,7 +343,6 @@ INSERT INTO `%database%`.`setting` (`id`, `type`, `value`) VALUES
 ('slogan', 1, 'NULL'),
 ('theme', 5, 'default'),
 ('timetype', 1, '1'),
-('timezone', 2, '1'),
 ('title', 1, 'NULL'),
 ('url', 1, 'NULL'),
 ('welcome-bloc', 4, '1');

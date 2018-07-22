@@ -3,8 +3,10 @@
 		<div class="col-md-12 bloc article-bloc"></span>
 			<div class="inner-bloc">
 				<header>
-					<input type="text" class="search-input sm-input hidden-xs" >
-					<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
+					<form action="<?php Route::echo('Tags') ?>" method="get">
+						<input name="s" type="text" class="search-input sm-input hidden-xs" >
+						<button type="submit" class="btn btn-sm btn-alt hidden-xs">Rechercher</button>
+					</form>
 				</header>
 				<article >
 					<div class="row">
@@ -24,7 +26,6 @@
 											</label>
 										</th>
 										<th id="filter1" sort="" onclick="test2(this.id)" ><a href="#">Nom</a></th>
-										<th id="filter2" sort="" onclick="test2(this.id)" ><a href="#">Slug</a></th>
 										<th id="filter3" sort="" onclick="test2(this.id)" ><a href="#">Total</a></th>
 									</tr>
 								</thead>
@@ -44,7 +45,6 @@
 												<a href="<?php Route::echo('DeleteTag','/id/'.$tag['id']); ?>"><li>Supprimer</li></a>
 											</ul>
 										</td>
-										<td data-label="Slug"><?php echo $tag['slug'];?></td>
 										<td data-label="Total"><a href="#">0</a></td>
 
 									</tr>
@@ -57,8 +57,7 @@
 
 								<ul class="inline">
 									<li>Actions groupées :  </li>
-									<li><a href="#"> Place dans la corbeille</a></li>
-									<li><a href="#">Dépublier</a></li>
+									<li><a href="#"> Supprimer </a></li>
 								</ul>
 								<span class="push-right"> <?php echo count($tags); ?> éléments </span>
 							</footer>

@@ -140,7 +140,7 @@ class User extends UserRepository
 
     public function setToken($token = null)
     {   
-        
+
         if ($token) {
             $this->token = $token;
         } elseif (!empty($this->email)) {
@@ -161,30 +161,30 @@ class User extends UserRepository
         return [
           "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Se connecter", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
           "struct" => [
-             "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
+           "login"=>["label"=> "", "type"=>"text", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login" ],
 
-             "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+           "password"=>["label"=> "", "type"=>"password", "id"=>"passwordco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-             "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+           "submit"=>[ "label"=>"Connexion", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
 
-         ]
-     ];
- }
+       ]
+   ];
+}
 
- public static function getFormModifyPassword()
- {
+public static function getFormModifyPassword()
+{
     return [
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier mon mot de passe", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-         "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
+       "password"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password" ],
 
-         "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
+       "passwordconfirm"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"passwordconfirm", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"passwordconfirm", "confirm"=>"password" ],
 
-         "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
-     ]
+       "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+   ]
 
- ];
+];
 }
 
 public static function getFormNewUser()
@@ -193,25 +193,25 @@ public static function getFormNewUser()
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
+       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
 
-         "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+       "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "msgerror"=>"firstname" ],
 
-         "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+       "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "msgerror"=>"lastname" ],
 
-         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+       "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-         "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+       "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-         "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2","confirm"=>"password1" ],
+       "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2","confirm"=>"password1" ],
 
-         "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+       "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
 
-         "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+       "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
 
-     ]
- ];
+   ]
+];
 }
 public static function getFormSignUp()
 {
@@ -219,23 +219,23 @@ public static function getFormSignUp()
       "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
       "struct" => [
 
-         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
+       "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin","helper"=>"Votre nom d'utilisateur, il permet de se connecter" ],
 
-         "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+       "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
 
-         "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+       "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
 
-         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
+       "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-         "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
+       "password1"=>[ "label"=>"Mot de passe", "type"=>"password", "id"=>"password1", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"password1" ],
 
-         "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2","confirm"=>"password1" ],
+       "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2","confirm"=>"password1" ],
 
-         "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+       "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
 
-     ]
- ];
+   ]
+];
 }
 
 public static function getFormEditUser()
@@ -251,9 +251,9 @@ public static function getFormEditUser()
 
         "login"=>[ "label"=>"Identifiant", "type"=>"text", "id"=>"login", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"newlogin" ],
 
-        "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom", "required"=>1, "msgerror"=>"firstname" ],
+        "firstname"=>[ "label"=>"Prénom", "type"=>"text", "id"=>"firstname", "placeholder"=>"Prénom",  "msgerror"=>"firstname" ],
 
-        "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"lastname" ],
+        "lastname"=>[ "label"=>"Nom", "type"=>"text", "id"=>"lastname", "placeholder"=>"Nom", "msgerror"=>"lastname" ],
 
         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 

@@ -67,6 +67,11 @@ class commentController
                     foreach ($selectIds as $val) {
                         Comment::setCommentStatus($val, 3);
                     }
+                    break;                
+                case 'restore':
+                    foreach ($selectIds as $val) {
+                        Comment::setCommentStatus($val, 2);
+                    }
                     break;
                 default:
                     break;

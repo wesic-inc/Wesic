@@ -102,6 +102,11 @@ function the_sitename()
     echo strtoupper(setting('title'));
 }
 
+function the_quote()
+{
+    echo setting('slogan');
+}
+
 /**
  * Print the meta description, based on controller parameters
  * @param  [type] $description [description]
@@ -173,7 +178,12 @@ function article_content()
  */
 function article_date()
 {
-    echo Format::humanTime(Singleton::bridge()['article']['date']);
+    echo Format::dateDisplay(Singleton::bridge()['article']['date'],setting('datetype'));
+}
+
+function article_time()
+{
+    echo Format::timeDisplay(Singleton::bridge()['article']['date'],setting('timetype'));
 }
 
 /**
@@ -374,10 +384,17 @@ function page_title()
 {
     echo Singleton::bridge()['page']['title'];
 }
+
 function page_date()
 {
-    echo Format::humanTime(Singleton::bridge()['page']['date']);
+    echo Format::dateDisplay(Singleton::bridge()['page']['date'],setting('datetype'));
 }
+
+function page_time()
+{
+    echo Format::timeDisplay(Singleton::bridge()['page']['date'],setting('timetype'));
+}
+
 function page_content()
 {
     echo Singleton::bridge()['page']['content'];

@@ -1,7 +1,8 @@
 					<div class="col-lg-12 bloc draggable quick-view" id="quickview">
 						<div class="inner-bloc">
-
+							<?php if(Auth::role() == 4): ?>
 							<span class="icon-menu bloc-close handle">
+							<?php endif ?>
 							</span>
 							<header>
 								<h2 class="bloc-title"><span class="icon-eye"></span> Coup d’oeil</h2>
@@ -22,7 +23,9 @@
 									</div>
 								</div>
 								<p> Wesic est en version <?php echo WESIC_VERSION; ?> avec le thème <span> Minimalism </span> </p>
+								<?php if(Auth::role() == 4): ?>
 								<a class="btn btn-sm btn-danger update-wesic"> Mettre à jour </a>
+								<?php endif ?>
 							</article>
 						</div>
 					</div>

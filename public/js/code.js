@@ -211,6 +211,8 @@ function slugify(text)
 }
 
 $('#tags-input').keydown(function(e){         
+  console.log(document.getElementsByName("tags")[0]);
+  
   if(e.which == 13){ 
     event.preventDefault();
     
@@ -225,7 +227,7 @@ $('#tags-input').keydown(function(e){
    }
 
 
-   if(val.length < 3 || val.length > 30){
+   if(val.length < 3 || val.length > 20){
     return false;
   }
 
@@ -248,6 +250,7 @@ $('#tags-input').keydown(function(e){
 
 function deleteTag(e){
   $(e).parent().remove();
+
 }
 
 function selectMedia(id,type){

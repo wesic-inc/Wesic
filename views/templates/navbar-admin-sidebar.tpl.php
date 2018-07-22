@@ -83,8 +83,8 @@
 			<li class="<?php echo ($c == "stat" && $a == "index" )?"active":"";?>">
 			<a href="<?php Route::echo('Stats'); ?>">
 				<span class="icon icon-stats-dots"></span><span class="link-text">Statistiques</span></a>
-			</li>
 		<?php endif ?>
+			</li>
 			<li class="<?php echo ($c == "admin" && $a == "devTest" )?"active":"";?>">
 			<a href="<?php Route::echo('DevTest'); ?>">
 				<span class="icon icon-embed2"></span><span class="link-text">Dev test</span></a>

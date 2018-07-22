@@ -9,6 +9,9 @@ class PostRepository extends Basesql
      */
     public static function newArticle($data)
     {
+
+        // dd($data);
+
         if (isset($data['draft'])) {
             $status = 2;
             $flashmessage = "L'article <i>\"".ucfirst($data['title'])."\"</i> a bien été engistré comme brouillon";
@@ -46,18 +49,16 @@ class PostRepository extends Basesql
         $article->setUserId(Singleton::getUser()->getId());
         $article->save();
 
-        View::setFlash("Succès !", $flashmessage, "success");
-
-        $qb = new QueryBuilder();
-
-        $newArticle = $qb->findAll('post')->where('slug', $data['slug'])->fetchOne();
 
         Category::createCategoryJoin($data['category'], $article->getId());
         
         if(!empty($data['tags'])){            
             $tags = Category::addTags(json_decode($data['tags']));
-            Category::attachTagsToPost($tags, 59);
+            Category::attachTagsToPost($tags, $article->getId());
         }
+
+
+        View::setFlash("Succès !", $flashmessage, "success");
 
         return true;
     }
@@ -157,7 +158,11 @@ class PostRepository extends Basesql
         }
 
         Category::createCategoryJoin($data['category'], $data['id']);
-
+        
+        if(!empty($data['tags'])){            
+            $tags = Category::addTags(json_decode($data['tags']));
+            Category::attachTagsToPost($tags, $article->getId());
+        }
 
         return true;
     }

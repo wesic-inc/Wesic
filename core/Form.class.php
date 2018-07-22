@@ -202,11 +202,23 @@ class Form
         $name = $params[0];
         $option = $params[1];
         $data = $params[2];
+        $output = "";
+
+
 
         if (isset($option['helper'])) {
             $helper =  '<p class="form-helper">'.$option['helper'].'</p>';
         }
-        return '<div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>        <input type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . ((isset($option["required"]))?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . (isset($option["disabled"])&&$option["disabled"]?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div><ul class="tag-list"></ul><input type="hidden" name="'.$name.'" value="'.(isset($data)?$data:"").'">';
+        
+        $output = '<div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>        <input type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . ((isset($option["required"]))?"required='required'":"") . (isset($option["disabled"])&&$option["disabled"]?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div><ul class="tag-list">';
+        if(isset($data)){
+            foreach (json_decode($data) as $value) {
+                $output .= '<li class="tag-element">'.$value.'<span class="icon-cross tag-close" onclick="deleteTag(this)"></span></li>';
+            }
+        }
+        $output .= '</ul><input type="hidden" name="'.$name.'"'." value='".(isset($data)?$data:"")."'>";
+
+        return $output;
     }
 /**
  * [texteditor description]

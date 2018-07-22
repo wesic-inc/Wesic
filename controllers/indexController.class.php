@@ -19,6 +19,11 @@ class indexController
         Stat::add(1, "page d'accueuil", 3);
     }
 
+    public function tagArchiveAction(Request $request)
+    {
+        dd($request->getParam('t'));
+    }
+
     // /**
     //  * [profil description]
     //  * @param  Request $request [description]

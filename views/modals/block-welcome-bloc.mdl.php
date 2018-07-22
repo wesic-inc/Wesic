@@ -1,7 +1,13 @@
 <?php if( Setting::getParam('welcome-bloc') == '1'): ?>
+				<?php if(Auth::role() == 4): ?>
 				<div class="col-md-12 bloc welcome-bloc draggable handle" id="welcome-bloc">
+				<?php else: ?>
+				<div class="col-md-12 bloc welcome-bloc" id="welcome-bloc">
+				<?php endif ?>
 					<div class="inner-bloc">
+						<?php if(Auth::role() == 4): ?>
 						<span class="icon-cross bloc-close" onclick="dismissWelcome()"></span>
+						<?php endif ?>
 						<header>
 							<h2 class="bloc-title"> Bienvenue sur Wesic ! </h2>
 							<span class="bloc-subtitle"> Nous vous avons préparé de quoi partir du bon pied </span>

@@ -15,10 +15,12 @@ class Post extends PostRepository
     protected $visibility;
     protected $user_id;
 
-    public function updateOnKey(){
+    public function updateOnKey()
+    {
         return $this->id;
     }
-    public function getPkStr(){
+    public function getPkStr()
+    {
         return "id";
     }
     public function __construct()
@@ -191,14 +193,14 @@ class Post extends PostRepository
      */
     public function setPublishedAt($published_at)
     {
-     if ($published_at) {
-        $this->published_at = $published_at;
-    } else {
-        $this->published_at = date("Y-m-d H:i:s");
-    }
+        if ($published_at) {
+            $this->published_at = $published_at;
+        } else {
+            $this->published_at = date("Y-m-d H:i:s");
+        }
 
-    return $this;
-}
+        return $this;
+    }
     /**
      * @return mixed
      */
@@ -328,7 +330,7 @@ class Post extends PostRepository
 
            "tags"=>[ "label"=>"", "type"=>"tag", "id"=>"tags-input", "placeholder"=>"Tags de l'article","msgerror"=>"tags","helper"=>"Tapez votre tag, et appuyer sur entrée pour l'ajouter à la liste."],
 
-           "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],           
+           "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
 
            "featured"=>[ "label"=>"Brouillon", "type"=>"featuredimg", "id"=>"featured", "placeholder"=>"", "required"=>0],
 
@@ -337,10 +339,10 @@ class Post extends PostRepository
 
        ]
    ];
-}
-public static function getFormEditArticle()
-{
-    return [
+    }
+    public static function getFormEditArticle()
+    {
+        return [
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
         "groups" => [   "title" => ["title"],
         "content" => ["wesic-wysiwyg"],
@@ -356,9 +358,9 @@ public static function getFormEditArticle()
 
        "wesic-wysiwyg"=>[ "label"=>"", "type"=>"texteditor", "id"=>"content", "placeholder"=>"Contenu", "required"=>1, "msgerror"=>"content"],
 
-       "excerpt"=>[ "label"=>"", "type"=>"textarea", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "required"=>1, "msgerror"=>"excerpt", "helper"=>"L'extrait de l'article sur votre site"],
+       "excerpt"=>[ "label"=>"", "type"=>"textarea", "id"=>"excerpt", "placeholder"=>"Résumé de l'article", "msgerror"=>"excerpt", "helper"=>"L'extrait de l'article sur votre site"],
 
-       "description"=>[ "label"=>"", "type"=>"textarea", "id"=>"description", "placeholder"=>"Desc", "required"=>1, "msgerror"=>"description", "helper"=>"La description de votre article pour l'indexation des moteurs de recherche"],
+       "description"=>[ "label"=>"", "type"=>"textarea", "id"=>"description", "placeholder"=>"Desc", "msgerror"=>"description", "helper"=>"La description de votre article pour l'indexation des moteurs de recherche"],
 
 
        "slug"=>[ "label"=>"Permalien", "type"=>"text", "id"=>"slug", "placeholder"=>"Lien", "required"=>1, "msgerror"=>"slug", "helper"=>"Le lien de l'article sur le site"],
@@ -369,7 +371,7 @@ public static function getFormEditArticle()
 
        "category"=>[ "label"=>"La catégorie de votre article", "type"=>"select", "id"=>"category", "placeholder"=>"Catégorie", "required"=>0, "msgerror"=>"category", "choices"=>"category"],
 
-       "tags"=>[ "label"=>"", "type"=>"text", "id"=>"tags", "placeholder"=>"Tags de l'article", "msgerror"=>"tags","helper"=>"Séparez les tags par des virgules"],
+        "tags"=>[ "label"=>"", "type"=>"tag", "id"=>"tags-input", "placeholder"=>"Tags de l'article","msgerror"=>"tags","helper"=>"Tapez votre tag, et appuyer sur entrée pour l'ajouter à la liste."],
 
        "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
 
@@ -378,10 +380,10 @@ public static function getFormEditArticle()
 
    ]
 ];
-}
-public static function getFormNewPage()
-{
-    return [
+    }
+    public static function getFormNewPage()
+    {
+        return [
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
         "groups" => [   "title" => ["title"],
         "content" => ["wesic-wysiwyg"],
@@ -408,11 +410,11 @@ public static function getFormNewPage()
 
    ]
 ];
-}
+    }
 
-public static function getFormEditPage()
-{
-    return [
+    public static function getFormEditPage()
+    {
+        return [
         "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
         "groups" => [   "title" => ["title"],
         "content" => ["wesic-wysiwyg"],
@@ -440,7 +442,5 @@ public static function getFormEditPage()
 
    ]
 ];
-}
-
-
+    }
 }

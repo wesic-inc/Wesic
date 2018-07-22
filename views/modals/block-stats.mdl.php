@@ -1,7 +1,8 @@
 					<div class="col-lg-12 bloc draggable gutter-bloc stats" id="stats">
 						<div class="inner-bloc">
-
+							<?php if(Auth::role() == 4): ?>
 							<span class="icon-menu bloc-close handle"> </span>
+							<?php endif ?>
 							<header>
 								<h2 class="bloc-title"><span class="icon-stats-dots"></span> Statistiques</h2>
 							</header>

@@ -63,15 +63,9 @@ class Setting extends SettingRepository
 
        "separator2"=>["type"=>"separator"],
 
-       "timezone"=>["label"=> "Fuseau Horraire", "type"=>"select", "id"=>"passwordco", "placeholder"=>"Mot de passe", "msgerror"=>"slogand","choices"=>[
-        '1'=>'j F Y : '.Format::dateDisplay(0, 1),
-        '2'=>'Y-m-d '.Format::dateDisplay(0, 2),
-        '3'=>'m/d/Y '.Format::dateDisplay(0, 3),
-        '4'=>'d/m/Y '.Format::dateDisplay(0, 4)] ],
+        "datetype"=>["label"=> "Affichage de la date", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login","choices"=>Format::getDateType()],
 
-        "datetype"=>["label"=> "Affichage de la date", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"login","choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
-
-        "timetype"=>["label"=> "Affichage de l'heure", "type"=>"select", "id"=>"passwordco", "placeholder"=>"Mot de passe", "msgerror"=>"slogand","choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+        "timetype"=>["label"=> "Affichage de l'heure", "type"=>"select", "id"=>"passwordco", "placeholder"=>"Mot de passe", "msgerror"=>"slogand","choices"=>Format::getTimeType() ],
         "separator2"=>["type"=>"separator"],
 
         "reset-block"=>['type'=>'link', 'class'=>"btn btn-sm btn-alt", 'label'=>"Remettre à zéro l'affichage du dashboard"],

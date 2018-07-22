@@ -17,9 +17,7 @@ class SettingRepository extends Basesql
         ->setParam('url', $data['url'])
         ->setParam('email', $data['email'])
         ->setParam('comments', $data['comments'])
-        ->setParam('timezone', $data['timezone'])
-        ->setParam('datetype', $data['datetype'])
-        ->setParam('timetype', $data['timetype']);
+        ->setParam('datetype', $data['datetype']);
 
         View::setFlash('Génial !', 'Les paramètres ont bien été enregistrés !', 'success');
 

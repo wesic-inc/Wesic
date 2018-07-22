@@ -50,7 +50,9 @@ class CategoryRepository extends Basesql
 
         $currentCat = $qb->all('category')->where('id', $data['id'])->fetchOne();
 
-
+        $category = new Category();
+        
+        if($data['type'] == 1){
         if ($currentCat['slug'] === $data['slug']) {
             $slug = $currentCat['slug'];
             $slugUpdate = false;
@@ -62,8 +64,9 @@ class CategoryRepository extends Basesql
             $newSlug->save();
             $slugUpdate = true;
         }
-        $category = new Category();
         $category->setSlug($slug);
+        }
+        
         $category->setId($data['id']);
         $category->setLabel($data['label']);
         $category->setType($data['type']);
@@ -72,7 +75,7 @@ class CategoryRepository extends Basesql
         $message = ($data['type']==1)?'La catégorie':'Le Tag';
         View::setFlash("Succès !", $message.' "'.$data['label'].'" a bien été modifié', "success");
 
-        if ($slugUpdate == true) {
+        if (isset($slugUpdate) && $slugUpdate == true) {
             $qb->reset();
             $qb->delete()->from('slug')->where('slug', $currentPost['slug'])->get();
         }
@@ -214,6 +217,8 @@ class CategoryRepository extends Basesql
      */
     public static function addTags($tags)
     {
+
+
         function format($item2, $key)
         {
             strtolower(trim($key));
@@ -245,7 +250,7 @@ class CategoryRepository extends Basesql
 
             array_push($tagIds, $tag->getId());
         }
-
+        
         return $tagIds;
     }
 

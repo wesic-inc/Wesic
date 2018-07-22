@@ -5,12 +5,16 @@
 				<a href="<?php Route::echo('AddUser') ?>" class="btn btn-sm btn-add">Ajouter un utilisateur</a>
 				<header>
 					<form action="<?php Route::echo('AllUsers') ?>" method="get">
+						<?php if(isset($search)): ?>
+						<a href="<?php echo Route::echo('AllUsers') ?>"><span class="icon icon-cross"></span></a><span>Recherche : "<?php echo $search ?>"</span> 
+						<?php endif ?>
 						<input name="s" type="text" class="search-input sm-input hidden-xs" >
 						<button type="submit" class="btn btn-sm btn-alt hidden-xs">Rechercher</button>
 					</form>
 				</header>
 				<article>
 					<ul class="inline group-action">
+						<?php if(!isset($search)):?>
 						<li><a href="<?php Route::echo('AllUsers'); ?>"
 						class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
 						<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonnés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
@@ -18,6 +22,8 @@
 						<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/3"> CM <?php echo $filter==3?'('.$elementNumber.')':''; ?> </a></li>
 						<li><a class="<?php echo $filter==4?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/4"> Admin <?php echo $filter==4?'('.$elementNumber.')':''; ?> </a></li>
 						<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimés <?php echo $filter==5?'('.$elementNumber.')':''; ?></a></li>
+						<?php endif ?>
+						 
 					</ul>
 					<table class="table table-stripped">
 						<thead>
@@ -53,17 +59,15 @@
 							<td data-label="Rôle"><?php echo Format::getRole($user['role']); ?></td>
 						</tr>
 						<?php endforeach; ?>
-						<?php if(empty($users)): ?>
+						<?php if(empty($users['data'])): ?>
 						<tr>
-							<td> Aucune utilisateurs trouvés </td>
-							<td></td>
+							<td> Aucune utilisateur trouvé </td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<? endif; ?>
-						
 					</tbody>
 				</table>
 				<input type="hidden" id="params">

@@ -1,7 +1,13 @@
 <?php if( Setting::getParam('links-bloc') == '1'): ?>
+				<?php if(Auth::role() == 4): ?>
 				<div class="col-md-12 bloc links-bloc draggable handle" id="links-bloc">
+				<?php else: ?>
+				<div class="col-md-12 bloc links-bloc" id="links-bloc">
+				<?php endif ?>
 					<div class="inner-bloc">
+						<?php if(Auth::role() == 4): ?>
 						<span class="icon-cross bloc-close" onclick="dismissLinks()"></span>
+						<?php endif ?>
 						<header>
 							<h2 class="bloc-title">
 								<span class="icon-link"></span> Liens rapides </h2>

@@ -20,7 +20,7 @@
 		var myChart = new Chart(ctx, {
 			type: 'bar',
 			data: {
-				labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+				labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
 				datasets: [{
 					label: '# of Votes',
 					data: [12, 19, 3, 5, 2, 3],

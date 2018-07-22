@@ -32,8 +32,7 @@ class settingController{
 		$_POST['slogan'] = $data['slogan']['value']; 
 		$_POST['url'] = $data['url']['value']; 
 		$_POST['email'] = $data['email']['value']; 
-		$_POST['comments'] = $data['comments']['value']; 
-		$_POST['timezone'] = $data['timezone']['value']; 
+		$_POST['comments'] = $data['comments']['value'];  
 		$_POST['datetype'] = $data['datetype']['value']; 
 		$_POST['timetype'] = $data['timetype']['value']; 
 		$_POST['reset-block'] = 'reset-dashboard/redirect/generalSettings'; 

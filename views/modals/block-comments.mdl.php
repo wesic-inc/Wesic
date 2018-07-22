@@ -1,7 +1,8 @@
 					<div class="col-md-12 bloc draggable last-comments" id="comments">
 						<div class="inner-bloc">
-							
+							<?php if(Auth::role() == 4): ?>
 							<span class="icon-menu bloc-close handle"> </span>
+							<?php endif ?>
 							<header>
 								<h2 class="bloc-title"><span class="icon-bubbles"></span> Derniers commentaires</h2>
 							</header>

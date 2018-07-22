@@ -140,6 +140,7 @@
 				</ul>
 				<ul class="nav mentions push-right">
 					<li> All rights reserved. </li>
+					<li><?php the_quote(); ?></li>
 				</ul>
 		</nav>
 	</footer>

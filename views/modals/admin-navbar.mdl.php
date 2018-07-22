@@ -15,6 +15,14 @@
 				<span class="tooltiptext">Ajouter une page</span>
 			</a>
 		</li>
+		<?php if(Auth::role() == 3 || Auth::role() == 4): ?>
+		<li>
+			<a class="open tooltip" href="<?php Route::echo('Comments'); ?>"><span class="icon icon-bullhorn"></span>
+				<span class="tooltiptext">Modération</span>
+			</a>
+		</li>
+		<?php endif ?>
+		<?php if(Auth::role() == 4): ?>
 		<li>
 			<a class="open tooltip" href="<?php Route::echo('EditTheme'); ?>"><span class="icon icon-paint-format"></span>
 				<span class="tooltiptext">Modifier mon thème</span>
@@ -25,6 +33,7 @@
 				<span class="tooltiptext">Paramètre du site</span>
 			</a>
 		</li>
+		<?php endif ?>
 	</ul>
 </nav>
 

@@ -19,7 +19,6 @@ define('DOMAIN',$_SERVER['HTTP_HOST']);
 define('ROOT_URL', preg_replace("/\/$/",'',PROTOCOL.DOMAIN.str_replace(array('\\',"index.php","index.html"), '', dirname(htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES))),1).'/',true);
 
 
-
 // Sépration des différentes parties des fichiers de conf en sous tableaux
 $errors_msg = $erf['errors'];
 $route_access = $rof['routing'];

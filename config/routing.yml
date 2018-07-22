@@ -25,7 +25,7 @@ routing:
         path: 500
 
     Admin:
-        restricted: moderator
+        restricted: webmaster
         redirect: 
             guest: Login
             permission: Profile
@@ -60,7 +60,7 @@ routing:
                 optional: true
 
     NewArticle:
-        restricted: admin
+        restricted: webmaster
         controller: article:newArticle
         redirect: Login
         path: admin/ajouter-article
@@ -154,12 +154,19 @@ routing:
                 optional: false
 
     Tags:
-        restricted: admin
+        restricted: webmaster
+        redirect: 
+            guest: Admin
+            permission: Login
         controller: category:allTags
         path: admin/tags
+        params:
+            p:
+                type: int
+                optional: true
 
     DeleteTag:
-        restricted: admin
+        restricted: moderator
         controller: category:deleteTag
         path: admin/supprimer-tag
         params:
@@ -168,13 +175,28 @@ routing:
                 optional: false
 
     EditTag:
-        restricted: admin
+        restricted: moderator
         controller: category:editTag
         path: admin/modifier-tag
         params:
             id:
                 type: int
                 optional: false
+
+    Newsletter:
+        restricted: webmaster
+        controller: newsletter:allNewsletter
+        path: admin/newsletter
+        params:
+            p:
+                type: int
+                optional: true
+            sort:
+                type: int
+                optional: true
+            filter:
+                type: int
+                optional: true
 
     AllArticles:
         restricted: webmaster
@@ -229,7 +251,7 @@ routing:
         path: admin/exporter-statistiques
 
     Medias:
-        restricted: admin
+        restricted: webmaster
         controller: media:index
         path: admin/medias
 
@@ -483,7 +505,7 @@ routing:
         path: newsletter-merci 
 
     DevTest:
-        restricted: connected
+        restricted: all
         controller: admin:devTest
         path: admin/test
 
@@ -542,3 +564,11 @@ routing:
                 type: string
                 optional: false
 
+    TagArchve:
+        restricted: all
+        controller: index:tagArchive
+        path: archive/tag
+        params:
+            t:
+                type: string
+                optional: false

@@ -34,7 +34,7 @@ foreach($articles as $article)
     
     $description = $item->addChild('description', '<![CDATA['. htmlentities($article['content']) . ']]>');
     
-    $date_rfc = gmdate(DATE_RFC2822, strtotime($article['datePublied']));
+    $date_rfc = gmdate(DATE_RFC2822, strtotime($article['published_at']));
 }
 
 if($page == 1 || !isset($page)){

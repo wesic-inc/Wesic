@@ -1,6 +1,8 @@
 						<div class="col-lg-12 bloc draggable activity" id="activity">
 							<div class="inner-bloc">
+								<?php if(Auth::role() == 4): ?>
 								<span class="icon-menu bloc-close handle"> </span>
+								<?php endif; ?>
 								<header>
 									<h2 class="bloc-title"><span class="icon-earth"></span> Activité</h2>
 								</header>

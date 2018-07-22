@@ -373,6 +373,24 @@ function disapproveCommentsAction() {
     });
 }
 
+function restoreCommentsAction() {
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/comments-ajax/action/restore',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
 function approveCommentsAction() {
   var ids = getSelectedRows();
   var data = JSON.stringify(ids);

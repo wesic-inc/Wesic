@@ -140,7 +140,7 @@ class categoryController
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-                $request->setPost('type', 2);
+                $post['type'] = 2;
                 if (!Validator::process($form["struct"], $post, 'new-category')) {
                     $errors=["categorynew"];
                 } else {
@@ -167,21 +167,23 @@ class categoryController
      * @param  [type] $args [description]
      * @return [type]       [description]
      */
-    public static function editTagAction($args)
+    public static function editTagAction(Request $request)
     {
-        $form = Category::getFormEditCategory();
+        $form = Category::getFormEditTag();
         $errors = [];
 
-        $param = $args['params'];
+        $param = $request->getParams();
+        $post = $request->getPost();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $args['post']['id'] = $param['id'];
-            $errors = Validator::check($form["struct"], $args['post']);
+            $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-                $args['post']['type'] = 2;
-                
-                if (!Validator::process($form["struct"], $args['post'], 'edit-category')) {
+
+                $post['type'] = 2;
+                $post['id'] = $param['id'];
+                if (!Validator::process($form["struct"], $post, 'edit-category')) {
                     $errors=["categorynew"];
                 } else {
                     Route::redirect('Tags');
@@ -196,12 +198,10 @@ class categoryController
         ->fetchOne();
 
         $_POST['label'] = $category['label'];
-        $_POST['slug'] = $category['slug'];
 
         $v = new View();
         $v->setView("category/edit-tag", "templateadmin");
         $v->massAssign([
-            "pseudo"=>$userFound['firstname']." ".$userFound['lastname'],
             "title"=>"Modifier un tag",
             "icon"=>"icon-pushpin",
             "form"=>$form,

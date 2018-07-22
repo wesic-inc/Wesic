@@ -84,7 +84,11 @@
 									<?php $this->addModal("pagination",$comments['pagination']); ?>
 									<ul class="inline hidden-xs">
 										<li>Actions groupées :  </li>
+										<?php if($filter==5): ?>
+										<li><a onclick="restoreCommentsAction()" > Restaurer</a></li>
+										<?php else: ?>
 										<li><a onclick="deleteCommentsAction()" > Supprimer</a></li>
+										<?php endif ?>
 										<li><a onclick="disapproveCommentsAction()" > Désapprouver</a></li>
 										<li><a onclick="approveCommentsAction()" > Approuver</a></li>
 									</ul>

@@ -2,6 +2,7 @@
 
 class articleController
 {
+    
     /**
      * [singleAction description]
      * @param  Request $request [description]
@@ -16,7 +17,7 @@ class articleController
         $article = $qb
             ->select('p.id as articleid,p.title as title,p.content as content,p.description as seodesc,p.published_at as date,p.user_id as authorid,media.path,media.caption as mcaption,media.description as mdesc,media.alttext as malt')
             ->from('post AS p')
-            ->leftJoin('media','p.featured = media.id')
+            ->leftJoin('media', 'p.featured = media.id')
             ->where('p.slug', $param['slug'])
             ->and()
             ->where('p.status', 1)
@@ -86,6 +87,7 @@ class articleController
         ->join('user', 'user.id = post.user_id')
         ->where('post.type', 1);
 
+
         $param = $request->getParams();
         $get = $request->getGet();
 
@@ -96,12 +98,14 @@ class articleController
         if (isset($param['filter'])) {
             $filter = $param['filter'];
             $qbArticles->articleDisplayFilters($filter);
+        } else {
+            $qbArticles->and()->where('post.status', '!=', 3);
         }
         if (isset($param['sort'])) {
             $sort = $param['sort'];
             $qbArticles->articleDisplaySorting($sort);
-        }else{
-            $qbArticles->orderBy('post.published_at','ASC');
+        } else {
+            $qbArticles->orderBy('post.published_at', 'ASC');
         }
         if (isset($get['s'])) {
             $search = $get['s'];
@@ -123,6 +127,7 @@ class articleController
             "sort"=>$sort
         ]);
     }
+
     /**
      * [allArticlesAjaxAction description]
      * @param  [type] $args [description]
@@ -131,24 +136,22 @@ class articleController
     public function articleActionsAction(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
             $selectIds = json_decode($request->getPost()['ids']);
 
             switch ($request->getParam('action')) {
                 case 'unpublish':
                     foreach ($selectIds as $val) {
-                        Post::setPostStatus($val,2);
+                        Post::setPostStatus($val, 2);
                     }
                     break;
                 case 'delete':
                     foreach ($selectIds as $val) {
-                        Post::setPostStatus($val,3);
+                        Post::setPostStatus($val, 3);
                     }
                     break;
                 default:
                     break;
             }
-
         } else {
             Route::redirect('Error404');
         }
@@ -169,7 +172,7 @@ class articleController
 
         $medias = $qbMedias->all('media')->paginate(24);
         $qbMedias->reset();
-        $images = $qbMedias->all('media')->where('type',1)->paginate(12);
+        $images = $qbMedias->all('media')->where('type', 1)->paginate(12);
 
         $errors = [];
 
@@ -196,11 +199,12 @@ class articleController
             "images" => $images
         ]);
     }
-/**
- * [editArticleAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+
+    /**
+     * [editArticleAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function editArticleAction(Request $request)
     {
         $post = $request->getPost();
@@ -208,7 +212,6 @@ class articleController
 
         $form = Post::getFormEditArticle();
         $errors = [];
-
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $request->setPost('id', $param['id']);
@@ -230,6 +233,7 @@ class articleController
         $data = $qb->all('post')->where('id', $param['id'])->and()->where('type', 1)->fetchOrFail();
 
 
+        // dd($data);
         $_POST['title'] = $data['title'];
         $_POST['wesic-wysiwyg'] = html_entity_decode($data['content']);
         $_POST['slug'] = $data['slug'];
@@ -241,8 +245,9 @@ class articleController
         $_POST['visibility'] = $data['visibility'];
         $_POST['excerpt'] = $data['excerpt'];
         $_POST['description'] = $data['description'];
-        // $_POST['category'] = Category::getCategory($data['category']);
-
+        $_POST['category'] = Category::getCategory($data['id']);
+        $_POST['tags'] = json_encode(Category::getTags($data['id']), JSON_HEX_APOS);
+        
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");
         $v->massAssign([
@@ -252,26 +257,28 @@ class articleController
             "errors" => $errors
         ]);
     }
-/**
- * [deleteArticleAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+
+    /**
+     * [deleteArticleAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function deleteArticleAction(Request $request)
     {
         $id = $request->getParam('id');
 
-        if(User::isAllowId('post',$id)){
+        if (User::isAllowId('post', $id)) {
             Post::deleteArticle($id);
         }
 
         Route::redirect('AllArticles');
     }
-/**
- * [getRssAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+
+    /**
+     * [getRssAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getRssAction(Request $request)
     {
         $get = $request->getGet();
@@ -280,7 +287,7 @@ class articleController
 
         $pagination = Setting::getParam('pagination-rss');
 
-        $qb->findAll('post')->where('status', 1)->and()->addWhere('datePublied', '<=', date("Y-m-d H:i:s"));
+        $qb->all('post')->where('status', 1)->and()->where('published_at', '<=', date("Y-m-d H:i:s"));
 
         if (!isset($get['page'])) {
             $qb->limit('0', $pagination);

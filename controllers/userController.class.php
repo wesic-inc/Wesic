@@ -22,8 +22,8 @@ class userController
         $param = $request->getParams();
 
         $get = $request->getGet();
-        $filter = null;
-        $sort = null;
+
+        $filter = $sort = $search = null;
 
         $qbUsers = new QueryBuilder();
         $qbUsers->all('user');
@@ -42,9 +42,18 @@ class userController
 
         if (isset($get['s'])) {
             $search = $get['s'];
-            $qbUsers->all('user')->search('login', $search)->or()->search('email', $search)->or()->search('firstname', $search)->or()->search('lastname', $search);
+            $qbUsers->reset();
+            $qbUsers
+            ->all('user')
+            ->search('login', $search)
+            ->or()
+            ->search('email', $search)
+            ->or()
+            ->search('firstname', $search)
+            ->or()
+            ->search('lastname', $search);
         }
-
+        
         $users = $qbUsers->paginate(10);
 
         $v = new View();
@@ -57,7 +66,8 @@ class userController
             "sort"=>$sort,
             "elementNumber"=>$users['pagination']['total'],
             "users"=>$users,
-            "sort"=>$sort
+            "sort"=>$sort,
+            "search"=>$search
 
         ]);
     }
@@ -156,10 +166,9 @@ class userController
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors = Validator::check($form["struct"], $post);
-
             if (!$errors) {
                 $post['id'] = $param['id'];
-                $errors = Validator::process($form["struct"], $post, 'edit-user');
+                $errors = !Validator::process($form["struct"], $post, 'edit-user');
 
                 if (!$errors) {
                     Route::redirect('AllUsers');
