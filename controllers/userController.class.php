@@ -342,7 +342,9 @@ class userController
         
         $qb = new QueryBuilder();
         $userFound = $qb->all("user")->where('id',$id)->fetchOrFail();
-        PasswordRecoRepository::sendResetPassword($userFound['login']);
+        PasswordRecoRepository::sendResetPassword($userFound['login'],2);
+
+        Route::redirect('AllUsers');
     }
     /**
      * [disableUserAction description]

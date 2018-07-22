@@ -56,7 +56,7 @@ class loginController{
 		$param = $request->getParams();
 		$post = $request->getPost();
 
-		if( setting('signup') == '0'){
+		if( setting('signup') == 2){
 			Route::redirect('Error404');
 		}
 
@@ -77,7 +77,7 @@ class loginController{
 		}
 
 		$v = new View();
-		$v->setView("login/signup");
+		$v->setView("login/signup",'templateadmin-modal');
 		$v->massAssign([
 			"title" => "Inscription",
 			"description" => "Inscription",

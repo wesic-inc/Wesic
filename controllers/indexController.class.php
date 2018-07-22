@@ -14,8 +14,16 @@ class indexController
         
         $v->setView("home", "template", "front");
 
-        Singleton::bridge(['view'=>$v->getViewInfos()]);
         
+        $description = setting('slogan'); 
+
+
+        Singleton::bridge([
+            'view'=>$v->getViewInfos(),
+            'description'=>$description
+
+        ]);
+
         Stat::add(1, "page d'accueuil", 3);
     }
 

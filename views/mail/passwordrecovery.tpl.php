@@ -17,7 +17,7 @@
 	.button{
 		background: #F83E48;
 		text-decoration: none;
-		color: #FFF;
+		color: #FFF !important;
 		padding: 10px 5px;
 		height: 25px;
 		border-radius: 5px;
@@ -29,7 +29,7 @@
 		text-align: left;
 	}
 	a{
-		color:#FFF;
+		color:#000 !important;
 	}
 	@media only screen and (max-width: 700px){
 		.main-container{
@@ -51,7 +51,6 @@
 				<table class="main-container" border="0" cellpadding="0" cellspacing="0" width="700" bgcolor="#ffffff" style="width: 700px;">
 					<tr>
 						<td align="center" valign="top">
-							<!-- / Header -->
 							<table class="container header" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
 								<tr>
 									<td style="padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee;" align="left">
@@ -59,9 +58,6 @@
 									</td>
 								</tr>
 							</table>
-							<!-- /// Header -->
-
-							<!-- / Hero subheader -->
 							<table class="container" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
 								<tr>
 									<td style="font-size: 20px; font-weight: bold; padding: 80px 0 15px 0;" align="left">Réinitialiser votre mot de passe</td>

@@ -59,9 +59,12 @@ class articleController
 
         $v = new View();
         $v->setView("article", "template", "front");
-        $v->massAssign([
-            "description"=>$article['seodesc'],
-        ]);
+
+        if(isset($article['description'])){
+            $description = $article['description'];
+        }else{
+            $description = "Article";
+        }
 
         Singleton::bridge([
             'article'=>$article,
@@ -69,6 +72,7 @@ class articleController
             'comments'=>$comments,
             'errors'=>$errors,
             'form'=>$form,
+            'description'=>$description
         ]);
 
         Stat::add(1, "article read", 1, $article['articleid']);

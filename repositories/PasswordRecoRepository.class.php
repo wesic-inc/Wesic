@@ -36,7 +36,7 @@ class PasswordRecoRepository extends Basesql
      * @param  [type] $login [description]
      * @return [type]        [description]
      */
-    public static function sendResetPassword($login)
+    public static function sendResetPassword($login,$type = 1)
     {
         if (User::loginExists($login)) {
             $passwordrecovery = new Passwordrecovery();
@@ -46,9 +46,9 @@ class PasswordRecoRepository extends Basesql
 
 
             if ($userFound['status'] == 1) {
+
                 $user->setId($userFound['id']);
                 $user->cleanUserSlugPasswordRecovery();
-
 
                 $passwordrecovery = new Passwordrecovery();
                 $passwordrecovery->setToken();
@@ -66,11 +66,21 @@ class PasswordRecoRepository extends Basesql
                 $mail = self::initMailer();
 
                 $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
-                $mail->Subject = ucfirst($userFound['firstname']).', réinitialiser votre mot de passe';
-                $message = file_get_contents('views/mail/passwordrecovery.tpl.php');
-                $message = str_replace('%username%', ucfirst($userFound['firstname']), $message);
+                $mail->Subject = ucfirst($userFound['login']).', réinitialiser votre mot de passe';
+
+                if($type == 1){
+                    $file = "views/mail/passwordrecovery.tpl.php";
+                }elseif($type == 2){
+                    $file = "views/mail/passwordrecoverybyadmin.tpl.php";
+                }else{
+                    Route::redirect('Error403');
+                }
+
+                $message = file_get_contents($file);
+                $message = str_replace('%username%', ucfirst($userFound['login']), $message);
                 $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
                 $message = str_replace('%sitename%', Setting::getParam('title'), $message);
+                $message = str_replace('%slogan%', Setting::getParam('slogan'), $message);
                 $mail->Body = $message;
 
             

@@ -46,7 +46,6 @@ routing:
 
     Signup:
         restricted: connected
-        redirect: Admin
         controller: login:signup
         path: inscription
 

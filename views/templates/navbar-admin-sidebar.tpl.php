@@ -14,7 +14,7 @@
 
 	<ul class="nav" id="menu">
 		<li class="<?php echo ($c == "admin" && $a == "index" )?"active":"";?>"><a href="<?php echo Route::echo('Admin'); ?>"><span class="icon icon-stats-bars"></span><span class="link-text">Dashboard</span></a></li>
-		<li class="dropdown-link <?php echo ($c == "article" && $a == "allArticles" )?"active":"";?>">
+		<li class="dropdown-link <?php echo ($c == "article" || $c == "category" || $c == "newsletter")?"active":"";?>">
 			</span><a href="#""><span class="icon icon-newspaper"></span><span class="link-text">Articles <span class="icon-ctrl carret-down" id="dropdown-toggle"></span></span></a>
 			<div class="dropdown">
 				<ul> 
@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 		</li>
-		<li class="dropdown-link <?php echo ($c == "page" && $a == "index" )?"active":"";?>" ><a href="#"><span class="icon icon-files-empty"></span><span class="link-text">Pages<span class="icon-ctrl carret-down"></span></span></a>
+		<li class="dropdown-link <?php echo ($c == "page")?"active":"";?>" ><a href="#"><span class="icon icon-files-empty"></span><span class="link-text">Pages<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
 				<ul> 
 					<li><a href="<?php Route::echo('Pages'); ?>">Toutes les pages</a> </li> 
@@ -34,11 +34,11 @@
 				</ul>
 			</div>
 		</li>
-		<li classs="<?php echo ($c == "media" && $a == "index" )?"active":"";?>">
+		<li class="<?php echo ($c == "media" )?"active":"";?>">
 			<a href="<?php Route::echo('Medias'); ?>">
 				<span class="icon icon-images"></span>
 				<span class="link-text">Médias</span></a></li>
-		<li class="dropdown-link" >
+		<li class="dropdown-link <?php echo ($c == "event")?"active":"";?>">
 			<a href="#"><span class="icon icon-alarm"></span><span class="link-text">Evènements<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
 				<ul> 
@@ -48,7 +48,7 @@
 			</div>
 		</li>
 		<?php if(Auth::role()==3 || Auth::role()==4): ?>
-		<li class="<?php echo ($c == "comment" && $a == "index" )?"active":"";?>">
+		<li class="<?php echo ($c == "comment" )?"active":"";?>">
 			<a href="<?php Route::echo('Comments'); ?>"><span class="icon icon-bubbles2"></span><span class="link-text">Commentaires</span></a>
 		</li>
 		<?php endif ?>
@@ -80,7 +80,7 @@
 				</ul>
 			</div>
 		</li>
-			<li class="<?php echo ($c == "stat" && $a == "index" )?"active":"";?>">
+			<li class="<?php echo ($c == "stat" )?"active":"";?>">
 			<a href="<?php Route::echo('Stats'); ?>">
 				<span class="icon icon-stats-dots"></span><span class="link-text">Statistiques</span></a>
 		<?php endif ?>

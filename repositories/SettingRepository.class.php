@@ -10,15 +10,17 @@ class SettingRepository extends Basesql
      */
     public static function editSettings($data)
     {
+
+
         $setting = new Setting();
         $setting
         ->setParam('title', $data['title'])
-        ->setParam('slogan', $data['slogan'])
         ->setParam('url', $data['url'])
+        ->setParam('slogan', $data['slogan'])
         ->setParam('email', $data['email'])
+        ->setParam('signup', $data['signup'])
         ->setParam('comments', $data['comments'])
         ->setParam('datetype', $data['datetype']);
-
         View::setFlash('Génial !', 'Les paramètres ont bien été enregistrés !', 'success');
 
         return true;
@@ -103,15 +105,14 @@ class SettingRepository extends Basesql
      */
     public function setParam($id, $value)
     {
-        if (empty($value)) {
-            $this->value == null;
+
+        if (empty($value) || !isset($value)) {
+            $this->value = null;
         } else {
             $this->value = $value;
         }
         $this->id = $id;
-        
         $this->save();
-
         
         return $this;
     }

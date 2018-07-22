@@ -114,7 +114,11 @@ function the_quote()
  */
 function seo_description($description = null)
 {
-    echo '<meta name="description" content="'.isset($description)?$description:"Mon site Wesic".'">';
+    if(!isset(Singleton::bridge()['description'])){
+        echo '<meta name="description" content="'.isset($description)?$description:"Mon site Wesic".'">';
+    }else{
+        echo '<meta name="description" content="'.Singleton::bridge()['description'].'">';
+    }
 }
 
 /**
@@ -341,13 +345,13 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
         echo '<div class="'.$wrapper.'">';
         if ($type == 1) {
             echo '<a href="#">
-                    <img src="'.$media['path'].'" class="image img-responsive">
-                </a>';
+            <img src="'.$media['path'].'" class="image img-responsive">
+            </a>';
         }
         if ($type == 2) {
             echo '<iframe width="100%" height="auto"
-                    src="https://www.youtube.com/embed/'.$media['url'].'">
-                </iframe>';
+            src="https://www.youtube.com/embed/'.$media['url'].'">
+            </iframe>';
         }        
         if ($type == 3) {
             echo '<a href="" onclick="videoModa('.$media['url'].')">
@@ -401,5 +405,5 @@ function page_content()
 }
 
 function get_events(){
-    
+
 }
