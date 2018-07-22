@@ -31,10 +31,10 @@ class Form
      */
     public static function renderBasic($form, $data)
     {
-        $output = '<form action="'.$form["options"]["action"].'" method="'.$form["options"]["method"].'">';
+        $output = '<form enctype="'.$form["options"]["enctype"].'" action="'.$form["options"]["action"].'" method="'.$form["options"]["method"].'">';
+
 
         foreach ($form["struct"] as $name => $option) {
-
             $fieldType = $option["type"];
             $params = [$name, $option, isset($data[$name])?$data[$name]:""];
 
@@ -42,6 +42,8 @@ class Form
                 $output .= self::input($params);
             } elseif ($fieldType =="textarea") {
                 $output .= self::text($params);
+            } elseif ($fieldType =="file") {
+                $output .= self::input($params);
             } elseif ($fieldType =="texteditor") {
                 $output .= self::texteditor($params);
             } elseif ($fieldType =="select") {
@@ -76,13 +78,14 @@ class Form
         $output .= self::getCSRF();
         $output .= '</form>';
         echo $output
- ;   }
- /**
-  * [renderAdvanced description]
-  * @param  [type] $form [description]
-  * @param  [type] $data [description]
-  * @return [type]       [description]
-  */
+ ;
+    }
+    /**
+     * [renderAdvanced description]
+     * @param  [type] $form [description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function renderAdvanced($form, $data)
     {
         global $forms_group;
@@ -156,11 +159,12 @@ class Form
         $output .= '</form>';
         echo $output;
     }
-/**
- * [input description]
- * @param  [type] $params [description]
- * @return [type]         [description]
- */
+
+    /**
+     * [input description]
+     * @param  [type] $params [description]
+     * @return [type]         [description]
+     */
     public static function input($params)
     {
         $name = $params[0];
@@ -170,8 +174,9 @@ class Form
         if (isset($option['helper'])) {
             $helper =  '<p class="form-helper">'.$option['helper'].'</p>';
         }
-        return '<div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>		<input 	name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . ((isset($option["required"]))?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . (isset($option["disabled"])&&$option["disabled"]?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div>';
+        return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label><input name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.(isset($option["placeholder"])?$option["placeholder"]:'').'"' . ((isset($option["required"]))?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . (isset($option["disabled"])&&$option["disabled"]?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div>';
     }
+    
     /**
      * [text description]
      * @param  [type] $params [description]
@@ -179,7 +184,7 @@ class Form
      */
     public static function text($params)
     {
-                $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
 
@@ -191,7 +196,7 @@ class Form
         id="'.$option["id"].'" "'
         .((isset($option["required"]))?"required='required'":"").' ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled'":"") . '>'
         .((isset($data))?$data:"").'</textarea>'.(isset($helper)?$helper:"").'</div>';
-    }  
+    }
     /**
      * [tag description]
      * @param  [type] $params [description]
@@ -211,7 +216,7 @@ class Form
         }
         
         $output = '<div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>        <input type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . ((isset($option["required"]))?"required='required'":"") . (isset($option["disabled"])&&$option["disabled"]?"disabled":"") . '>'.(isset($helper)?$helper:"").'</div><ul class="tag-list">';
-        if(isset($data)){
+        if (isset($data)) {
             foreach (json_decode($data) as $value) {
                 $output .= '<li class="tag-element">'.$value.'<span class="icon-cross tag-close" onclick="deleteTag(this)"></span></li>';
             }
@@ -220,14 +225,13 @@ class Form
 
         return $output;
     }
-/**
- * [texteditor description]
- * @param  [type] $params [description]
- * @return [type]         [description]
- */
+    /**
+     * [texteditor description]
+     * @param  [type] $params [description]
+     * @return [type]         [description]
+     */
     public static function texteditor($params)
     {
-
         $name = $params[0];
         $option = $params[1];
         $data = $params[2];
@@ -235,56 +239,51 @@ class Form
         $qb = new QueryBuilder();
 
         return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<a class="btn btn-sm add-media" onclick="insertMedia()"> Ajouter un média </a>
-		<div id="wesic-wysiwyg" ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled":"") . '>'.((isset($data))?$data:"").'</div></div>';
-
-
+        <a class="btn btn-sm add-media" onclick="insertMedia()"> Ajouter un média </a>
+        <div id="wesic-wysiwyg" ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled":"") . '>'.((isset($data))?$data:"").'</div></div>';
     }
-/**
- * [datepicker description]
- * @param  [type] $params [description]
- * @return [type]         [description]
- */
+    /**
+     * [datepicker description]
+     * @param  [type] $params [description]
+     * @return [type]         [description]
+     */
     public static function datepicker($params)
     {
-
-
         $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         return '<div class="datepicker" name="lolilol" id="timestampdiv"><label class="label-input">'.$option['label'].'</label>
-		<div class="timestamp-wrap"><input type="text" id="jj" name="jj" value="'.((isset($data['jj']))?$data['jj']:date("d")).'" size="2" maxlength="2" autocomplete="off"><select id="mm" name="mm">
-		<option value="01" '.(($data['mm']=="01")||date("m")=="01"?'selected="selected"':"").'>01-Jan</option>
-		<option value="02" '.(($data['mm']=="02")||date("m")=="02"?'selected="selected"':"").'>02-Fev</option>
-		<option value="03" '.(($data['mm']=="03")||date("m")=="03"?'selected="selected"':"").'>03-Mar</option>
-		<option value="04" '.(($data['mm']=="04")||date("m")=="04"?'selected="selected"':"").'>04-Avr</option>
-		<option value="05" '.(($data['mm']=="05")||date("m")=="05"?'selected="selected"':"").'>05-Mai</option>
-		<option value="06"" '.(($data['mm']=="06")||date("m")=="06"?'selected="selected"':"").'>06-Juin</option>
-		<option value="07"" '.(($data['mm']=="07")||date("m")=="07"?'selected="selected"':"").'>07-Juil</option>
-		<option value="08"" '.(($data['mm']=="08")||date("m")=="08"?'selected="selected"':"").'>08-Aout</option>
-		<option value="09" '.(($data['mm']=="09")||date("m")=="09"?'selected="selected"':"").'>09-Sep</option>
-		<option value="10" '.(($data['mm']=="10")||date("m")=="10"?'selected="selected"':"").'>10-Oct</option>
-		<option value="11" '.(($data['mm']=="11")||date("m")=="11"?'selected="selected"':"").'>11-Nov</option>
-		<option value="12" '.(($data['mm']=="12")||date("m")=="12"?'selected="selected"':"").'>12-Dec</option>
-		</select>
-		<input type="text" id="aa" name="aa" value="'
+        <div class="timestamp-wrap"><input type="text" id="jj" name="jj" value="'.((isset($data['jj']))?$data['jj']:date("d")).'" size="2" maxlength="2" autocomplete="off"><select id="mm" name="mm">
+        <option value="01" '.(($data['mm']=="01")||date("m")=="01"?'selected="selected"':"").'>01-Jan</option>
+        <option value="02" '.(($data['mm']=="02")||date("m")=="02"?'selected="selected"':"").'>02-Fev</option>
+        <option value="03" '.(($data['mm']=="03")||date("m")=="03"?'selected="selected"':"").'>03-Mar</option>
+        <option value="04" '.(($data['mm']=="04")||date("m")=="04"?'selected="selected"':"").'>04-Avr</option>
+        <option value="05" '.(($data['mm']=="05")||date("m")=="05"?'selected="selected"':"").'>05-Mai</option>
+        <option value="06"" '.(($data['mm']=="06")||date("m")=="06"?'selected="selected"':"").'>06-Juin</option>
+        <option value="07"" '.(($data['mm']=="07")||date("m")=="07"?'selected="selected"':"").'>07-Juil</option>
+        <option value="08"" '.(($data['mm']=="08")||date("m")=="08"?'selected="selected"':"").'>08-Aout</option>
+        <option value="09" '.(($data['mm']=="09")||date("m")=="09"?'selected="selected"':"").'>09-Sep</option>
+        <option value="10" '.(($data['mm']=="10")||date("m")=="10"?'selected="selected"':"").'>10-Oct</option>
+        <option value="11" '.(($data['mm']=="11")||date("m")=="11"?'selected="selected"':"").'>11-Nov</option>
+        <option value="12" '.(($data['mm']=="12")||date("m")=="12"?'selected="selected"':"").'>12-Dec</option>
+        </select>
+        <input type="text" id="aa" name="aa" value="'
         .((isset($data['aa']))?$data['aa']:date("Y")).'" size="4" maxlength="4" autocomplete="off"> 
-		<input type="text" id="hh" name="hh" value="'
+        <input type="text" id="hh" name="hh" value="'
         .((isset($data['hh']))?$data['hh']:date("H")).'" size="2" maxlength="2" autocomplete="off">&nbsp;h&nbsp;
-		<input type="text" id="mn" name="mn" value="'
+        <input type="text" id="mn" name="mn" value="'
         .((isset($data['mn']))?$data['mn']:date("i")).'" size="2" maxlength="2" autocomplete="off">
-		</div>
-		</div>';
+        </div>
+        </div>';
     }
-/**
- * [select description]
- * @param  [type] $params [description]
- * @return [type]         [description]
- */
+    /**
+     * [select description]
+     * @param  [type] $params [description]
+     * @return [type]         [description]
+     */
     public static function select($params)
     {
-
-               $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
 
@@ -294,7 +293,7 @@ class Form
         }
 
         $output = '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<select name="'.$name.'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'" '.((isset($option["required"]))?"required='required'":"").' ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled":"") . '>';
+        <select name="'.$name.'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'" '.((isset($option["required"]))?"required='required'":"").' ' . ((isset($option["disabled"])&&$option["disabled"])?"disabled":"") . '>';
 
         if (is_array($option["choices"])) {
             foreach ($option["choices"] as $value=>$title) {
@@ -305,7 +304,7 @@ class Form
             switch ($option["choices"]) {
                 case 'category':
                     $output .= self::categoryChoices($data);
-                break;                
+                break;
                 case 'users':
                     $output .= self::userChoices($data);
                 break;
@@ -320,11 +319,11 @@ class Form
         $output .= '</select>'.(isset($helper)?$helper:"").'</div>';
         return $output;
     }
-/**
- * [categoryChoices description]
- * @param  [type] $data [description]
- * @return [type]       [description]
- */
+    /**
+     * [categoryChoices description]
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public static function categoryChoices($data)
     {
         $qb = new QueryBuilder();
@@ -350,7 +349,7 @@ class Form
         }
 
         return $output;
-    }   
+    }
     /**
      * [userChoices description]
      * @param  [type] $data [description]
@@ -382,30 +381,28 @@ class Form
      */
     public static function date($params)
     {
-
-                       $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         if (isset($option['helper'])) {
             $helper =  '<p class="form-helper">'.$option['helper'].'</p>';
         }
         return '<div class="input-group"><label class="label-input" for="'.$name.'">'.$option["label"].'</label>
-		<input name="'.$name.'" 
-		type="'.$option["type"].'"
-		id="'.$option["id"].'"
-		placeholder="'.$option["placeholder"].'"'
+        <input name="'.$name.'" 
+        type="'.$option["type"].'"
+        id="'.$option["id"].'"
+        placeholder="'.$option["placeholder"].'"'
         .((isset($option["required"]))?"required='required'":"").'
-		value="'.((isset($data))?$data:"").'" ' . (($option["disabled"])?"disabled":"") . '></div>';
+        value="'.((isset($data))?$data:"").'" ' . (($option["disabled"])?"disabled":"") . '></div>';
     }
-/**
- * [submit description]
- * @param  [type] $params [description]
- * @return [type]         [description]
- */
+    /**
+     * [submit description]
+     * @param  [type] $params [description]
+     * @return [type]         [description]
+     */
     public static function submit($params)
     {
-
-                               $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         if (isset($option['helper'])) {
@@ -425,7 +422,7 @@ class Form
      */
     public static function info($params)
     {
-                                       $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
 
@@ -438,11 +435,11 @@ class Form
      */
     public static function title($params)
     {
-                                               $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         return '<div class="input-group"><p class="title-form">'.$option['text'].'</p></div>';
-    }    
+    }
 
     public static function featuredImg($params)
     {
@@ -459,7 +456,7 @@ class Form
      */
     public static function link($params)
     {
-                                               $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         if (isset($option['helper'])) {
@@ -478,11 +475,11 @@ class Form
      */
     public static function captcha($params)
     {
-                                               $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         return '<img class="captcha" src="captcha.php"><div class="input-group"><label class="label-input" for="' . $name .'">'. $option["label"].'</label>
-		<input 	name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . (($option["required"])?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . ((isset($option["required"]))?"required='required'":"") . '></div>';
+        <input  name="'.$name.'" type="'.$option["type"].'" id="'.$option["id"].'" placeholder="'.$option["placeholder"].'"' . (($option["required"])?"required='required'":"") . ' value="'.((isset($data)&&$option["type"]!="password")?$data:"").'" ' . ((isset($option["required"]))?"required='required'":"") . '></div>';
     }
     /**
      * [radio description]
@@ -491,7 +488,7 @@ class Form
      */
     public static function radio($params)
     {
-                                                       $name = $params[0];
+        $name = $params[0];
         $option = $params[1];
         $data = $params[2];
         if (isset($option['helper'])) {
@@ -512,7 +509,6 @@ class Form
      */
     public static function getCSRF()
     {
-        
         $token = md5(uniqid(rand(), true));
         // if (!isset($_SESSION)){
         //     session_start();

@@ -250,9 +250,61 @@ routing:
         path: admin/exporter-statistiques
 
     Medias:
-        restricted: webmaster
-        controller: media:index
+        restricted: admin
+        controller: media:allMedias
         path: admin/medias
+        params:
+            filter:
+                type: int
+                optional: true
+            p:
+                type: int
+                optional: true
+
+    MediaAjaxPagination:
+        restricted: moderator
+        controller: media:modalPaginationAjax
+        path: admin/media-modal-page-ajax
+        params:
+            p:
+                type: int
+                optional: false  
+
+    EditMedia:
+        restricted: all
+        controller: media:editMedia
+        path: admin/modifier-media
+        params:
+            type:   
+                type: int
+                optional: true
+            id: 
+                type: int
+                optional: true
+   
+    newMediaVideo:
+        restricted: admin
+        controller: media:newVideo
+        path: admin/ajouter-video
+        
+    newMediaImage:
+        restricted: admin
+        controller: media:newImage
+        path: admin/ajouter-image
+
+    newMediaMusic:
+        restricted: admin
+        controller: media:newMusic
+        path: admin/ajouter-musique
+
+    DeleteMedia:
+        restricted: admin
+        controller: media:deleteMedia
+        path: admin/supprimer-media
+        params:
+            id:
+                type: int
+                optional: false
 
     MediaAjaxPagination:
         restricted: webmaster

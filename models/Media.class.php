@@ -1,21 +1,23 @@
 <?php
 
-class Media extends MediaRepository{
-	
-	protected $id;
-	protected $name;
-	protected $path;
-	protected $type;
-	protected $caption;
-	protected $alttext;
+class Media extends MediaRepository
+{
+    protected $id;
+    protected $name;
+    protected $path;
+    protected $type;
+    protected $caption;
+    protected $alttext;
     protected $description;
-	protected $url;
-	protected $user_id;
+    protected $url;
+    protected $user_id;
 
-    public function updateOnKey(){
+    public function updateOnKey()
+    {
         return $this->id;
     }
-    public function getPkStr(){
+    public function getPkStr()
+    {
         return "id";
     }
     /**
@@ -196,5 +198,111 @@ class Media extends MediaRepository{
         $this->user_id = $user_id;
 
         return $this;
+    }
+
+
+    /**
+     * [getFormNewVideo description]
+     * @return [type] [description]
+     */
+    public static function getFormNewVideo()
+    {
+        return [
+                "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter la video", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
+                "struct" => [
+                    "name"=>[ "label"=>"Nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"media-name" ],
+                    "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Description", "required"=>0, "msgerror"=>"description" ],
+                    "url-yt"=>[ "label"=>"Url", "type"=>"text", "id"=>"url", "placeholder"=>"Url de la vidéo", "required"=>0, "msgerror"=>"url-error" ],
+                    "submit"=>[ "label"=>"Ajouter", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+                ]
+        ];
+    }
+
+    /**
+     * [getFormNewImage description]
+     * @return [type] [description]
+     */
+    public static function getFormNewImage()
+    {
+        return [
+                "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'image", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+                "struct" => [
+                    "name"=>[ "label"=>"Nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"media-name" ],
+                    "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Description", "msgerror"=>"description" ],
+                    "caption"=>[ "label"=>"Légende", "type"=>"text", "id"=>"caption", "placeholder"=>"Légende", "msgerror"=>"légende non valide" ],
+                    "alttext"=>[ "label"=>"Texte de substitution", "type"=>"text", "id"=>"alttext", "placeholder"=>"Texte de substitution", "msgerror"=>"alttext" ],
+                    "image"=>[ "label"=>"Fichier image", "type"=>"file", "id"=>"imageToSave", "required"=>0, "msgerror"=>"file" ],
+                    "submit"=>[ "label"=>"Ajouter", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+                ]
+        ];
+    }
+
+    /**
+     * [getFormNewMusic description]
+     * @return [type] [description]
+     */
+    public static function getFormNewMusic()
+    {
+        return [
+                "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter la musique", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+                "struct" => [
+                    "name"=>[ "label"=>"Nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"media-name" ],
+                    "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Description", "required"=>0, "msgerror"=>"description" ],
+                    "caption"=>[ "label"=>"Légende", "type"=>"text", "id"=>"caption", "placeholder"=>"Légende", "required"=>0, "msgerror"=>"legende" ],
+                    "music"=>[ "label"=>"Fichier audio", "type"=>"file", "id"=>"musicTosave", "required"=>0, "msgerror"=>"file" ],
+                    "submit"=>[ "label"=>"Ajouter", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+                ]
+        ];
+    }
+
+    /**
+     * [getFormEditImage description]
+     * @return [type] [description]
+     */
+    public static function getFormEditImage()
+    {
+        return [
+                "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier l'image", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+                "struct" => [
+                    "name"=>[ "label"=>"Nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"media-name" ],
+                    "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Description", "required"=>0, "msgerror"=>"description" ],
+                    "caption"=>[ "label"=>"Légende", "type"=>"text", "id"=>"caption", "placeholder"=>"Légende", "required"=>0, "msgerror"=>"legende" ],
+                    "alttext"=>[ "label"=>"Texte de substitution", "type"=>"text", "id"=>"alttext", "placeholder"=>"Texte de substitution", "required"=>0, "msgerror"=>"alttext" ],
+                    "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+                ]
+        ];
+    }
+
+    /**
+     * [getFormEditVideo description]
+     * @return [type] [description]
+     */
+    public static function getFormEditVideo()
+    {
+        return [
+                "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier la video", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
+                "struct" => [
+                    "name"=>[ "label"=>"Nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"media-name" ],
+                    "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Description", "required"=>0, "msgerror"=>"description" ],
+                    "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+                ]
+        ];
+    }
+
+    /**
+     * [getFormEditMusic description]
+     * @return [type] [description]
+     */
+    public static function getFormEditMusic()
+    {
+        return [
+                "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Modifier la musique", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
+                "struct" => [
+                    "name"=>[ "label"=>"Nom", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"media-name" ],
+                    "description"=>[ "label"=>"Description", "type"=>"text", "id"=>"description", "placeholder"=>"Description", "required"=>0, "msgerror"=>"description" ],
+                    "caption"=>[ "label"=>"Légende", "type"=>"text", "id"=>"caption", "placeholder"=>"Légende", "required"=>0, "msgerror"=>"legende" ],
+                    "submit"=>[ "label"=>"Modifier", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
+                ]
+        ];
     }
 }

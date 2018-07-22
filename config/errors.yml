@@ -25,3 +25,9 @@ errors:
     tags: Les tags ne sont pas valides
     description: Vous devez saisir une description pour cet article
     excerpt: Vous devez saisir un extrait
+    url-error: L'url est incorrecte
+    media-name: Le nom du média saisi est incorrect
+    file: Le fichier est invalide
+    alttext: Le texte alternatif est incorrect
+    legende: La légende est incorrecte
+    

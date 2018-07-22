@@ -1,0 +1,192 @@
+
+.grid-media-row{
+    margin-right: 0;
+    margin-left: 0;
+    
+}
+.btn-search-fix{
+    width: auto;
+}
+.element-media{
+    padding: 0px !important;
+
+    &.active > img:first-child,
+    &.active > div:first-child{
+        transform: scale(2);
+    }
+
+    .media-preview-bloc{
+        z-index: 200;
+        border-radius: 4px;
+        position: relative;
+        height: 150px;
+        width: 100%;
+        overflow:hidden;
+        background-color: none;
+
+        &:hover{
+            cursor: pointer;
+
+            &::before{
+                opacity: 0.9;
+                z-index: 50;
+                content: '';
+                position: absolute;
+                left: 0%;
+                top: 0%;
+                height: 100%;
+                width: 100%;
+                background-color: $primary-color;
+            }
+
+             .info-media{
+                p{
+                    text-transform: lowercase;
+                    display: block;
+                    text-align: center;
+                    z-index: 100;
+                    color: white;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    height: 40%;
+                    transform: translate(-50%,-50%);
+                }
+
+                opacity: 1;
+             }
+        }
+
+      
+
+        img.miniature-media{
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            border: unset;
+        }
+
+        .info-media{
+            z-index: 50;
+            opacity: 0;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 80%;
+            width: 80%;
+            object-fit: contain;
+            transform: translate(-50%,-50%);
+
+        }   
+
+        &.media-music{
+            background-color: #e2e2e2;
+    
+            & > img.miniature-media{
+                object-fit: cover;
+                object-fit: contain;
+                height: 80%;
+                width: 80%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                border: unset;
+            }
+        }  
+    }
+
+    .media-preview-edit{
+        height: 35px;
+        padding: 4px 0;
+
+        img{
+            cursor: pointer;
+            position: relative;
+            width: 50%;
+            height: 100%;
+            object-fit: contain;
+            float: left;
+            display:block;
+        }
+
+        .delete-media{
+            filter: brightness(100%);
+            transition: 0.3s all;
+
+            &:hover{
+                filter: brightness(80%);
+            }
+        }
+
+         .edit-media{
+            filter: brightness(100%);
+            transition: 0.3s all;
+            
+            &:hover{
+                filter: brightness(80%);
+            }
+        }
+     }
+}
+
+.modal-focus{
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,0.8);
+}
+
+
+.modal-media{
+    z-index: 1000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    height: 60%;
+    width: 60%;
+    background-color:black;
+
+    .media-cross{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: -24px;
+        right: 0;
+        background: url(../../public/img/icon/close-icon.png) no-repeat center center / contain;
+    }
+    audio{
+            position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+    img{
+        object-fit: contain;
+        object-position: center center;
+        height: 100%;
+        width: 100%;
+    }
+        
+    iframe{
+        height: 100%;
+        width: 100%;
+    }
+}
+
+
+.edit-image-preview{
+    transform: translateX(-50%);
+    position: relative;
+    object-fit: contain;
+    width: 250px;
+    left: 50%;
+    height: auto;
+    max-height: 500px;
+    object-position: center;
+}

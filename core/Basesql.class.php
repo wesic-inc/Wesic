@@ -434,4 +434,23 @@ class Basesql
       }
         return $this;
     }
+
+    public function mediaDisplayFilters($filter)
+    {
+        switch ($filter) {
+        case 1:
+        $this->where('type', 1);
+        break;
+        case 2:
+        $this->where('type', 2);
+        break;
+        case 3:
+        $this->where('type', 3);
+        break;
+        default:
+        Route::redirect('Error404');
+        break;
+      }
+        return $this;
+    }
 }

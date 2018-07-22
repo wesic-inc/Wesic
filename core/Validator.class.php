@@ -16,6 +16,7 @@ class validator
         }
 
         $listErrors = [];
+
         if (isset($data['jj'])  && isset($data['mm'])  && isset($data['aa']) && isset($data['hh']) && isset($data['mn'])) {
             $data['datepicker-custom'] =
             $data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
@@ -32,6 +33,17 @@ class validator
                 if (isset($options["required"]) && $options["required"] == true && self::isEmpty($data[$name])) {
                     $listErrors[]=$options["msgerror"];
                 }
+            }
+
+            if ($name=="url-yt" && !self::urlYoutubeCorrect($data[$name])) {
+                $listErrors[]=$options["msgerror"];
+            }
+
+            if ($name=="image" && !self::checkImageExtension($_FILES['image'])) {
+                $listErrors[]=$options["msgerror"];
+            }
+            if ($name=="music" && !self::checkMusicExtension($_FILES['music'])) {
+                $listErrors[]=$options["msgerror"];
             }
 
             if ($name=="login" && !self::simpleEntryCorrect($data[$name])) {
@@ -100,53 +112,77 @@ class validator
     {
         switch ($form) {
         case 'signin':
-        return Auth::signIn($data);
-        break;
+            return Auth::signIn($data);
+            break;
         case 'signup':
-        return User::signUp($data);
-        break;
+            return User::signUp($data);
+            break;
         case 'articlenew':
-        return Post::newArticle($data);
-        break;
+            return Post::newArticle($data);
+            break;
         case 'pagenew':
-        return Post::newPage($data);
-        break;
+            return Post::newPage($data);
+            break;
         case 'edit-page':
-        return Post::editPage($data);
-        break;
+            return Post::editPage($data);
+            break;
         case 'edit-article':
-        return Post::editArticle($data);
-        break;
+            return Post::editArticle($data);
+            break;
         case 'edit-user':
-        return User::editUser($data);
-        break;
+            return User::editUser($data);
+            break;
         case 'add-user':
-        return User::addUser($data);
-        break;
+            return User::addUser($data);
+            break;
         case 'new-category':
-        return Category::newCategory($data);
-        break;
+            return Category::newCategory($data);
+            break;
         case 'edit-category':
-        return Category::editCategory($data);
-        break;
+            return Category::editCategory($data);
+            break;
         case 'new-comment':
-        return Comment::newComment($data);
-        break;
+            return Comment::newComment($data);
+            break;
         case 'newpassword':
-        return Passwordrecovery::sendResetPassword($data['login']);
+            return Passwordrecovery::sendResetPassword($data['login']);
+            break;
         case 'modifypassword':
-        return User::modifyPassword($data);
+            return User::modifyPassword($data);
+            break;
         case 'signup-newsletter':
-        return User::signUpNewsletter($data);
+            return User::signUpNewsletter($data);
+            break;
         case 'setting':
-        return Setting::editSettings($data);
+            return Setting::editSettings($data);
+            break;
         case 'setting-view':
-        return Setting::editSettingsView($data);
+            return Setting::editSettingsView($data);
+            break;
         case 'setting-post':
-        return Setting::editSettingsPost($data);
+            return Setting::editSettingsPost($data);
+            break;
+        case 'videonew':
+            return Media::newVideo($data);
+            break;
+        case 'imagenew':
+            return Media::newImage($data);
+            break;
+        case 'musicnew':
+            return Media::newMusic($data);
+            break;
+        case 'edit-image-media':
+            return Media::editImage($data);
+            break;
+        case 'edit-video-media':
+            return Media::editVideo($data);
+            break;
+        case 'edit-music-media':
+            return Media::editMusic($data);
+            break;
         default:
-        return false;
-        break;
+            return false;
+            break;
     }
     }
 
@@ -307,13 +343,13 @@ class validator
      */
     public static function featuredCorrect($id)
     {
-        if($id == 0){
+        if ($id == 0) {
             return true;
         }
 
         if (isset($id)) {
             return Media::mediaExist($id);
-        } else{
+        } else {
             return false;
         }
     }
@@ -337,5 +373,61 @@ class validator
             }
         }
         return true;
+    }
+
+    /**
+     * [checkImageExtension description]
+     * @param  [type] $file [description]
+     * @return [type]       [description]
+     */
+    public static function checkImageExtension($file)
+    {
+        if (self::checkExtension($file, 'img')) {
+            return true;
+        }
+    }
+       
+    /**
+     * [checkMusicExtension description]
+     * @return [type] [description]
+     */
+    public static function checkMusicExtension()
+    {
+        $file = $_FILES['music'];
+        return self::checkExtension($file, 'music');
+    }
+    
+    /**
+     * [checkExtension description]
+     * @param  [type] $file [description]
+     * @param  [type] $type [description]
+     * @return [type]       [description]
+     */
+    public static function checkExtension($file, $type)
+    {
+
+        
+        if($file['error'] != 0){
+            return false;
+        }
+        if ($type == 'img' ) {
+            if ($file['type'] == "image/jpeg" || $file['type'] == "image/jpg" || $file['type'] == "image/png") {
+                if($file['size'] < 5242880){
+                    return true;
+                }
+            }
+        } elseif ($type == 'music') {
+            if ($file['type'] == "audio/mp3" || $file['type'] == "audio/mp4" || $file['type'] == "audio/wav") {
+                if($file['size'] < 10485760){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+        
+    public static function urlYoutubeCorrect($url)
+    {
+        return preg_match("/^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/", $url);
     }
 }

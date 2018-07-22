@@ -143,6 +143,14 @@ function deleteModalUser(id){
 
 }
 
+function deleteModalMedia(id){
+  var modal = document.getElementById('myModal');
+  document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer ce media ?";
+  document.getElementById('modal-helper').innerHTML = "Cette action deplace le Media à la corbeille";
+  document.getElementById('valid-action').setAttribute('href','supprimer-media/id/'+id);
+  modal.style.display = "block";
+}
+
 
 function slugify(text)
 {
