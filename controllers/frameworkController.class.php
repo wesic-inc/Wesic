@@ -32,6 +32,9 @@ class frameworkController
         if ($request->getParam('type') == 'welcome') {
             $param->setParam('welcome-bloc', 2);
         }
+        if ($request->getParam('type') == 'tuto') {
+            $param->setParam('tuto-modal', 2);
+        }
     }
 /**
  * [resetDashboardAction description]

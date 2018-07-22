@@ -4,16 +4,6 @@ class pageController
 {
 
     /**
-     * [indexAction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public static function indexAction(Request $request)
-    {
-        echo "pages";
-    }
-
-    /**
      * [singleAction description]
      * @param  Request $request [description]
      * @return [type]           [description]
@@ -42,6 +32,8 @@ class pageController
         } else {
             $v->setView("page", "template", "front");
         }
+
+        $page['content'] = Format::find_shortcode($page['content']);
 
         Singleton::bridge(['page'=>$page,'view'=>$v->getViewInfos()]);
 

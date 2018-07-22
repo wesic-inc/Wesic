@@ -30,7 +30,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($events as $event): ?>
+									<?php foreach ($events['data'] as $event): ?>
 
 										<tr id="<?php echo $page['id'] ?>">
 											<td class="hidden-xs hidden-sm">
@@ -56,13 +56,13 @@
 
 						</article>
 						<footer>
-							<?php $this->addModal("pagination"); ?>
+							<?php $this->addModal("pagination",$events['pagination']); ?>
 
 								<ul class="inline">
 									<li>Actions groupées :  </li>
 									<li><a href="#"> Supprimer </a></li>
 								</ul>
-								<span class="push-right"> <?php echo count($events); ?>  élément(s) </span>
+								<span class="push-right"> <?php echo $events['pagination']['total']; ?>  élément(s) </span>
 							</footer>
 						</div>
 

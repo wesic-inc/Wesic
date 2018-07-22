@@ -215,6 +215,27 @@ function saveDashboardOrder(list,leftCount,rightCount){
 
 }
 
+function dismissTuto(id = ""){
+	document.getElementById('tuto-modal'+id).style.display = "none";
+	
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('POST','/admin/block-dismiss/type/tuto', true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+
+			}
+		}
+	};
+	xmlhttp.send(null);
+
+}
+function tutoStep(id = ""){
+	document.getElementById('tuto-modal'+id).style.display = "block";
+	var before = (id - 1);
+	document.getElementById('tuto-modal'+before).style.display = "none";
+}
+
 function getPageModalMedia(page){
 	
 
@@ -409,3 +430,18 @@ function approveCommentsAction() {
     });
 }
 
+function sendMenuCustom(json){
+  	
+  	$.ajax({
+	        url: '/admin/save-menu-ajax',
+        cache: false,
+        data: {
+        	menu: json
+        },
+        type: 'POST',
+        success: function(response)
+        {
+            // location.reload();
+        }
+    });
+}

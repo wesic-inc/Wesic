@@ -180,6 +180,12 @@ class validator
         case 'edit-music-media':
             return Media::editMusic($data);
             break;
+        case 'add-event':
+            return Event::addEvent($data);
+            break;
+        case 'edit-event':
+            return Event::editEvent($data);
+            break;
         default:
             return false;
             break;
@@ -405,20 +411,18 @@ class validator
      */
     public static function checkExtension($file, $type)
     {
-
-        
-        if($file['error'] != 0){
+        if ($file['error'] != 0) {
             return false;
         }
-        if ($type == 'img' ) {
+        if ($type == 'img') {
             if ($file['type'] == "image/jpeg" || $file['type'] == "image/jpg" || $file['type'] == "image/png") {
-                if($file['size'] < 5242880){
+                if ($file['size'] < 5242880) {
                     return true;
                 }
             }
         } elseif ($type == 'music') {
             if ($file['type'] == "audio/mp3" || $file['type'] == "audio/mp4" || $file['type'] == "audio/wav") {
-                if($file['size'] < 10485760){
+                if ($file['size'] < 10485760) {
                     return true;
                 }
             }

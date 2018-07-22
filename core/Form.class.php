@@ -252,20 +252,23 @@ class Form
         $name = $params[0];
         $option = $params[1];
         $data = $params[2];
+        $mm = isset($data['mm'])?$data['mm']:'';
+        $m = date("m");
+
         return '<div class="datepicker" name="lolilol" id="timestampdiv"><label class="label-input">'.$option['label'].'</label>
         <div class="timestamp-wrap"><input type="text" id="jj" name="jj" value="'.((isset($data['jj']))?$data['jj']:date("d")).'" size="2" maxlength="2" autocomplete="off"><select id="mm" name="mm">
-        <option value="01" '.(($data['mm']=="01")||date("m")=="01"?'selected="selected"':"").'>01-Jan</option>
-        <option value="02" '.(($data['mm']=="02")||date("m")=="02"?'selected="selected"':"").'>02-Fev</option>
-        <option value="03" '.(($data['mm']=="03")||date("m")=="03"?'selected="selected"':"").'>03-Mar</option>
-        <option value="04" '.(($data['mm']=="04")||date("m")=="04"?'selected="selected"':"").'>04-Avr</option>
-        <option value="05" '.(($data['mm']=="05")||date("m")=="05"?'selected="selected"':"").'>05-Mai</option>
-        <option value="06"" '.(($data['mm']=="06")||date("m")=="06"?'selected="selected"':"").'>06-Juin</option>
-        <option value="07"" '.(($data['mm']=="07")||date("m")=="07"?'selected="selected"':"").'>07-Juil</option>
-        <option value="08"" '.(($data['mm']=="08")||date("m")=="08"?'selected="selected"':"").'>08-Aout</option>
-        <option value="09" '.(($data['mm']=="09")||date("m")=="09"?'selected="selected"':"").'>09-Sep</option>
-        <option value="10" '.(($data['mm']=="10")||date("m")=="10"?'selected="selected"':"").'>10-Oct</option>
-        <option value="11" '.(($data['mm']=="11")||date("m")=="11"?'selected="selected"':"").'>11-Nov</option>
-        <option value="12" '.(($data['mm']=="12")||date("m")=="12"?'selected="selected"':"").'>12-Dec</option>
+        <option value="01" '.($mm == "01"||$m=="01"?'selected="selected"':"").'>01-Jan</option>
+        <option value="02" '.($mm == "02"||$m=="02"?'selected="selected"':"").'>02-Fev</option>
+        <option value="03" '.($mm == "03"||$m=="03"?'selected="selected"':"").'>03-Mar</option>
+        <option value="04" '.($mm == "04"||$m=="04"?'selected="selected"':"").'>04-Avr</option>
+        <option value="05" '.($mm == "05"||$m=="05"?'selected="selected"':"").'>05-Mai</option>
+        <option value="06" '.($mm == "06"||$m=="06"?'selected="selected"':"").'>06-Juin</option>
+        <option value="07" '.($mm == "07"||$m=="07"?'selected="selected"':"").'>07-Juil</option>
+        <option value="08" '.($mm == "08"||$m=="08"?'selected="selected"':"").'>08-Aout</option>
+        <option value="09" '.($mm == "09"||$m=="09"?'selected="selected"':"").'>09-Sep</option>
+        <option value="10" '.($mm == "10"||$m=="10"?'selected="selected"':"").'>10-Oct</option>
+        <option value="11" '.($mm == "11"||$m=="11"?'selected="selected"':"").'>11-Nov</option>
+        <option value="12" '.($mm == "12"||$m=="12"?'selected="selected"':"").'>12-Dec</option>
         </select>
         <input type="text" id="aa" name="aa" value="'
         .((isset($data['aa']))?$data['aa']:date("Y")).'" size="4" maxlength="4" autocomplete="off"> 

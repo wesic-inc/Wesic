@@ -1,20 +1,27 @@
 <div class="container-fluid" >
 	<div class="row">
 		<div class="col-md-6" id="left">
-			<?php foreach($left as $block): ?>
-				<?php if($block != 'NULL'): ?>
-					<?php $this->addModal("block-".$block,$blockData[$block]); ?>
+			<?php foreach ($left as $block): ?>
+				<?php if ($block != 'NULL'): ?>
+					<?php $this->addModal("block-".$block, $blockData[$block]); ?>
 				<?php endif ?>
 			<?php endforeach ?>			
 		</div>
 		<div class="col-md-6" id="right">
-			<?php foreach($right as $block): ?>
-				<?php if($block != 'NULL'): ?>
-					<?php $this->addModal("block-".$block,$blockData[$block]); ?>
+			<?php foreach ($right as $block): ?>
+				<?php if ($block != 'NULL'): ?>
+					<?php $this->addModal("block-".$block, $blockData[$block]); ?>
 				<?php endif ?>
 			<?php endforeach ?>
 		</div>
 	</div>
+	
+<?php if (Setting::getParam('tuto-modal') == '1'): ?>
+	<div class="col-md-10">
+		<?php $this->addModal("welcome"); ?>
+	</div>
+<?php endif ?>
+
 	<script>
 		var ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {

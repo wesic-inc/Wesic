@@ -341,6 +341,7 @@ INSERT INTO `%database%`.`setting` (`id`, `type`, `value`) VALUES
 ('right-5', 4, 'NULL'),
 ('signup', 2, '1'),
 ('slogan', 1, 'NULL'),
+('tuto-modal', 4, '1'),
 ('theme', 5, 'default'),
 ('timetype', 1, '1'),
 ('title', 1, 'NULL'),

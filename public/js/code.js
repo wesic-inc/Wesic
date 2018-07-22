@@ -151,6 +151,16 @@ function deleteModalMedia(id){
   modal.style.display = "block";
 }
 
+function deleteModalEvent(id){
+
+  modal = document.getElementById('myModal');
+  elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
+  document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
+  document.getElementById('modal-helper').innerHTML = "Cette action supprime définitivement cette page";
+  document.getElementById('valid-action').setAttribute('href','supprimer-evenement/id/'+id);
+  modal.style.display = "block";
+
+}
 
 function slugify(text)
 {
@@ -324,25 +334,24 @@ function selectImage(id){
 }
 
 function insertCatToMenu(id,label){
-  $('#top-menu').append('<div class="item" el="'+id+'" type="cat">Catégorie : '+label+'<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
+  $('#top-menu').append('<div class="item" data-id="'+id+'" data-name="category" type="cat">Catégorie : '+label+'<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
   resetMenuCreator();
 }
 
 function insertPageToMenu(id,label){
-  $('#top-menu').append('<div class="item" el="'+id+'" type="page">Page : '+label+'<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
+  $('#top-menu').append('<div class="item" data-id="'+id+'"  data-name="page" type="page">Page : '+label+'<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
   resetMenuCreator();
 }
 
 function addCustomUrlToMenu(){
   var url = document.getElementById('menu-custom-link').value;
   var label = document.getElementById('menu-custom-label').value;
-
-  $('#top-menu').append('<div class="item" type="url">Lien : <span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span>'+label+' '+url+'<div class="nested"></div></div>');
+  $('#top-menu').append('<div class="item" data-url="'+url+'" data-name="'+label+'" type="url">Lien : <span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span>'+label+' '+url+'<div class="nested"></div></div>');
   resetMenuCreator();
-
 }
+
 function homeUrlToMenu(){
-  $('#top-menu').append('<div class="item" type="home">Accueil<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
+  $('#top-menu').append('<div class="item" data-name="home" type="home">Accueil<span class="icon-cross delete-menu-item" onclick="deleteItemMenu(this)"></span><div class="nested"></div></div>');
   resetMenuCreator();
 }
 
@@ -352,18 +361,43 @@ function deleteItemMenu(elem){
 }
 
 function saveMenu(){
+  var i = 0;
+  var elements = getAll('.menu-creator > .nested > .item');
+  var array = []
 
-  $('#top-menu')
+  elements.forEach((e)=>{
+    console.log(e.dataset.url);
+    var myObj = {
 
-  var tags = [];
-
-  $('#top-menu').children().each( function( index, element ) {
-    tags.push({ 
-      'el' : $(element).attr('el'), 
-      'type' : $(element).attr('type')
-    });
-    
+      "name": e.dataset.name,
+      "id" : e.dataset.id,
+      "url" : e.dataset.url ? e.dataset.url : null,
+      "in": []
+    };
+    array.push(myObj);
   });
-  console.log(tags);
 
+  array.forEach((e)=>{
+    if(getAll(`[data-name="${e.name}"] > .nested > div`)){
+      var elementCss = getAll(`[data-name="${e.name}"] > .nested > div`);
+
+      elementCss.forEach((element)=>{
+          var myObj = {
+            "name": element.dataset.name,
+            "id": element.dataset.id,
+            "url" : element.dataset.url ? element.dataset.url : null
+          };
+          array[i].in.push(myObj);
+      });
+    } i++;
+  })
+
+  var myJSON = JSON.stringify(array);
+  sendMenuCustom(myJSON);
 }
+
+function getAll(selector){
+  const nodelist = document.querySelectorAll(selector);
+  return Array.prototype.slice.call(nodelist); 
+}
+

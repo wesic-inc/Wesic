@@ -271,7 +271,7 @@ routing:
                 optional: false  
 
     EditMedia:
-        restricted: all
+        restricted: admin
         controller: media:editMedia
         path: admin/modifier-media
         params:
@@ -350,6 +350,11 @@ routing:
         restricted: admin
         controller: theme:menuCreator
         path: admin/personnaliser-menu
+
+    SaveMenu:
+        restricted: admin
+        controller: theme:saveMenu
+        path: admin/save-menu-ajax
 
     SetTheme:
         restricted: admin
@@ -503,6 +508,31 @@ routing:
         restricted: admin
         controller: event:allEvents
         path: admin/evenements
+        params:
+            filter:
+                type: int
+                optional: true
+            p:
+                type: int
+                optional: true
+
+    EditEvent:
+        restricted: admin
+        controller: event:editEvent
+        path: admin/modifier-evenement
+        params:
+            id:
+                type: int
+                optional: false
+
+    DeleteEvent:
+        restricted: admin
+        controller: event:deleteEvent
+        path: admin/supprimer-evenement
+        params:
+            id:
+                type: int
+                optional: false
 
     AddEvent:
         restricted: webmaster
