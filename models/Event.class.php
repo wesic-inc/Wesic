@@ -8,7 +8,7 @@ class Event extends EventRepository
     protected $externalurl;
     protected $description;
     protected $date;
-    protected $image;
+    protected $featured;
     protected $user_id;
 
     public function updateOnKey()
@@ -148,9 +148,9 @@ class Event extends EventRepository
     /**
      * @return mixed
      */
-    public function getImage()
+    public function getFeatured()
     {
-        return $this->image;
+        return $this->featured;
     }
 
     /**
@@ -158,9 +158,9 @@ class Event extends EventRepository
      *
      * @return self
      */
-    public function setImage($image)
+    public function setFeatured($featured)
     {
-        $this->image = $image;
+        $this->featured = $featured;
 
         return $this;
     }

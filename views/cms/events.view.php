@@ -5,8 +5,13 @@
 				
 				<a href="<?php Route::echo('AddEvent'); ?>" class="btn btn-sm btn-add">Ajouter un évenement</a></h1> 
 				<header>
-					<input type="text" class="search-input sm-input hidden-xs" >
-					<a href="#" class="btn btn-sm btn-alt hidden-xs">Rechercher</a> 
+					<form action="<?php Route::echo('Events') ?>" method="get">
+						<?php if(isset($search)): ?>
+						<a href="<?php echo Route::echo('Events') ?>"><span class="icon icon-cross"></span></a><span>Recherche : "<?php echo $search ?>"</span> 
+						<?php endif ?>
+						<input name="s" type="text" class="search-input sm-input hidden-xs" >
+						<button type="submit" class="btn btn-sm btn-alt hidden-xs">Rechercher</button>
+					</form>
 				</header>
 				<article >
 					<ul class="inline group-action">
@@ -43,10 +48,11 @@
 												<ul class="grid-actions">
 													<a href="<?php echo Setting::getParam('url')."/".$event['slug']; ?>"><li>Afficher</li></a>
 													<a href="<?php echo Route::getAll('EditPage').'/id/'.$event['id']; ?>"><li>Modifier</li></a>
-													<a onclick="deleteModalPage(<?php echo $event['id'] ?>)"><li>Supprimer</li></a>
+													<a onclick="deleteModalEvent(<?php echo $event['id'] ?>)"><li>Supprimer</li></a>
 												</ul>
 											</td>
 											<td data-label="Lieu"><a href="#"><?php echo $event['place']; ?></a></td>
+											<td data-label="Lieu"><a href="#"><?php echo Format::dateDisplay($event['date'],4); ?></a></td>
 
 										</tr>
 									<?php endforeach;?>
@@ -69,7 +75,7 @@
 					</div>
 				</div>
 			</div>
-						<div id="myModal" class="modal">
+		<div id="myModal" class="modal">
 
 				<div class="modal-content">
 					<div class="modal-header">

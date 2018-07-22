@@ -4,18 +4,17 @@ class EventRepository extends Basesql
 {
     public static function addEvent($data)
     {
-        $datePublied = $data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
+
+        $publishedAt = $data['aa']."-".$data['mm']."-".$data['jj']." ".$data['hh'].":".$data['mn'].":00";
 
         $event = new Event();
         $event->setName($data['name']);
         $event->setPlace($data['place']);
         $event->setExternalurl($data['externalurl']);
         $event->setDescription($data['description']);
-        $event->setDate($datePublied);
-        (isset($data['image'])) ? $event->setImage($data['image']) : $event->setImage("");
-        $event->setUserId(Singleton::getUser()->getId());
-
-
+        $event->setDate($publishedAt);
+        $event->setFeatured($data['featured']);
+        $event->setUserId(Auth::id());
         $event->save();
 
         View::setFlash("Succès !", "L'événement <i>".ucfirst($data['name'])."</i> a bien été ajouté", "success");
