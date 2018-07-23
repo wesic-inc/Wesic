@@ -133,6 +133,9 @@ routing:
             p: 
                 type: int
                 optional: true 
+            sort:
+                type: sort
+                optional: true
 
     DeleteCategory:
         restricted: admin

@@ -14,6 +14,7 @@ class categoryController
         $form = Category::getFormNewCategory();
         $errors = [];
 
+        $sort = null;
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors = Validator::check($form["struct"], $request->getPost());
@@ -47,7 +48,8 @@ class categoryController
             "form" => $form,
             "categories" => $categories,
             "elementNumber"=>$categories['pagination']['total'],
-            "errors" => $errors
+            "errors" => $errors,
+            "sort" => $sort
         ]);
     }
     

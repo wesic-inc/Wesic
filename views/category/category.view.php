@@ -25,9 +25,9 @@
 												<span class="checkmark checkmark-header"></span>
 											</label>
 										</th>
-										<th id="filter1" sort="" onclick="test2(this.id)" ><a href="#">Nom</a></th>
-										<th id="filter2" sort="" onclick="test2(this.id)" ><a href="#">Slug</a></th>
-										<th id="filter3" sort="" onclick="test2(this.id)" ><a href="#">Total</a></th>
+										<th><a class="<?php echo $sort==1?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Nom <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
+										<th><a class="<?php echo $sort==2?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Slug <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+										<th><a href="#">Total</a></th>
 									</tr>
 								</thead>
 								<tbody id="body-ajax">
@@ -79,20 +79,20 @@
 </div>
 
 
-			<div id="myModal" class="modal">
+		<div id="myModal" class="modal">
 
-				<div class="modal-content">
-					<div class="modal-header">
-						<h3>Confirmation suppression</h3>
-					</div>
-					<div class="modal-body">
-						<p id="modal-body"></p>
-						<p id="modal-helper"></p>
-					</div>
-					<div class="modal-footer">
-						<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
-						<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
-					</div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Confirmation suppression</h3>
 				</div>
-
+				<div class="modal-body">
+					<p id="modal-body"></p>
+					<p id="modal-helper"></p>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
+					<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
+				</div>
 			</div>
+
+		</div>

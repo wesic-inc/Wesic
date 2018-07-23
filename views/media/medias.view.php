@@ -1,18 +1,14 @@
-<?php 
-
-?>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12 bloc">
-			<a href="<?php Route::echo('newMediaVideo') ?>" class="btn btn-sm btn-add">Ajouter un média</a> 
+			<a href="<?php Route::echo('newMediaVideo') ?>" class="btn btn-sm btn-add">Ajouter un mÃ©dia</a> 
 			<div class="col-md-12 toolbar-media">
 				<ul class="inline">
 					<li>
 						<select id="filter-media" class="sm-input">
-							<?php var_dump($filter)?>
-							<option <?php echo !isset($filter)?'selected':'' ?> value="0">Tous les médias</option>
+							<option <?php echo !isset($filter)?'selected':'' ?> value="0">Tous les mÃ©dias</option>
 							<option <?php echo $filter==1?'selected':'' ?> value="1">Images</option>
-							<option <?php echo $filter==2?'selected':'' ?> value="2">Vidéos</option>
+							<option <?php echo $filter==2?'selected':'' ?> value="2">VidÃ©os</option>
 							<option <?php echo $filter==3?'selected':'' ?> value=3>Musiques</option>
 						</select>
 					</li>
@@ -34,40 +30,40 @@
 						</div>
 						<?php elseif($media['type'] == 1): ?>
 							<div data-type="image" class="media-preview-bloc media-image">
-								<img class="miniature-media" src="<?php echo Format::root($media['path']) ?>">
+								<img class="miniature-media" src="<?php echo '/'.$media['path'] ?>">
 							<div class="info-media"><p><?php echo $media['name'] ?></p></div>
 							</div>
 						<?php elseif($media['type'] == 3): ?>
-							<div data-type="music" data-src="<?php echo Format::root($media['path']) ?>"  class="media-preview-bloc media-music">
+							<div data-type="music" data-src="<?php echo '/'.$media['path'] ?>"  class="media-preview-bloc media-music">
 								<img  class="miniature-media" src="/public/img/music-icon.png">
 								<div class="info-media"><p><?php echo $media['name'] ?></p></div>
 							</div>
 						<?php endif ?>
 						<div class="media-preview-edit">
 							<a href=<?php Route::echo('EditMedia','/type/'.$media['type'].'/id/'.$media['id']); ?> >
-								<img src="/public/img/icon/edit-icon.png" alt="" class="edit-media">
-								<span icon="icon icon-pen"></span>
+							<span class="icon-pencil">
 							</a>
 							<a onclick="deleteModalMedia(<?php echo $media['id'] ?>)">
-								<span icon="icon icon-bin"></span>
+								<span class="icon-cross">
 							</a>
-
 						</div>
 					</div>
 					           
 				<?php endforeach; ?>
 				<?php if(empty($medias['data'])): ?>
-				<p class="text-center"> Aucun média pour le moment </p>
+				<p class="text-center"> Aucun mÃ©dia pour le moment </p>
 				<?php endif ?>
+
 			</div>
+			<row>
+	<?php $this->addModal("pagination",$medias['pagination']); ?>
+</row>
 		</div>
 	</div>
 </div>
 </div>
 
-<row>
-	<?php $this->addModal("pagination",$medias['pagination']); ?>
-</row>
+
 
 <div id="myModal" class="modal">
 	<div class="modal-content">
@@ -87,7 +83,7 @@
 
 <div class="modal modal-closed" id="modal">
 	<div class="modal-header">
-		<h3> Détails du média </h3>
+		<h3> DÃ©tails du mÃ©dia </h3>
 		<ul class="inline toolbox-modal">
 			<li><a onclick="viewMedia()" href="#"><span class="icon icon-cross"></span></a></li>
 		</ul>
@@ -105,7 +101,7 @@
 				<ul>
 					<li>Nom du fichier : test.jpg</li>
 					<li>Type de fichier : image/jpg</li>
-					<li>Uploadé le : 18/01/2018</li>
+					<li>UploadÃ© le : 18/01/2018</li>
 					<li>Taille du fichier : 1mo</li>
 					<li>Dimension : 1000pixels * 1000 pixels</li>
 				</ul>
@@ -141,6 +137,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- <div class="modal-overlay modal-closed" onclick="viewMedia(1)" id="modal-overlay">
+<!-- 
+<div class="modal-overlay modal-closed" onclick="viewMedia(1)" id="modal-overlay">
 <script type="text/javascript" src="/public/js/medias.js"></script> -->

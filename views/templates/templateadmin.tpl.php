@@ -54,6 +54,10 @@
 				<script type="text/javascript" src="/public/js/code.js"></script>
 				<script type="text/javascript" src="/public/js/ajax.js"></script>
 				<script type="text/javascript" src="/public/js/stats.js"></script>
+				
+				<?php if(isset($medias)): ?>
+				<script type="text/javascript" src="/public/js/medias.js"></script>
+				<?php endif; ?>
 
 
 			</body>

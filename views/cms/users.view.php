@@ -27,10 +27,10 @@
 						<thead>
 							<tr >
 								<th><label class="checkbox-container"><input type="checkbox" id="checkAll"><span class="checkmark checkmark-header"></span></label></th>
-								<th><a class="<?php echo $sort==1?'active-sort':''; ?>" id="filter1" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Identifiant <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
-								<th><a class="<?php echo $sort==2?'active-sort':''; ?>" id="filter2" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Nom <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-								<th><a class="<?php echo $sort==3?'active-sort':''; ?>" id="filter3" href="<?php echo Route::makeParams('sort',$sort==3?-3:3,['p']) ?>" > E-mail <span class="icon <?php echo $sort==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-								<th><a class="<?php echo $sort==4?'active-sort':''; ?>" id="filter4" href="<?php echo Route::makeParams('sort',$sort==4?-4:4,['p']) ?>" > R“le <span class="icon <?php echo $sort==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $sort==1?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Identifiant <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
+								<th><a class="<?php echo $sort==2?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Nom <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $sort==3?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==3?-3:3,['p']) ?>" > E-mail <span class="icon <?php echo $sort==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $sort==4?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==4?-4:4,['p']) ?>" > R“le <span class="icon <?php echo $sort==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 							</tr>
 						</thead>
 						<tbody id="body-ajax">

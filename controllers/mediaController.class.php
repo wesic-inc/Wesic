@@ -15,7 +15,7 @@ class mediaController
             if (!$errors) {
                 if (!Validator::process($form["struct"], $post, 'videonew')) {
                     $errors=["videonew"];
-                }else{
+                } else {
                     Route::redirect('Medias');
                 }
             }
@@ -157,7 +157,6 @@ class mediaController
     }
     public function editMediaAction(Request $request)
     {
-
         $post = $request->getPost();
         $param = $request->getParams();
         $mediaType = $param['type'];
@@ -240,5 +239,14 @@ class mediaController
             "icon" => "icon-pen",
             "errors" => $errors
         ]);
+    }
+
+    public static function deleteMediaAction(Request $request)
+    {
+        $param = $request->getParams();
+
+        Media::deleteMedia($param['id']);
+
+        Route::redirect('Medias');
     }
 }
