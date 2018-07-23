@@ -1,6 +1,7 @@
 name: Default
 author: Harang Louis
 version: 0.1
+type: mediafirst
 style: 
   - css/style.css
 javascript: 
