@@ -26,9 +26,10 @@ a.active{
 	border-bottom: solid 3px $primary-color;
 }
 
+
 .bg {
 	background-image: $image-front;
-	height: 100vh;
+	height: 80vh;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -92,7 +93,11 @@ section {
 }
 
 
-
+.image:hover{
+	transition: 0.2 all;
+	transform: scale(1.2);
+    filter: brightness(1.2);
+}
 main{
 	z-index: 33;
 }
@@ -130,6 +135,7 @@ section.news{
     object-position: center;
 }
 
+
 .position-ref {
     position: relative;
 }
@@ -161,6 +167,9 @@ section.news{
 	text-align: center;
 }
 
+.media-container{
+	height: 300px !important;
+}
 .media-container:hover .image {
 	filter: grayscale(10%);
 }
@@ -327,7 +336,7 @@ nav.initial{
 		background-color : $second-color;
 	}
 		.hamburger .line{
-			background-color: $primary-color-text;
+		background-color: $primary-color;
 	}
 }
 nav{
@@ -335,7 +344,7 @@ nav{
 		background: $primary-color; 
 	}
 		.hamburger .line{
-			background-color: $primary-color-text;
+		background-color: $primary-color-text;
 	}
 }
 }
