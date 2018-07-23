@@ -23,7 +23,6 @@ define('ROOT_URL', preg_replace("/\/$/",'',PROTOCOL.DOMAIN.str_replace(array('\\
 $errors_msg = $erf['errors'];
 $route_access = $rof['routing'];
 $forms_group = $fof['forms'];
-$sitename = $cof['config']['sitename'];
 $debug = $cof['config']['debug'];
 
 define("WESIC_VERSION","0.0.1-alpha");

@@ -44,10 +44,10 @@
 										</label></td>
 										<?php if(isset($comment['login'])): ?>
 											<td class="entity-key"><a href="#"><?php echo ucfirst($comment['login']); ?></a>
-												<?php else: ?>
-													<td class="entity-key"><a href="#"><?php echo $comment['email']; ?></a>
-													<?php endif ?>
-													<ul class="grid-actions">
+										<?php else: ?>
+											<td class="entity-key"><a href="#"><?php echo $comment['email']; ?></a>
+										<?php endif ?>
+												<ul class="grid-actions">
 														<a href="/admin/moderer-commentaire/id/<?php echo $comment['id']; ?>"><li>Modérer</li></a>
 														<?php if($comment['status'] != '5'):?>
 															<a onclick="deleteModalUser(<?php echo $comment['id'] ?>)"><li>Supprimer</li></a>
@@ -84,11 +84,11 @@
 									<?php $this->addModal("pagination",$comments['pagination']); ?>
 									<ul class="inline hidden-xs">
 										<li>Actions groupées :  </li>
-										<?php if($filter==5): ?>
+									<?php if($filter==5): ?>
 										<li><a onclick="restoreCommentsAction()" > Restaurer</a></li>
-										<?php else: ?>
+									<?php else: ?>
 										<li><a onclick="deleteCommentsAction()" > Supprimer</a></li>
-										<?php endif ?>
+									<?php endif ?>
 										<li><a onclick="disapproveCommentsAction()" > Désapprouver</a></li>
 										<li><a onclick="approveCommentsAction()" > Approuver</a></li>
 									</ul>
