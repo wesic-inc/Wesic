@@ -51,7 +51,7 @@
 					           
 				<?php endforeach; ?>
 				<?php if(empty($medias['data'])): ?>
-				<p class="text-center"> Aucun mÃ©dia pour le moment </p>
+				<p class="text-center"> Aucun média pour le moment </p>
 				<?php endif ?>
 
 			</div>

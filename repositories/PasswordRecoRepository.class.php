@@ -140,12 +140,12 @@ class PasswordRecoRepository extends Basesql
             $mail->CharSet = "UTF-8";
             $mail->setFrom('wesic.corporate@gmail.com', 'Wesic Inc.');
 
-            $mail->addAddress($userFound['email'], ucfirst($userFound['firstname'])." ".strtoupper($userFound['lastname']));
+            $mail->addAddress($userFound['email'], ucfirst($userFound['login'])." ".strtoupper($userFound['lastname']));
 
             $mail->isHTML(true);
-            $mail->Subject = ucfirst($userFound['firstname']).', veuillez confirmer votre e-mail';
+            $mail->Subject = ucfirst($userFound['login']).', veuillez confirmer votre e-mail';
             $message = file_get_contents('views/mail/confirmationemail.tpl.php');
-            $message = str_replace('%username%', ucfirst($userFound['firstname']), $message);
+            $message = str_replace('%username%', ucfirst($userFound['login']), $message);
             $message = str_replace('%urlreset%', "http://".DOMAIN."/".$passwordrecovery->getToken(), $message);
             $message = str_replace('%sitename%', Setting::getParam('title'), $message);
             $mail->Body = $message;

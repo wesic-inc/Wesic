@@ -2,7 +2,6 @@
 	<div class="row">
 		<div class="col-md-12 bloc article-bloc">
 			<div class="inner-bloc">
-				<a href="<?php Route::echo('Terminator') ?>" class="btn btn-sm btn-add">Faire une review des commentaires</a>
 				<header>
 					<form action="<?php Route::echo('Comments') ?>" method="get">
 						<input name="s" type="text" class="search-input sm-input hidden-xs" >
@@ -73,6 +72,8 @@
 													<td></td>
 													<td></td>
 													<td></td>
+													<td></td>
+
 												</tr>
 											<?php endif; ?>
 

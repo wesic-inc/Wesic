@@ -1,6 +1,14 @@
 <?php
 class newsletterController
 {
+
+    public function allNewsletterAction(Request $request){
+        dd($request);
+        
+        
+    
+    }
+
     public function successAction(Request $request)
     {
         dd($request);

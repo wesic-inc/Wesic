@@ -42,14 +42,14 @@ CREATE TABLE IF NOT EXISTS `%database%`.`media` (
   `alttext` VARCHAR(255) NULL,
   `description` VARCHAR(255) NULL,
   `url` VARCHAR(500) NULL,
-  `user_id` INT NOT NULL,
+  `user_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_media_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_media_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `%database%`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE SET NULL)
 ENGINE = InnoDB;
 
 
@@ -78,13 +78,13 @@ CREATE TABLE IF NOT EXISTS `%database%`.`post` (
   CONSTRAINT `fk_page_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `%database%`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_post_slug1`
     FOREIGN KEY (`slug`)
     REFERENCES `%database%`.`slug` (`slug`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_post_media1`
     FOREIGN KEY (`featured`)
     REFERENCES `%database%`.`media` (`id`)
@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `%database%`.`category` (
   CONSTRAINT `fk_category_slug1`
     FOREIGN KEY (`slug`)
     REFERENCES `%database%`.`slug` (`slug`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -131,13 +131,13 @@ CREATE TABLE IF NOT EXISTS `%database%`.`event` (
   CONSTRAINT `fk_event_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `%database%`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_event_media1`
     FOREIGN KEY (`featured`)
     REFERENCES `%database%`.`media` (`id`)
     ON DELETE SET NULL
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -188,12 +188,12 @@ CREATE TABLE IF NOT EXISTS `%database%`.`comment` (
     FOREIGN KEY (`post_id`)
     REFERENCES `%database%`.`post` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_comment_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `%database%`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -210,13 +210,13 @@ CREATE TABLE IF NOT EXISTS `%database%`.`join_article_category` (
   CONSTRAINT `fk_join_article_category_category1`
     FOREIGN KEY (`category_id`)
     REFERENCES `%database%`.`category` (`id`)
-    ON DELETE DELETE
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_join_article_category_post1`
     FOREIGN KEY (`post_id`)
     REFERENCES `%database%`.`post` (`id`)
-    ON DELETE DELETE
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -236,13 +236,13 @@ CREATE TABLE IF NOT EXISTS `%database%`.`passwordrecovery` (
   CONSTRAINT `fk_passwordrecovery_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `%database%`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_passwordrecovery_slug1`
     FOREIGN KEY (`slug`)
     REFERENCES `%database%`.`slug` (`slug`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -256,14 +256,14 @@ CREATE TABLE IF NOT EXISTS `%database%`.`navbar` (
   `url` VARCHAR(500) NULL,
   `content_type` INT NULL,
   `content_id` INT NULL,
-  `slug` VARCHAR(200) NOT NULL,
+  `slug` VARCHAR(200) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_navbar_slug1_idx` (`slug` ASC),
   CONSTRAINT `fk_navbar_slug1`
     FOREIGN KEY (`slug`)
     REFERENCES `%database%`.`slug` (`slug`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -302,8 +302,8 @@ CREATE TABLE IF NOT EXISTS `%database%`.`newsletter` (
   CONSTRAINT `fk_newsletter_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `%database%`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -322,11 +322,11 @@ INSERT INTO `%database%`.`setting` (`id`, `type`, `value`) VALUES
 ('email', 1, null),
 ('favicon', 1, 'public/storage/favicon.png'),
 ('homepage', 3, '2'),
-('left-1', 4, NULL),
-('left-2', 4, NULL),
-('left-3', 4, NULL),
-('left-4', 4, NULL),
-('left-5', 4, NULL),
+('left-1', 4, 'NULL'),
+('left-2', 4, 'NULL'),
+('left-3', 4, 'NULL'),
+('left-4', 4, 'NULL'),
+('left-5', 4, 'NULL'),
 ('links-bloc', 4, '1'),
 ('mail-login', 2, null),
 ('mail-password', 2, null),
@@ -334,11 +334,11 @@ INSERT INTO `%database%`.`setting` (`id`, `type`, `value`) VALUES
 ('mail-server', 2, null),
 ('pagination-posts', 3, '10'),
 ('pagination-rss', 3, '10'),
-('right-1', 4, NULL),
-('right-2', 4, NULL),
-('right-3', 4, NULL),
-('right-4', 4, NULL),
-('right-5', 4, NULL),
+('right-1', 4, 'NULL'),
+('right-2', 4, 'NULL'),
+('right-3', 4, 'NULL'),
+('right-4', 4, 'NULL'),
+('right-5', 4, 'NULL'),
 ('signup', 2, '1'),
 ('slogan', 1, null),
 ('tuto-modal', 4, 1),

@@ -575,7 +575,7 @@ routing:
 
     destroyUser:
         restricted: admin
-        controller: user:deleteUser
+        controller: user:destroyUser
         path: admin/detruire-utilisateur
         params:
             id:
@@ -622,7 +622,12 @@ routing:
     Rss:
         restricted: all
         controller: article:getRss
-        path: rss
+        path: rss    
+
+    Sitemap:
+        restricted: all
+        controller: index:getSitemap
+        path: sitemap
 
     DismissBlock:
         restricted: webmaster

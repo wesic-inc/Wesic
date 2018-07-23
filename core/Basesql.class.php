@@ -270,7 +270,9 @@ class Basesql
         ->where('role', 4);
         break;
         case 5:
-        $this->where('status', 5);
+        $this->where('status', 5);        
+        case 6:
+        $this->where('status', 4);
         break;
       }
         return $this;
@@ -306,6 +308,12 @@ class Basesql
         break;
         case -4:
         $this->OrderBy('role', 'ASC');
+        break;        
+        case 5:
+        $this->OrderBy('status', 'DESC');
+        break;
+        case -5:
+        $this->OrderBy('status', 'ASC');
         break;
         default:
         return $this;
@@ -397,9 +405,15 @@ class Basesql
         $this->OrderBy('post.title', 'ASC');
         break;
         case 2:
-        $this->OrderBy('post.date', 'DESC');
+        $this->OrderBy('post.user_id', 'DESC');
         break;
         case -2:
+        $this->OrderBy('post.user_id', 'ASC');
+        break;        
+        case 3:
+        $this->OrderBy('post.date', 'DESC');
+        break;
+        case -3:
         $this->OrderBy('post.date', 'ASC');
         break;
         default:

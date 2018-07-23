@@ -93,11 +93,8 @@ class validator
             }
         }
 
-        if (count(array_keys($listErrors, 'password2')) > 1) {
-            unset($listErrors[array_keys($listErrors, 'password2')[0]]);
-        }
+        $listErrors = array_unique($listErrors);
         
-
         return $listErrors;
     }
 

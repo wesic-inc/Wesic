@@ -68,7 +68,7 @@ class commentController
                     foreach ($selectIds as $val) {
                         Comment::setCommentStatus($val, 1);
                     }
-                    // no break
+                    break;
                 case 'disapprove':
                     foreach ($selectIds as $val) {
                         Comment::setCommentStatus($val, 3);

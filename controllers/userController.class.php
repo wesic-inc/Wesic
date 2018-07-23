@@ -32,7 +32,7 @@ class userController
             $filter = $param['filter'];
             $qbUsers->userDisplayFilters($filter);
         } else {
-            $qbUsers->where('status', "!=", 5);
+            $qbUsers->where('status', "!=", 5)->and()->where('status', '!=',4);
         }
 
         if (isset($param['sort'])) {
@@ -146,6 +146,7 @@ class userController
 
         Route::redirect('AllUsers');
     }
+
     /**
      * [editUserAction description]
      * @param  Request $request [description]

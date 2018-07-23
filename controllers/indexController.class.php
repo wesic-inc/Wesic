@@ -15,7 +15,7 @@ class indexController
         $v->setView("home", "template", "front");
 
         
-        $description = setting('slogan'); 
+        $description = setting('slogan');
 
 
         Singleton::bridge([
@@ -32,24 +32,13 @@ class indexController
         dd($request->getParam('t'));
     }
 
-    // /**
-    //  * [profil description]
-    //  * @param  Request $request [description]
-    //  * @return [type]           [description]
-    //  */
-    // public function profilAction(Request $request)
-    // {
-    //     echo "mon profil";
-    //     // $user = $request->getParam('u');
+    public function profilAction(Request $request)
+    {
+        echo "mon profil";
 
-    //     if (isset($user)) {
-    //         dd($user);
-    //     }
-    //     if(isset(Auth::user())) {
-    //         dd(Auth::user());
-    //     } 
-    //     else {
-    //         Route::redirect('Error404');
-    //     }
-    // }
+    }
+
+    public function getSitemapAction(Request $request){
+        echo "sitemap";
+    }
 }

@@ -454,7 +454,11 @@ class QueryBuilder extends Basesql
 
         $totalPage = Format::pageCalc($total, $perPage);
         if (empty($getPage)) {
+            if(isset(Singleton::request()->getGet()['p'])){
             $current = Singleton::request()->getGet()['p'];
+            }else{
+                $current = 1;
+            }
         } else {
             $current = $getPage;
         }
