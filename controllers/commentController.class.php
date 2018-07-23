@@ -26,6 +26,12 @@ class commentController
         } else {
             $qb->where('comment.status', '!=', 5);
         }
+
+        if (isset($param['sort'])) 
+        {
+            $sort = $param['sort'];
+            $qb->commentDisplaySorting($sort);
+        }
         
         $comments = $qb->paginate(10);
         
@@ -50,7 +56,6 @@ class commentController
     public function commentActionsAction(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
             $selectIds = json_decode($request->getPost()['ids']);
 
             switch ($request->getParam('action')) {
@@ -62,12 +67,13 @@ class commentController
                 case 'approve':
                     foreach ($selectIds as $val) {
                         Comment::setCommentStatus($val, 1);
-                    }               
+                    }
+                    // no break
                 case 'disapprove':
                     foreach ($selectIds as $val) {
                         Comment::setCommentStatus($val, 3);
                     }
-                    break;                
+                    break;
                 case 'restore':
                     foreach ($selectIds as $val) {
                         Comment::setCommentStatus($val, 2);

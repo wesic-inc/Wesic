@@ -319,9 +319,7 @@ class userController
         $user->save();
 
         $user->cleanUserSlugPasswordRecovery();
-
-        Format::dump($user, 1);
-
+        
         $v = new View();
         $v->setView("login/emailconfirmed", "templateadmin-modal");
         $v->massAssign(["title"=>"Merci !","description"=>"Connexion"]);

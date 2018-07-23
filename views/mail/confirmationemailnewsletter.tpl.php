@@ -65,7 +65,7 @@
 
 								<tr>
 									<td class="align-center" style="font-size: 16px; line-height: 27px; color: #969696; padding: 10px;padding-bottom:30px" align="left">
-										<p class="align-left"> Bonjour <b> %username% </b>, Nous vous remercions de vous être abonner à la newsletter de %sitename% </p><br>
+										<p class="align-left"> Bonjour <b> %username% </b>, Nous vous remercions de vous être abonné à la newsletter de %sitename% </p><br>
 										<p> Pour activer votre abonnement, vous devez confirmer votre e-mail en cliquant sur le lien</p>
 									<a class="button " href="%urlreset%"> Confirmer votre e-mail </a>
 									</td>

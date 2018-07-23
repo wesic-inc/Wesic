@@ -194,7 +194,6 @@ class UserRepository extends Basesql
      */
     public static function signUpNewsletter($data)
     {
-        dd($data);
         if (self::emailExists($data['email']) || self::loginExists($data['email'])) {
             return false;
         } else {

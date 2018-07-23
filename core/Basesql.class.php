@@ -435,6 +435,46 @@ class Basesql
         return $this;
     }
 
+    public function commentDisplaySorting($sort)
+    {
+        switch ($sort) {
+        case 1:
+        $this->OrderBy('comment.user_id', 'DESC');
+        break;
+        case -1:
+        $this->OrderBy('comment.user_id', 'ASC');
+        break;
+        case 2:
+        $this->OrderBy('comment.status', 'DESC');
+        break;
+        case -2:
+        $this->OrderBy('comment.status', 'ASC');
+        break;
+        case 3:
+        $this->OrderBy('comment.body', 'ASC');
+        break;
+        case -3:
+        $this->OrderBy('comment.body', 'DESC');
+        break;
+        case 4:
+        $this->OrderBy('comment.post_id', 'DESC');
+        break;
+        case -4:
+        $this->OrderBy('comment.post_id', 'ASC');
+        break;        
+        case 5:
+        $this->OrderBy('comment.date', 'DESC');
+        break;
+        case -5:
+        $this->OrderBy('comment.date', 'ASC');
+        break;
+        default:
+        return $this;
+        break;
+      }
+        return $this;
+    }
+
     public function mediaDisplayFilters($filter)
     {
         switch ($filter) {

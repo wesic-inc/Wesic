@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `%database%`.`comment` (
   CONSTRAINT `fk_comment_post1`
     FOREIGN KEY (`post_id`)
     REFERENCES `%database%`.`post` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comment_user1`
     FOREIGN KEY (`user_id`)
@@ -210,12 +210,12 @@ CREATE TABLE IF NOT EXISTS `%database%`.`join_article_category` (
   CONSTRAINT `fk_join_article_category_category1`
     FOREIGN KEY (`category_id`)
     REFERENCES `%database%`.`category` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE DELETE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_join_article_category_post1`
     FOREIGN KEY (`post_id`)
     REFERENCES `%database%`.`post` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE DELETE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

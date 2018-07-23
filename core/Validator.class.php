@@ -234,7 +234,9 @@ class validator
      */
     public static function captchaCorrect($var)
     {
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         return !($var != $_SESSION['captcha']);
     }
 

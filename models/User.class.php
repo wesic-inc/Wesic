@@ -74,7 +74,7 @@ class User extends UserRepository
         return $this->created_at;
     }
 
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($created_at = null)
     {
         if ($created_at) {
             $this->created_at = $created_at;

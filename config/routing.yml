@@ -588,7 +588,7 @@ routing:
         controller: newsletter:signUp
         path: inscription-newsletter
 
-    NewsletterSuccess:
+    SignUpNewsletterSuccess:
         restricted: connected
         redirect: Admin
         controller: newsletter:success
