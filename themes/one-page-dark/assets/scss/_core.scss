@@ -1,0 +1,74 @@
+// MAINTAINER : HARANG Louis  <dev@louishrg.cc>
+
+html,
+body,
+ul,
+ol {
+  margin:  0;
+  padding: 0; 
+}
+
+ul{
+	list-style-type: none;
+
+}
+ul.inline{
+	li{
+		margin-left: 10px;
+		margin-right: 10px;
+		display: inline-block;
+	}
+}
+
+.captcha{
+	width: 200px;
+	border-radius: 5px;
+}
+
+h1,h2,h3,h4,h5,h6{
+	margin: 0;
+	padding: 0;
+}
+.push-right{
+	float:right;
+}
+.push-left{
+	float:left;
+}
+.text-left{
+	text-align: left;
+}
+.text-right{
+	text-align: right;
+}
+
+.nav-fixed{
+	position: fixed;
+	top: 0;
+	left:0;
+	width: 100%
+}
+
+.uppercase{
+	text-transform: uppercase;
+}
+
+.img-responsive{
+	width: 100%;
+}
+
+
+
+.no-gutter{
+	margin: 0;
+	padding: 0;
+}
+
+.magic-margin{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.wd100{
+	width: 100%;
+}
