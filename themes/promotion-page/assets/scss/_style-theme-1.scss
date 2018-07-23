@@ -1,0 +1,58 @@
+// MAINTAINER : HARANG Louis  <dev@louishrg.cc>
+
+body{
+	background-color: $primary-color;
+	font-family: $roboto;
+	height: 100%;
+	font-size: 14px;
+}
+
+.bg {
+	background-image: $image-front;
+	height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	filter: blur(20px);
+}
+
+#product{
+	transition: 0.2s all;
+	height: 50%;
+	width: 50vh;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	border-radius: 50%;
+	background: $image-product no-repeat center / cover;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+	filter: contrast(100%);
+	cursor: pointer;
+}
+
+#product:hover{
+	filter: contrast(110%);
+}
+
+#desc{
+	height: 10%;
+	width: 50%;
+	position: absolute;
+	left: 50%;
+	top: 80%;
+	transform: translate(-50%,-50%);
+
+	p{
+		color: white;
+		font-family: $roboto;
+		font-size: 20px;
+		text-align: center;
+	}
+	img{
+		position: absolute;
+		height: 80%;
+		width: 100%;
+		object-fit: contain;
+	}
+}

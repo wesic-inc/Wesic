@@ -1,10 +1,8 @@
 name: Default
 author: Harang Louis
 version: 0.1
-type: onepage
+type : promotion
 style: 
   - css/style.css
 javascript: 
   - js/code.js
-primary: "#F03434"
-secondary: "#96281B"
