@@ -54,7 +54,7 @@
 								<td data-label="R“le"><?php echo Format::getRole($user['role']); ?></td>
 							</tr>
 						<?php endforeach; ?>
-						<?php if(empty($users)){} ?>
+						<?php if(empty($users)): ?>
 							<tr>
 								<td> Aucune utilisateur trouv‚ </td>
 								<td></td>
