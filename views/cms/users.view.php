@@ -16,11 +16,11 @@
 					<ul class="inline group-action">
 						<?php if(!isset($search)):?>
 							<li><a href="<?php Route::echo('AllUsers'); ?>" class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonn‚s <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> Mod‚rateurs <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
+							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonnés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
+							<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> Modérateurs <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
 							<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/3"> CM <?php echo $filter==3?'('.$elementNumber.')':''; ?> </a></li>
 							<li><a class="<?php echo $filter==4?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/4"> Admin <?php echo $filter==4?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprim‚s <?php echo $filter==5?'('.$elementNumber.')':''; ?></a></li>
+							<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimés <?php echo $filter==5?'('.$elementNumber.')':''; ?></a></li>
 						<?php endif ?>
 					</ul>
 					<table class="table table-stripped">
@@ -54,7 +54,7 @@
 								<td data-label="R“le"><?php echo Format::getRole($user['role']); ?></td>
 							</tr>
 						<?php endforeach; ?>
-						<?php if(empty($users)): ?>
+						<?php if(isset($users['data']) && empty($users['data'])): ?>
 							<tr>
 								<td> Aucune utilisateur trouv‚ </td>
 								<td></td>
@@ -62,7 +62,7 @@
 								<td></td>
 								<td></td>
 							</tr>
-						<? endif; ?>
+						<?php endif; ?>
 					</tbody>
 				</table>
 				<input type="hidden" id="params">

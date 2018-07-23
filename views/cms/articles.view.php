@@ -66,7 +66,7 @@
 									<td data-label="Date"><?php echo Format::dateDisplay($article['published_at'],4); ?></td>
 								</tr>
 							<?php endforeach;?>
-							<?php if(empty($articles)): ?>
+							<?php if( isset($articles['data']) && empty($articles['data']) ): ?>
 								<tr>
 									<td> Aucun article trouvé </td>
 									<td></td>
@@ -76,7 +76,7 @@
 									<td></td>
 									<td></td>
 								</tr>
-							<? endif; ?>
+							<?php endif; ?>
 						</tbody>
 					</table>
 					<input type="hidden" id="params" value='<?php echo $param_json; ?>'>
