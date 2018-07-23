@@ -241,6 +241,11 @@ class mediaController
         ]);
     }
 
+    /**
+     * [deleteMediaAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public static function deleteMediaAction(Request $request)
     {
         $param = $request->getParams();

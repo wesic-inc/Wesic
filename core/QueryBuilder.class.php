@@ -447,6 +447,50 @@ class QueryBuilder extends Basesql
         }
     }
 
+
+    public function paginateGet($perPage, $getPage = "")
+    {
+        $total = count($this->get());
+
+        $totalPage = Format::pageCalc($total, $perPage);
+        if (empty($getPage)) {
+            $current = Singleton::request()->getGet()['p'];
+        } else {
+            $current = $getPage;
+        }
+        if ($current == null && $totalPage > 0) {
+            $current = 1;
+        }
+
+        if ($current == 1) {
+            $this->limit('0', $perPage);
+        } else {
+            $this->limit($current*$perPage-$perPage, $perPage);
+        }
+        $elementNb = $perPage;
+        $currentPage = $current;
+        if ($current > $totalPage) {
+            Route::redirect('Error404');
+        }
+
+        if (!isset($this->selector) || !isset($this->table)) {
+            return false;
+        } else {
+            $this->query =
+            $this->selector
+            ." FROM ".$this->table
+            .(!empty($this->join)?$this->join:"")
+            .(!empty($this->where)?"WHERE".$this->where:"")
+            .(!empty($this->groupBy)?"GROUP BY".$this->groupBy:"")
+            .(!empty($this->order)?"ORDER BY".$this->order:"")
+            .(!empty($this->limit)?"LIMIT".$this->limit:"");
+
+            $query = $this->pdo->prepare($this->query);
+            $query->execute($this->parameters);
+            return ['pagination'=>compact('total', 'totalPage', 'elementNb', 'perPage', 'currentPage'),'data'=>$query->fetchAll()];
+        }
+    }
+
     /**
      * [save description]
      * @return [type] [description]

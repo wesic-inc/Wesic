@@ -325,7 +325,7 @@ function get_articles_array($limit = 10, $content = false)
     ->get();
 }
 
-function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $perPage = 10, $wrapper ="col-md-4 no-gutter media-container")
+function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $perPage = 10, $wrapper ="col-md-4")
 {
 
     $media = $type;
@@ -335,17 +335,22 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
     }
 
     $qb = new QueryBuilder();
-    $medias = $qb->select('*')
-    ->from('media as m')
-    ->where('m.type', $media)
-    ->orderBy('m.id', 'ASC')
-    ->limit(0, $limit)
-    ->get();
+    $qb->all('media')
+    ->where('type', $media)
+    ->orderBy('id', 'ASC');
 
-    foreach ($medias as $media) {
-        // if ($title) {
-        //     echo '<p class="media-title">'.$media['name'].'</p>';
-        // }
+    if($paginated == false){
+        $data = $qb->limit(0, $limit)->get();
+    }else{
+        $media = $qb->paginateGet($perPage);
+        $data = $media['data'];
+        $pagination = $media['pagination'];
+    }
+
+    foreach ($data as $media) {
+        if ($title == true) {
+            echo '<p class="media-title">'.$media['name'].'</p>';
+        }
         echo '<div class="'.$wrapper.'">';
         if ($type == 1) {
             echo '<a href="#">
@@ -365,6 +370,14 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
         if ($type == 4) {
             echo '<audio controls><source src="'.$media['path'].'" type="audio/mpeg"></audio>';
         }
+        echo '</div>';
+    }
+
+    if($paginated == true){
+        echo "<br><br><br><br><br>";
+        echo '<div class="">';
+        $config = $pagination;
+        include "views/modals/pagination-front.mdl.php";
         echo '</div>';
     }
 }

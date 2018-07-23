@@ -39,6 +39,7 @@ function loadForm(){
             $setting->setParam('url', $url);
             $setting->setParam('links-bloc', 1);
             $setting->setParam('title', $post['title']);
+            $setting->setParam('email', $post['email']);
             $setting->setParam('welcome-bloc', 1);
             $setting->setParam('left-1', 'welcome-bloc');
             $setting->setParam('left-2', 'links-bloc');

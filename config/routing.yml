@@ -494,6 +494,7 @@ routing:
 
     generalSettings:
         restricted: admin
+        redirect: Login
         controller: setting:index
         path: admin/parametres
 
@@ -505,7 +506,12 @@ routing:
     postSettings:
         restricted: admin
         controller: setting:post        
-        path: admin/parametre-publication
+        path: admin/parametre-publication    
+
+    logoutEveryone:
+        restricted: admin
+        controller: setting:logoutEveryone
+        path: admin/most-deadly-function
 
     Events:
         restricted: admin
@@ -582,10 +588,10 @@ routing:
         controller: newsletter:signUp
         path: inscription-newsletter
 
-    SignUpNewsletterSuccess:
+    NewsletterSuccess:
         restricted: connected
         redirect: Admin
-        controller: newsletter:signUpSuccess
+        controller: newsletter:success
         path: newsletter-merci 
 
     DevTest:

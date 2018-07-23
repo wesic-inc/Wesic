@@ -58,6 +58,8 @@ class Setting extends SettingRepository
        "email"=>["label"=> "Adresse de messagerie", "type"=>"email", "id"=>"email", "placeholder"=>"Email", "msgerror"=>"email", "helper"=>"Cette adresse est utilisée à des fins d’administration. Si vous la modifiez, nous enverrons un message à la nouvelle adresse afin de la confirmer. La nouvelle adresse ne sera pas active tant que vous ne l’aurez pas confirmée." ],
 
        "signup"=>["label"=> "Tout le monde peut s'inscrire", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"signup", "choices"=>['1'=>"Activé",'2'=>"Desactivé"] ],
+       
+        "logout-all"=>['type'=>'link', 'class'=>"btn btn-sm btn-alt", 'label'=>"Déconnecter tous les utilisateurs"],
 
        "comments"=>["label"=> "Qui peut poster un commentaire", "type"=>"select", "id"=>"comments", "placeholder"=>"Commentaires", "required"=>1, "msgerror"=>"comments", "choices"=>['1'=>"Seul les utilisateurs connectés peuvent poser un commentaire",'2'=>"Tout le monde peut poster un commentaire",'3'=>"Désactiver les commentaires"] ],
 
@@ -69,6 +71,7 @@ class Setting extends SettingRepository
         "separator2"=>["type"=>"separator"],
 
         "reset-block"=>['type'=>'link', 'class'=>"btn btn-sm btn-alt", 'label'=>"Remettre à zéro l'affichage du dashboard"],
+        
 
         "submit"=>[ "label"=>"Sauvegarder", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
 

@@ -13,7 +13,12 @@
 		<link rel="stylesheet" href="/public/js/trumbowyg/ui/trumbowyg.min.css"></head>
 
 	</head>
-	<body>
+	<body>	
+
+		<div id="loader-wrapper">
+			<div id="loader" class="spinner icon-spinner2" aria-hidden="true"></div>
+		</div>
+		
 		<?php include $this->view;?>
 		<script type="text/javascript" src="/public/js/jquery.min.js"></script>
 		<script type="text/javascript" src="/public/js/trumbowyg/trumbowyg.min.js"></script>

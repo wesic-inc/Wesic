@@ -5,3 +5,5 @@ style:
   - css/style.css
 javascript: 
   - js/code.js
+primary: "#F03434"
+secondary: "#96281B"

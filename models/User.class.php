@@ -231,7 +231,9 @@ public static function getFormSignUp()
 
        "password2"=>[ "label"=>"Confirmation mot de passe", "type"=>"password", "id"=>"password2", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"password2","confirm"=>"password1" ],
 
-       "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
+        "captcha"=>[ "label"=>"Captcha", "type"=>"captcha", "id"=>"captcha", "placeholder"=>"Captcha", "required"=>1, "msgerror"=>"captcha"],
+
+        "save"=>[ "label"=>"Ajouter l'utilisateur", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
 
    ]

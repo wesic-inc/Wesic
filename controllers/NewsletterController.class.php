@@ -1,53 +1,40 @@
 <?php
-class newsletterController{
-/**
- * [signUpAction description]
- * @param  [type] $args [description]
- * @return [type]       [description]
- */
-	public function signUpAction($args){
+class newsletterController
+{
+    public function successAction(Request $request)
+    {
+        dd($request);
+        // $v = new View();
+        // $v->setView("","templateadmin-modal");
+        // $v->assign("title", "Insrivez vous à la newsletter");
+    }
 
+    public function signUpAction(Request $request)
+    {
+        $post = $request->getPost();
 
-		$form = User::getNewsletterSignUpForm();
-		$errors = [];
+        $form = User::getNewsletterSignUpForm();
+        $errors = [];
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $args['post']);
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $errors = Validator::check($form["struct"], $post);
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $post, 'signup-newsletter')) {
+                    $errors=["email-newsletter"];
+                } else {
+                    Stat::add(1, "inscription newsletter", 5);
+                    Route::redirect('SignUpNewsletterSuccess');
+                }
+            }
+        }
 
-			if(!$errors){
-				
-				Stat::add(1,"inscription newsletter",5);
-
-				if(!Validator::process($form["struct"], $args['post'], 'signup-newsletter')){
-					$errors=["email-newsletter"];
-				}
-				else{
-					Route::redirect('SignUpNewsletterSuccess');
-				}
-
-			}
-		}
-
-		$v = new View();
-		$v->setView("newsletter/signup","single-modal","front");
-		$v->massAssign([
-			"title" => "Insrivez vous à la newsletter",
-			"icon" => "icon-user-plus",
-			"form" => $form,
-			"errors" => $errors
-		]);
-
-	}
-	/**
-	 * [signUpAction description]
-	 * @param  [type] $args [description]
-	 * @return [type]       [description]
-	 */
-	public function signUpSuccessAction($args){
-
-		$v = new View();
-		$v->setView("dev/template","single-modal")->assign("title", "Insrivez vous à la newsletter");
-
-	}
-
+        $v = new View();
+        $v->setView("newsletter/signup", "templateadmin-modal");
+        $v->massAssign([
+            "title" => "Insrivez vous à la newsletter",
+            "icon" => "icon-user-plus",
+            "form" => $form,
+            "errors" => $errors
+        ]);
+    }
 }

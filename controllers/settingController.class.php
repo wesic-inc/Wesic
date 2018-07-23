@@ -1,135 +1,143 @@
 <?php
-class settingController{
-/**
- * [indexAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
-	public function indexAction(Request $request){
+class settingController
+{
+	
+    /**
+     * [indexAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function indexAction(Request $request)
+    {
+        $post = $request->getPost();
 
-		$post = $request->getPost();
+        $form = Setting::getFormSettings();
+        $errors = [];
 
-		$form = Setting::getFormSettings();
-		$errors = [];
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $errors = Validator::check($form["struct"], $post);
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $post);
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $post, 'setting')) {
+                    $errors=["settings"];
+                } else {
+                    Route::redirect('generalSettings');
+                }
+            }
+        }
 
-			if(!$errors){
-				if(!Validator::process($form["struct"], $post, 'setting')){
-					$errors=["settings"];
-				}
-				else{
-					Route::redirect('generalSettings');
-				}
-				
-			}
-		}
+        $data = Setting::getSettings();
+        
+        $_POST['title'] = $data['title']['value'];
+        $_POST['slogan'] = $data['slogan']['value'];
+        $_POST['url'] = $data['url']['value'];
+        $_POST['email'] = $data['email']['value'];
+        $_POST['comments'] = $data['comments']['value'];
+        $_POST['signup'] = $data['signup']['value'];
+        $_POST['datetype'] = $data['datetype']['value'];
+        $_POST['timetype'] = $data['timetype']['value'];
+        $_POST['reset-block'] = 'reset-dashboard/redirect/generalSettings';
+        $_POST['logout-all'] = '/admin/most-deadly-function';
 
-		$data = Setting::getSettings();
-		
-		$_POST['title'] = $data['title']['value']; 
-		$_POST['slogan'] = $data['slogan']['value']; 
-		$_POST['url'] = $data['url']['value']; 
-		$_POST['email'] = $data['email']['value']; 
-		$_POST['comments'] = $data['comments']['value'];  
-		$_POST['signup'] = $data['signup']['value']; 
-		$_POST['datetype'] = $data['datetype']['value']; 
-		$_POST['timetype'] = $data['timetype']['value']; 
-		$_POST['reset-block'] = 'reset-dashboard/redirect/generalSettings'; 
+        $v = new View();
+        $v->setView("admin/settings", "templateadmin");
+        $v->massAssign([
+            "title" => "Général",
+            "icon" => "icon-equalizer",
+            "form" =>  $form,
+            "errors" =>  $errors
+        ]);
+    }
 
-		$v = new View();
-		$v->setView("admin/settings","templateadmin");
-		$v->massAssign([
-			"title" => "Général",
-			"icon" => "icon-equalizer",
-			"form" =>  $form,
-			"errors" =>  $errors
-		]);
-	}
-/**
- * [postAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
-	public function postAction(Request $request){
+    /**
+     * [postAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function postAction(Request $request)
+    {
+        $post = $request->getPost();
 
-		$post = $request->getPost();
+        $form = Setting::getFormSettingsPost();
+        $errors = [];
 
-		$form = Setting::getFormSettingsPost();
-		$errors = [];
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $errors = Validator::check($form["struct"], $post);
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $post);
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $post, 'setting-post')) {
+                    $errors=["settings"];
+                } else {
+                    Route::redirect('postSettings');
+                }
+            }
+        }
+        $data = Setting::getSettings();
+        
+        $_POST['mail-server'] = $data['mail-server']['value'];
+        $_POST['mail-port'] = $data['mail-port']['value'];
+        $_POST['mail-login'] = $data['mail-login']['value'];
+        $_POST['mail-password'] = $data['mail-password']['value'];
+        $_POST['default-cat'] = $data['default-cat']['value'];
+        $_POST['default-format'] = $data['default-format']['value'];
 
-			if(!$errors){
-				if(!Validator::process($form["struct"], $post, 'setting-post'))
-				{
-					$errors=["settings"]; 
-				}else{
-					Route::redirect('postSettings');
-				}
+        $v = new View();
+        $v->setView("admin/settings", "templateadmin");
+        $v->massAssign([
+            "title" => "Publication",
+            "icon" => "icon-equalizer",
+            "form" =>  $form,
+            "errors" => $errors
+        ]);
+    }
+    /**
+     * [viewAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function viewAction(Request $request)
+    {
+        $post = $request->getPost();
 
-			}
-		}
-		$data = Setting::getSettings();
-		
-		$_POST['mail-server'] = $data['mail-server']['value']; 
-		$_POST['mail-port'] = $data['mail-port']['value']; 
-		$_POST['mail-login'] = $data['mail-login']['value']; 
-		$_POST['mail-password'] = $data['mail-password']['value']; 
-		$_POST['default-cat'] = $data['default-cat']['value']; 
-		$_POST['default-format'] = $data['default-format']['value']; 
+        $form = Setting::getFormSettingsView();
+        $errors = [];
 
-		$v = new View();
-		$v->setView("admin/settings","templateadmin");
-		$v->massAssign([
-			"title" => "Publication", 
-			"icon" => "icon-equalizer",
-			"form" =>  $form,
-			"errors" => $errors
-		]);
-		
-	}
-/**
- * [viewAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
-	public function viewAction(Request $request){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $errors = Validator::check($form["struct"], $post);
 
-		$post = $request->getPost();
+            if (!$errors) {
+                if (!Validator::process($form["struct"], $post, 'setting-view')) {
+                    $errors=["settings"];
+                } else {
+                    Route::redirect('viewSettings');
+                }
+            }
+        }
+        
+        $data = Setting::getSettings();
+        
+        $_POST['homepage'] = $data['homepage']['value'];
+        $_POST['pagination-posts'] = $data['pagination-posts']['value'];
+        $_POST['pagination-rss'] = $data['pagination-rss']['value'];
+        $_POST['display-post'] = $data['display-post']['value'];
 
-		$form = Setting::getFormSettingsView();
-		$errors = [];
+        $v = new View();
+        $v->setView("admin/settings", "templateadmin");
+        $v->massAssign([
+            "title" => "Lecture",
+            "icon" => "icon-equalizer",
+            "form" =>  $form,
+            "errors" => $errors
+        ]);
+    }
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$errors = Validator::check($form["struct"], $post);
-
-			if(!$errors){
-				if(!Validator::process($form["struct"], $post, 'setting-view')){
-					$errors=["settings"];
-				}else{
-					Route::redirect('viewSettings');
-				}
-
-			}
-		}
-		
-		$data = Setting::getSettings();
-		
-		$_POST['homepage'] = $data['homepage']['value']; 
-		$_POST['pagination-posts'] = $data['pagination-posts']['value']; 
-		$_POST['pagination-rss'] = $data['pagination-rss']['value']; 
-		$_POST['display-post'] = $data['display-post']['value'];
-
-		$v = new View();
-		$v->setView("admin/settings","templateadmin");
-		$v->massAssign([
-			"title" => "Lecture",
-			"icon" => "icon-equalizer",
-			"form" =>  $form,
-			"errors" => $errors
-		]);
-	}
+    /**
+     * [logoutEveryoneAction description]
+     * @return [type] [description]
+     */
+    public function logoutEveryoneAction()
+    {
+        Setting::ultimateDevilToolOfTheDead();
+        Route::redirect('Login');
+    }
 }

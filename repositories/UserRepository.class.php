@@ -194,20 +194,21 @@ class UserRepository extends Basesql
      */
     public static function signUpNewsletter($data)
     {
+        dd($data);
         if (self::emailExists($data['email']) || self::loginExists($data['email'])) {
             return false;
         } else {
-            $user = new User();
-
+            $user = new User;
             $user->setFirstname($data['name']);
             $user->setEmail($data['email']);
             $user->setLogin($data['email']);
             $user->setRole(5);
             $user->setCreatedAt();
-            $user->setStatus('2');
+            $user->setStatus(2);
             $user->save();
 
-            Passwordrecovery::confirmEmailNewsletter($data['email']);
+            PasswordRecoRepository::confirmEmailNewsletter($data['email']);
+            
             return true;
         }
     }
@@ -219,11 +220,10 @@ class UserRepository extends Basesql
      * @param  string  $key   [description]
      * @return boolean        [description]
      */
-    public static function isAllowId($table,$id, $key= "user_id")
+    public static function isAllowId($table, $id, $key= "user_id")
     {
-
         $qb = new QueryBuilder();
-        $el = $qb->all($table)->where('id',$id)->fetchOrFail(); 
+        $el = $qb->all($table)->where('id', $id)->fetchOrFail();
 
         if (Auth::id() == $el[$key]) {
             return true;
@@ -232,11 +232,10 @@ class UserRepository extends Basesql
         } else {
             return false;
         }
-    }    
+    }
 
     public static function isAllow($owner)
     {
-        
         if (Auth::id() == $owner) {
             return true;
         } elseif (Auth::role()==4) {

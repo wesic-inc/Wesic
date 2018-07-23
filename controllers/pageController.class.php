@@ -15,7 +15,7 @@ class pageController
         $qb = new QueryBuilder();
         
         $page = $qb
-            ->select('p.id,p.title,p.content,p.description as seodesc,p.published_at as date,p.user_id as authorid,media.path,media.caption as mcaption,media.description as mdesc,media.alttext as malt')
+            ->select('p.id,p.title,p.content,p.description as seodesc,p.published_at as date,p.user_id as authorid,p.parent as parent, media.path,media.caption as mcaption,media.description as mdesc,media.alttext as malt')
             ->from('post AS p')
             ->leftJoin('media','p.featured = media.id')
             ->where('p.slug', $param['slug'])

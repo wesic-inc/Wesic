@@ -16,7 +16,7 @@
 							<?php if($theme == setting('theme')):?>
 															<div class="col-md-4 theme-one ">
 								<div class="theme-item reponsive-img active" 
-								style="background-image: url('<?php echo Format::img('template.jpg'); ?>'); background-size: cover;">
+								style="background-image: url('/themes/<?php echo $theme ?>/display.jpg'); background-size: cover;">
 								<div class="title-theme">
 									<p><span class="label-theme-active">Activé : </span><?php echo ucfirst($theme); ?></p>
 								</div>

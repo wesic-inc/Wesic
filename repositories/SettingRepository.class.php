@@ -116,4 +116,13 @@ class SettingRepository extends Basesql
         
         return $this;
     }
+
+    /**
+     * The most evil php action in the history of the world, logout EVERY SINGLE USER with no survivor
+     */
+    public function ultimateDevilToolOfTheDead(){
+
+        $qb = new QueryBuilder();
+        $qb->update('user')->set("token = 'undefined'")->where('1',1)->save();
+    }
 }

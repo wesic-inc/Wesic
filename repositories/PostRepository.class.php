@@ -334,7 +334,7 @@ class PostRepository extends Basesql
             foreach ($pages as $key=>$value) {
 
                     $name =  explode('/',$value)[3];
-                    if($name != 'archive.php' && $name != 'article.php' && $name != 'home.php'){
+                    if($name != 'archive.php' && $name != 'article.php' && $name != 'navbar.php' && $name != 'template.php' && $name != 'page.php' && $name != 'home.php'){
                         $parentCandidate[$name] = $name;
                     }
             }
