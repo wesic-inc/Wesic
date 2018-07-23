@@ -16,11 +16,11 @@
 					<ul class="inline group-action">
 						<?php if(!isset($search)):?>
 							<li><a href="<?php Route::echo('AllUsers'); ?>" class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> Abonnés <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> Modérateurs <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
+							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/1"> AbonnÃ©s <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
+							<li><a class="<?php echo $filter==2?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/2"> ModÃ©rateurs <?php echo $filter==2?'('.$elementNumber.')':''; ?> </a></li>
 							<li><a class="<?php echo $filter==3?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/3"> CM <?php echo $filter==3?'('.$elementNumber.')':''; ?> </a></li>
 							<li><a class="<?php echo $filter==4?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/4"> Admin <?php echo $filter==4?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimés <?php echo $filter==5?'('.$elementNumber.')':''; ?></a></li>
+							<li><a class="<?php echo $filter==5?'active':''; ?>" href="<?php Route::echo('AllUsers'); ?>/filter/5"> Utilisateurs supprimÃ©s <?php echo $filter==5?'('.$elementNumber.')':''; ?></a></li>
 						<?php endif ?>
 					</ul>
 					<table class="table table-stripped">
@@ -30,7 +30,7 @@
 								<th><a class="<?php echo $sort==1?'active-sort':''; ?>" id="filter1" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Identifiant <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
 								<th><a class="<?php echo $sort==2?'active-sort':''; ?>" id="filter2" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Nom <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 								<th><a class="<?php echo $sort==3?'active-sort':''; ?>" id="filter3" href="<?php echo Route::makeParams('sort',$sort==3?-3:3,['p']) ?>" > E-mail <span class="icon <?php echo $sort==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-								<th><a class="<?php echo $sort==4?'active-sort':''; ?>" id="filter4" href="<?php echo Route::makeParams('sort',$sort==4?-4:4,['p']) ?>" > R“le <span class="icon <?php echo $sort==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								<th><a class="<?php echo $sort==4?'active-sort':''; ?>" id="filter4" href="<?php echo Route::makeParams('sort',$sort==4?-4:4,['p']) ?>" > Râ€œle <span class="icon <?php echo $sort==-4?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
 							</tr>
 						</thead>
 						<tbody id="body-ajax">
@@ -51,12 +51,12 @@
 								</td>
 								<td data-label="Nom"><?php echo $user['lastname']." ".$user['firstname']; ?></td>
 								<td data-label="E-mail"><a href="#"><?php echo $user['email']; ?></a></td>
-								<td data-label="R“le"><?php echo Format::getRole($user['role']); ?></td>
+								<td data-label="Râ€œle"><?php echo Format::getRole($user['role']); ?></td>
 							</tr>
 						<?php endforeach; ?>
 						<?php if(isset($users['data']) && empty($users['data'])): ?>
 							<tr>
-								<td> Aucune utilisateur trouv‚ </td>
+								<td> Aucune utilisateur trouvâ€š </td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -70,11 +70,11 @@
 			<footer>
 				<?php $this->addModal("pagination",$users['pagination']); ?>
 				<ul class="inline hidden-xs">
-					<li>Actions group‚es :  </li>
+					<li>Actions groupâ€šes :  </li>
 					<li><a href="#" onclick="deleteUsersAction()"> Supprimer</a></li>
 					<li><a href="#" onclick="banUsersAction()"> Bannir</a></li>
 				</ul>
-				<span class="push-right"> <?php echo count($users['pagination']['total']); ?> ‚l‚ment(s) </span>
+				<span class="push-right"> <?php echo count($users['pagination']['total']); ?> â€šlâ€šment(s) </span>
 			</footer>
 		</div>
 	</div>
