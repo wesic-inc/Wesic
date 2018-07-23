@@ -49,13 +49,13 @@ class Setting extends SettingRepository
       "struct" => [
        "title"=>["label"=> "Titre du site", "type"=>"text", "id"=>"loginco", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login" ],
 
-       "slogan"=>["label"=> "Slogan du site", "type"=>"text", "id"=>"passwordco", "placeholder"=>"Slogan", "msgerror"=>"slogan","helper"=>"En quelques mots, décrivez la raison d’être de ce site." ],
+       "slogan"=>["label"=> "Slogan du site", "type"=>"text", "id"=>"slogan", "placeholder"=>"Slogan", "msgerror"=>"slogan","helper"=>"En quelques mots, décrivez la raison d’être de ce site." ],
 
        "separator"=>["type"=>"separator"],
 
        "url"=>["label"=> "Adresse du site", "type"=>"text", "id"=>"url", "placeholder"=>"URL", "required"=>1, "msgerror"=>"url", "helper"=>"Attention, si vous modifiez l'url de votre site de manière incorrecte, il pourrait ne plus être accessible." ],
 
-       "email"=>["label"=> "Adresse de messagerie", "type"=>"email", "id"=>"email", "placeholder"=>"Mot de passe", "msgerror"=>"email", "helper"=>"Cette adresse est utilisée à des fins d’administration. Si vous la modifiez, nous enverrons un message à la nouvelle adresse afin de la confirmer. La nouvelle adresse ne sera pas active tant que vous ne l’aurez pas confirmée." ],
+       "email"=>["label"=> "Adresse de messagerie", "type"=>"email", "id"=>"email", "placeholder"=>"Email", "msgerror"=>"email", "helper"=>"Cette adresse est utilisée à des fins d’administration. Si vous la modifiez, nous enverrons un message à la nouvelle adresse afin de la confirmer. La nouvelle adresse ne sera pas active tant que vous ne l’aurez pas confirmée." ],
 
        "signup"=>["label"=> "Tout le monde peut s'inscrire", "type"=>"select", "id"=>"loginco", "placeholder"=>"Identifiant", "required"=>1, "msgerror"=>"signup", "choices"=>['1'=>"Activé",'2'=>"Desactivé"] ],
 

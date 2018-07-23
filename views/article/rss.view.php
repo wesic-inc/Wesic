@@ -12,8 +12,8 @@ $atom->addAttribute('href', $url);
 $atom->addAttribute('rel', 'self');
 $atom->addAttribute('type', 'application/rss+xml');
 
-$title = $rss->addChild('title',$sitename); 
-$description = $rss->addChild('description','Flux RSS du site '.$sitename);
+$title = $rss->addChild('title',setting('title')); 
+$description = $rss->addChild('description','Flux RSS du site '.setting('title'));
 $link = $rss->addChild('link',$url);
 $language = $rss->addChild('language','fr-fr'); 
 

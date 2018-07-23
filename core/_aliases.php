@@ -46,7 +46,11 @@ function Req()
  */
 function setting($key)
 {
-    return Singleton::settings()[$key][2];
+    return Singleton::settings()[$key][2];    
+    if(isset(Singleton::settings()[$key][2])){
+    }else{
+        Route::redirect('Error500');
+    }
 }
 
 /**

@@ -21,7 +21,7 @@ routing:
 
     Error500:
         restricted: all
-        controller: error:notFound
+        controller: error:down
         path: 500
 
     Admin:

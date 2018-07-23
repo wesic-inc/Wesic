@@ -126,7 +126,7 @@ class View
      */
     public function __destruct()
     {
-        global $a, $c, $sitename;
+        global $a, $c;
         extract($this->data);
 
         include $this->template;

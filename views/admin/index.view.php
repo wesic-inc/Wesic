@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	
-<?php if (Setting::getParam('tuto-modal') == '1'): ?>
+<?php if (Setting::getParam('tuto-modal') == 1): ?>
 	<div class="col-md-10">
 		<?php $this->addModal("welcome"); ?>
 	</div>

@@ -1,8 +1,6 @@
 <ul>
 <?php foreach($errors as $error):?>
-
 	<?php echo '<li class="error-msg">'.$errors_msg[$error].'</li>';?>
-
 <?php endforeach;?>
 </ul>
 

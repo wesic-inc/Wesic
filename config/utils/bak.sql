@@ -1,9 +1,9 @@
-USE `%database%` ;
+USE `wesic` ;
 
 -- -----------------------------------------------------
 -- Table `wesic`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`user` (
+CREATE TABLE IF NOT EXISTS `wesic`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(255) NOT NULL,
   `lastname` VARCHAR(45) NULL,
@@ -23,7 +23,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`slug`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`slug` (
+CREATE TABLE IF NOT EXISTS `wesic`.`slug` (
   `slug` VARCHAR(200) NOT NULL,
   `type` TINYINT NOT NULL,
   PRIMARY KEY (`slug`))
@@ -33,7 +33,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`media`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`media` (
+CREATE TABLE IF NOT EXISTS `wesic`.`media` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(125) NOT NULL,
   `path` VARCHAR(500) NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `%database%`.`media` (
   INDEX `fk_media_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_media_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `%database%`.`user` (`id`)
+    REFERENCES `wesic`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`post`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`post` (
+CREATE TABLE IF NOT EXISTS `wesic`.`post` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `type` TINYINT NOT NULL,
@@ -77,17 +77,17 @@ CREATE TABLE IF NOT EXISTS `%database%`.`post` (
   INDEX `fk_post_media1_idx` (`featured` ASC),
   CONSTRAINT `fk_page_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `%database%`.`user` (`id`)
+    REFERENCES `wesic`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_slug1`
     FOREIGN KEY (`slug`)
-    REFERENCES `%database%`.`slug` (`slug`)
+    REFERENCES `wesic`.`slug` (`slug`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_media1`
     FOREIGN KEY (`featured`)
-    REFERENCES `%database%`.`media` (`id`)
+    REFERENCES `wesic`.`media` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -96,7 +96,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`category`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`category` (
+CREATE TABLE IF NOT EXISTS `wesic`.`category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `label` VARCHAR(45) NOT NULL,
   `type` TINYINT NOT NULL,
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `%database%`.`category` (
   INDEX `fk_category_slug1_idx` (`slug` ASC),
   CONSTRAINT `fk_category_slug1`
     FOREIGN KEY (`slug`)
-    REFERENCES `%database%`.`slug` (`slug`)
+    REFERENCES `wesic`.`slug` (`slug`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -116,7 +116,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`event`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`event` (
+CREATE TABLE IF NOT EXISTS `wesic`.`event` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `place` VARCHAR(150) NULL,
@@ -130,12 +130,12 @@ CREATE TABLE IF NOT EXISTS `%database%`.`event` (
   INDEX `fk_event_media1_idx` (`featured` ASC),
   CONSTRAINT `fk_event_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `%database%`.`user` (`id`)
+    REFERENCES `wesic`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_event_media1`
     FOREIGN KEY (`featured`)
-    REFERENCES `%database%`.`media` (`id`)
+    REFERENCES `wesic`.`media` (`id`)
     ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -144,7 +144,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`setting`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`setting` (
+CREATE TABLE IF NOT EXISTS `wesic`.`setting` (
   `id` VARCHAR(45) NOT NULL,
   `type` INT NOT NULL,
   `value` VARCHAR(255) NULL,
@@ -156,7 +156,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`theme`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`theme` (
+CREATE TABLE IF NOT EXISTS `wesic`.`theme` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `version` VARCHAR(45) NOT NULL,
@@ -171,7 +171,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`comment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`comment` (
+CREATE TABLE IF NOT EXISTS `wesic`.`comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `body` TEXT NOT NULL,
   `created_at` DATETIME NOT NULL,
@@ -186,12 +186,12 @@ CREATE TABLE IF NOT EXISTS `%database%`.`comment` (
   INDEX `fk_comment_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_comment_post1`
     FOREIGN KEY (`post_id`)
-    REFERENCES `%database%`.`post` (`id`)
+    REFERENCES `wesic`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comment_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `%database%`.`user` (`id`)
+    REFERENCES `wesic`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -200,7 +200,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`join_article_category`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`join_article_category` (
+CREATE TABLE IF NOT EXISTS `wesic`.`join_article_category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `category_id` INT NOT NULL,
   `post_id` INT NOT NULL,
@@ -209,12 +209,12 @@ CREATE TABLE IF NOT EXISTS `%database%`.`join_article_category` (
   INDEX `fk_join_article_category_post1_idx` (`post_id` ASC),
   CONSTRAINT `fk_join_article_category_category1`
     FOREIGN KEY (`category_id`)
-    REFERENCES `%database%`.`category` (`id`)
+    REFERENCES `wesic`.`category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_join_article_category_post1`
     FOREIGN KEY (`post_id`)
-    REFERENCES `%database%`.`post` (`id`)
+    REFERENCES `wesic`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -223,7 +223,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`passwordrecovery`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`passwordrecovery` (
+CREATE TABLE IF NOT EXISTS `wesic`.`passwordrecovery` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(255) NOT NULL,
   `date` TIMESTAMP NOT NULL,
@@ -235,12 +235,12 @@ CREATE TABLE IF NOT EXISTS `%database%`.`passwordrecovery` (
   INDEX `fk_passwordrecovery_slug1_idx` (`slug` ASC),
   CONSTRAINT `fk_passwordrecovery_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `%database%`.`user` (`id`)
+    REFERENCES `wesic`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_passwordrecovery_slug1`
     FOREIGN KEY (`slug`)
-    REFERENCES `%database%`.`slug` (`slug`)
+    REFERENCES `wesic`.`slug` (`slug`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -249,7 +249,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`navbar`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`navbar` (
+CREATE TABLE IF NOT EXISTS `wesic`.`navbar` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `title` VARCHAR(45) NULL,
@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `%database%`.`navbar` (
   INDEX `fk_navbar_slug1_idx` (`slug` ASC),
   CONSTRAINT `fk_navbar_slug1`
     FOREIGN KEY (`slug`)
-    REFERENCES `%database%`.`slug` (`slug`)
+    REFERENCES `wesic`.`slug` (`slug`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -270,7 +270,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`stat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`stat` (
+CREATE TABLE IF NOT EXISTS `wesic`.`stat` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` TINYINT NOT NULL,
   `date` DATETIME NOT NULL,
@@ -288,7 +288,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wesic`.`newsletter`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`newsletter` (
+CREATE TABLE IF NOT EXISTS `wesic`.`newsletter` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `body` TEXT NOT NULL,
@@ -301,19 +301,19 @@ CREATE TABLE IF NOT EXISTS `%database%`.`newsletter` (
   INDEX `fk_newsletter_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_newsletter_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `%database%`.`user` (`id`)
+    REFERENCES `wesic`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
-INSERT INTO `%database%`.`slug` (`slug`, `type`) VALUES
+INSERT INTO `wesic`.`slug` (`slug`, `type`) VALUES
 ('non-classe', 3);
 
-INSERT INTO `%database%`.`category` (`id`, `label`, `type`, `slug`) VALUES
+INSERT INTO `wesic`.`category` (`id`, `label`, `type`, `slug`) VALUES
 (1, 'non classé', 3, 'non-classe');
 
-INSERT INTO `%database%`.`setting` (`id`, `type`, `value`) VALUES
+INSERT INTO `wesic`.`setting` (`id`, `type`, `value`) VALUES
 ('comments', 1, '2'),
 ('datetype', 1, '1'),
 ('default-cat', 2, '1'),

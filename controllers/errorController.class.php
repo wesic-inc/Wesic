@@ -36,5 +36,13 @@ class errorController
         $v = new View();
         header("HTTP/1.0 403 Not Found");
         $v->setView("error/error403")->assign('title', 'Attention !');
+    }    
+
+    public function downAction()
+    {
+        $v = new View();
+        header("HTTP/1.0 500 Internal Server Error");
+        $v->setView("error/error500");
+        $v->assign('title', 'Erreur !');
     }
 }

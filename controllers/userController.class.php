@@ -222,7 +222,7 @@ class userController
         $_POST["lastname"] = $editedUser['lastname'];
         $_POST["email"] = $editedUser['email'];
         $_POST["role"] = $editedUser['role'];
-        $_POST["editlink"] = "/admin/modifier-utilisateur/".$param['id'];
+        $_POST["editlink"] = "/admin/modifier-utilisateur/id/".$param['id'];
 
         $v = new View();
         

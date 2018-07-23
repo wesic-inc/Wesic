@@ -26,7 +26,6 @@ $forms_group = $fof['forms'];
 $sitename = $cof['config']['sitename'];
 $debug = $cof['config']['debug'];
 
-define("DOMAIN",$cof['config']['domain']);
 define("WESIC_VERSION","0.0.1-alpha");
 
 ini_set('upload_max_filesize', '10M');

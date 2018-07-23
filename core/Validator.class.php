@@ -59,10 +59,10 @@ class validator
                 $listErrors[]='csrf';
             }
             if ($options["type"]=="email" && !self::emailCorrect($data[$name])) {
-                $listErrors[]= $email;
+                $listErrors[]= $options["msgerror"];
             }
             if ($options["type"]=="featuredimg" && !self::featuredCorrect($data[$name])) {
-                $listErrors[]= $email;
+                $listErrors[]= $options["msgerror"];
             }
             if ($options["type"]=="url" && !self::urlCorrect($data[$name])) {
                 $listErrors[]= $url;

@@ -7,6 +7,4 @@ config:
     path:
       root: ""
       files: ""
-    sitename: Wesic Inc.
-    domain: docker.local
     debug: true
