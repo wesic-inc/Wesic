@@ -66,7 +66,7 @@
 													<td data-label="Rôle"><?php echo $comment['created_at']; ?></td>
 												</tr>
 											<?php endforeach; ?>
-											<?php if(empty($comments['data'])): ?>
+											<?php if(empty($comments)): ?>
 												<tr>
 													<td> Aucun commentaire trouvé </td>
 													<td></td>

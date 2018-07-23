@@ -12,11 +12,11 @@ class userController
     {
         echo "Profile";
     }
-/**
- * [allUsersAction description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+    /**
+     * [allUsersAction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function allUsersAction(Request $request)
     {
         $param = $request->getParams();
@@ -80,31 +80,29 @@ class userController
     public function userActionsAction(Request $request)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
             $selectIds = json_decode($request->getPost()['ids']);
             switch ($request->getParam('action')) {
                 case 'delete':
                     foreach ($selectIds as $val) {
-                        User::setUserStatus($val,5);
+                        User::setUserStatus($val, 5);
                     }
-                    break;                
+                    break;
                 case 'ban':
                     foreach ($selectIds as $val) {
-                        User::setUserStatus($val,4);
+                        User::setUserStatus($val, 4);
                     }
                     break;
                 default:
                     break;
             }
-
         } else {
             Route::redirect('Error404');
         }
     }
-/**
- * [addUserAction description]
- * @param Request $request [description]
- */
+    /**
+     * [addUserAction description]
+     * @param Request $request [description]
+     */
     public function addUserAction(Request $request)
     {
         $form = User::getFormNewUser();
@@ -182,9 +180,9 @@ class userController
         $_POST["email"] = $editedUser['email'];
         $_POST["role"] = $editedUser['role'];
         $_POST["newpasswordlink"] = "/admin/nouveau-mot-de-passe/id/".$param['id'];
-        if($editedUser['status']!=5){
+        if ($editedUser['status']!=5) {
             $_POST["deleteuser1"] = "/admin/supprimer-utilisateur/id/".$param['id'];
-        }else{
+        } else {
             $_POST["deleteuser1"] = "#";
         }
         $_POST["deleteuser2"] = "/admin/detruire-utilisateur/id/".$param['id'];
@@ -238,13 +236,12 @@ class userController
 
     public function newPasswordConfirmationAction(Request $request)
     {
-
         $token = $request->getParam('token');
 
         $passwordrecovery = new Passwordrecovery();
 
         $qb = new QueryBuilder();
-        $result = $qb->all('passwordrecovery')->where('token',$token)->fetchOrFail();
+        $result = $qb->all('passwordrecovery')->where('token', $token)->fetchOrFail();
 
         $token_generated  = new DateTime($result['date']);
 
@@ -258,8 +255,7 @@ class userController
                 $errors = Validator::check($form["struct"], $request->getPost());
 
                 if (!$errors) {
-
-                    $request->setPost('token',$token);
+                    $request->setPost('token', $token);
                     if (!Validator::process($form["struct"], $request->getPost(), 'modifypassword')) {
                         $errors=["password"];
                     } else {
@@ -337,12 +333,11 @@ class userController
      */
     public static function forceNewPasswordAction(Request $request)
     {
-        
         $id = $request->getParam('id');
         
         $qb = new QueryBuilder();
-        $userFound = $qb->all("user")->where('id',$id)->fetchOrFail();
-        PasswordRecoRepository::sendResetPassword($userFound['login'],2);
+        $userFound = $qb->all("user")->where('id', $id)->fetchOrFail();
+        PasswordRecoRepository::sendResetPassword($userFound['login'], 2);
 
         Route::redirect('AllUsers');
     }

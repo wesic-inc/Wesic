@@ -66,7 +66,7 @@
 									<td data-label="Date"><?php echo Format::dateDisplay($article['published_at'],4); ?></td>
 								</tr>
 							<?php endforeach;?>
-							<?php if(empty($articles['data'])): ?>
+							<?php if(empty($articles)): ?>
 								<tr>
 									<td> Aucun article trouvé </td>
 									<td></td>
