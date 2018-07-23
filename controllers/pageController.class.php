@@ -71,7 +71,12 @@ class pageController
         }
         if (isset($get['s'])) {
             $search = $get['s'];
-            $qbPage->and()->search('post.title', $search);
+            $qbPage->and()
+            ->openBracket()
+            ->search('post.title', $search)
+            ->or()
+            ->search('post.slug', $search)
+            ->closeBracket();
         }
 
         $pages = $qbPage->paginate(10);

@@ -259,7 +259,7 @@ public static function getFormEditUser()
 
         "email"=>[ "label"=>"E-mail", "type"=>"text", "id"=>"email", "placeholder"=>"E-mail", "required"=>1, "msgerror"=>"email" ],
 
-        "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur'] ],
+        "role"=>[ "label"=>"Rôle", "type"=>"select", "id"=>"role", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"role", "choices"=>['1'=>'Utilisateur','2'=>'Community Manager','3'=>'Modérateur','4'=>'Administrateur','5'=>'Abonné'] ],
 
         "status"=>[ "label"=>"Status", "type"=>"select", "id"=>"status", "placeholder"=>"Confirmation", "required"=>1, "msgerror"=>"status", "choices"=>['1'=>'Actif','3'=>'Inactif','4'=>'Banni','5'=>'Supprimé' ]],
 

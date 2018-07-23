@@ -7,4 +7,4 @@ config:
     path:
       root: ""
       files: ""
-    debug: false
+    debug: true

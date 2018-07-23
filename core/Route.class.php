@@ -204,7 +204,15 @@ class Route
     public static function makeParams($key, $value, $exclude = [])
     {
         
+
+
         $paramsArray = Singleton::request()->getParams();
+
+        if(isset(Singleton::request()->getGet()['s'])){
+            $search = '?s='.Singleton::request()->getGet()['s'];      
+        }else{
+            $search = "";
+        }
 
         if($paramsArray == 'true'){
             $paramsArray = [];
@@ -222,7 +230,7 @@ class Route
             $generatedParams .= "/".$param."/".$val;
         }
 
-        return ROOT_URL.Route::getUri()[0].$generatedParams;
+        return ROOT_URL.Route::getUri()[0].$generatedParams.$search;
     }
 
     /**

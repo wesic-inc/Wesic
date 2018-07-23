@@ -1,21 +1,21 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12 bloc">
-			<a href="<?php Route::echo('newMediaVideo') ?>" class="btn btn-sm btn-add">Ajouter un mÃ©dia</a> 
+			<a href="<?php Route::echo('newMediaVideo') ?>" class="btn btn-sm btn-add">Ajouter un média</a> 
 			<div class="col-md-12 toolbar-media">
 				<ul class="inline">
 					<li>
 						<select id="filter-media" class="sm-input">
-							<option <?php echo !isset($filter)?'selected':'' ?> value="0">Tous les mÃ©dias</option>
+							<option <?php echo !isset($filter)?'selected':'' ?> value="0">Tous les médias</option>
 							<option <?php echo $filter==1?'selected':'' ?> value="1">Images</option>
-							<option <?php echo $filter==2?'selected':'' ?> value="2">VidÃ©os</option>
+							<option <?php echo $filter==2?'selected':'' ?> value="2">Vidéos</option>
 							<option <?php echo $filter==3?'selected':'' ?> value=3>Musiques</option>
 						</select>
 					</li>
 					<li class="push-right">
 						<form action="<?php Route::echo('Medias') ?>" method="get">
 							<input name="s" type="text" class="search-input sm-input hidden-xs" >
-							<input name="rechercher" value="Recherche" type="submit" class="btn btn-sm btn-alt hidden-xs btn-search-fix">
+							<input type="submit" class="btn btn-sm btn-alt hidden-xs btn-search-fix">
 						</form>
 					</li>
 				</ul>
