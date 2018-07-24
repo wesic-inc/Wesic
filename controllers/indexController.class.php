@@ -30,23 +30,6 @@ class indexController
 
     public function profilAction(Request $request)
     {
-        if (isset($request->getParam('user'))) {
-            $user = $request->getParam('user');
-            $qb = new QueryBuilder();
-            $user = $qb->all('user')->where('login',$user)->fetchOrFail();
-        } else {
-            $user = Auth::user();
-        }
-
-        dd($user);
-        
-        $v = new View();
-        $v->setView("index/profile");
-        $v->assign('user', $user);
-    }
-
-    public function getSitemapAction(Request $request)
-    {
-        echo "sitemap";
+        Echo "profil !";   
     }
 }

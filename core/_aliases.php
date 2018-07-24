@@ -379,7 +379,7 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
         }
         echo '<div class="'.$wrapper.'">';
         if ($type == 1) {
-            echo '<a href="#">
+            echo '<a target="_blank" href="'.$media['path'].'">
             <img src="'.$media['path'].'" class="image img-responsive">
             </a>';
         }
