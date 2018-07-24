@@ -152,22 +152,6 @@ CREATE TABLE IF NOT EXISTS `%database%`.`setting` (
   UNIQUE INDEX `key_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `wesic`.`theme`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`theme` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
-  `version` VARCHAR(45) NOT NULL,
-  `author` VARCHAR(150) NOT NULL,
-  `active` TINYINT NOT NULL,
-  `path` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `path_UNIQUE` (`path` ASC))
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `wesic`.`comment`
 -- -----------------------------------------------------

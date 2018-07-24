@@ -11,7 +11,6 @@
 <body>
 	<?php admin_bar(); ?>
 	<div class="layout">
-		<?php the_navbar(); ?>
 		<?php the_view(); ?>
 	</div>
 	<?php get_scripts(); ?>

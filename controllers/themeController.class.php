@@ -23,21 +23,24 @@ class themeController
         ]);
     }
 
-    /**
-     * [indexAction description]
-     * @param  [type] $args [description]
-     * @return [type]       [description]
-     */
-    public static function editThemeAction($args)
-    {
-        dd(themeEnv());
 
-        $v = new View();
-        $v->setView("theme/all-themes", "templateadmin");
-        $v->massAssign([
-            "title"=>"Modifier mon thème",
-            "icon"=>"icon-eyedropper"
-        ]);
+    public static function setThemeAction(Request $request)
+    {
+
+        $name = $request->getParam('name');
+
+        $themes = glob('themes/*/*theme.yml');
+
+        foreach ($themes as $val) {
+            $themesList[] = explode("/", $val)[1];
+        }
+
+        if(in_array($name, $themesList)){
+            $setting = new Setting();
+            $setting->setParam('theme', $name);
+        }
+
+        Route::redirect('Themes');
     }
 
     /**
@@ -103,7 +106,7 @@ class themeController
         // dd($menu);
         foreach ($menu as $key => $value) {
             echo "Clef : ".$key;
-            echo "<br>";            
+            echo "<br>";
             echo "Nom :".$value['name'];
             echo "<br>";
             if (isset($value['url'])) {
@@ -115,7 +118,7 @@ class themeController
                 echo "<br>";
             }
             echo "{";
-                echo "<br>";
+            echo "<br>";
             foreach ($value['in'] as $key2 => $value2) {
                 echo "Clef : ".$key2;
                 echo "<br>";

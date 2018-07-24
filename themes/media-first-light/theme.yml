@@ -1,7 +1,7 @@
-name: Default
-author: Harang Louis
+name: Media first light
+author: Truchot Pierre
 version: 0.1
-type: mediafirst
+type: onepage
 style: 
   - css/style.css
 javascript: 

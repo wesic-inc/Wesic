@@ -20,21 +20,17 @@
 								<div class="title-theme">
 									<p><span class="label-theme-active">Activé : </span><?php echo ucfirst($theme); ?></p>
 								</div>
-								<div class="action-theme">
-									<a href="<?php Route::echo('EditTheme'); ?>" class="btn btn-sm"> Personnaliser </a>
-								</div>
 								</div>
 							</div>
 							<?php else: ?>
 							<div class="col-md-4 theme-one">
 								<div class="theme-item reponsive-img" 
-								style="background-image: url('<?php echo Format::img('template.jpg'); ?>'); background-size: cover;">
+								style="background-image: url('/themes/<?php echo $theme ?>/display.jpg'); background-size: cover;">
 								<div class="title-theme">
 									<p> <?php echo ucfirst($theme); ?>!</p>
 								</div>
 								<div class="action-theme">
-									<a href="<?php Route::echo('SetTheme') ?>/id/1" class="btn btn-sm"> Appliquer </a>
-									<a href="#" class="btn btn-sm btn-primary"> Détails </a>
+									<a href="<?php Route::echo('SetTheme') ?>/name/<?php echo $theme ?>" class="btn btn-sm"> Appliquer </a>
 								</div>
 								</div>
 							</div>

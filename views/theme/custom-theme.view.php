@@ -4,6 +4,7 @@
 			<div class="inner-bloc">
 				
 				<h4> Theme actuel : <?php echo themeEnv()['name']; ?></h4>
+					<?php $this->createForm($form, $errors); ?>
 
 			</div>
 		</div>

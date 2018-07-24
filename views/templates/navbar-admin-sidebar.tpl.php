@@ -62,11 +62,8 @@
 			<a href="#"><span class="icon icon-paint-format"></span><span class="link-text">Apparence<span class="icon-ctrl carret-down"></span></span></a>
 			<div class="dropdown">
 				<ul> 
-					<li><a href="<?php Route::echo('EditTheme'); ?>">Modifier le thème</a> </li> 
 					<li><a href="<?php Route::echo('Themes'); ?>">Mes thèmes</a> </li>  
-					<li><a href="<?php Route::echo('MenuCreator'); ?>">Menu</a> </li>  
-					<li><a href="<?php Route::echo('ThemeCreator'); ?>">Theme Creator</a> </li> 
-
+					<li><a href="<?php Route::echo('MenuCreator'); ?>">Menu</a> </li>
 				</ul>
 			</div>
 		</li>

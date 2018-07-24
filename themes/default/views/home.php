@@ -82,15 +82,7 @@
 						<h2 class="uppercase magic-margin"> News </h2>
 						<div class="row">
 
-						<?php get_articles(6,
-							[
-								'title'=>'h1',
-								'date'=>'p',
-								'excerpt'=>'p',
-								'category'=>'p'
-							],
-							"col-md-4"
-						); ?>
+						<?php get_articles(6,['title'=>'h1','date'=>'p','excerpt'=>'p','category'=>'p' ], "col-md-4"); ?>
 
 						</div>
 					</div>
@@ -109,6 +101,7 @@
 							<div class="col-md-12">
 								<h3 class="text-left ">Pictures</h3>
 								<div class="row magic-margin">
+									<?php get_medias(3,6,false); ?>
 										
 								</div>
 							<div class="text-right wd100"> <h5 ><a href="#"> More Pictures </a></h5> </div>

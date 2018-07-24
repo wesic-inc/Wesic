@@ -46,9 +46,9 @@ function Req()
  */
 function setting($key)
 {
-    return Singleton::settings()[$key][2];    
-    if(isset(Singleton::settings()[$key][2])){
-    }else{
+    return Singleton::settings()[$key][2];
+    if (isset(Singleton::settings()[$key][2])) {
+    } else {
         Route::redirect('Error500');
     }
 }
@@ -118,9 +118,9 @@ function the_quote()
  */
 function seo_description($description = null)
 {
-    if(!isset(Singleton::bridge()['description'])){
+    if (!isset(Singleton::bridge()['description'])) {
         echo '<meta name="description" content="'.isset($description)?$description:"Mon site Wesic".'">';
-    }else{
+    } else {
         echo '<meta name="description" content="'.Singleton::bridge()['description'].'">';
     }
 }
@@ -131,7 +131,7 @@ function seo_description($description = null)
  */
 function admin_bar()
 {
-    if (Auth::user() && Auth::role() != 1){ 
+    if (Auth::user() && Auth::role() != 1) {
         include "views/modals/admin-navbar.mdl.php";
     }
 }
@@ -186,12 +186,12 @@ function article_content()
  */
 function article_date()
 {
-    echo Format::dateDisplay(Singleton::bridge()['article']['date'],setting('datetype'));
+    echo Format::dateDisplay(Singleton::bridge()['article']['date'], setting('datetype'));
 }
 
 function article_time()
 {
-    echo Format::timeDisplay(Singleton::bridge()['article']['date'],setting('timetype'));
+    echo Format::timeDisplay(Singleton::bridge()['article']['date'], setting('timetype'));
 }
 
 /**
@@ -200,7 +200,8 @@ function article_time()
  */
 function the_comments()
 {
-    global $errors_msg;;
+    global $errors_msg;
+    ;
     include 'views/modals/comments.mdl.php';
 }
 
@@ -214,7 +215,7 @@ function the_view()
 }
 
 
-function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>"li",'date'=>"p",'excerpt'=>"div",'featured'=>""], $wrapperClass = "col-md-4",$paginated = false, $perPage = "")
+function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>"li",'date'=>"p",'excerpt'=>"div",'featured'=>""], $wrapperClass = "col-md-4", $paginated = false, $perPage = "")
 {
     $select = [];
     $leftJoin = [];
@@ -263,17 +264,17 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
     ->where('p.published_at', '<=', date('Y-m-d H:i:s'))
     ->and()
     ->where('p.status', 1)
-    ->orderBy('p.published_at', 'DESC')
-    ->limit(0, $nb);
+    ->orderBy('p.published_at', 'DESC');
 
-    if($paginated == false){
-        $data = $qb->get();
-    }else{
-        $articles = $qb->paginate($perPage);
-        $data = $articles['data'];
+    if ($paginated == false) {
+        $data = $qb->limit(0, $limit)->get();
+    } else {
+        $post = $qb->paginateGet($perPage, 'pictures');
+        $data = $post['data'];
+        $pagination = $post['pagination'];
     }
 
-    if(empty($perPage)){
+    if (empty($perPage)) {
         $perPage = setting('pagination-posts');
     }
 
@@ -284,7 +285,10 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
                 echo '<'.$html.' class="article-title"><a href="'.$article['slug'].'">'.$article['title'].'</a></'.$html.'>';
             }
             if ($key == 'date' && isset($article['date'])) {
-                echo '<'.$html.' class="article-title">'.$article['date'].'</'.$html.'>';
+                echo '<'.$html.' class="article-date">'.Format::dateDisplay($article['date'], setting('datetype')).'</'.$html.'>';
+            }
+            if ($key == 'time' && isset($article['date'])) {
+                echo '<'.$html.' class="article-time">'.Format::timeDisplay($article['date'], setting('timetype')).'</'.$html.'>';
             }
             if ($key == 'featured' && isset($article['featured'])) {
                 echo '<img class="article-featured" src="'.$article['featured'].'">';
@@ -304,6 +308,12 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
                 echo '<'.$html.' class="article-content">'.$article['content'].'</'.$html.'>';
             }
         }
+        echo '</div>';
+    }
+    if ($paginated == true) {
+        echo '<div class="col-md-12 text-center">';
+        $config = $pagination;
+        include "views/modals/pagination-front.mdl.php";
         echo '</div>';
     }
 }
@@ -327,22 +337,19 @@ function get_articles_array($limit = 10, $content = false)
 
 function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $perPage = 10, $wrapper ="col-md-4")
 {
-
     $media = $type;
 
-    if($type == 3){
+    if ($type == 3) {
         $media = 2;
     }
 
     $qb = new QueryBuilder();
-    $qb->all('media')
-    ->where('type', $media)
-    ->orderBy('id', 'ASC');
+    $qb->all('media')->where('type', $media)->orderBy('id', 'ASC');
 
-    if($paginated == false){
+    if ($paginated == false) {
         $data = $qb->limit(0, $limit)->get();
-    }else{
-        $media = $qb->paginateGet($perPage);
+    } else {
+        $media = $qb->paginateGet($perPage, 'pictures');
         $data = $media['data'];
         $pagination = $media['pagination'];
     }
@@ -361,7 +368,7 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
             echo '<iframe width="100%" height="auto"
             src="https://www.youtube.com/embed/'.$media['url'].'">
             </iframe>';
-        }        
+        }
         if ($type == 3) {
             echo '<a href="" onclick="videoModa('.$media['url'].')">
             <img class="image img-responsive" src="'.Format::videoImg($media['url']).'">
@@ -373,9 +380,8 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
         echo '</div>';
     }
 
-    if($paginated == true){
-        echo "<br><br><br><br><br>";
-        echo '<div class="">';
+    if ($paginated == true) {
+        echo '<div class="col-md-12 text-center">';
         $config = $pagination;
         include "views/modals/pagination-front.mdl.php";
         echo '</div>';
@@ -408,12 +414,12 @@ function page_title()
 
 function page_date()
 {
-    echo Format::dateDisplay(Singleton::bridge()['page']['date'],setting('datetype'));
+    echo Format::dateDisplay(Singleton::bridge()['page']['date'], setting('datetype'));
 }
 
 function page_time()
 {
-    echo Format::timeDisplay(Singleton::bridge()['page']['date'],setting('timetype'));
+    echo Format::timeDisplay(Singleton::bridge()['page']['date'], setting('timetype'));
 }
 
 function page_content()
@@ -421,6 +427,6 @@ function page_content()
     echo Singleton::bridge()['page']['content'];
 }
 
-function get_events(){
-
+function get_events()
+{
 }

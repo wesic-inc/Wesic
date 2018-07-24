@@ -6,4 +6,3 @@
 	<p>Écoutez sur Spotify™</p>
 	<img src="/public/img/spotify.png" alt="">
 </div>
-	

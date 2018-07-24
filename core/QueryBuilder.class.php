@@ -423,11 +423,12 @@ class QueryBuilder extends Basesql
         }
         
         $elementNb = $perPage;
-        $currentPage = $current;
 
         if ($current > $totalPage) {
             Route::redirect('Error404');
         }
+
+        $currentPage = $current;
 
         if (!isset($this->selector) || !isset($this->table)) {
             return false;
@@ -448,15 +449,15 @@ class QueryBuilder extends Basesql
     }
 
 
-    public function paginateGet($perPage, $getPage = "")
+    public function paginateGet($perPage, $overflowRedir, $getPage = "")
     {
         $total = count($this->get());
 
         $totalPage = Format::pageCalc($total, $perPage);
         if (empty($getPage)) {
-            if(isset(Singleton::request()->getGet()['p'])){
-            $current = Singleton::request()->getGet()['p'];
-            }else{
+            if (isset(Singleton::request()->getGet()['p'])) {
+                $current = Singleton::request()->getGet()['p'];
+            } else {
                 $current = 1;
             }
         } else {
@@ -466,16 +467,21 @@ class QueryBuilder extends Basesql
             $current = 1;
         }
 
+        $elementNb = $perPage;
+        
+        if ($current > $totalPage) {
+            $current = $totalPage;
+        }
+        if ($current <= 0) {
+            $current = 1;
+        }
         if ($current == 1) {
             $this->limit('0', $perPage);
         } else {
             $this->limit($current*$perPage-$perPage, $perPage);
         }
-        $elementNb = $perPage;
+
         $currentPage = $current;
-        if ($current > $totalPage) {
-            Route::redirect('Error404');
-        }
 
         if (!isset($this->selector) || !isset($this->table)) {
             return false;

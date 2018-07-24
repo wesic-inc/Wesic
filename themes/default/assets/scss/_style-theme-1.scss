@@ -398,3 +398,47 @@ nav{
 		margin-right: 20px;
 	}
 }
+
+.pagination{
+	text-align: center;
+}
+.paginator{
+	margin: 30px;
+}
+li.page-item{
+	display: inline-block !important;
+	a{
+		padding: 7px 15px;
+		background: #FFF;
+		border: 1px solid #000;
+		border-radius: 2px;
+		margin-left: -6px;
+	}
+	&.active{
+		a{
+			background: #000;
+			color: #FFF;
+		}
+	}
+	&.disabled{
+		a{
+			color: darken(#dee2e6,20);
+		}
+		pointer-events: none;
+		cursor: auto;
+		background-color: #fff;
+	}
+	a{
+		color: #000;
+		font-weight: bold;
+
+	}
+}
+li.page-item:hover
+{ 
+
+	a{
+		background: #000;
+		color: #FFF;
+	}
+}

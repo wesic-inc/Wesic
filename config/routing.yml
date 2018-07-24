@@ -327,27 +327,10 @@ routing:
                 type: int
                 optional: false
 
-    EditTheme:
-        restricted: admin
-        controller: theme:editTheme
-        path: admin/modifier-theme
-
     Themes:
         restricted: admin
         controller: theme:index
         path: admin/themes
-
-    ThemeCreator:
-        restricted: admin
-        controller: theme:themeCreator
-        path: admin/theme-creator
-        params:
-            p:
-                type: int
-                optional: true
-            type:
-                type: int
-                optional: true
 
     MenuCreator:
         restricted: admin
@@ -361,11 +344,11 @@ routing:
 
     SetTheme:
         restricted: admin
-        controller: theme:themeCreator
-        path: admin/test
+        controller: theme:setTheme
+        path: admin/set-theme
         params:
-            id:
-                type: int
+            name:
+                type: string
                 optional: false
 
     Pages:

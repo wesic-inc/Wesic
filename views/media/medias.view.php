@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12 bloc">
-			<a href="<?php Route::echo('newMediaVideo') ?>" class="btn btn-sm btn-add">Ajouter un média</a> 
+			<a href="<?php Route::echo('newMediaImage') ?>" class="btn btn-sm btn-add">Ajouter un média</a> 
 			<div class="col-md-12 toolbar-media">
 				<ul class="inline">
 					<li>
