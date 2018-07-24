@@ -1,0 +1,8 @@
+name: Media first light
+author: Truchot Pierre
+version: 0.1
+type: blog
+style: 
+  - css/style.css
+javascript: 
+  - js/code.js

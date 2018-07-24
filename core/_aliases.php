@@ -267,7 +267,7 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
     ->orderBy('p.published_at', 'DESC');
 
     if ($paginated == false) {
-        $data = $qb->limit(0, $limit)->get();
+        $data = $qb->limit(0, $nb)->get();
     } else {
         $post = $qb->paginateGet($perPage, 'pictures');
         $data = $post['data'];
