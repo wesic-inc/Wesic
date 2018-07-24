@@ -57,30 +57,32 @@ class commentController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $selectIds = json_decode($request->getPost()['ids']);
-
+            if(Auth::role() < 3){
+                Route::redirect('Error404');
+            }
             switch ($request->getParam('action')) {
                 case 'delete':
-                    foreach ($selectIds as $val) {
-                        Comment::setCommentStatus($val, 5);
-                    }
-                    break;
+                foreach ($selectIds as $val) {
+                    Comment::setCommentStatus($val, 5);
+                }
+                break;
                 case 'approve':
-                    foreach ($selectIds as $val) {
-                        Comment::setCommentStatus($val, 1);
-                    }
-                    break;
+                foreach ($selectIds as $val) {
+                    Comment::setCommentStatus($val, 1);
+                }
+                break;
                 case 'disapprove':
-                    foreach ($selectIds as $val) {
-                        Comment::setCommentStatus($val, 3);
-                    }
-                    break;
+                foreach ($selectIds as $val) {
+                    Comment::setCommentStatus($val, 3);
+                }
+                break;
                 case 'restore':
-                    foreach ($selectIds as $val) {
-                        Comment::setCommentStatus($val, 2);
-                    }
-                    break;
+                foreach ($selectIds as $val) {
+                    Comment::setCommentStatus($val, 2);
+                }
+                break;
                 default:
-                    break;
+                break;
             }
         } else {
             Route::redirect('Error404');
@@ -122,7 +124,7 @@ class commentController
             $errors = Validator::check($form["struct"], $request->getPost());
 
             if (!$errors) {
-                if (!Validator::process($form["struct"], $request->getPost(), 'new-comment')) {
+                if (!Validator::process($form["struct"], $request->getPost(), 'moderate-comment')) {
                     $errors=["newcomment"];
                 } else {
                     Route::refresh();
@@ -142,26 +144,6 @@ class commentController
         ]);
     }
 
-    /**
-     * [terminatorAction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public static function terminatorAction(Request $request)
-    {
-        dd($request);
-
-        $v = new View();
-        
-        $v->setView("comment/view", "templateadmin");
-        $v->massAssign([
-            "title" => "Voir un commentaire",
-            "icon" => "icon-bubbles2",
-            "comment" => $comment,
-            "form" => $form,
-            "errors" => $errors,
-        ]);
-    }
 
     /**
      * [disapproveCommentAction description]
@@ -170,6 +152,7 @@ class commentController
      */
     public static function disapproveCommentAction(Request $request)
     {
+
         Comment::setCommentStatus($request->getParam('id'), 3);
         
 

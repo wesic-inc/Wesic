@@ -47,7 +47,6 @@
 											<td class="entity-key"><a href="#"><?php echo $comment['email']; ?></a>
 										<?php endif ?>
 												<ul class="grid-actions">
-														<a href="/admin/moderer-commentaire/id/<?php echo $comment['id']; ?>"><li>Modérer</li></a>
 														<?php if($comment['status'] != '5'):?>
 															<a onclick="deleteModalUser(<?php echo $comment['id'] ?>)"><li>Supprimer</li></a>
 														<?php endif ?>
@@ -96,21 +95,6 @@
 									<span class="push-right"> <?php echo $comments['pagination']['total']; ?> élément(s) </span>
 								</footer>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div id="myModal" class="modal">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h3>Confirmation suppression</h3>
-						</div>
-						<div class="modal-body">
-							<p id="modal-body"></p>
-							<p id="modal-helper"></p>
-						</div>
-						<div class="modal-footer">
-							<a class="btn btn-primary btn-sm" id="valid-action" onclick="">Confirmer</a>
-							<a class="btn btn-sm btn-alt" id="close-modal">Annuler</a>
 						</div>
 					</div>
 				</div>

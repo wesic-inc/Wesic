@@ -33,7 +33,7 @@ class adminController
         ->from('comment')
         ->leftJoin('user', 'user.id = comment.user_id')
         ->leftJoin('post', 'post.id = comment.post_id')
-        ->where('comment.type', '!=', 5)
+        ->where('comment.status', '!=', 5)
         ->and()
         ->where('post.status',1)
         ->orderBy('comment.created_at', 'DESC')
@@ -52,6 +52,11 @@ class adminController
             'links-bloc'=> [],
         ];
 
+
+        $scale_json = json_encode(Stat::recreateScaleDashboard());
+        $stats = json_encode(Stat::dashboardChart());
+
+
         $v = new View();
         $v->setView("admin/index", "templateadmin");
         $v->massAssign([
@@ -61,6 +66,8 @@ class adminController
             "blockData" => $blockData,
             "left" => $left,
             "right" => $right,
+            "scale_json"=>$scale_json,
+            "stats"=>$stats
         ]);
     }
     /**

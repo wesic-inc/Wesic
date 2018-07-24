@@ -8,19 +8,11 @@
 							</header>
 							<article>
 								<ul class="numbers">
-									<li><span>4400</span><p> utilisateurs unique les 30 derniers jours</p></li>
-									<li><span>15</span><p> nouveaux commentaires aujourd’hui</p></li>
-									<li><span>+50%</span><p> de traffic sur les 30 derniers jours</p></li>
+									<li><span><?php echo Stat::uniqLastMonth() ?></span><p> utilisateurs unique les 30 derniers jours</p></li>
+									<li><span><?php echo Stat::commentToday() ?></span><p> nouveaux commentaires aujourd’hui</p></li>
+									<li><span><?php echo Stat::uniqOverall() ?></span><p> visites depuis la mise en ligne</p></li>
 								</ul>
 								<canvas id="myChart" height="200"></canvas>
-
-								<ul class="btns">
-									<li><a href="#" class="btn btn-sm btn-alt-inverted"> 1 an </a></li>
-									<li><a href="#" class="btn btn-sm btn-alt-inverted"> 6 mois </a></li>
-									<li><a href="#" class="btn btn-sm btn-alt-inverted"> 3 mois </a></li>
-									<li><a href="#" class="btn btn-sm btn-alt-inverted"> 30 jours </a></li>
-									<li><a href="#" class="btn btn-sm btn-alt-inverted"> Aujourd'hui </a></li>
-								</ul>
 							</article>
 						</div>
 					</div>

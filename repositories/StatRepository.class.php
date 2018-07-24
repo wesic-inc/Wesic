@@ -29,6 +29,102 @@ class StatRepository extends Basesql
         $stat->save();
     }
 
+    public static function uniqLastMonth()
+    {
+        $lastMonth = date('Y-m-d', strtotime("-1 months", time()));
+        
+        $qb = new QueryBuilder();
+
+        $qb->reset();
+
+        $results = $qb->
+        select('DISTINCT(ip)')
+        ->from('stat')
+        ->where('date', '>', $lastMonth)
+        ->and()
+        ->where('type', 1)
+        ->and()
+        ->where('date', '<', date('Y-m-d H:i:s'))
+        ->groupBy('ip')
+        ->orderBy('date', 'ASC')
+        ->get();
+
+        return count($results);
+    }
+
+    public static function uniqOverall()
+    {
+        $qb = new QueryBuilder();
+
+        $qb->reset();
+
+        $results = $qb->
+        select('DISTINCT(ip)')
+        ->from('stat')
+        ->where('type', 1)
+        ->and()
+        ->where('date', '<', date('Y-m-d H:i:s'))
+        ->groupBy('ip')
+        ->orderBy('date', 'ASC')
+        ->get();
+
+        return count($results);
+    }
+
+    public static function dashboardChart()
+    {
+        $lastMonth = date('Y-m-d', strtotime("-6 months", time()));
+        
+        $qb = new QueryBuilder();
+
+        $qb->reset();
+
+        $results = $qb->
+        select('COUNT(ip)')
+        ->from('stat')
+        ->where('date', '>', $lastMonth)
+        ->and()
+        ->where('type', 1)
+        ->and()
+        ->where('date', '<', date('Y-m-d H:i:s'))
+        ->groupBy('MONTH(date)')
+        ->orderBy('date', 'ASC')
+        ->get();
+
+        $stats = [];
+
+        foreach ($results as $value) {
+            $stats[] = $value[0];
+        }
+
+        return $stats;
+    }
+
+    public static function commentToday()
+    {
+        $today = date('Y-m-d', strtotime("-24 hours", time()));
+        
+        $qb = new QueryBuilder();
+
+        $qb->reset();
+
+        $results = $qb->
+        select('COUNT(*)')
+        ->from('comment')
+        ->where('date', '>', $today)
+        ->and()
+        ->where('type', 1)
+        ->and()
+        ->addWhere('date', '<', date('Y-m-d H:i:s'))
+        ->groupBy('ip')
+        ->orderBy('date', 'ASC')
+        ->get();
+
+        return count($results);
+    }
+
+
+
     /**
      * [numberOfViewsAnon description]
      * @return [type] [description]
@@ -43,7 +139,7 @@ class StatRepository extends Basesql
    
         $qb = new QueryBuilder();
    
-        $results['year'] = 
+        $results['year'] =
         $qb->select('COUNT(id)')
         ->from('stat')
         ->where('date', '>', $lastYear)
@@ -247,29 +343,18 @@ class StatRepository extends Basesql
             $scale['today'][$i] = date('H', strtotime('-'.$i.' hours')).':00';
         }
 
-        // dump($scale,2,2);
-
         return $scale;
     }
 
-    public static function mostViewedPages()
+    public static function recreateScaleDashboard()
     {
-    }
+        $scale = [];
 
-    public static function mostDownloadedMusic()
-    {
-    }
+        for ($i=0;$i<6;$i++) {
+            $scale[$i] = date('M', strtotime('-'.$i.' month'));
+        }
 
-    public static function mostDownloadedAlbum()
-    {
-    }
+        return $scale;
 
-    public static function unknowVisitors()
-    {
     }
-
-    public static function knowVisitors()
-    {
-    }
-
 }

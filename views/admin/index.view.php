@@ -22,15 +22,22 @@
 	</div>
 <?php endif ?>
 
+<script type="text/javascript">
+	var scale = <?php echo $scale_json ?>;
+	var stats = <?php echo $stats ?>;
+
+
+</script>
+
 	<script>
 		var ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {
 			type: 'bar',
 			data: {
-				labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+				labels: scale,
 				datasets: [{
-					label: '# of Votes',
-					data: [12, 19, 3, 5, 2, 3],
+					label: '# de visiteur unique',
+					data: stats,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',

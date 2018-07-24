@@ -415,15 +415,6 @@ routing:
                 type: string
                 optional: false
 
-    ModerateComment:
-        restricted: moderator
-        controller: comment:singleComment
-        path: admin/moderer-commentaire
-        params:
-            id:
-                type: int
-                optional: false
-
     DisapproveComment:
         restricted: moderator
         controller: comment:disapproveComment
@@ -510,7 +501,7 @@ routing:
             sort:
                 type: int
                 optional: true
-                
+
     EventsAction:
         restricted: webmaster
         controller: event:eventActions

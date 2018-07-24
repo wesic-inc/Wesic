@@ -10,6 +10,7 @@ class indexController
      */
     public function indexAction(Request $request)
     {
+
         $v = new View();
         
         $v->setView("home", "template", "front");
