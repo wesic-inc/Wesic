@@ -105,7 +105,7 @@ function deleteModalCategory(id){
   elementname = document.getElementById(id).childNodes[3].childNodes[0].innerHTML;
   document.getElementById('modal-body').innerHTML = "Voulez vous vraiment supprimer <i>'"+elementname+"'</i> ?";
   document.getElementById('modal-helper').innerHTML = "Cette action supprimera la catégorie de tous vos articles";
-  document.getElementById('valid-action').setAttribute('href','/supprimer-categorie/id/'+id);
+    document.getElementById('valid-action').setAttribute('href','/admin/supprimer-categorie/id/'+id);
   modal.style.display = "block";
 
 }

@@ -27,7 +27,6 @@
 										</th>
 										<th><a class="<?php echo $sort==1?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Nom <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
 										<th><a class="<?php echo $sort==2?'active-sort':''; ?>" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Slug <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
-										<th><a href="#">Total</a></th>
 									</tr>
 								</thead>
 								<tbody id="body-ajax">
@@ -49,7 +48,6 @@
 											</ul>
 										</td>
 										<td data-label="Slug"><?php echo $category['slug'];?></td>
-										<td data-label="Total"><a href="#">0</a></td>
 
 									</tr>
 									<?php endforeach;?>
@@ -59,11 +57,6 @@
 
 								<?php $this->addModal("pagination",$categories['pagination']); ?>
 
-								<ul class="inline">
-									<li>Actions groupées :  </li>
-									<li><a href="#"> Place dans la corbeille</a></li>
-									<li><a href="#">Dépublier</a></li>
-								</ul>
 								<span class="push-right"> <?php echo $categories['pagination']['total']; ?> éléments </span>
 							</footer>
 						</div>

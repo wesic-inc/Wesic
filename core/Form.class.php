@@ -449,8 +449,13 @@ class Form
         $name = $params[0];
         $option = $params[1];
         $data = $params[2];
+        if(isset($option['update']) && $option['update'] && isset($data)){
+            $img = '/'.Media::imgById($data)['path'];
+        }else{
+            $img = Format::img("placeholder-image.jpg");
+        }
 
-        return '<input type="hidden" id="feature-image-input" value="0" name="'.$name.'"><img  id="feature-image" value="0" onclick="chooseFeatured()" class="image-featured-placeholder" src="'.Format::img("placeholder-image.jpg").'" >';
+        return '<input type="hidden" id="feature-image-input" value="0" name="'.$name.'"><img  id="feature-image" value="0" onclick="chooseFeatured()" class="image-featured-placeholder" src="'.$img.'" >';
     }
     /**
      * [link description]

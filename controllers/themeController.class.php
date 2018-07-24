@@ -26,7 +26,6 @@ class themeController
 
     public static function setThemeAction(Request $request)
     {
-
         $name = $request->getParam('name');
 
         $themes = glob('themes/*/*theme.yml');
@@ -35,7 +34,7 @@ class themeController
             $themesList[] = explode("/", $val)[1];
         }
 
-        if(in_array($name, $themesList)){
+        if (in_array($name, $themesList)) {
             $setting = new Setting();
             $setting->setParam('theme', $name);
         }
@@ -103,38 +102,55 @@ class themeController
 
         
         $menu = json_decode($menuRaw, true);
-        // dd($menu);
+        
+        $output = "";
         foreach ($menu as $key => $value) {
-            echo "Clef : ".$key;
-            echo "<br>";
-            echo "Nom :".$value['name'];
-            echo "<br>";
+            $url = "";
             if (isset($value['url'])) {
-                echo 'Url : '.$value['url'];
-                echo "<br>";
+                $url = $value['url'];
+                $name = $value['name']; 
             }
-            if (isset($value['id'])) {
-                echo 'Id : '.$value['id'];
-                echo "<br>";
+            if ($value['name'] == 'home') {
+                $url = setting('url');
+                $name = 'Accueil';
+            }            
+            if ($value['name'] == 'category') {
+                $url = Category::getCategoryById($value['id'])['slug'];
+                $name = Category::getCategoryById($value['id'])['label'];
+            }            
+            if ($value['name'] == 'page') {
+                $url = Post::getPageById($value['id'])['slug'];
+                $name = Post::getPageById($value['id'])['label'];
             }
-            echo "{";
-            echo "<br>";
-            foreach ($value['in'] as $key2 => $value2) {
-                echo "Clef : ".$key2;
-                echo "<br>";
-                echo 'Nom : '.$value2['name'];
-                echo "<br>";
-                if (isset($value2['url'])) {
-                    echo 'Url : '.$value2['url'];
-                    echo "<br>";
+            if ( !empty($value['in']) ) {
+
+                $output .= '<li><a href="'.$url.'">'.$name;
+                $output .= '<div class="dropdown">';
+                $output .= '<ul>';
+                foreach ($value['in'] as $key2 => $value2) {
+                    $url2 = "";
+                    if (isset($value2['url'])) {
+                        $url2 = $value['url'];
+                        $name2 = $value['name']; 
+                    }
+                    if ($value2['name'] == 'home') {
+                        $url2 = setting('url');
+                        $name2 = 'Accueil';
+                    }            
+                    if ($value2['name'] == 'category') {
+                        $url2 = Category::getCategoryById($value2['id'])['slug'];
+                        $name2 = Category::getCategoryById($value2['id'])['label'];
+                    }
+                    $output .= '<li><a href="'.$url2.'">';
+                    $output .= $name2;
+                    $output .= "</li>";
                 }
-                if (isset($value2['id'])) {
-                    echo 'Id : '.$value2['id'];
-                    echo "<br>";
-                }
+                $output .= "</a></div></ul></li>";
+            }else{
+                $output .= '<li><a href="'.$url.'">'.$name."</a></li>";
             }
-            echo "}";
-            echo "<br>";
+
         }
+        echo $output;
     }
 }

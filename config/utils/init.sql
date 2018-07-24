@@ -229,28 +229,6 @@ CREATE TABLE IF NOT EXISTS `%database%`.`passwordrecovery` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `wesic`.`navbar`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `%database%`.`navbar` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `title` VARCHAR(45) NULL,
-  `url` VARCHAR(500) NULL,
-  `content_type` INT NULL,
-  `content_id` INT NULL,
-  `slug` VARCHAR(200) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_navbar_slug1_idx` (`slug` ASC),
-  CONSTRAINT `fk_navbar_slug1`
-    FOREIGN KEY (`slug`)
-    REFERENCES `%database%`.`slug` (`slug`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `wesic`.`stat`
 -- -----------------------------------------------------

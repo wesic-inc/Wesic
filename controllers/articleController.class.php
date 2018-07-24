@@ -217,6 +217,16 @@ class articleController
         $form = Post::getFormEditArticle();
         $errors = [];
 
+        if (!User::isAllowId('post', $param['id'])) {
+            Route::redirect('AllArticles');
+        }
+
+        $qbMedias = new QueryBuilder();
+
+        $medias = $qbMedias->all('media')->paginate(24);
+        $qbMedias->reset();
+        $images = $qbMedias->all('media')->where('type', 1)->paginate(12);
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $request->setPost('id', $param['id']);
             $request->setPost('type', 1);
@@ -251,14 +261,20 @@ class articleController
         $_POST['description'] = $data['description'];
         $_POST['category'] = Category::getCategory($data['id']);
         $_POST['tags'] = json_encode(Category::getTags($data['id']), JSON_HEX_APOS);
+        $_POST['feature-image-input'] = $data['featured'];
+        $_POST['featured'] = $data['featured'];
         
+
+
         $v = new View();
         $v->setView("cms/newarticle", "templateadmin");
         $v->massAssign([
             "form"=>$form,
             "title" => "Modifier un article",
             "icon" => "icon-pen",
-            "errors" => $errors
+            "errors" => $errors,
+            "medias" => $medias,
+            "images" => $images
         ]);
     }
 

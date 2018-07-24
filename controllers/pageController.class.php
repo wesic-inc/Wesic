@@ -103,7 +103,9 @@ class pageController
     {
         $param = $request->getParams();
 
-        Post::deletePage($param['id']);
+        if (User::isAllowId('post', $param['id'])) {
+            Post::deletePage($param['id']);
+        }
 
         Route::redirect('Pages');
     }
@@ -147,10 +149,15 @@ class pageController
      */
     public function editPageAction(Request $request)
     {
+        $param = $request->getParams();
+        
         $form = Post::getFormEditPage();
         $errors = [];
 
-        $param = $request->getParams();
+        if (!User::isAllowId('post', $param['id'])) {
+            Route::redirect('Pages');
+        }
+
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors = Validator::check($form["struct"], $request->getPost());

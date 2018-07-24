@@ -14,7 +14,7 @@
 <div id="allMediasModal" class="modal">
 <div class="modal-media-content">
 	<div class="modal-header">
-		<h3>Insérer une image</h3><span id="media-count">0</span><span> média selectionné</span>
+		<h3>Insérer un média</h3><span id="media-count">0</span><span> média selectionné</span>
 	</div>
 	<div class="modal-media-body">
 		<div class="row" id="media-modal-elements">

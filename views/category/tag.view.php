@@ -25,50 +25,48 @@
 												<span class="checkmark checkmark-header"></span>
 											</label>
 										</th>
-										<th id="filter1" sort="" onclick="test2(this.id)" ><a href="#">Nom</a></th>
-										<th id="filter3" sort="" onclick="test2(this.id)" ><a href="#">Total</a></th>
+										<th>Nom</th>
 									</tr>
 								</thead>
 								<tbody id="body-ajax">
 									<?php foreach($tags['data'] as $tag): ?>
-									<tr>
-										<td class="hidden-xs hidden-sm">
-											<label class="checkbox-container">
-												<input type="checkbox" id="<?php echo $article['id'] ?>">
-												<span class="checkmark"></span>
-											</label>
-										</td>
-										<td><a href="#"><?php echo $tag['label']?></a>
-											<ul class="grid-actions">
-												<a href="<?php echo Setting::getParam('url')."/".$tag['slug']; ?>"><li>Afficher</li></a>
-												<a href="<?php Route::echo('EditTag','/id/'.$tag['id']); ?>"><li>Modifier</li></a>
-												<a href="<?php Route::echo('DeleteTag','/id/'.$tag['id']); ?>"><li>Supprimer</li></a>
-											</ul>
-										</td>
-										<td data-label="Total"><a href="#">0</a></td>
+										<tr>
+											<td class="hidden-xs hidden-sm">
+												<label class="checkbox-container">
+													<input type="checkbox" id="<?php echo $article['id'] ?>">
+													<span class="checkmark"></span>
+												</label>
+											</td>
+											<td><a href="#"><?php echo $tag['label']?></a>
+												<ul class="grid-actions">
+													<a href="<?php Route::echo('EditTag','/id/'.$tag['id']); ?>"><li>Modifier</li></a>
+													<a href="<?php Route::echo('DeleteTag','/id/'.$tag['id']); ?>"><li>Supprimer</li></a>
+												</ul>
+											</td>
 
-									</tr>
+										</tr>
 									<?php endforeach;?>
-								</tbody>
-							</table>
-							<footer>
+									<?php if(isset($tags['data']) && empty($tags['data'])): ?>
+									<tr>
+										<td> Aucun tag trouvé </td>
+										<td></td>
+									</tr>
+								<?php endif; ?>
+							</tbody>
+						</table>
+						<footer>
 
-								<?php $this->addModal("pagination",$tags['pagination']); ?>
-
-								<ul class="inline">
-									<li>Actions groupées :  </li>
-									<li><a href="#"> Supprimer </a></li>
-								</ul>
-								<span class="push-right"> <?php echo count($tags); ?> éléments </span>
-							</footer>
-						</div>
+							<?php $this->addModal("pagination",$tags['pagination']); ?>
+							<span class="push-right"> <?php echo count($tags); ?> éléments </span>
+						</footer>
 					</div>
-					<input type="hidden" id="params" value='<?php echo $param_json; ?>'>
+				</div>
+				<input type="hidden" id="params" value='<?php echo $param_json; ?>'>
 
-				</article>
-
-			</div>
+			</article>
 
 		</div>
+
 	</div>
+</div>
 </div>

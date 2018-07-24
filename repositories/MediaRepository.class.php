@@ -180,5 +180,10 @@ class MediaRepository extends Basesql
         return true;
     }
 
+    public static function imgById($id){
+        $qb = new QueryBuilder();
+        return $qb->select('path')->from('media')->where('id',$id)->fetchOne();
+    }
+
   
 }

@@ -253,7 +253,7 @@ routing:
         path: admin/exporter-statistiques
 
     Medias:
-        restricted: admin
+        restricted: webmaster
         controller: media:allMedias
         path: admin/medias
         params:
@@ -265,7 +265,7 @@ routing:
                 optional: true
 
     MediaAjaxPagination:
-        restricted: moderator
+        restricted: webmaster
         controller: media:modalPaginationAjax
         path: admin/media-modal-page-ajax
         params:
@@ -274,7 +274,7 @@ routing:
                 optional: false  
 
     EditMedia:
-        restricted: admin
+        restricted: webmaster
         controller: media:editMedia
         path: admin/modifier-media
         params:
@@ -286,22 +286,22 @@ routing:
                 optional: true
    
     newMediaVideo:
-        restricted: admin
+        restricted: webmaster
         controller: media:newVideo
         path: admin/ajouter-video
         
     newMediaImage:
-        restricted: admin
+        restricted: webmaster
         controller: media:newImage
         path: admin/ajouter-image
 
     newMediaMusic:
-        restricted: admin
+        restricted: webmaster
         controller: media:newMusic
         path: admin/ajouter-musique
 
     DeleteMedia:
-        restricted: admin
+        restricted: webmaster
         controller: media:deleteMedia
         path: admin/supprimer-media
         params:
@@ -639,14 +639,5 @@ routing:
                 type: string
                 optional: false
             right:
-                type: string
-                optional: false
-
-    TagArchive:
-        restricted: all
-        controller: index:tagArchive
-        path: archive/tag
-        params:
-            t:
                 type: string
                 optional: false

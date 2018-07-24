@@ -180,6 +180,25 @@ function article_content()
     echo Singleton::bridge()['article']['content'];
 }
 
+function article_category()
+{
+    $cat = Category::getCategory(Singleton::bridge()['article']['articleid']);
+    echo '<a href="'.$cat['slug'].'">'.$cat['label'].'</a>';
+}
+
+function article_tags()
+{
+    $output = "";
+
+    foreach (Category::getTags(Singleton::bridge()['article']['articleid']) as $keyTag => $tag) {
+        if ($keyTag != 0) {
+            $output .= ',';
+        }
+        $output .= '<a href="/archive/tag/t/'.$tag.'">'.$tag.'</a>';
+    }
+    echo $output;
+}
+
 /**
  * Print the article date, format depending on settings
  * @return [type] [description]
@@ -267,9 +286,9 @@ function get_articles($nb = 5, $column = ['title'=>"h1",'category'=>"p",'tags'=>
     ->orderBy('p.published_at', 'DESC');
 
     if ($paginated == false) {
-        $data = $qb->limit(0, $limit)->get();
+        $data = $qb->limit(0, $nb)->get();
     } else {
-        $post = $qb->paginateGet($perPage, 'pictures');
+        $post = $qb->paginateGet($perPage);
         $data = $post['data'];
         $pagination = $post['pagination'];
     }
@@ -349,7 +368,7 @@ function get_medias($type = 1, $limit= 10, $title = true, $paginated = false, $p
     if ($paginated == false) {
         $data = $qb->limit(0, $limit)->get();
     } else {
-        $media = $qb->paginateGet($perPage, 'pictures');
+        $media = $qb->paginateGet($perPage);
         $data = $media['data'];
         $pagination = $media['pagination'];
     }
@@ -401,12 +420,6 @@ function get_medias_array($limit = 6)
 }
 
 
-function page_featured($class = null)
-{
-    if (isset(Singleton::bridge()['page']['path'])) {
-        echo '<img src="'.Singleton::bridge()['page']['path'].'">';
-    }
-}
 function page_title()
 {
     echo Singleton::bridge()['page']['title'];
@@ -429,4 +442,32 @@ function page_content()
 
 function get_events()
 {
+}
+
+function the_archive()
+{
+    $slug = Singleton::bridge()['slug'];
+
+    $qb = new QueryBuilder();
+    
+    $archives =
+    $qb->select('post.*')
+    ->from('category')
+    ->leftJoin('join_article_category', 'category.id = join_article_category.category_id')
+    ->leftJoin('post', 'post.id = join_article_category.post_id')
+    ->where('category.slug', $slug)
+    ->and()
+    ->where('post.status',1)
+    ->paginateGet(10);
+
+    echo "<ul>";
+    foreach ($archives['data'] as $post) {
+        echo '<li><a class="archive-item" href="'.$post['slug'].'">"'.$post['title'].'"</a> le '.Format::dateDisplay($post['published_at'], setting('datetype')).'</li>';
+    }
+    echo "</ul>";
+
+    echo '<div class="col-md-12 text-center">';
+    $config = $archives['pagination'];
+    include "views/modals/pagination-front.mdl.php";
+    echo '</div>';
 }

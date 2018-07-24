@@ -10,6 +10,7 @@ class categoryController
     {
         $post = $request->getPost();
         $get = $request->getGet();
+        $param = $request->getParams();
 
         $form = Category::getFormNewCategory();
         $errors = [];
@@ -31,12 +32,17 @@ class categoryController
 
 
         $qb = new QueryBuilder();
-        $qb->findAll('category')->openBracket()->where('type', 1)->or()->where('type', 3)->closeBracket();
+        $qb->all('category')->openBracket()->where('type', 1)->or()->where('type', 3)->closeBracket();
 
-        // if (isset($get['s'])) {
-        //     $search = $get['s'];
-        //     $qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
-        // }
+        if (isset($param['sort'])) {
+            $sort = $param['sort'];
+            $qb->catDisplaySorting($sort);
+        }
+
+        if (isset($get['s'])) {
+            $search = $get['s'];
+            $qb->and()->openBracket()->search('label', $search)->or()->search('slug', $search)->closeBracket();
+        }
 
         $categories = $qb->paginate(6);
 
@@ -108,7 +114,9 @@ class categoryController
     {
         $param = $request->getParams();
         
-        Category::deleteCategory($param['id']);
+        if (User::isAllow(0)) {
+            Category::deleteCategory($param['id']);
+        }
 
         Route::redirect('Categories');
     }
@@ -120,8 +128,24 @@ class categoryController
      */
     public static function archiveAction(Request $request)
     {
-        echo "oljkhhkhkm";
-        // Stat::add(4, "lecture article", 3, $request());
+        $slug = $request->getParam('slug');
+
+        $qb = new QueryBuilder();
+
+        $v = new View();
+        $v->setView("archive", "template", "front");
+
+        if (isset($article['description'])) {
+            $description = $article['description'];
+        } else {
+            $description = "Archive";
+        }
+
+        Singleton::bridge([
+            'slug'=>$slug,
+            'view'=>$v->getViewInfos(),
+            'description'=>$description
+        ]);
     }
 
     /**
@@ -135,6 +159,7 @@ class categoryController
         $errors = [];
 
         $post = $request->getPost();
+        $get = $request->getGet();
         $param = $request->getParams();
 
 
@@ -151,8 +176,16 @@ class categoryController
             }
         }
 
+
         $qb = new QueryBuilder();
-        $tags = $qb->all('category')->where('type', 2)->paginate(10);
+        $qb->all('category')->where('type', 2);
+
+        if (isset($get['s'])) {
+            $search = $get['s'];
+            $qb->and()->search('label', $search);
+        }
+
+        $tags = $qb->paginate(10);
 
         $v = new View();
         $v->setView("category/tag", "templateadmin");
@@ -177,12 +210,17 @@ class categoryController
         $param = $request->getParams();
         $post = $request->getPost();
 
+
+        if (!User::isAllow(0)) {
+            Route::redirect('Tags');
+        }
+
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $args['post']['id'] = $param['id'];
             $errors = Validator::check($form["struct"], $post);
 
             if (!$errors) {
-
                 $post['type'] = 2;
                 $post['id'] = $param['id'];
                 if (!Validator::process($form["struct"], $post, 'edit-category')) {

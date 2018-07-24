@@ -332,7 +332,7 @@ class Post extends PostRepository
 
            "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
 
-           "featured"=>[ "label"=>"Brouillon", "type"=>"featuredimg", "id"=>"featured", "placeholder"=>"", "required"=>0],
+           "featured"=>[ "label"=>"Featured", "type"=>"featuredimg", "id"=>"featured", "placeholder"=>"", "required"=>0],
 
            "save"=>[ "label"=>"Publier", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0],
 
@@ -351,6 +351,7 @@ class Post extends PostRepository
         "publish" => ["slug","datepicker-custom","visibility","draft","save"],
         "category"=>["category"],
         "tags"=>["tags"],
+        "featured"=>["featured"]
     ],
     "struct" => [
 
@@ -372,6 +373,9 @@ class Post extends PostRepository
        "category"=>[ "label"=>"La catégorie de votre article", "type"=>"select", "id"=>"category", "placeholder"=>"Catégorie", "required"=>0, "msgerror"=>"category", "choices"=>"category"],
 
         "tags"=>[ "label"=>"", "type"=>"tag", "id"=>"tags-input", "placeholder"=>"Tags de l'article","msgerror"=>"tags","helper"=>"Tapez votre tag, et appuyer sur entrée pour l'ajouter à la liste."],
+
+        "featured"=>[ "label"=>"Featured", "type"=>"featuredimg", "id"=>"featured", "update"=>true, "placeholder"=>"", "required"=>0],
+
 
        "draft"=>[ "label"=>"Brouillon", "type"=>"submit", "id"=>"draft", "placeholder"=>"", "required"=>0, "button" => "btn-alt"],
 

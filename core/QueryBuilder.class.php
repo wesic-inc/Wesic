@@ -449,7 +449,7 @@ class QueryBuilder extends Basesql
     }
 
 
-    public function paginateGet($perPage, $overflowRedir, $getPage = "")
+    public function paginateGet($perPage, $getPage = "")
     {
         $total = count($this->get());
 

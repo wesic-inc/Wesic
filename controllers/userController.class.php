@@ -157,6 +157,10 @@ class userController
         $param = $request->getParams();
         $post = $request->getPost();
 
+        if (!User::isAllowId('user', $param['id'])) {
+            Route::redirect('AllUsers');
+        }
+
         $qb = new QueryBuilder();
         $editedUser = $qb->findAll('user')->where('id', $param['id'])->fetchOrFail();
 
@@ -209,6 +213,11 @@ class userController
     public function viewUserAction(Request $request)
     {
         $param = $request->getParams();
+
+        if (!User::isAllowId('user', $param['id'])) {
+            Route::redirect('AllUsers');
+        }
+
 
         $qb = new QueryBuilder();
         $editedUser = $qb->all('user')->where('id', $param['id'])->fetchOrFail();
@@ -362,9 +371,13 @@ class userController
      * @param  [type] $args [description]
      * @return [type]       [description]
      */
-    public function banUserAction($args)
+    public function banUserAction(Request $request)
     {
         $param = $request->getParams();
+
+        if (!User::isAllow(0)) {
+            Route::redirect('AllUsers');
+        }
 
         $qb = new QueryBuilder();
         $userFound = $qb->all('user')->where('id', $param['id']);
@@ -378,9 +391,13 @@ class userController
      * @param  [type] $args [description]
      * @return [type]       [description]
      */
-    public function deleteUserAction($args)
+    public function deleteUserAction(Request $request)
     {
         $param = $request->getParams();
+
+        if (!User::isAllow(0)) {
+            Route::redirect('AllUsers');
+        }
 
         $qb = new QueryBuilder();
         $userFound = $qb->all('user')->where('id', $param['id']);
@@ -396,6 +413,9 @@ class userController
      */
     public function destroyUserAction($args)
     {
-        echo "user boom boom";
+        if (!User::isAllow(0)) {
+            Route::redirect('AllUsers');
+        }
+
     }
 }

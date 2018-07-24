@@ -101,10 +101,10 @@
 							<div class="col-md-12">
 								<h3 class="text-left ">Pictures</h3>
 								<div class="row magic-margin">
-									<?php get_medias(3,6,false); ?>
+									<?php get_medias(1,6,false); ?>
 										
 								</div>
-							<div class="text-right wd100"> <h5 ><a href="#"> More Pictures </a></h5> </div>
+							<div class="text-right wd100"> <h5 ><a href="/pictures"> More Pictures </a></h5> </div>
 							</div>
 						</div>
 						<br>
@@ -116,7 +116,7 @@
 								<div class="row magic-margin">
 									<?php get_medias(3,6,false); ?>
 								</div>
-							<div class="text-right wd100"> <h5 ><a href="#"> More Videos </a></h5> </div>
+							<div class="text-right wd100"> <h5 ><a href="/videos"> More Videos </a></h5> </div>
 
 							</div>
 						</div>

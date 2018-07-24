@@ -323,6 +323,33 @@ class Basesql
     }
 
     /**
+     * [catDisplaySorting description]
+     * @param  [type] $sort [description]
+     * @return [type]       [description]
+     */
+    public function catDisplaySorting($sort)
+    {
+        switch ($sort) {
+        case 1:
+        $this->OrderBy('label', 'DESC');
+        break;
+        case -1:
+        $this->OrderBy('label', 'ASC');
+        break;
+        case 2:
+        $this->OrderBy('slug', 'DESC');
+        break;
+        case -2:
+        $this->OrderBy('slug', 'ASC');
+        break;
+        default:
+        return $this;
+        break;
+      }
+        return $this;
+    }
+
+    /**
      * [userDisplaySorting description]
      * @param  [type] $sort [description]
      * @return [type]       [description]

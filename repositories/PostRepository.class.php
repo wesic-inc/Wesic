@@ -145,6 +145,9 @@ class PostRepository extends Basesql
         $article->setExcerpt($data['excerpt']);
         $article->setDescription($data['description']);
         $article->setPublishedAt($datePublied);
+        if($data['featured'] != 0){
+            $article->setFeatured($data['featured']);
+        }
         $article->setStatus($status);
         $article->setVisibility($data['visibility']);
         $article->setUserId(Singleton::getUser()->getId());
@@ -340,5 +343,10 @@ class PostRepository extends Basesql
             }
 
             return $parentCandidate;
+    }
+
+    public static function getPageById($id){
+        $qb = new QueryBuilder();
+        return $qb->all('post')->where('id',$id)->fetchOne();
     }
 }

@@ -15,28 +15,31 @@ class CategoryRepository extends Basesql
     public static function newCategory($data)
     {
         $category = new Category();
+        if ($data['type']==1) {
+            if (self::categoryExists($data['label'], $data['slug']) || $category->slugExists($data['slug']) == true) {
+                return false;
+            }
+        } 
 
-        if (self::categoryExists($data['label'], $data['slug']) || $category->slugExists($data['slug']) == true) {
-            return false;
-        } else {
+        if ($data['type']==1) {
             $slug = new Slug();
 
             $slug = new Slug();
             $slug->setSlug($data['slug']);
             $slug->setType(3);
             $slug->save();
-
-            $category->setLabel($data['label']);
             $category->setSlug($data['slug']);
-            $category->setType($data['type']);
-            $category->save();
-
-            $message = ($data['type']==1)?'La catégorie':'Le Tag';
-            
-            View::setFlash("Succès !", $message.' "'.$data['label'].'" a bien été créé', "success");
-
-            return true;
         }
+
+        $category->setLabel($data['label']);
+        $category->setType($data['type']);
+        $category->save();
+
+        $message = ($data['type']==1)?'La catégorie':'Le Tag';
+        
+        View::setFlash("Succès !", $message.' "'.$data['label'].'" a bien été créé', "success");
+
+        return true;
     }
 
     /**
@@ -52,19 +55,19 @@ class CategoryRepository extends Basesql
 
         $category = new Category();
         
-        if($data['type'] == 1){
-        if ($currentCat['slug'] === $data['slug']) {
-            $slug = $currentCat['slug'];
-            $slugUpdate = false;
-        } else {
-            $slug = $data['slug'];
-            $newSlug = new Slug();
-            $newSlug->setSlug($slug);
-            $newSlug->setType(3);
-            $newSlug->save();
-            $slugUpdate = true;
-        }
-        $category->setSlug($slug);
+        if ($data['type'] == 1) {
+            if ($currentCat['slug'] === $data['slug']) {
+                $slug = $currentCat['slug'];
+                $slugUpdate = false;
+            } else {
+                $slug = $data['slug'];
+                $newSlug = new Slug();
+                $newSlug->setSlug($slug);
+                $newSlug->setType(3);
+                $newSlug->save();
+                $slugUpdate = true;
+            }
+            $category->setSlug($slug);
         }
         
         $category->setId($data['id']);
@@ -104,15 +107,7 @@ class CategoryRepository extends Basesql
     public static function deleteCategory($category)
     {
         $qb = new QueryBuilder();
-
-        $qb->update('join_article_category')->set('category_id = :default')->setParameter('default', Setting::getParam('default-cat'))->where('category_id', $category)->save();
-
-        $qb->reset();
-        $current =
         $qb->delete()->from('category')->where('id', $category)->and()->where('type', 1)->fetchOne();
-
-        $qb->reset();
-
 
         $protectedCat = $qb->findAll('category')->where('type', 3)->fetchOne();
 
@@ -217,8 +212,6 @@ class CategoryRepository extends Basesql
      */
     public static function addTags($tags)
     {
-
-
         function format($item2, $key)
         {
             strtolower(trim($key));
@@ -255,12 +248,12 @@ class CategoryRepository extends Basesql
     }
 
 
-/**
- * [attachTagsToPost description]
- * @param  [type] $tags   [description]
- * @param  [type] $idPost [description]
- * @return [type]         [description]
- */
+    /**
+     * [attachTagsToPost description]
+     * @param  [type] $tags   [description]
+     * @param  [type] $idPost [description]
+     * @return [type]         [description]
+     */
     public static function attachTagsToPost($tags, $idPost)
     {
 
@@ -293,5 +286,10 @@ class CategoryRepository extends Basesql
             $join->setPostId($idPost);
             $join->save();
         }
+    }
+
+    public static function getCategoryById($id){
+        $qb = new QueryBuilder();
+        return $qb->all('category')->where('id',$id)->fetchOne();
     }
 }

@@ -235,6 +235,7 @@ class UserRepository extends Basesql
 
     public static function isAllow($owner)
     {
+
         if (Auth::id() == $owner) {
             return true;
         } elseif (Auth::role()==4) {

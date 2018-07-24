@@ -92,27 +92,4 @@ class adminController
             "errors" => $errors
         ]);
     }
-
-    /**
-     * [devTestAction description]
-     * @param  [type] $args [description]
-     * @return [type]       [description]
-     */
-    public function devTestAction($args)
-    {
-
-        $qb = new QueryBuilder();
-
-        $medias = $qb->all('media')->paginate(24);
-        $qb->reset();
-        $images = $qb->all('media')->where('type',1)->paginate(12);
-
-        $v = new View();
-        $v->setView('dev/template', 'templateadmin')
-        ->massAssign([
-            'title'=>'Test',
-            'medias'=>$medias,
-            'images'=>$images
-        ]);
-    }
 }

@@ -2,7 +2,19 @@
 	<div class="row">
 		<div class="col-md-12">
 
-			<?php article_featured(); ?>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<?php article_tags(); ?>
+			<br>
+			<br>
+			<?php article_category(); ?>
+			<br>
+			<br>
+			<img width="200px" src="<?php article_featured_raw(); ?>">
 			<?php article_title(); ?>
 			<?php article_date(); ?>
 			<?php article_content(); ?>
