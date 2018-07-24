@@ -410,6 +410,7 @@ class validator
      */
     public static function checkExtension($file, $type)
     {
+
         if ($file['error'] != 0) {
             return false;
         }

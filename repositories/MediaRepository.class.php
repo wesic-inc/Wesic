@@ -49,11 +49,13 @@ class MediaRepository extends Basesql
     {
         $media = new Media();
 
+
+
         $media->setName($data['name']);
         $media->setType(3);
         $media->setDescription($data['description']);
         $media->setCaption($data['caption']);
-        $media->setUserId(Singleton::getUser()->getId());
+        $media->setUserId(Auth::id());
         $media->setPath(self::uploadFileReturnPath('music', $_FILES['music']));
         $media->save();
 
@@ -64,6 +66,8 @@ class MediaRepository extends Basesql
 
     public static function uploadFileReturnPath($type, $file)
     {
+        $extension = "";
+        
         if ($type == 'img') {
             switch ($file['type']) {
                 case 'image/jpeg':
@@ -79,15 +83,16 @@ class MediaRepository extends Basesql
                 return false;
                 break;
             }
-        } elseif ($type == 'music') {
+        }
+        if($type == 'music') {
             switch ($file['type']) {
-                case 'image/mp3':
+                case 'audio/mp3':
                 $extension = ".mp3";
                 break;
-                case 'image/mp4':
+                case 'audio/mp4':
                 $extension = ".mp4";
                 break;
-                case 'image/wav':
+                case 'audio/wav':
                 $extension = ".wav";
                 break;
                 default:
