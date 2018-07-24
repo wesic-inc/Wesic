@@ -40,7 +40,9 @@ class EventRepository extends Basesql
         $event->setExternalurl($data['externalurl']);
         $event->setDescription($data['description']);
         $event->setDate($datePublied);
-        (isset($data['image'])) ? $event->setImage($data['image']) : $event->setImage("");
+        if($data['featured'] != 0){
+            $event->setFeatured($data['featured']);
+        }
         $event->setUserId(Singleton::getUser()->getId());
         $event->save();
 
@@ -63,6 +65,6 @@ class EventRepository extends Basesql
         ->Where('id', '=', $id);
         $toDelete->execute();
 
-        View::setFlash("Succès !", "L'événement a bien été supprimé", "success");
+        
     }
 }

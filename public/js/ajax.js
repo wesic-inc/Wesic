@@ -285,6 +285,24 @@ function getPageModalImage(page){
 }
 
 
+function deleteEventsAction(){
+  var ids = getSelectedRows();
+  var data = JSON.stringify(ids);
+
+  	$.ajax({
+        url: '/admin/events-ajax/action/delete',
+        cache: false,
+        data: {
+		    ids: data,
+		},
+        type: 'POST',
+        success: function(response)
+        {
+            location.reload();
+        }
+    });
+}
+
 function deleteUsersAction(){
   var ids = getSelectedRows();
   var data = JSON.stringify(ids);

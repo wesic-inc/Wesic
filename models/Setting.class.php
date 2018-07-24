@@ -94,13 +94,13 @@ class Setting extends SettingRepository
 
        "info-box"=>["type"=>"info","text"=>"Vous pouvez renseigner les informations de connexion à votre serveur mail. Cet email sera utilisé pour envoyer des newsletter, un lien pour réinitialiser son mot de passe ou encore pour confirmer un nouvel utilisateur"],
 
-       "mail-server"=>["label"=> "Serveur de messagerie", "type"=>"text", "id"=>"url", "placeholder"=>"Serveur smtp", "required"=>1, "msgerror"=>"url" ],
+       "mail-server"=>["label"=> "Serveur de messagerie", "type"=>"text", "id"=>"url", "placeholder"=>"Serveur smtp",  "msgerror"=>"url" ],
 
-       "mail-port"=>["label"=> "Port du serveur de messagerie", "type"=>"text", "id"=>"url", "placeholder"=>"Port smtp", "required"=>1, "msgerror"=>"url" ],
+       "mail-port"=>["label"=> "Port du serveur de messagerie", "type"=>"text", "id"=>"url", "placeholder"=>"Port smtp", "msgerror"=>"url" ],
 
        "mail-login"=>["label"=> "Identifiant", "type"=>"text", "id"=>"email", "placeholder"=>"Identifiant (e-mail)", "msgerror"=>"email" ],
 
-       "mail-password"=>["label"=> "Mot de passe", "type"=>"text", "id"=>"loginco", "placeholder"=>"Mot de passe", "required"=>1, "msgerror"=>"login" ],
+       "mail-password"=>["label"=> "Mot de passe", "type"=>"text", "id"=>"loginco", "placeholder"=>"Mot de passe",  "msgerror"=>"login" ],
 
        "submit"=>[ "label"=>"Sauvegarder", "type"=>"submit", "id"=>"connect", "placeholder"=>"", "required"=>0]
 
@@ -112,7 +112,7 @@ class Setting extends SettingRepository
   return [
     "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Sauvegarder", "enctype"=>"multipart/form-data", "submit-custom"=>"true"],
     "struct" => [
-     "homepage"=>["label"=> "La page d’accueil affiche", "type"=>"select", "id"=>"homepage", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login","choices"=>['1'=>'Les derniers articles','2'=>'Page 1','3'=>'Page 2','4'=>'Page 3'] ],
+     "homepage"=>["label"=> "La page d’accueil affiche", "type"=>"select", "id"=>"homepage", "placeholder"=>"Titre", "required"=>1, "msgerror"=>"login","choices"=> Post::getParentPageList()],
 
      "pagination-posts"=>["label"=> "Les pages du site doivent afficher au plus", "type"=>"text", "id"=>"pagination-posts", "placeholder"=>"Slogan", "msgerror"=>"slogand" ],
 

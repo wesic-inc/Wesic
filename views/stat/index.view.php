@@ -2,7 +2,6 @@
 	<div class="row">
 		<div class="col-md-12 bloc">
 			<div class="inner-bloc">
-				<a href="<?php Route::echo('ExportStats') ?>" class="btn btn-sm btn-alt btn-add">Exporter mes statistiques</a> 
 				<div class="row">
 					<div class="col-md-10">
 						<canvas id="myChart" ></canvas>

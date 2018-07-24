@@ -15,9 +15,9 @@
 				</header>
 				<article >
 					<ul class="inline group-action">
-						<li><a href="<?php Route::echo('Pages'); ?>" 
+						<li><a href="<?php Route::echo('Events'); ?>" 
 							class="<?php echo !isset($filter)?'active':''; ?>"> Tous <?php echo !isset($filter)?'('.$elementNumber.')':''; ?> </a></li>
-							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('Pages'); ?>/filter/1"> Passé <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
+							<li><a class="<?php echo $filter==1?'active':''; ?>" href="<?php Route::echo('Events'); ?>/filter/1"> Passé <?php echo $filter==1?'('.$elementNumber.')':''; ?> </a></li>
 							<li>
 							</ul>
 							<table class="table table-stripped">
@@ -29,15 +29,16 @@
 												<span class="checkmark checkmark-header"></span>
 											</label>
 										</th>
-										<th id="filter1" sort="" onclick="test3(this.id)">Nom</th>
-										<th id="filter2" sort="" onclick="test3(this.id)">Lieu</th>
-										<th id="filter3" sort="" onclick="test3(this.id)">Date</th>
+										<th><a class="<?php echo $sort==1?'active-sort':''; ?>" id="filter1" href="<?php echo Route::makeParams('sort',$sort==1?-1:1,['p']) ?>" > Nom <span class="icon <?php echo $sort==-1?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span></a></th>
+										<th><a class="<?php echo $sort==2?'active-sort':''; ?>" id="filter2" href="<?php echo Route::makeParams('sort',$sort==2?-2:2,['p']) ?>" > Lieu <span class="icon <?php echo $sort==-2?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+										<th><a class="<?php echo $sort==3?'active-sort':''; ?>" id="filter3" href="<?php echo Route::makeParams('sort',$sort==3?-3:3,['p']) ?>" > Date <span class="icon <?php echo $sort==-3?'icon-sort-alpha-desc':'icon-sort-alpha-asc' ?>"></span> </a></th>
+								
 									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($events['data'] as $event): ?>
 
-										<tr id="<?php echo $page['id'] ?>">
+										<tr id="<?php echo $event['id'] ?>">
 											<td class="hidden-xs hidden-sm">
 												<label class="checkbox-container">
 													<input type="checkbox">
@@ -47,7 +48,7 @@
 											<td><a href="#"><?php echo $event['name']?></a>
 												<ul class="grid-actions">
 													<a href="<?php echo Setting::getParam('url')."/".$event['slug']; ?>"><li>Afficher</li></a>
-													<a href="<?php echo Route::getAll('EditPage').'/id/'.$event['id']; ?>"><li>Modifier</li></a>
+													<a href="<?php echo Route::getAll('EditEvent').'/id/'.$event['id']; ?>"><li>Modifier</li></a>
 													<a onclick="deleteModalEvent(<?php echo $event['id'] ?>)"><li>Supprimer</li></a>
 												</ul>
 											</td>
@@ -74,7 +75,7 @@
 
 						<ul class="inline">
 							<li>Actions groupées :  </li>
-							<li><a href="#"> Supprimer </a></li>
+							<li><a href="#" onclick="deleteEventsAction()"> Supprimer </a></li>
 						</ul>
 						<span class="push-right"> <?php echo $events['pagination']['total']; ?>  élément(s) </span>
 					</footer>

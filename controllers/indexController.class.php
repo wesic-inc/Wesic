@@ -27,18 +27,25 @@ class indexController
         Stat::add(1, "page d'accueuil", 3);
     }
 
-    public function tagArchiveAction(Request $request)
-    {
-        dd($request->getParam('t'));
-    }
-
     public function profilAction(Request $request)
     {
-        echo "mon profil";
+        if (isset($request->getParam('user'))) {
+            $user = $request->getParam('user');
+            $qb = new QueryBuilder();
+            $user = $qb->all('user')->where('login',$user)->fetchOrFail();
+        } else {
+            $user = Auth::user();
+        }
 
+        dd($user);
+        
+        $v = new View();
+        $v->setView("index/profile");
+        $v->assign('user', $user);
     }
 
-    public function getSitemapAction(Request $request){
+    public function getSitemapAction(Request $request)
+    {
         echo "sitemap";
     }
 }

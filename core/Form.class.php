@@ -105,7 +105,7 @@ class Form
                 $fieldType = $form["struct"][$child]["type"];
                 $params = [$child,$form["struct"][$child],(isset($data[$child])?$data[$child]:null)];
 
-                if ($fieldType == "text"|| $fieldType =="password") {
+                if ($fieldType == "text"|| $fieldType == "password" || $fieldType =="email" || $fieldType =="url") {
                     $step .= self::input($params);
                 } elseif ($fieldType =="textarea") {
                     $step .= self::text($params);

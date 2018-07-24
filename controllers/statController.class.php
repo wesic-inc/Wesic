@@ -8,8 +8,8 @@ class statController{
 	 */
 	public function indexAction(Request $request){
 		
-		$statsK = stat::numberOfViewsKnown();
-		$statsA = stat::numberOfViewsAnon();
+		$statsK = Stat::numberOfViewsKnown();
+		$statsA = Stat::numberOfViewsAnon();
 
 		foreach ($statsK['year'] as $key => $value) {
 			$statsK['year'][$key] = $value[0];

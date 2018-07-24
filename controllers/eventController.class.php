@@ -21,10 +21,14 @@ class eventController
             $filter = $param['filter'];
             $qbEvents->and()->where('date', '<', date("Y-m-d"));
         }
+        if (isset($param['sort'])) {
+            $sort = $param['sort'];
+            $qbEvents->eventDisplaySorting($sort);
+        }
         if (isset($get['s'])) {
             $search = $get['s'];
             $qbEvents->and()->search('name', $search);
-        }
+        }        
 
         $events = $qbEvents->paginate(10);
 
@@ -36,7 +40,8 @@ class eventController
             "icon"=>"icon-alarm",
             "filter"=>$filter,
             "elementNumber"=>$events['pagination']['total'],
-            "events"=>$events
+            "events"=>$events,
+            "sort"=>$sort
 
         ]);
     }
@@ -50,7 +55,9 @@ class eventController
         $errors = [];
 
         $post = $request->getPost();
-
+        
+        $qbMedias = new QueryBuilder();
+        $images = $qbMedias->all('media')->where('type', 1)->paginate(12);
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors = Validator::check($form["struct"], $post);
@@ -59,7 +66,7 @@ class eventController
                 if (!Validator::process($form["struct"], $post, 'add-event')) {
                     $errors=["userexists"];
                 } else {
-                    Route::redirect('AllUsers');
+                    Route::redirect('Events');
                 }
             }
         }
@@ -71,8 +78,27 @@ class eventController
             "title"=> "Ajouter un évenement",
             "icon"=> "icon-clock",
             "form"=> $form,
-            "errors"=> $errors
+            "errors"=> $errors,
+            "images" => $images
         ]);
+    }
+
+        public function eventActionsAction(Request $request)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $selectIds = json_decode($request->getPost()['ids']);
+            switch ($request->getParam('action')) {
+                case 'delete':
+                    foreach ($selectIds as $val) {
+                        Event::deleteEvent($val);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            Route::redirect('Error404');
+        }
     }
 
     public function editEventAction($args)
@@ -95,20 +121,20 @@ class eventController
             }
         }
 
+        $qbMedias = new QueryBuilder();
+        $images = $qbMedias->all('media')->where('type', 1)->paginate(12);
+
+
         $qb = new QueryBuilder();
 
         $data = $qb
         ->findAll('event')
-        ->addWhere('id = :id')
-        ->setParameter('id', $param['id'])
-        ->fetchOne();
+        ->where('id',$param['id'])
+        ->fetchOrFail();
 
-        if (empty($data)) {
-            Route::redirect('Events');
-        }
+
 
         $_POST['name'] = $data['name'];
-        $_POST['wesic-wysiwyg'] = html_entity_decode($data['body']);
         $_POST['place'] = $data['place'];
         $_POST['aa'] = substr($data['date'], 0, 4);
         $_POST['mm'] = substr($data['date'], 5, 2);
@@ -117,7 +143,9 @@ class eventController
         $_POST['mn'] = substr($data['date'], 14, 2);
         $_POST['externalurl'] = $data['externalurl'];
         $_POST['description'] =  $data['description'];
-        $_POST['image'] =  $data['image'];
+        $_POST['feature-image-input'] = $data['featured'];
+        $_POST['featured'] = $data['featured'];
+
 
         $v = new View();
         $v->setView("event/addevent", "templateadmin");
@@ -125,7 +153,8 @@ class eventController
             "form" => $form,
             "title" => "Modifier un évenement",
             "icon" => "icon-clock",
-            "errors" => $errors
+            "errors" => $errors,
+            "images" => $images
         ]);
     }
     /**
@@ -138,7 +167,9 @@ class eventController
         $param = $args->getParams();
 
         Event::deleteEvent($param['id']);
-
+        
+        View::setFlash("Succès !", "L'événement a bien été supprimé", "success");
+        
         Route::redirect('Events');
     }
 }

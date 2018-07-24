@@ -497,7 +497,7 @@ routing:
         path: admin/most-deadly-function
 
     Events:
-        restricted: admin
+        restricted: webmaster
         controller: event:allEvents
         path: admin/evenements
         params:
@@ -507,9 +507,21 @@ routing:
             p:
                 type: int
                 optional: true
+            sort:
+                type: int
+                optional: true
+                
+    EventsAction:
+        restricted: webmaster
+        controller: event:eventActions
+        path: admin/events-ajax
+        params:
+            action:
+                type: string
+                optional: true
 
     EditEvent:
-        restricted: admin
+        restricted: webmaster
         controller: event:editEvent
         path: admin/modifier-evenement
         params:

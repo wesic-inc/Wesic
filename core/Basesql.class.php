@@ -386,6 +386,39 @@ class Basesql
         break;
       }
         return $this;
+    }    
+
+    /**
+     * [articleDisplaySorting description]
+     * @param  [type] $sort [description]
+     * @return [type]       [description]
+     */
+    public function eventDisplaySorting($sort)
+    {
+        switch ($sort) {
+        case 1:
+        $this->OrderBy('name', 'DESC');
+        break;
+        case -1:
+        $this->OrderBy('name', 'ASC');
+        break;
+        case 2:
+        $this->OrderBy('place', 'DESC');
+        break;
+        case -2:
+        $this->OrderBy('place', 'ASC');
+        break;
+        case 3:
+        $this->OrderBy('date', 'ASC');
+        break;
+        case -3:
+        $this->OrderBy('date', 'DESC');
+        break;
+        default:
+        return $this;
+        break;
+      }
+        return $this;
     }
     /**
      * [articleDisplayFilters description]

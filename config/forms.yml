@@ -26,6 +26,12 @@ forms:
         class: form-group
         aside: false
 
+    event:
+        label:
+        container: col-md-12
+        class: form-group
+        aside: false
+
     tags:
         label: Tags
         container: col-md-12 form-group form-group-alt-color

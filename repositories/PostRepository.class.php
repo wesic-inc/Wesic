@@ -329,20 +329,20 @@ class PostRepository extends Basesql
 
     public static function getParentPageList(){
 
-            $pages = glob('themes/'.setting('theme').'/views/*.php');
+        $pages = glob('themes/'.setting('theme').'/views/*.php');
 
-            $parentCandidate = [];
-            $parentCandidate['none'] = 'Aucune';
+        $parentCandidate = [];
+        $parentCandidate['none'] = 'Aucune';
 
-            foreach ($pages as $key=>$value) {
+        foreach ($pages as $key=>$value) {
 
-                    $name =  explode('/',$value)[3];
-                    if($name != 'archive.php' && $name != 'article.php' && $name != 'navbar.php' && $name != 'template.php' && $name != 'page.php' && $name != 'home.php'){
-                        $parentCandidate[$name] = $name;
-                    }
+            $name =  explode('/',$value)[3];
+            if($name != 'archive.php' && $name != 'article.php' && $name != 'navbar.php' && $name != 'template.php' && $name != 'page.php' && $name != 'home.php'){
+                $parentCandidate[$name] = $name;
             }
+        }
 
-            return $parentCandidate;
+        return $parentCandidate;
     }
 
     public static function getPageById($id){

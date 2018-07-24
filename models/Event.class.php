@@ -189,17 +189,18 @@ class Event extends EventRepository
         return [
           "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'utilisateur", "enctype"=>"multipart/form-data", "submit-custom"=>"true" ],
           "struct" => [
+               "featured"=>[ "label"=>"Featured", "type"=>"featuredimg", "id"=>"featured", "placeholder"=>"", "required"=>0],
 
                "name"=>[ "label"=>"Titre de l'évenement", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"nameevent","helper"=>"Le nom de l'évenement qui sera afiché aux utilisateurs" ],
 
-               "description"=>[ "label"=>"Description de l'évenement", "type"=>"textarea", "id"=>"email", "placeholder"=>"Description", "required"=>1, "msgerror"=>"email" ],
+               "description"=>[ "label"=>"Description de l'évenement", "type"=>"textarea", "id"=>"description", "placeholder"=>"Description", "required"=>1, "msgerror"=>"description" ],
                
-               "externalurl"=>[ "label"=>"Lien pour réserver", "type"=>"url", "id"=>"externalurl", "placeholder"=>"Lien de réservation", "required"=>1, "msgerror"=>"externalurl","helper"=>"Lien sur lequel les utilisateurs peuvent acheter un billet" ],
-
                "place"=>[ "label"=>"Lieu de l'évenement", "type"=>"text", "id"=>"place", "placeholder"=>"Lieu de l'évenement", "required"=>1, "msgerror"=>"placeevent" ],
 
-               "datepicker-custom"=>[ "label"=>"Date de l'évenement", "type"=>"custom-datepicker", "id"=>"dateevent", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
+              "externalurl"=>[ "label"=>"Lien pour réserver", "type"=>"url", "id"=>"externalurl", "placeholder"=>"Lien de réservation", "required"=>1, "msgerror"=>"externalurl","helper"=>"Lien sur lequel les utilisateurs peuvent acheter un billet" ],
 
+               "datepicker-custom"=>[ "label"=>"Date de l'évenement", "type"=>"custom-datepicker", "id"=>"dateevent", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
+    
 
                "save"=>[ "label"=>"Ajouter l'évenement", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
@@ -211,14 +212,14 @@ class Event extends EventRepository
         return [
             "options" => [ "method"=>"POST", "action"=>"", "submit"=>"Ajouter l'article", "enctype"=>"multipart/form-data", "groups"=> "false", "submit-custom"=>"true" ],
             "groups" => [
-                "name" => ["name"],
-                "description" => ["description"],
-                "externalurl" => ["externalurl"],
-                "publish" => ["datepicker-custom","place","save"],
+                "event" => ["featured","name","description"],
+                "publish" => ["externalurl","datepicker-custom","place","save"],
                 ],
             "struct" => [
 
-                "name"=>[ "label"=>"Titre de l'évenement", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"nameevent","helper"=>"Le nom de l'évenement qui sera afiché aux utilisateurs" ],
+                "featured"=>[ "label"=>"Featured", "type"=>"featuredimg", "id"=>"featured", "placeholder"=>"", "update"=>true, "required"=>0],
+
+                "name"=>[ "label"=>"Titre de l'évenement", "type"=>"text", "id"=>"name", "placeholder"=>"Nom", "required"=>1, "msgerror"=>"nameevent","helper"=>"Le nom de l'évenement affiché aux utilisateurs" ],
 
                 "description"=>[ "label"=>"Description de l'évenement", "type"=>"textarea", "id"=>"email", "placeholder"=>"Description", "required"=>1, "msgerror"=>"email" ],
 
@@ -227,7 +228,6 @@ class Event extends EventRepository
                 "place"=>[ "label"=>"Lieu de l'évenement", "type"=>"text", "id"=>"place", "placeholder"=>"Lieu de l'évenement", "required"=>1, "msgerror"=>"placeevent" ],
 
                 "datepicker-custom"=>[ "label"=>"Date de l'évenement", "type"=>"custom-datepicker", "id"=>"dateevent", "placeholder"=>"Date", "required"=>1, "msgerror"=>"date"],
-
 
                 "save"=>[ "label"=>"Mettre à jour l'évenement", "type"=>"submit", "id"=>"save", "placeholder"=>"", "required"=>0]
 
