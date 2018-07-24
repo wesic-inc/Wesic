@@ -9,10 +9,9 @@
 						<img src="<?php echo Format::gravatar($comment['email']) ?>">
 						<h5><?php echo $comment['name']; ?></h5>
 				<?php endif ?>
-					<p class="small-text">Posté <?php echo Format::humanTime($comment['created_at']) ?></p>
 					<p><?php echo $comment['body']; ?></p>
+					<p class="small-text">Posté <?php echo Format::humanTime($comment['created_at']) ?></p>
 				</div>
-			</div>
 			<ul class="comment-action">
 			<?php if(!is_null(Auth::user()) && (Auth::role()==3 || Auth::role()==4)): ?>
 			<li>
@@ -34,7 +33,9 @@
 				<a href="<?php Route::echo('ReportComment','/id/'.$comment['id'].'/redirect/'.req()->getParam('slug')); ?>"> Signaler </a>
 			</li>
 			</ul>
+			</div>
 	<?php endforeach ?>
+	<div class="comment-form">
 				<?php if (setting('comments')==1): ?>
 					<?php if (Auth::isConnected()):?>
         				<?php include "views/modals/comments-connected-form.mdl.php"; ?>
@@ -44,4 +45,5 @@
 					<?php elseif (setting('comments')==2): ?>
         				<?php include "views/modals/comments-form.mdl.php"; ?>
 					<?php endif ?>
+	</div>
 <?php endif ?>

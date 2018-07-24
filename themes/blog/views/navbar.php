@@ -9,7 +9,7 @@
 	</ul>
 	<ul class="nav push-right" id="menu">
 		<li ><a href="#" class="active">Home</a></li>
-		<li ><a href="#medias"> Medias </a></li>
+		<li ><a href="#news"> News </a></li>
 		<li ><a href="#aboutus"> About Us </a></li>
 	</ul>
 </nav>
