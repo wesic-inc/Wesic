@@ -60,7 +60,7 @@
 									<td></td>
 									<td></td>
 								</tr>
-							<? endif; ?>
+							<	?php endif; ?>
 								</tbody>
 							</table>
 							<input type="hidden" id="params" value='<?php echo $param_json; ?>'>
